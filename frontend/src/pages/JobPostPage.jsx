@@ -33,7 +33,7 @@ const experiences = ['경력무관','신입','1년 이상','2년 이상','3년 �
 const weekdays = ['월','화','수','목','금','토','일']
 const careConditions = ['치매','와상(누워계신분)','거동불편','뇌졸중','파킨슨','투석','욕창','기타']
 const careWorks = ['식사보조','목욕보조','이동보조','배변보조','청소·세탁','병원동행','말벗·정서지원']
-const applyMethods = ['방문접수','이메일','전화','팩스','홈페이지']
+const applyMethods = ['바로지원','방문접수','이메일','전화','팩스','홈페이지']
 
 const SECTIONS = ['근무 조건','케어 대상자 정보','공고 내용','업체 정보','담당자 정보','약관 동의']
 
@@ -49,15 +49,39 @@ export default function JobPostPage() {
   const [experience, setExperience] = useState('')
   const [selectedDays, setSelectedDays] = useState([])
   const [dayNegotiable, setDayNegotiable] = useState(false)
-  const [startTime, setStartTime] = useState('')
-  const [endTime, setEndTime] = useState('')
+  const [startTime, setStartTime] = useState('09:00')
+  const [endTime, setEndTime] = useState('18:00')
   const [wageType, setWageType] = useState('')
   const [wageAmount, setWageAmount] = useState('')
-  const [deadline, setDeadline] = useState('')
+
+  const dateAfterDays = (days) => {
+    const d = new Date()
+    d.setDate(d.getDate() + days)
+    return d.toISOString().slice(0, 10)
+  }
+
+  const [deadline, setDeadline] = useState(dateAfterDays(30))
+  const [deadlineType, setDeadlineType] = useState('date')
 
   // 케어 대상자
   const [careGender, setCareGender] = useState('')
   const [careAge, setCareAge] = useState('')
+  const [birthYear, setBirthYear] = useState('')
+
+  const handleBirthYear = (val) => {
+    setBirthYear(val)
+    const year = parseInt(val, 10)
+    if (val.length === 4 && year >= 1900 && year <= new Date().getFullYear()) {
+      setCareAge(String(new Date().getFullYear() - year + 1))
+    } else {
+      setCareAge('')
+    }
+  }
+
+  const handleCareAge = (val) => {
+    setCareAge(val)
+    setBirthYear('')
+  }
   const [careGrade, setCareGrade] = useState('')
   const [careCondition, setCareCondition] = useState([])
   const [careWork, setCareWork] = useState([])
@@ -65,12 +89,34 @@ export default function JobPostPage() {
   // 공고 내용
   const [postTitle, setPostTitle] = useState('')
   const [postDetail, setPostDetail] = useState('')
-  const [applyMethod, setApplyMethod] = useState([])
+  const [applyMethod, setApplyMethod] = useState(['바로지원'])
+  const [companyUrl, setCompanyUrl] = useState('')
 
   // 업체 정보
   const [companyName, setCompanyName] = useState('')
   const [companyPhone, setCompanyPhone] = useState('')
   const [companyAddr, setCompanyAddr] = useState('')
+  const [companyAddrDetail, setCompanyAddrDetail] = useState('')
+
+  const openAddressSearch = () => {
+    if (!window.daum?.Postcode) {
+      const script = document.createElement('script')
+      script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
+      script.onload = () => launchPostcode()
+      document.head.appendChild(script)
+    } else {
+      launchPostcode()
+    }
+  }
+
+  const launchPostcode = () => {
+    new window.daum.Postcode({
+      oncomplete: (data) => {
+        setCompanyAddr(data.roadAddress || data.jibunAddress)
+        setCompanyAddrDetail('')
+      }
+    }).open()
+  }
   const [phonePublic, setPhonePublic] = useState('로그인 후 확인')
 
   // 담당자 정보
@@ -91,10 +137,29 @@ export default function JobPostPage() {
     toggleArr(selectedDays, setSelectedDays, d)
   }
 
+  const formatPhone = (val) => {
+    const digits = val.replace(/\D/g, '').slice(0, 11)
+    if (digits.startsWith('02')) {
+      if (digits.length <= 2) return digits
+      if (digits.length <= 5) return `${digits.slice(0,2)}-${digits.slice(2)}`
+      if (digits.length <= 9) return `${digits.slice(0,2)}-${digits.slice(2,5)}-${digits.slice(5)}`
+      return `${digits.slice(0,2)}-${digits.slice(2,6)}-${digits.slice(6)}`
+    }
+    if (digits.length <= 3) return digits
+    if (digits.length <= 6) return `${digits.slice(0,3)}-${digits.slice(3)}`
+    if (digits.length <= 10) return `${digits.slice(0,3)}-${digits.slice(3,6)}-${digits.slice(6)}`
+    return `${digits.slice(0,3)}-${digits.slice(3,7)}-${digits.slice(7)}`
+  }
+
+  const handleCompanyPhone = (val) => {
+    const formatted = formatPhone(val)
+    setCompanyPhone(formatted)
+    if (sameAsCompany) setManagerPhone(formatted)
+  }
+
   const handleSameAsCompany = (checked) => {
     setSameAsCompany(checked)
     if (checked) setManagerPhone(companyPhone)
-    else setManagerPhone('')
   }
 
   const handleSubmit = (e) => {
@@ -251,7 +316,32 @@ export default function JobPostPage() {
 
                 <div className="jp-row">
                   <label className="jp-label jp-label--required">모집 마감일</label>
-                  <input className="jp-input jp-input--date" type="date" value={deadline} onChange={e => setDeadline(e.target.value)} required />
+                  <div className="jp-field-group">
+                    {deadlineType === '상시'
+                      ? <span className="jp-always-badge">상시모집 · 직접 마감 처리</span>
+                      : <input
+                          className="jp-input jp-input--date"
+                          type="date"
+                          value={deadline}
+                          onChange={e => { setDeadline(e.target.value); setDeadlineType('date') }}
+                          required
+                        />
+                    }
+                    <span className="jp-chip-tip-wrap" data-tip="마감일을 7일 후로 자동 설정합니다">
+                      <button
+                        type="button"
+                        className={`jp-deadline-chip${deadlineType === '급구' ? ' jp-deadline-chip--active jp-deadline-chip--urgent' : ''}`}
+                        onClick={() => { setDeadlineType('급구'); setDeadline(dateAfterDays(7)) }}
+                      >급구</button>
+                    </span>
+                    <span className="jp-chip-tip-wrap" data-tip="날짜 없이 직접 마감 처리합니다">
+                      <button
+                        type="button"
+                        className={`jp-deadline-chip${deadlineType === '상시' ? ' jp-deadline-chip--active jp-deadline-chip--always' : ''}`}
+                        onClick={() => { setDeadlineType('상시'); setDeadline('') }}
+                      >상시</button>
+                    </span>
+                  </div>
                 </div>
 
               </div>
@@ -268,7 +358,7 @@ export default function JobPostPage() {
                 <div className="jp-row">
                   <label className="jp-label">성별</label>
                   <div className="jp-radio-group">
-                    {['남','여','무관'].map(g => (
+                    {['남','여'].map(g => (
                       <label key={g} className="jp-radio">
                         <input type="radio" name="careGender" value={g} checked={careGender === g} onChange={() => setCareGender(g)} />
                         {g}
@@ -280,7 +370,26 @@ export default function JobPostPage() {
                 <div className="jp-row">
                   <label className="jp-label">나이</label>
                   <div className="jp-field-group">
-                    <input className="jp-input jp-input--sm" type="number" placeholder="예) 78" min="0" max="120" value={careAge} onChange={e => setCareAge(e.target.value)} />
+                    <input
+                      className="jp-input jp-input--sm"
+                      type="number"
+                      placeholder="출생연도"
+                      min="1900"
+                      max={new Date().getFullYear()}
+                      value={birthYear}
+                      onChange={e => handleBirthYear(e.target.value)}
+                    />
+                    <span className="jp-unit">년생</span>
+                    <span className="jp-age-sep">/</span>
+                    <input
+                      className="jp-input jp-input--sm"
+                      type="number"
+                      placeholder="나이"
+                      min="0"
+                      max="120"
+                      value={careAge}
+                      onChange={e => handleCareAge(e.target.value)}
+                    />
                     <span className="jp-unit">세</span>
                   </div>
                 </div>
@@ -355,13 +464,27 @@ export default function JobPostPage() {
 
                 <div className="jp-row jp-row--top">
                   <label className="jp-label jp-label--required">접수방법</label>
-                  <div className="jp-check-group">
-                    {applyMethods.map(m => (
-                      <label key={m} className="jp-check">
-                        <input type="checkbox" checked={applyMethod.includes(m)} onChange={() => toggleArr(applyMethod, setApplyMethod, m)} />
-                        {m}
-                      </label>
-                    ))}
+                  <div className="jp-field-group--col">
+                    <div className="jp-check-group jp-check-group--wrap">
+                      {applyMethods.map(m => (
+                        <label key={m} className={`jp-check${m === '바로지원' ? ' jp-check--direct' : ''}`}>
+                          <input type="checkbox" checked={applyMethod.includes(m)} onChange={() => toggleArr(applyMethod, setApplyMethod, m)} />
+                          {m === '바로지원' ? '⚡ 바로지원 (요양나라)' : m}
+                        </label>
+                      ))}
+                    </div>
+                    {applyMethod.includes('홈페이지') && (
+                      <div className="jp-field-group" style={{ marginTop: '8px' }}>
+                        <span className="jp-unit">업체 홈페이지 URL</span>
+                        <input
+                          className="jp-input jp-input--full"
+                          type="url"
+                          placeholder="https://example.com"
+                          value={companyUrl}
+                          onChange={e => setCompanyUrl(e.target.value)}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -383,12 +506,33 @@ export default function JobPostPage() {
 
                 <div className="jp-row">
                   <label className="jp-label jp-label--required">전화번호</label>
-                  <input className="jp-input jp-input--md" type="tel" placeholder="예) 02-1234-5678" value={companyPhone} onChange={e => { setCompanyPhone(e.target.value); if (sameAsCompany) setManagerPhone(e.target.value) }} required />
+                  <input className="jp-input jp-input--md" type="tel" placeholder="예) 02-1234-5678" value={companyPhone} onChange={e => handleCompanyPhone(e.target.value)} required />
                 </div>
 
-                <div className="jp-row">
+                <div className="jp-row jp-row--top">
                   <label className="jp-label jp-label--required">주소</label>
-                  <input className="jp-input jp-input--full" type="text" placeholder="업체 주소 입력" value={companyAddr} onChange={e => setCompanyAddr(e.target.value)} required />
+                  <div className="jp-field-group--col">
+                    <div className="jp-field-group">
+                      <input
+                        className="jp-input"
+                        type="text"
+                        placeholder="주소 검색을 클릭하세요"
+                        value={companyAddr}
+                        readOnly
+                        required
+                        style={{ flex: 1 }}
+                      />
+                      <button type="button" className="jp-addr-btn" onClick={openAddressSearch}>주소 검색</button>
+                    </div>
+                    <input
+                      className="jp-input jp-input--full"
+                      type="text"
+                      placeholder="상세주소 입력 (동, 호수 등)"
+                      value={companyAddrDetail}
+                      onChange={e => setCompanyAddrDetail(e.target.value)}
+                      style={{ marginTop: '8px' }}
+                    />
+                  </div>
                 </div>
 
                 <div className="jp-row">
@@ -428,8 +572,7 @@ export default function JobPostPage() {
                         type="tel"
                         placeholder="예) 010-1234-5678"
                         value={managerPhone}
-                        onChange={e => setManagerPhone(e.target.value)}
-                        disabled={sameAsCompany}
+                        onChange={e => { setManagerPhone(formatPhone(e.target.value)); setSameAsCompany(false) }}
                       />
                     </div>
                     <label className="jp-check jp-check--same">
@@ -460,7 +603,7 @@ export default function JobPostPage() {
                     관련 법령에 따라 안전하게 보호됩니다.
                     구인공고 등록 시 입력하신 업체·담당자 정보는 구직자에게 공개될 수 있습니다.
                   </p>
-                  <label className="jp-check jp-check--agree">
+                  <label className="jp-check jp-check--agree" style={{ alignSelf: 'flex-end' }}>
                     <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} required />
                     개인정보 수집·이용에 동의합니다 <span className="jp-label--required-star">*</span>
                   </label>

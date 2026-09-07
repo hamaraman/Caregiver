@@ -8,6 +8,7 @@
 ════════════════════════════════ */
 .lp-left {
   flex: 1;
+  min-width: 420px;
   position: relative;
   background: linear-gradient(150deg, #daeeff 0%, #eaf4ff 50%, #f0f7ff 100%);
   display: flex;
@@ -129,17 +130,16 @@
 /* 요양보호사 사진 */
 .lp-hero-photo {
   position: absolute;
-  right: -24px;
-  bottom: 0;
-  height: 82%;
-  width: auto;
-  object-fit: contain;
-  object-position: center bottom;
+  right: 0;
+  top: 0;
+  width: 58%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% center;
   pointer-events: none;
   mix-blend-mode: multiply;
-  /* 왼쪽 가장자리를 배경에 자연스럽게 녹임 */
-  mask-image: linear-gradient(to right, transparent 0%, black 18%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%);
+  mask-image: linear-gradient(to right, transparent 0%, black 24%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 24%);
 }
 
 /* ════════════════════════════════

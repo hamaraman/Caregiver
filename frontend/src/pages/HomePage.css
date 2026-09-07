@@ -162,13 +162,28 @@
    HERO
 ════════════════════════════════ */
 .hp-hero {
+  position: relative;
   background: linear-gradient(140deg, #c8e6ff 0%, #daeeff 40%, #eaf4ff 100%);
   overflow: hidden;
-  padding: 52px 0 44px;
-  min-height: 320px;
+  padding: 52px 0 48px;
 }
 
-.hp-hero-content {
+.hp-hero-photo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: auto;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  mask-image: linear-gradient(to right, transparent 0%, black 35%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
+}
+
+/* 2컬럼 flex: 왼쪽(텍스트+검색) + 오른쪽(카드) */
+.hp-hero-inner {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
@@ -177,9 +192,10 @@
   gap: 48px;
 }
 
-.hp-hero-text {
+.hp-hero-content {
   flex: 1;
   min-width: 0;
+  max-width: 560px;
 }
 
 .hp-hero-sub {
@@ -190,12 +206,12 @@
 }
 
 .hp-hero-title {
-  font-size: 38px;
+  font-size: 36px;
   font-weight: 800;
   color: #1a2d4d;
   line-height: 1.25;
   letter-spacing: -1.5px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .hp-search-wrap {
@@ -204,19 +220,19 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(74,143,231,0.18);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   background: #fff;
 }
 
 .hp-search-icon {
-  padding: 0 12px 0 16px;
-  font-size: 16px;
+  padding: 0 10px 0 14px;
+  font-size: 15px;
   flex-shrink: 0;
 }
 
 .hp-search-input {
   flex: 1;
-  padding: 14px 0;
+  padding: 13px 0;
   border: none;
   font-size: 14px;
   outline: none;
@@ -226,7 +242,7 @@
 }
 
 .hp-search-btn {
-  padding: 14px 28px;
+  padding: 13px 24px;
   background: #4A8FE7;
   border: none;
   color: #fff;
@@ -245,7 +261,7 @@
 }
 
 .hp-chip {
-  padding: 5px 13px;
+  padding: 5px 12px;
   border: 1.5px solid rgba(74,143,231,0.3);
   border-radius: 20px;
   background: rgba(255,255,255,0.75);
@@ -258,79 +274,56 @@
 .hp-chip:hover,
 .hp-chip.active { background: #4A8FE7; color: #fff; border-color: #4A8FE7; }
 
-/* 오른쪽: 사진 + 카드 묶음 */
-.hp-hero-right {
-  position: relative;
-  flex-shrink: 0;
-  width: 380px;
-  height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.hp-hero-photo {
-  position: absolute;
-  left: -40px;
-  top: -52px;
-  bottom: -44px;
-  height: calc(100% + 96px);
-  width: auto;
-  object-fit: cover;
-  object-position: 30% center;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  mask-image: linear-gradient(to right, transparent 0%, black 22%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%);
-}
-
+/* 오른쪽 카드: 세로 방향, 나란히 배치 */
 .hp-hero-cards {
-  position: relative;
-  z-index: 1;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  gap: 14px;
+  flex-shrink: 0;
 }
 
 .hp-hero-card {
-  width: 168px;
-  padding: 20px 16px;
+  width: 140px;
+  padding: 28px 14px 22px;
   border: none;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   transition: transform 0.15s, box-shadow 0.15s;
+  text-align: center;
 }
-.hp-hero-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.2); }
+.hp-hero-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
 
 .hp-hero-card--blue { background: #4A8FE7; color: #fff; }
 .hp-hero-card--pink { background: #e91e8c; color: #fff; }
 
-.hp-hero-card-icon  { font-size: 28px; }
-.hp-hero-card-label { font-size: 15px; font-weight: 700; }
-.hp-hero-card-desc  { font-size: 11px; opacity: 0.85; }
+.hp-hero-card-icon  { font-size: 32px; }
+.hp-hero-card-label { font-size: 14px; font-weight: 700; }
+.hp-hero-card-desc  { font-size: 11px; opacity: 0.85; line-height: 1.4; }
 
 /* ════════════════════════════════
    반응형
 ════════════════════════════════ */
 @media (max-width: 1024px) {
+  .hp-hero-inner { gap: 28px; }
   .hp-hero-title { font-size: 30px; }
-  .hp-hero-right { width: 300px; height: 240px; }
-  .hp-stats-grid { gap: 40px; }
+  .hp-hero-card { width: 128px; }
+  .hp-stats-grid { gap: 36px; }
   .hp-content { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
-  .hp-hero-content { flex-direction: column; gap: 24px; }
-  .hp-hero-right { width: 100%; height: 200px; justify-content: center; }
-  .hp-hero-photo { left: 0; top: 0; bottom: 0; height: 100%; }
-  .hp-hero-cards { flex-direction: row; }
-  .hp-hero-card { width: 140px; padding: 16px 12px; }
-  .hp-stats-grid { gap: 20px; flex-wrap: wrap; }
+  .hp-hero { padding: 36px 0 32px; }
+  .hp-hero-inner { flex-direction: column; align-items: flex-start; gap: 24px; padding: 0 16px; }
+  .hp-hero-content { max-width: 100%; }
+  .hp-hero-cards { flex-direction: row; width: 100%; }
+  .hp-hero-card { flex: 1; width: auto; flex-direction: row; padding: 16px 14px; text-align: left; gap: 10px; }
+  .hp-hero-photo { opacity: 0.3; }
+  .hp-stats-grid { gap: 16px; flex-wrap: wrap; }
   .hp-quick-inner { flex-wrap: wrap; gap: 6px; }
   .hp-quick-item { min-width: 70px; padding: 10px 12px; }
   .hp-content { grid-template-columns: 1fr; padding: 0 16px; }

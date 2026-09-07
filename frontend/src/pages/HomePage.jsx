@@ -99,8 +99,10 @@ export default function HomePage({ onNavigate }) {
 
       {/* ── HERO ── */}
       <section className="hp-hero">
-        <div className="hp-hero-content">
-          <div className="hp-hero-text">
+        <img src="/caregiver-hero.png" className="hp-hero-photo" alt="" aria-hidden="true" />
+        <div className="hp-hero-inner">
+          {/* 왼쪽: 텍스트 + 검색 */}
+          <div className="hp-hero-content">
             <p className="hp-hero-sub">사람과 사람을 이어주는 마음 따뜻한 일자리 플랫폼</p>
             <h1 className="hp-hero-title">요양나라에 오신<br />것을 환영합니다.</h1>
             <div className="hp-search-wrap">
@@ -123,21 +125,18 @@ export default function HomePage({ onNavigate }) {
             </div>
           </div>
 
-          {/* 사진 + 카드를 하나의 우측 컨테이너로 묶음 */}
-          <div className="hp-hero-right">
-            <img src="/caregiver-hero.png" className="hp-hero-photo" alt="" aria-hidden="true" />
-            <div className="hp-hero-cards">
-              <button className="hp-hero-card hp-hero-card--blue" onClick={() => onNavigate('jobseeker')}>
-                <span className="hp-hero-card-icon">🔍</span>
-                <span className="hp-hero-card-label">구직하기</span>
-                <span className="hp-hero-card-desc">일자리를 찾고 있나요?</span>
-              </button>
-              <button className="hp-hero-card hp-hero-card--pink">
-                <span className="hp-hero-card-icon">📋</span>
-                <span className="hp-hero-card-label">구인공고 등록</span>
-                <span className="hp-hero-card-desc">인재를 찾고 있나요?</span>
-              </button>
-            </div>
+          {/* 오른쪽: 구직/구인 카드 */}
+          <div className="hp-hero-cards">
+            <button className="hp-hero-card hp-hero-card--blue" onClick={() => onNavigate('jobseeker')}>
+              <span className="hp-hero-card-icon">🔍</span>
+              <span className="hp-hero-card-label">구직하기</span>
+              <span className="hp-hero-card-desc">일자리를 찾고 있나요?</span>
+            </button>
+            <button className="hp-hero-card hp-hero-card--pink">
+              <span className="hp-hero-card-icon">📋</span>
+              <span className="hp-hero-card-label">구인공고 등록</span>
+              <span className="hp-hero-card-desc">인재를 찾고 있나요?</span>
+            </button>
           </div>
         </div>
       </section>

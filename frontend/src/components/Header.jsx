@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Header.css'
+import AuthModal from './AuthModal'
+import { fetchCurrentUser, logout } from '../api'
 
 const guinSubMenu = [
   {
@@ -67,6 +69,24 @@ const navItems = [
 export default function Header() {
   const [active, setActive] = useState('구인')
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [user, setUser] = useState(null)
+  const [authMode, setAuthMode] = useState(null)
+
+  useEffect(() => {
+    fetchCurrentUser()
+      .then(setUser)
+      .catch(() => setUser(null))
+  }, [])
+
+  const handleAuthSuccess = (loggedInUser) => {
+    setUser(loggedInUser)
+    setAuthMode(null)
+  }
+
+  const handleLogout = async () => {
+    await logout().catch(() => {})
+    setUser(null)
+  }
 
   return (
     <header className="header">
@@ -122,10 +142,27 @@ export default function Header() {
         </nav>
 
         <div className="header-actions">
-          <button className="btn-login">로그인</button>
-          <button className="btn-signup">회원가입</button>
+          {user ? (
+            <>
+              <span className="user-greeting">{user.name || user.email}님</span>
+              <button className="btn-login" onClick={handleLogout}>로그아웃</button>
+            </>
+          ) : (
+            <>
+              <button className="btn-login" onClick={() => setAuthMode('login')}>로그인</button>
+              <button className="btn-signup" onClick={() => setAuthMode('register')}>회원가입</button>
+            </>
+          )}
         </div>
       </div>
+
+      {authMode && (
+        <AuthModal
+          mode={authMode}
+          onClose={() => setAuthMode(null)}
+          onSuccess={handleAuthSuccess}
+        />
+      )}
     </header>
   )
 }

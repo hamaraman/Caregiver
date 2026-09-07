@@ -106,6 +106,13 @@
   flex-shrink: 0;
 }
 
+.user-greeting {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  margin-right: 4px;
+}
+
 .btn-login {
   padding: 8px 16px;
   font-size: 14px;

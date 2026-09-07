@@ -12,7 +12,8 @@ import './App.css'
 // import Footer from './components/Footer'
 
 function App() {
-  const [page, setPage] = useState('login') // 'login' | 'jobseeker'
+  const initial = new URLSearchParams(window.location.search).get('page') || 'login'
+  const [page, setPage] = useState(initial)
 
   if (page === 'login') return <LoginPage onNavigate={setPage} />
   return <JobSeekerPage onNavigate={setPage} />

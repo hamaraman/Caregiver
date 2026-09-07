@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './JobListings.css'
 
 const jobs = [
@@ -105,7 +106,7 @@ export default function JobListings() {
     <section className="job-listings">
       <div className="job-listings-header">
         <h2 className="job-listings-title">최근 등록된 구인 공고</h2>
-        <a href="#" className="job-listings-more">더보기 ›</a>
+        <Link to="/jobs" className="job-listings-more">더보기 ›</Link>
       </div>
 
       <div className="job-table">

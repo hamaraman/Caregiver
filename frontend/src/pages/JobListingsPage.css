@@ -1,0 +1,661 @@
+.jl-page {
+  padding: 32px 0 60px;
+  min-height: calc(100vh - 64px);
+  background: #f5f7fc;
+}
+
+.jl-top {
+  margin-bottom: 20px;
+}
+
+.jl-breadcrumb {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+.jl-breadcrumb a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.jl-breadcrumb a:hover {
+  color: #e91e8c;
+}
+
+.jl-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #222;
+}
+
+/* 검색 + 필터 */
+.jl-filter-bar {
+  background: #fff;
+  border-radius: 16px;
+  border: 2px solid #f0b8d8;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.jl-filter-body {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: stretch;
+}
+
+.jl-filter-left {
+  flex: 1;
+  min-width: 0;
+  padding-right: 28px;
+}
+
+.jl-filter-right {
+  width: 200px;
+  flex-shrink: 0;
+  border-left: 1px solid #f5d0e5;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.jl-right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jl-right-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jl-right-divider {
+  height: 1px;
+  background: #f5d0e5;
+}
+
+.jl-sort-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jl-sort-btn {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-sort-btn:hover {
+  color: #e91e8c;
+  background: #fce4f1;
+  border-color: #f0b8d8;
+}
+
+.jl-sort-btn--active {
+  background: #e91e8c;
+  border-color: #e91e8c;
+  color: #fff;
+}
+
+.jl-search {
+  display: flex;
+  align-items: center;
+  background: #f9f0f5;
+  border: 1.5px solid #e8b4d0;
+  border-radius: 50px;
+  padding: 6px 6px 6px 20px;
+  max-width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.jl-search:focus-within {
+  background: #fff;
+  border-color: #e91e8c;
+  box-shadow: 0 4px 20px rgba(233, 30, 140, 0.15);
+}
+
+.jl-search svg {
+  flex-shrink: 0;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.jl-search:focus-within svg {
+  color: #e91e8c;
+}
+
+.jl-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  padding: 4px 8px;
+}
+
+.jl-search input::placeholder {
+  color: #b0a0a8;
+}
+
+.jl-search-btn {
+  width: 42px;
+  height: 42px;
+  background: #e91e8c;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.jl-search-btn:hover {
+  background: #c91677;
+}
+
+.jl-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jl-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 급여 범위 */
+.jl-filter-group--wage {
+  align-items: center;
+}
+
+.jl-wage-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jl-wage-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.jl-wage-input {
+  width: 130px;
+  padding: 5px 12px;
+  border: 1.5px solid #e8b4d0;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #333;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.jl-wage-input:focus {
+  border-color: #e91e8c;
+  box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.1);
+}
+
+.jl-wage-input::placeholder { color: #c0b0b8; }
+
+.jl-wage-input--disabled {
+  background: #f5f5f5;
+  border-color: #e8e0e4;
+  color: #ccc;
+  cursor: default;
+  pointer-events: none;
+}
+
+.jl-wage-input--disabled::placeholder { color: #d8cdd2; }
+
+.jl-wage-sep {
+  font-size: 14px;
+  color: #bbb;
+  font-weight: 500;
+}
+
+.jl-wage-sep--disabled { color: #ddd; }
+
+.jl-wage-hint {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fade-in 0.15s ease;
+}
+
+.jl-wage-hint::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+
+.jl-chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jl-chip--more {
+  color: #e91e8c;
+  background: #fff0f7;
+  border-color: #f0b8d8;
+  flex-shrink: 0;
+}
+
+.jl-chip--more:hover {
+  background: #fce4f1;
+  color: #c01070;
+}
+
+/* ── 지역 팝업 피커 ── */
+.jl-region-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+}
+
+.jl-region-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 6px 12px 6px 14px;
+  border: 1.5px solid #e8b4d0;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  flex-wrap: wrap;
+}
+
+.jl-region-trigger:hover {
+  border-color: #e91e8c;
+}
+
+.jl-region-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #b0a0a8;
+  flex: 1;
+}
+
+.jl-region-selected-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex: 1;
+}
+
+.jl-region-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fce4f1;
+  color: #c01070;
+  border-radius: 20px;
+  padding: 3px 10px 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.jl-region-chip-remove {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #c01070;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  margin-left: 2px;
+  opacity: 0.7;
+}
+
+.jl-region-chip-remove:hover { opacity: 1; }
+
+.jl-region-arrow {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* 팝업 패널 */
+.jl-region-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 420px;
+  background: #fff;
+  border: 1.5px solid #f0b8d8;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.13);
+  z-index: 200;
+  animation: fade-in 0.15s ease;
+  overflow: hidden;
+}
+
+.jl-panel-do-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 16px 16px 12px;
+}
+
+.jl-panel-do-chip {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-panel-do-chip:hover {
+  color: #e91e8c;
+  background: #fce4f1;
+  border-color: #f0b8d8;
+}
+
+.jl-panel-do-chip--focused {
+  background: #fff0f7;
+  border-color: #e91e8c;
+  color: #e91e8c;
+}
+
+.jl-panel-do-chip--active {
+  background: #e91e8c;
+  border-color: #e91e8c;
+  color: #fff;
+}
+
+.jl-panel-do-chip--active.jl-panel-do-chip--focused {
+  background: #c01070;
+  border-color: #c01070;
+}
+
+.jl-panel-divider {
+  height: 1px;
+  background: #f5d0e5;
+  margin: 0 16px;
+}
+
+.jl-panel-si-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.jl-panel-do-all {
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-panel-do-all:hover { color: #e91e8c; border-color: #e91e8c; }
+.jl-panel-do-all--active { background: #e91e8c; border-color: #e91e8c; color: #fff; }
+
+.jl-panel-si-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 6px 16px 14px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.jl-panel-si-chip {
+  padding: 4px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-panel-si-chip:hover { color: #e91e8c; background: #fce4f1; border-color: #f0b8d8; }
+.jl-panel-si-chip--active { background: #e91e8c; border-color: #e91e8c; color: #fff; }
+
+.jl-panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-top: 1px solid #f5d0e5;
+  background: #fdf5f9;
+}
+
+.jl-panel-clear {
+  font-size: 12px;
+  color: #aaa;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+.jl-panel-clear:hover { color: #e91e8c; }
+
+.jl-panel-confirm {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: #e91e8c;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.jl-panel-confirm:hover { background: #c01070; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.jl-chip--sub {
+  font-size: 12px;
+  padding: 4px 11px;
+}
+
+.jl-filter-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #999;
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.jl-chip {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-chip:hover {
+  color: #e91e8c;
+  background: #fff;
+}
+
+.jl-chip--active {
+  background: #e91e8c;
+  color: #fff;
+  border-color: #e91e8c;
+}
+
+.jl-filter-label {
+  color: #999;
+}
+
+/* 결과 수 */
+.jl-result-count {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.jl-result-count strong {
+  color: #e91e8c;
+  font-weight: 700;
+}
+
+/* 테이블 */
+.jl-table {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 24px;
+}
+
+.jl-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.4fr 1.2fr 0.7fr 0.6fr 40px;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f5f5f5;
+  border-left: 3px solid transparent;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.15s, border-left-color 0.15s;
+}
+
+.jl-row:last-child {
+  border-bottom: none;
+}
+
+.jl-row:hover {
+  background: linear-gradient(90deg, #fff0f7 0%, #fff 60%);
+  border-left-color: #e91e8c;
+}
+
+.jl-row:hover .jl-job-title {
+  color: #e91e8c;
+}
+
+.jl-title-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jl-job-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  transition: color 0.15s;
+}
+
+.jl-location { font-size: 13px; color: #555; }
+.jl-wage     { font-size: 13px; font-weight: 600; color: #333; }
+.jl-hours    { font-size: 13px; color: #555; }
+.jl-days     { font-size: 13px; color: #555; }
+.jl-date     { font-size: 12px; color: #aaa; text-align: center; }
+
+.jl-empty {
+  padding: 60px;
+  text-align: center;
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* 페이지네이션 */
+.jl-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.jl-page-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fff;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jl-page-btn:hover:not(:disabled) {
+  border-color: #e91e8c;
+  color: #e91e8c;
+}
+
+.jl-page-btn--active {
+  background: #e91e8c;
+  border-color: #e91e8c;
+  color: #fff;
+  font-weight: 700;
+}
+
+.jl-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

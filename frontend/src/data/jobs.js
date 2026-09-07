@@ -1,0 +1,18 @@
+export const jobs = [
+  { id: 1,  title: '요양보호사 (주간)', badge: '급구', badgeColor: 'red',    location: '서울 강남구',   wage: '시급 14,000원',    hours: '09:00~15:00', days: '주 5일', date: '09.06', type: '시급', region: '서울', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 2,  title: '요양보호사 (야간)', badge: null,                          location: '경기 성남시',   wage: '시급 13,500원',    hours: '16:00~22:00', days: '주 5일', date: '09.05', type: '시급', region: '경기', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 3,  title: '요양보호사 (오후)', badge: null,                          location: '인천 남동구',   wage: '시급 13,000원',    hours: '13:00~18:00', days: '주 5일', date: '09.05', type: '시급', region: '인천', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 4,  title: '요양보호사 (주간)', badge: null,                          location: '부산 해운대구', wage: '시급 14,500원',    hours: '09:00~15:00', days: '주 5일', date: '09.04', type: '시급', region: '부산', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 5,  title: '간병인 (상시)',     badge: null,                          location: '대구 달서구',   wage: '월급 4,500,000원', hours: '08:00~17:00', days: '주 5일', date: '09.03', type: '월급', region: '대구', jobType: '간병인',    workType: '입주형'    },
+  { id: 6,  title: '요양보호사 (교대)', badge: null,                          location: '광주 북구',     wage: '시급 13,000원',    hours: '07:00~13:00', days: '주 5일', date: '09.02', type: '시급', region: '광주', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 7,  title: '요양보호사 (주간)', badge: '추천', badgeColor: 'purple',  location: '대전 서구',     wage: '시급 13,500원',    hours: '09:00~15:00', days: '주 5일', date: '09.01', type: '시급', region: '대전', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 8,  title: '간병인 (야간)',     badge: null,                          location: '울산 남구',     wage: '월급 4,200,000원', hours: '17:00~09:00', days: '주 5일', date: '08.31', type: '월급', region: '울산', jobType: '간병인',    workType: '입주형'    },
+  { id: 9,  title: '요양보호사 (주간)', badge: '급구', badgeColor: 'red',    location: '서울 서초구',   wage: '시급 14,000원',    hours: '09:00~15:00', days: '주 5일', date: '08.30', type: '시급', region: '서울', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 10, title: '요양보호사 (야간)', badge: null,                          location: '경기 수원시',   wage: '시급 13,500원',    hours: '22:00~06:00', days: '주 5일', date: '08.29', type: '시급', region: '경기', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 11, title: '간병인 (상시)',     badge: null,                          location: '서울 송파구',   wage: '월급 4,800,000원', hours: '08:00~17:00', days: '주 5일', date: '08.28', type: '월급', region: '서울', jobType: '간병인',    workType: '입주형'    },
+  { id: 12, title: '요양보호사 (오후)', badge: '추천', badgeColor: 'purple',  location: '경기 용인시',   wage: '시급 13,200원',    hours: '13:00~18:00', days: '주 5일', date: '08.27', type: '시급', region: '경기', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 13, title: '요양보호사 (교대)', badge: null,                          location: '인천 부평구',   wage: '시급 13,000원',    hours: '06:00~14:00', days: '주 5일', date: '08.26', type: '시급', region: '인천', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 14, title: '요양보호사 (주간)', badge: null,                          location: '부산 북구',     wage: '시급 13,800원',    hours: '09:00~15:00', days: '주 5일', date: '08.25', type: '시급', region: '부산', jobType: '요양보호사', workType: '출·퇴근형' },
+  { id: 15, title: '간병인 (야간)',     badge: null,                          location: '대구 수성구',   wage: '월급 4,300,000원', hours: '20:00~08:00', days: '주 5일', date: '08.24', type: '월급', region: '대구', jobType: '간병인',    workType: '협의후결정' },
+  { id: 16, title: '요양보호사 (주간)', badge: '급구', badgeColor: 'red',    location: '광주 남구',     wage: '시급 13,500원',    hours: '09:00~15:00', days: '주 5일', date: '08.23', type: '시급', region: '광주', jobType: '요양보호사', workType: '출·퇴근형' },
+]

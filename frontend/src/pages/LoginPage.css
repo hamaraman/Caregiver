@@ -1,0 +1,511 @@
+.lp-root {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ════════════════════════════════
+   LEFT PANEL
+════════════════════════════════ */
+.lp-left {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(155deg, #1a3a6b 0%, #2a5ab8 40%, #4A8FE7 100%);
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+/* 배경 무늬 */
+.lp-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 40%);
+}
+
+.lp-left-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 48px;
+  width: 100%;
+  gap: 0;
+}
+
+/* Logo */
+.lp-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 64px;
+}
+
+.lp-logo-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lp-logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.lp-logo-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+}
+
+.lp-logo-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+/* Hero text */
+.lp-hero {
+  flex: 1;
+}
+
+.lp-tagline {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.lp-hero-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
+
+.lp-hero-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+}
+
+/* Benefits */
+.lp-benefits {
+  display: flex;
+  gap: 24px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.lp-benefit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.lp-benefit-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  backdrop-filter: blur(4px);
+}
+
+.lp-benefit-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+
+/* ════════════════════════════════
+   RIGHT PANEL
+════════════════════════════════ */
+.lp-right {
+  width: 460px;
+  flex-shrink: 0;
+  background: #f4f6fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.lp-card {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.lp-card-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a2e;
+  line-height: 1.35;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+/* 사용자 유형 탭 */
+.lp-type-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 10px;
+  letter-spacing: 0.2px;
+}
+
+.lp-type-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.lp-type-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+  border: 1.5px solid #e8edf5;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.lp-type-tab:hover {
+  border-color: #4A8FE7;
+  background: #f0f6ff;
+}
+
+.lp-type-tab.active {
+  border-color: #4A8FE7;
+  background: #EFF5FF;
+  box-shadow: 0 0 0 3px rgba(74,143,231,0.12);
+}
+
+.lp-type-icon {
+  font-size: 22px;
+}
+
+.lp-type-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.lp-type-desc {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.lp-type-tab.active .lp-type-name {
+  color: #4A8FE7;
+}
+
+/* 간편 로그인 */
+.lp-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.lp-social-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.lp-social-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.lp-social-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.lp-social-naver {
+  background: #03C75A;
+  color: #fff;
+}
+
+.lp-social-kakao {
+  background: #FEE500;
+  color: #3C1E1E;
+}
+
+.lp-social-google {
+  background: #fff;
+  color: #333;
+  border: 1.5px solid #e0e0e0;
+}
+
+.lp-social-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.lp-social-logo--g {
+  background: #f1f1f1;
+  color: #4285F4;
+  font-style: italic;
+}
+
+/* 구분선 */
+.lp-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: #ccc;
+  font-size: 12px;
+}
+
+.lp-divider::before,
+.lp-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+/* 폼 */
+.lp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.lp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lp-input {
+  width: 100%;
+  border: 1.5px solid #e8edf5;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #1a1a2e;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background: #fafbff;
+}
+
+.lp-input:focus {
+  border-color: #4A8FE7;
+  box-shadow: 0 0 0 3px rgba(74,143,231,0.12);
+  background: #fff;
+}
+
+.lp-input.error {
+  border-color: #e04444;
+}
+
+.lp-pw-wrap {
+  position: relative;
+}
+
+.lp-pw-wrap .lp-input {
+  padding-right: 44px;
+}
+
+.lp-pw-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.lp-pw-toggle:hover { opacity: 1; }
+
+.lp-error {
+  font-size: 12px;
+  color: #e04444;
+  padding-left: 2px;
+}
+
+.lp-submit-btn {
+  width: 100%;
+  padding: 13px;
+  background: #4A8FE7;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  margin-top: 4px;
+  letter-spacing: 0.2px;
+}
+
+.lp-submit-btn:hover {
+  background: #3A7FD7;
+  transform: translateY(-1px);
+}
+
+/* 성공 상태 */
+.lp-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 0 16px;
+  text-align: center;
+}
+
+.lp-success-icon { font-size: 40px; }
+
+.lp-success p {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.lp-success-sub {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #888 !important;
+}
+
+.lp-success-back {
+  margin-top: 8px;
+  background: none;
+  border: 1.5px solid #e8edf5;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.lp-success-back:hover {
+  border-color: #4A8FE7;
+  color: #4A8FE7;
+}
+
+/* 하단 링크 */
+.lp-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.lp-link-btn {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+  padding: 2px 4px;
+  transition: color 0.15s;
+}
+
+.lp-link-btn:hover { color: #4A8FE7; }
+
+.lp-link-divider {
+  color: #ddd;
+  font-size: 12px;
+}
+
+.lp-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  background: #f4f6fb;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.lp-signup span {
+  font-size: 13px;
+  color: #888;
+}
+
+.lp-signup-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4A8FE7;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.15s;
+}
+
+.lp-signup-btn:hover { opacity: 0.7; }
+
+.lp-privacy {
+  font-size: 11px;
+  color: #bbb;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.lp-privacy u {
+  cursor: pointer;
+  text-decoration-color: #ccc;
+}

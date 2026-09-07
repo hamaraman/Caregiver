@@ -76,6 +76,13 @@ export default function LoginPage({ onNavigate }) {
             ))}
           </div>
         </div>
+
+        {/* 실제 사진 오른쪽 하단 배치 */}
+        <img
+          src="/login-hero.png"
+          alt="요양나라 서비스 이미지"
+          className="lp-hero-photo"
+        />
       </div>
 
       {/* ── Right panel ── */}
@@ -86,6 +93,7 @@ export default function LoginPage({ onNavigate }) {
             맞춤 서비스를 이용해보세요.
           </h2>
 
+          {/* 사용자 유형 탭 */}
           <p className="lp-type-label">어떤 목적으로 이용하시나요?</p>
           <div className="lp-type-tabs">
             <button
@@ -106,6 +114,7 @@ export default function LoginPage({ onNavigate }) {
             </button>
           </div>
 
+          {/* 간편 로그인 */}
           <p className="lp-section-label">간편 로그인</p>
           <div className="lp-social-btns">
             <button className="lp-social-btn lp-social-naver" onClick={() => handleSocial('네이버')}>
@@ -124,6 +133,7 @@ export default function LoginPage({ onNavigate }) {
 
           <div className="lp-divider"><span>또는</span></div>
 
+          {/* 폼 */}
           {submitted ? (
             <div className="lp-success">
               <span className="lp-success-icon">✅</span>
@@ -181,9 +191,7 @@ export default function LoginPage({ onNavigate }) {
 
           <div className="lp-signup">
             <span>아직 계정이 없으신가요?</span>
-            <button className="lp-signup-btn" onClick={() => onNavigate && onNavigate('jobseeker')}>
-              회원가입 하기 →
-            </button>
+            <button className="lp-signup-btn">회원가입 하기 →</button>
           </div>
 
           <p className="lp-privacy">

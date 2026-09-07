@@ -113,24 +113,27 @@ export default function LoginPage({ onNavigate }) {
             </button>
           </div>
 
-          {/* 간편 로그인 */}
-          <p className="lp-section-label">간편 로그인</p>
-          <div className="lp-social-btns">
-            <button className="lp-social-btn lp-social-naver" onClick={() => handleSocial('네이버')}>
-              <span className="lp-social-logo">N</span>
-              네이버 로그인
-            </button>
-            <button className="lp-social-btn lp-social-kakao" onClick={() => handleSocial('카카오')}>
-              <span className="lp-social-logo">K</span>
-              카카오 로그인
-            </button>
-            <button className="lp-social-btn lp-social-google" onClick={() => handleSocial('구글')}>
-              <span className="lp-social-logo lp-social-logo--g">G</span>
-              구글 로그인
-            </button>
-          </div>
-
-          <div className="lp-divider"><span>또는</span></div>
+          {/* 간편 로그인 — 개인회원만 */}
+          {userType === 'personal' && (
+            <>
+              <p className="lp-section-label">간편 로그인</p>
+              <div className="lp-social-btns">
+                <button className="lp-social-btn lp-social-naver" onClick={() => handleSocial('네이버')}>
+                  <span className="lp-social-logo">N</span>
+                  네이버 로그인
+                </button>
+                <button className="lp-social-btn lp-social-kakao" onClick={() => handleSocial('카카오')}>
+                  <span className="lp-social-logo">K</span>
+                  카카오 로그인
+                </button>
+                <button className="lp-social-btn lp-social-google" onClick={() => handleSocial('구글')}>
+                  <span className="lp-social-logo lp-social-logo--g">G</span>
+                  구글 로그인
+                </button>
+              </div>
+              <div className="lp-divider"><span>또는</span></div>
+            </>
+          )}
 
           {/* 폼 */}
           {submitted ? (

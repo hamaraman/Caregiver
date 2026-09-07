@@ -617,11 +617,7 @@
 .jsp-like-btn {
   background: none;
   border: none;
-  font-size: 20px;
   cursor: pointer;
-  color: #ccc;
-  transition: color 0.15s, transform 0.15s;
-  line-height: 1;
   padding: 0;
   width: 28px;
   height: 28px;
@@ -629,15 +625,15 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.15s;
 }
 
 .jsp-like-btn:hover {
-  color: #e04444;
   transform: scale(1.2);
 }
 
-.jsp-like-btn.liked {
-  color: #e04444;
+.jsp-like-btn:hover svg {
+  stroke: #e04444;
 }
 
 /* ════════════════════════════════

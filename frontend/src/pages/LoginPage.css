@@ -126,18 +126,41 @@
   color: #444;
   white-space: nowrap;}
 
-/* 실제 사진 */
-.lp-hero-photo {
+/* 장식 원형 요소 */
+.lp-deco {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 88%;
-  width: auto;
-  object-fit: contain;
-  object-position: right bottom;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
   pointer-events: none;
-  /* 텍스트 위에 겹치지 않도록 왼쪽은 45%부터 */
-  max-width: 55%;
+}
+
+.lp-deco-c1 {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(74, 143, 231, 0.07);
+  position: relative;
+}
+
+.lp-deco-c2 {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(74, 143, 231, 0.06);
+  position: absolute;
+  top: -60px;
+  left: 60px;
+}
+
+.lp-deco-c3 {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(74, 143, 231, 0.1);
+  position: absolute;
+  bottom: -30px;
+  left: 20px;
 }
 
 /* ════════════════════════════════
@@ -369,14 +392,14 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  line-height: 1;
   padding: 2px;
-  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.15s;
 }
 
-.lp-pw-toggle:hover { opacity: 1; }
+.lp-pw-toggle:hover svg { stroke: #4A8FE7; }
 
 .lp-error {
   font-size: 12px;

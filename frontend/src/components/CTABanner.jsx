@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './CTABanner.css'
 
 export default function CTABanner() {
@@ -23,7 +24,7 @@ export default function CTABanner() {
       </p>
 
       <div className="cta-actions">
-        <button className="cta-btn cta-btn--primary">구인공고 등록하기</button>
+        <Link to="/jobs/post" className="cta-btn cta-btn--primary">구인공고 등록하기</Link>
         <button className="cta-btn cta-btn--secondary">맞춤인재추천받기</button>
       </div>
 

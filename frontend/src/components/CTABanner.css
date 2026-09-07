@@ -50,6 +50,7 @@
   background: #e91e8c;
   color: #fff;
   box-shadow: 0 4px 16px rgba(233, 30, 140, 0.35);
+  text-decoration: none;
 }
 
 .cta-btn--primary:hover {

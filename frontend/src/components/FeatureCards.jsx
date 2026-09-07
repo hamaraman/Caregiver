@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './FeatureCards.css'
 
 const features = [
@@ -66,20 +67,38 @@ const features = [
 export default function FeatureCards() {
   return (
     <section className="features">
-      {features.map((f) => (
-        <div
-          className="feature-card"
-          key={f.title}
-          style={{ '--card-shadow': f.shadow, '--card-color': f.color }}
-        >
-          <div className="feature-card-bar" style={{ background: f.topBar }} />
-          <div className="feature-icon" style={{ color: f.color, background: f.iconBg }}>
-            {f.icon}
-          </div>
-          <h3 className="feature-title" style={{ color: f.color }}>{f.title}</h3>
-          <p className="feature-desc">{f.desc}</p>
-        </div>
-      ))}
+      {features.map((f) => {
+        const inner = (
+          <>
+            <div className="feature-card-bar" style={{ background: f.topBar }} />
+            <div className="feature-icon" style={{ color: f.color, background: f.iconBg }}>
+              {f.icon}
+            </div>
+            <h3 className="feature-title" style={{ color: f.color }}>{f.title}</h3>
+            <p className="feature-desc">{f.desc}</p>
+          </>
+        )
+        return f.title === '구인 등록하기'
+          ? (
+            <Link
+              key={f.title}
+              to="/jobs/post"
+              className="feature-card"
+              style={{ '--card-shadow': f.shadow, '--card-color': f.color, textDecoration: 'none' }}
+            >
+              {inner}
+            </Link>
+          )
+          : (
+            <div
+              key={f.title}
+              className="feature-card"
+              style={{ '--card-shadow': f.shadow, '--card-color': f.color }}
+            >
+              {inner}
+            </div>
+          )
+      })}
     </section>
   )
 }

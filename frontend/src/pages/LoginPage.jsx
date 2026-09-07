@@ -77,11 +77,12 @@ export default function LoginPage({ onNavigate }) {
           </div>
         </div>
 
-        <div className="lp-deco" aria-hidden="true">
-          <div className="lp-deco-c1" />
-          <div className="lp-deco-c2" />
-          <div className="lp-deco-c3" />
-        </div>
+        <img
+          src="/caregiver-hero.png"
+          alt=""
+          className="lp-hero-photo"
+          aria-hidden="true"
+        />
       </div>
 
       {/* ── Right panel ── */}

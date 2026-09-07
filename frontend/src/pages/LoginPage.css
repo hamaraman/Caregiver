@@ -126,41 +126,20 @@
   color: #444;
   white-space: nowrap;}
 
-/* 장식 원형 요소 */
-.lp-deco {
+/* 요양보호사 사진 */
+.lp-hero-photo {
   position: absolute;
-  right: -60px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: -24px;
+  bottom: 0;
+  height: 82%;
+  width: auto;
+  object-fit: contain;
+  object-position: center bottom;
   pointer-events: none;
-}
-
-.lp-deco-c1 {
-  width: 320px;
-  height: 320px;
-  border-radius: 50%;
-  background: rgba(74, 143, 231, 0.07);
-  position: relative;
-}
-
-.lp-deco-c2 {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: rgba(74, 143, 231, 0.06);
-  position: absolute;
-  top: -60px;
-  left: 60px;
-}
-
-.lp-deco-c3 {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 2px solid rgba(74, 143, 231, 0.1);
-  position: absolute;
-  bottom: -30px;
-  left: 20px;
+  mix-blend-mode: multiply;
+  /* 왼쪽 가장자리를 배경에 자연스럽게 녹임 */
+  mask-image: linear-gradient(to right, transparent 0%, black 18%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%);
 }
 
 /* ════════════════════════════════

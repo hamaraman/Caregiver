@@ -1,13 +1,13 @@
-package com.example.yoyang;
+package org.example.caregiver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class YoyangApplication {
+public class CaregiverApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(YoyangApplication.class, args);
+        SpringApplication.run(CaregiverApplication.class, args);
     }
 
 }

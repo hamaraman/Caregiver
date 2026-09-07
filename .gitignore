@@ -35,11 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-### Frontend ###
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
-frontend/sc*.cjs
-frontend/screenshot*.cjs
-frontend/screenshot*.png

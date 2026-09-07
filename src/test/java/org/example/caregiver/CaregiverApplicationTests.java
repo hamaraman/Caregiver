@@ -1,10 +1,10 @@
-package com.example.yoyang;
+package org.example.caregiver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class YoyangApplicationTests {
+class CaregiverApplicationTests {
 
     @Test
     void contextLoads() {

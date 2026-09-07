@@ -99,7 +99,6 @@ export default function HomePage({ onNavigate }) {
 
       {/* ── HERO ── */}
       <section className="hp-hero">
-        <img src="/caregiver-hero.png" className="hp-hero-photo" alt="" aria-hidden="true" />
         <div className="hp-hero-content">
           <div className="hp-hero-text">
             <p className="hp-hero-sub">사람과 사람을 이어주는 마음 따뜻한 일자리 플랫폼</p>
@@ -124,17 +123,21 @@ export default function HomePage({ onNavigate }) {
             </div>
           </div>
 
-          <div className="hp-hero-cards">
-            <button className="hp-hero-card hp-hero-card--blue" onClick={() => onNavigate('jobseeker')}>
-              <span className="hp-hero-card-icon">🔍</span>
-              <span className="hp-hero-card-label">구직하기</span>
-              <span className="hp-hero-card-desc">일자리를 찾고 있나요?</span>
-            </button>
-            <button className="hp-hero-card hp-hero-card--pink">
-              <span className="hp-hero-card-icon">📋</span>
-              <span className="hp-hero-card-label">구인공고 등록</span>
-              <span className="hp-hero-card-desc">인재를 찾고 있나요?</span>
-            </button>
+          {/* 사진 + 카드를 하나의 우측 컨테이너로 묶음 */}
+          <div className="hp-hero-right">
+            <img src="/caregiver-hero.png" className="hp-hero-photo" alt="" aria-hidden="true" />
+            <div className="hp-hero-cards">
+              <button className="hp-hero-card hp-hero-card--blue" onClick={() => onNavigate('jobseeker')}>
+                <span className="hp-hero-card-icon">🔍</span>
+                <span className="hp-hero-card-label">구직하기</span>
+                <span className="hp-hero-card-desc">일자리를 찾고 있나요?</span>
+              </button>
+              <button className="hp-hero-card hp-hero-card--pink">
+                <span className="hp-hero-card-icon">📋</span>
+                <span className="hp-hero-card-label">구인공고 등록</span>
+                <span className="hp-hero-card-desc">인재를 찾고 있나요?</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>

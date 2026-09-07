@@ -162,43 +162,25 @@
    HERO
 ════════════════════════════════ */
 .hp-hero {
-  position: relative;
   background: linear-gradient(140deg, #c8e6ff 0%, #daeeff 40%, #eaf4ff 100%);
   overflow: hidden;
   padding: 52px 0 44px;
   min-height: 320px;
 }
 
-.hp-hero-photo {
-  position: absolute;
-  right: 5%;
-  top: 0;
-  height: 100%;
-  width: auto;
-  object-fit: cover;
-  object-position: 30% center;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  opacity: 0.65;
-  mask-image: linear-gradient(to right, transparent 0%, black 20%),
-              linear-gradient(to left,  transparent 0%, black 5%);
-  mask-composite: intersect;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%);
-}
-
 .hp-hero-content {
-  position: relative;
-  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+  gap: 48px;
 }
 
-.hp-hero-text { max-width: 560px; }
+.hp-hero-text {
+  flex: 1;
+  min-width: 0;
+}
 
 .hp-hero-sub {
   font-size: 13px;
@@ -240,6 +222,7 @@
   outline: none;
   color: #333;
   background: transparent;
+  min-width: 0;
 }
 
 .hp-search-btn {
@@ -270,20 +253,48 @@
   color: #557;
   cursor: pointer;
   transition: all 0.15s;
+  white-space: nowrap;
 }
 .hp-chip:hover,
 .hp-chip.active { background: #4A8FE7; color: #fff; border-color: #4A8FE7; }
 
+/* 오른쪽: 사진 + 카드 묶음 */
+.hp-hero-right {
+  position: relative;
+  flex-shrink: 0;
+  width: 380px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hp-hero-photo {
+  position: absolute;
+  left: -40px;
+  top: -52px;
+  bottom: -44px;
+  height: calc(100% + 96px);
+  width: auto;
+  object-fit: cover;
+  object-position: 30% center;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  mask-image: linear-gradient(to right, transparent 0%, black 22%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%);
+}
+
 .hp-hero-cards {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  flex-shrink: 0;
 }
 
 .hp-hero-card {
-  width: 180px;
-  padding: 22px 18px;
+  width: 168px;
+  padding: 20px 16px;
   border: none;
   border-radius: 16px;
   display: flex;
@@ -291,17 +302,40 @@
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   transition: transform 0.15s, box-shadow 0.15s;
 }
-.hp-hero-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+.hp-hero-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.2); }
 
 .hp-hero-card--blue { background: #4A8FE7; color: #fff; }
 .hp-hero-card--pink { background: #e91e8c; color: #fff; }
 
-.hp-hero-card-icon  { font-size: 30px; }
+.hp-hero-card-icon  { font-size: 28px; }
 .hp-hero-card-label { font-size: 15px; font-weight: 700; }
 .hp-hero-card-desc  { font-size: 11px; opacity: 0.85; }
+
+/* ════════════════════════════════
+   반응형
+════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hp-hero-title { font-size: 30px; }
+  .hp-hero-right { width: 300px; height: 240px; }
+  .hp-stats-grid { gap: 40px; }
+  .hp-content { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .hp-hero-content { flex-direction: column; gap: 24px; }
+  .hp-hero-right { width: 100%; height: 200px; justify-content: center; }
+  .hp-hero-photo { left: 0; top: 0; bottom: 0; height: 100%; }
+  .hp-hero-cards { flex-direction: row; }
+  .hp-hero-card { width: 140px; padding: 16px 12px; }
+  .hp-stats-grid { gap: 20px; flex-wrap: wrap; }
+  .hp-quick-inner { flex-wrap: wrap; gap: 6px; }
+  .hp-quick-item { min-width: 70px; padding: 10px 12px; }
+  .hp-content { grid-template-columns: 1fr; padding: 0 16px; }
+  .hp-nav-list { display: none; }
+}
 
 /* ════════════════════════════════
    STATS

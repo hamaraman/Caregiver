@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './Header.css'
 import AuthModal from './AuthModal'
 import { fetchCurrentUser, logout } from '../api'
 
 const guinSubMenu = [
   {
-    label: '구인 등록하기',
+    label: '구인 공고 등록',
     desc: '간편하게 구인공고를 등록해보세요',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -121,9 +122,13 @@ export default function Header() {
                 {dropdownOpen && (
                   <div className="nav-dropdown">
                     {guinSubMenu.map((sub) => (
-                      <a key={sub.label} href="#" className="nav-dropdown-item">
-                        <span className="nav-dropdown-label">{sub.label}</span>
-                      </a>
+                      sub.label === '구인 공고 등록'
+                        ? <Link key={sub.label} to="/jobs/post" className="nav-dropdown-item">
+                            <span className="nav-dropdown-label">{sub.label}</span>
+                          </Link>
+                        : <a key={sub.label} href="#" className="nav-dropdown-item">
+                            <span className="nav-dropdown-label">{sub.label}</span>
+                          </a>
                     ))}
                   </div>
                 )}

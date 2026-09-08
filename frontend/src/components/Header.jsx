@@ -101,7 +101,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-inner">
-        <a href="#" className="logo">
+        <Link to="/" className="logo">
           <div className="logo-icon">
             <span className="logo-yn">YE</span>
           </div>
@@ -109,7 +109,7 @@ export default function Header() {
             <span className="logo-sub">요양보호사 구인구직 국내 1위</span>
             <span className="logo-name">요양이지</span>
           </div>
-        </a>
+        </Link>
 
         <nav className="nav">
           {navItems.map((item) =>

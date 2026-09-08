@@ -150,7 +150,7 @@
   flex-shrink: 0;
   background: #f4f6fb;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 28px 24px;
 }

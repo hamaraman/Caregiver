@@ -1,18 +1,8 @@
 import { useState } from 'react'
 import './SignupPage.css'
+import AuthLeftPanel from './auth/AuthLeftPanel'
 
 const STEPS = ['기본 정보', '약관 동의']
-
-const BENEFITS = [
-  { label: '간편 가입',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg> },
-  { label: '일자리 탐색',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> },
-  { label: '이력서 관리',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> },
-  { label: '취업 성공',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> },
-]
 
 export default function SignupPage({ onNavigate }) {
   const [step, setStep] = useState(0)
@@ -113,42 +103,10 @@ export default function SignupPage({ onNavigate }) {
 
   return (
     <div className="sp-root">
-      {/* ── Left panel ── */}
-      <div className="sp-left">
-        <div className="sp-left-inner">
-          <div className="sp-logo">
-            <span className="sp-logo-badge">YN</span>
-            <div className="sp-logo-text">
-              <span className="sp-logo-sub">요양보호사 구인구직 서비스 No.1</span>
-              <span className="sp-logo-name">요양이지</span>
-            </div>
-          </div>
-
-          <div className="sp-hero">
-            <p className="sp-tagline">사람과 사람을 이어주는 마음 따뜻한 일자리 플랫폼</p>
-            <h1 className="sp-hero-title">
-              요양이지 회원으로<br />
-              새로운 시작을<br />
-              만들어보세요.
-            </h1>
-            <p className="sp-hero-desc">
-              가입 후 전국 요양·간호 일자리를 한 곳에서.<br />
-              이력서 등록부터 지원 관리까지<br />
-              모두 해결하세요.
-            </p>
-          </div>
-
-          <div className="sp-benefits">
-            {BENEFITS.map(b => (
-              <div key={b.label} className="sp-benefit-item">
-                <span className="sp-benefit-icon">{b.icon}</span>
-                <span className="sp-benefit-label">{b.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <img src="/caregiver-hero.png" alt="" className="sp-hero-photo" aria-hidden="true" />
-      </div>
+      <AuthLeftPanel
+        title={<>요양이지 회원으로<br />새로운 시작을<br />만들어보세요.</>}
+        desc={<>가입 후 전국 요양·간호 일자리를 한 곳에서.<br />이력서 등록부터 지원 관리까지<br />모두 해결하세요.</>}
+      />
 
       {/* ── Right panel ── */}
       <div className="sp-right">

@@ -243,6 +243,7 @@
   background: #fafafa;
   transition: all 0.15s;
   user-select: none;
+  white-space: nowrap;
 }
 
 .jp-radio:has(input:checked) {
@@ -275,6 +276,7 @@
   background: #fafafa;
   transition: all 0.15s;
   user-select: none;
+  white-space: nowrap;
 }
 
 .jp-check:has(input:checked) {

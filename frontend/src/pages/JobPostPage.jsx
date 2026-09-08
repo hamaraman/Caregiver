@@ -92,6 +92,8 @@ export default function JobPostPage() {
   const [postDetail, setPostDetail] = useState('')
   const [applyMethod, setApplyMethod] = useState(['바로지원'])
   const [companyUrl, setCompanyUrl] = useState('')
+  const [applyEmail, setApplyEmail] = useState('')
+  const [applyFax, setApplyFax] = useState('')
 
   // 업체 정보
   const [companyName, setCompanyName] = useState('')
@@ -173,7 +175,6 @@ export default function JobPostPage() {
   return (
     <div className="app">
       <Header />
-      <AuthGuard require="business">
       <main className="jp-page">
         <div className="container">
           <div className="jp-top">
@@ -475,6 +476,32 @@ export default function JobPostPage() {
                         </label>
                       ))}
                     </div>
+                    {applyMethod.includes('이메일') && (
+                      <div className="jp-field-group" style={{ marginTop: '8px' }}>
+                        <span className="jp-unit">접수 이메일</span>
+                        <input
+                          className="jp-input jp-input--full"
+                          type="email"
+                          placeholder="example@email.com"
+                          value={applyEmail}
+                          onChange={e => setApplyEmail(e.target.value)}
+                          required
+                        />
+                      </div>
+                    )}
+                    {applyMethod.includes('팩스') && (
+                      <div className="jp-field-group" style={{ marginTop: '8px' }}>
+                        <span className="jp-unit">팩스번호</span>
+                        <input
+                          className="jp-input jp-input--md"
+                          type="tel"
+                          placeholder="예) 02-1234-5678"
+                          value={applyFax}
+                          onChange={e => setApplyFax(formatPhone(e.target.value))}
+                          required
+                        />
+                      </div>
+                    )}
                     {applyMethod.includes('홈페이지') && (
                       <div className="jp-field-group" style={{ marginTop: '8px' }}>
                         <span className="jp-unit">업체 홈페이지 URL</span>
@@ -621,7 +648,6 @@ export default function JobPostPage() {
           </form>
         </div>
       </main>
-      </AuthGuard>
       <Footer />
     </div>
   )

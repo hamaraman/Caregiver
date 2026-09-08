@@ -225,19 +225,28 @@
 }
 
 .jd-tag {
+  display: inline-block;
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 20px;
-  background: #ecddf5;
-  color: #555;
-  border: 1px solid #d8c0e8;
+  background: #fce8f3;
+  color: #c0337a;
+  border: 1px solid #e8b8d4;
   font-weight: 500;
+  text-decoration: none;
+  cursor: default;
 }
 
 .jd-tag--work {
   background: #ddeaff;
   color: #5b8def;
   border-color: #a0c0f5;
+}
+
+.jd-tag--apply {
+  background: #ddf5f5;
+  color: #17a2b8;
+  border-color: #a0dde5;
 }
 
 .jd-tag--direct {

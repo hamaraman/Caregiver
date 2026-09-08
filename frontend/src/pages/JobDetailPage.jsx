@@ -138,7 +138,32 @@ export default function JobDetailPage() {
               <p className="jd-detail-text">{job.postDetail}</p>
               <div className="jd-apply-methods">
                 <span className="jd-label">접수 방법</span>
-                <span className="jd-tags">{job.applyMethod.map(m => <span key={m} className={`jd-tag${m === '바로지원' ? ' jd-tag--direct' : ''}`}>{m}</span>)}</span>
+                <span className="jd-tags">{job.applyMethod.map(m => {
+                  if (m === '바로지원') {
+                    return (
+                      <span key={m} className="jd-tag jd-tag--direct" style={{cursor:'pointer'}}
+                        onClick={() => document.querySelector('.jd-apply-btn')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+                        {m}
+                      </span>
+                    )
+                  }
+                  if (m === '전화') {
+                    return (
+                      <a key={m} href={`tel:${job.companyPhone}`} className="jd-tag jd-tag--apply">{m}</a>
+                    )
+                  }
+                  if (m === '방문접수') {
+                    return (
+                      <a key={m} href={`https://map.kakao.com/link/search/${encodeURIComponent(job.companyAddr)}`} target="_blank" rel="noopener noreferrer" className="jd-tag jd-tag--apply">{m}</a>
+                    )
+                  }
+                  if (m === '이메일') {
+                    return (
+                      <a key={m} href={`mailto:${job.companyEmail || ''}`} className="jd-tag jd-tag--apply">{m}</a>
+                    )
+                  }
+                  return <span key={m} className="jd-tag jd-tag--apply">{m}</span>
+                })}</span>
               </div>
             </section>
 

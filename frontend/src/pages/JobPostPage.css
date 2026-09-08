@@ -77,9 +77,9 @@
 .jp-section {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #f0e0ee;
+  border: 1.5px solid #ddb8ce;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(233,30,140,0.05);
+  box-shadow: 0 2px 12px rgba(233,30,140,0.08);
 }
 
 .jp-section-header {
@@ -87,8 +87,8 @@
   align-items: center;
   gap: 10px;
   padding: 16px 24px;
-  background: linear-gradient(90deg, #fdf0f7 0%, #fff 100%);
-  border-bottom: 1px solid #f5d0e5;
+  background: #fce8f3;
+  border-bottom: 1px solid #e0b0cc;
 }
 
 .jp-section-num {
@@ -162,7 +162,7 @@
 /* 인풋 */
 .jp-input {
   padding: 8px 12px;
-  border: 1.5px solid #e0d0da;
+  border: 1.5px solid #c8a8bc;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -194,7 +194,7 @@
 /* 셀렉트 */
 .jp-select {
   padding: 8px 32px 8px 12px;
-  border: 1.5px solid #e0d0da;
+  border: 1.5px solid #c8a8bc;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -346,7 +346,7 @@
   width: 100%;
   max-width: 560px;
   padding: 12px 14px;
-  border: 1.5px solid #e0d0da;
+  border: 1.5px solid #c8a8bc;
   border-radius: 10px;
   font-size: 13px;
   color: #333;

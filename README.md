@@ -5,18 +5,6 @@
 
 ---
 
-## 브랜치 구조
-
-| 브랜치 | 담당 | 내용 |
-|--------|------|------|
-| `main` | — | 배포 기준 브랜치 |
-| `feature/frontend-ui-inhwa` | 인화 | 구인자 프론트엔드 UI |
-| `feature/frontend-pages-juhyun` | 주현 | 구직자 프론트엔드 UI |
-| `WCH` | 우찬 | Spring Boot 백엔드 |
-| `feature/backend-db-auth` | — | PostgreSQL + 세션 인증 |
-
----
-
 ## 주요 기능
 
 ### 공통

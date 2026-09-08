@@ -60,8 +60,8 @@ const guinSubMenu = [
 ]
 
 const navItems = [
-  { label: '홈', href: '#' },
-  { label: '구직', href: '#' },
+  { label: '홈', href: '/' },
+  { label: '구직', href: '/jobs' },
   { label: '구인', href: '#', hasDropdown: true },
   { label: '커뮤니티', href: '#' },
   { label: '고객센터', href: '#' },
@@ -135,22 +135,26 @@ export default function Header() {
                         ? <Link key={sub.label} to="/jobs/post" className="nav-dropdown-item">
                             <span className="nav-dropdown-label">{sub.label}</span>
                           </Link>
-                        : <a key={sub.label} href="#" className="nav-dropdown-item">
-                            <span className="nav-dropdown-label">{sub.label}</span>
-                          </a>
+                        : sub.label === '맞춤 인재 추천'
+                          ? <Link key={sub.label} to="/talents" className="nav-dropdown-item">
+                              <span className="nav-dropdown-label">{sub.label}</span>
+                            </Link>
+                          : <a key={sub.label} href="#" className="nav-dropdown-item">
+                              <span className="nav-dropdown-label">{sub.label}</span>
+                            </a>
                     ))}
                   </div>
                 )}
               </div>
             ) : (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className={`nav-item ${active === item.label ? 'nav-item--active' : ''}`}
                 onClick={() => setActive(item.label)}
               >
                 {item.label}
-              </a>
+              </Link>
             )
           )}
         </nav>

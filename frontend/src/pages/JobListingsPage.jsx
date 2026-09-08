@@ -397,7 +397,7 @@ export default function JobListingsPage() {
             ) : paginated.map((job) => (
               <div className="jl-row" key={job.id}>
                 <div className="jl-title-cell">
-                  <span className="jl-job-title">{job.title}</span>
+                  <Link to={`/jobs/${job.id}`} className="jl-job-title">{job.title}</Link>
                   {job.badge && (
                     <span className={`job-badge job-badge--${job.badgeColor}`}>{job.badge}</span>
                   )}

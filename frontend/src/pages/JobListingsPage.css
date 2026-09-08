@@ -605,6 +605,7 @@
   font-size: 14px;
   font-weight: 600;
   color: #222;
+  text-decoration: none;
   transition: color 0.15s;
 }
 

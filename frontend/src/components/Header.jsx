@@ -5,6 +5,20 @@ import { fetchCurrentUser, logout } from '../api'
 
 const guinSubMenu = [
   {
+    label: '구인공고 목록',
+    desc: '등록된 모든 구인공고를 확인하세요',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="2"/>
+        <line x1="7" y1="8" x2="17" y2="8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <line x1="7" y1="16" x2="12" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    ),
+    color: '#7c3aed',
+    bg: '#f3f0ff',
+  },
+  {
     label: '구인 공고 등록',
     desc: '간편하게 구인공고를 등록해보세요',
     icon: (
@@ -67,6 +81,7 @@ const navItems = [
 ]
 
 const subLinkMap = {
+  '구인공고 목록': '/jobs',
   '구인 공고 등록': '/jobs/post',
   '지원자 확인': '/applicants',
   '채용 관리': '/manage',

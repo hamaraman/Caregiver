@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './HeroBanner.css'
 
 const regions = ['전체', '서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
@@ -6,6 +7,19 @@ const regions = ['전체', '서울', '경기', '인천', '부산', '대구', '�
 export default function HeroBanner() {
   const [selectedRegion, setSelectedRegion] = useState('전체')
   const [query, setQuery] = useState('')
+  const navigate = useNavigate()
+
+  const goToJobs = (region = selectedRegion) => {
+    const params = new URLSearchParams()
+    if (query.trim()) params.set('q', query.trim())
+    if (region && region !== '전체') params.set('region', region)
+    navigate(`/jobs${params.toString() ? '?' + params.toString() : ''}`)
+  }
+
+  const handleRegionClick = (region) => {
+    setSelectedRegion(region)
+    goToJobs(region)
+  }
 
   return (
     <section className="hero">
@@ -27,8 +41,9 @@ export default function HeroBanner() {
               placeholder="지역, 근무형태, 직무를 검색해보세요"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && goToJobs()}
             />
-            <button className="search-btn">
+            <button className="search-btn" onClick={() => goToJobs()}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <circle cx="11" cy="11" r="7" stroke="#fff" strokeWidth="2.5" />
                 <path d="M16.5 16.5L21 21" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
@@ -41,12 +56,12 @@ export default function HeroBanner() {
               <button
                 key={region}
                 className={`region-tab ${selectedRegion === region ? 'region-tab--active' : ''}`}
-                onClick={() => setSelectedRegion(region)}
+                onClick={() => handleRegionClick(region)}
               >
                 {region}
               </button>
             ))}
-            <button className="region-tab region-tab--more">›</button>
+            <button className="region-tab region-tab--more" onClick={() => navigate('/jobs')}>›</button>
           </div>
         </div>
 

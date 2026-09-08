@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { jobs } from '../data/jobs'
@@ -41,9 +41,13 @@ function makeKey(do_, si) {
 export default function JobListingsPage() {
   const { user } = useAuth()
   const myJobs = jobs.filter(j => myJobIds.includes(j.id))
-  const [selectedRegions, setSelectedRegions] = useState([]) // ["서울 강남구", "경기"]
+  const [searchParams] = useSearchParams()
+  const [selectedRegions, setSelectedRegions] = useState(() => {
+    const r = searchParams.get('region')
+    return r ? [r] : []
+  })
   const [panelOpen, setPanelOpen] = useState(false)
-  const [panelDo, setPanelDo] = useState('')            // 패널 내 현재 도
+  const [panelDo, setPanelDo] = useState('')
   const [selectedJobType, setSelectedJobType] = useState('전체')
   const [jobTypeExpanded, setJobTypeExpanded] = useState(false)
   const [selectedWorkType, setSelectedWorkType] = useState('전체')
@@ -53,7 +57,7 @@ export default function JobListingsPage() {
   const [wageType, setWageType] = useState('전체')
   const [wageMin, setWageMin] = useState('')
   const [wageMax, setWageMax] = useState('')
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(searchParams.get('q') || '')
   const [page, setPage] = useState(1)
   const [likedJobs, setLikedJobs] = useState({})
   const panelRef = useRef(null)

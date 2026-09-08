@@ -73,9 +73,18 @@ export default function Header() {
   const [authMode, setAuthMode] = useState(null)
 
   useEffect(() => {
-    fetchCurrentUser()
-      .then(setUser)
-      .catch(() => setUser(null))
+    let cancelled = false
+    const checkUser = () => {
+      fetchCurrentUser()
+        .then((u) => { if (!cancelled) setUser(u) })
+        .catch(() => { if (!cancelled) setUser(null) })
+    }
+    checkUser()
+    const intervalId = setInterval(checkUser, 2000)
+    return () => {
+      cancelled = true
+      clearInterval(intervalId)
+    }
   }, [])
 
   const handleAuthSuccess = (loggedInUser) => {
@@ -144,7 +153,7 @@ export default function Header() {
         <div className="header-actions">
           {user ? (
             <>
-              <span className="user-greeting">{user.name || user.email}님</span>
+              <span className="user-greeting">{user.name || user.email}님 환영합니다</span>
               <button className="btn-login" onClick={handleLogout}>로그아웃</button>
             </>
           ) : (

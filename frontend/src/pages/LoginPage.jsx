@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './LoginPage.css'
+import { login } from '../api'
 
 const BENEFITS = [
   { icon: '💼', label: '일자리 찾기' },
@@ -15,6 +16,7 @@ export default function LoginPage({ onNavigate }) {
   const [showPw, setShowPw] = useState(false)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   function validate() {
     const e = {}
@@ -25,7 +27,7 @@ export default function LoginPage({ onNavigate }) {
     return e
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length > 0) {
@@ -33,7 +35,15 @@ export default function LoginPage({ onNavigate }) {
       return
     }
     setErrors({})
-    setSubmitted(true)
+    setSubmitting(true)
+    try {
+      await login({ email: id, password })
+      setSubmitted(true)
+    } catch (err) {
+      setErrors({ password: err.message })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   function handleSocial(provider) {
@@ -190,8 +200,8 @@ export default function LoginPage({ onNavigate }) {
                 {errors.password && <span className="lp-error">{errors.password}</span>}
               </div>
 
-              <button type="submit" className="lp-submit-btn">
-                로그인
+              <button type="submit" className="lp-submit-btn" disabled={submitting}>
+                {submitting ? '로그인 중...' : '로그인'}
               </button>
             </form>
           )}

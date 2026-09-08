@@ -2,7 +2,33 @@ import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { talents } from '../data/talents'
+import { jobs } from '../data/jobs'
+import { myJobIds } from '../data/applicants'
 import './TalentListPage.css'
+
+const myJobs = jobs.filter(j => myJobIds.includes(j.id))
+const myRegions = [...new Set(myJobs.map(j => j.region))]
+const myJobTypes = [...new Set(myJobs.map(j => j.jobType))]
+
+const expOrder = { '신입':0,'1년 이상':1,'2년 이상':2,'3년 이상':3,'4년 이상':4,'5년 이상':5,'7년 이상':7,'8년 이상':8,'10년 이상':10,'12년 이상':12 }
+const expNum = (str) => expOrder[str] ?? 0
+
+const myMinExp = Math.min(...myJobs.map(j => expNum(j.experience)))
+
+function scoreTalent(t) {
+  let score = 0
+  const tags = []
+  if (myRegions.includes(t.region)) { score += 2; tags.push('지역 일치') }
+  if (myJobTypes.includes(t.jobType)) { score += 2; tags.push('직종 일치') }
+  if (expNum(t.experience) >= myMinExp) { score += 1; tags.push('경력 충족') }
+  return { score, tags }
+}
+
+const recommendedTalents = talents
+  .map(t => ({ ...t, ...scoreTalent(t) }))
+  .filter(t => t.score >= 3)
+  .sort((a, b) => b.score - a.score || expNum(b.experience) - expNum(a.experience))
+  .slice(0, 4)
 
 const regionTree = {
   '서울': ['강남구','서초구','송파구','강동구','마포구','영등포구','종로구','중구','용산구','성동구','광진구','노원구','강북구','도봉구','은평구','서대문구','동대문구','중랑구','성북구','강서구','양천구','구로구','금천구','관악구','동작구'],
@@ -27,9 +53,6 @@ const regionTree = {
 const doList = Object.keys(regionTree)
 const jobTypes = ['전체','요양보호사','간병인','가사도우미','사회복지사','간호사','간호조무사','물리치료사','활동지원사','조리원','영양사','시설장','사무원','운전원']
 const expOptions = ['전체','신입','1년 이상','3년 이상','5년 이상','10년 이상']
-
-const expOrder = { '신입':0,'1년 이상':1,'2년 이상':2,'3년 이상':3,'4년 이상':4,'5년 이상':5,'7년 이상':7,'8년 이상':8,'10년 이상':10,'12년 이상':12 }
-const expNum = (str) => expOrder[str] ?? 0
 
 function makeKey(do_, si) { return si ? `${do_} ${si}` : do_ }
 
@@ -207,6 +230,58 @@ export default function TalentListPage() {
               </div>
             </div>
           </div>
+
+          {/* 맞춤 인재 추천 섹션 */}
+          {recommendedTalents.length > 0 && (
+            <div className="tl-recommend-section">
+              <div className="tl-recommend-header">
+                <div className="tl-recommend-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#e91e8c" stroke="#e91e8c" strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                  맞춤 인재 추천
+                </div>
+                <p className="tl-recommend-sub">
+                  등록하신 공고 조건
+                  {myRegions.length > 0 && <span className="tl-recommend-tag">{myRegions.join(' · ')}</span>}
+                  {myJobTypes.length > 0 && <span className="tl-recommend-tag">{myJobTypes.join(' · ')}</span>}
+                  에 맞는 인재예요
+                </p>
+              </div>
+              <div className="tl-recommend-list">
+                {recommendedTalents.map(t => (
+                  <Link to={`/talents/${t.id}`} key={t.id} className="tl-rec-card">
+                    <span className="tl-rec-badge">✦ 추천</span>
+                    <div className="tl-rec-card-top">
+                      <div className="tl-rec-avatar">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8">
+                          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="tl-rec-name">
+                          {t.name}
+                          <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+                        </div>
+                        <div className="tl-rec-info">{t.age}세 · {t.location}</div>
+                      </div>
+                    </div>
+                    <div className="tl-rec-mid">
+                      <span>{t.jobType}</span>
+                      <span className="tl-rec-dot">·</span>
+                      <span>{t.experience}</span>
+                    </div>
+                    <div className="tl-rec-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</div>
+                    <div className="tl-rec-tags">
+                      {t.tags.map(tag => (
+                        <span key={tag} className="tl-rec-match-tag">{tag}</span>
+                      ))}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* 결과 바 */}
           <div className="tl-result-bar">

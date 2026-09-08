@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import AuthGuard from '../components/AuthGuard'
 import { jobs } from '../data/jobs'
 import { talents } from '../data/talents'
 import { applicants, myJobIds } from '../data/applicants'
@@ -35,6 +36,7 @@ export default function ApplicantsPage() {
   return (
     <>
       <Header />
+      <AuthGuard require="business">
       <div className="ap-page">
         <div className="container">
           <div className="ap-top">
@@ -170,6 +172,7 @@ export default function ApplicantsPage() {
           )}
         </div>
       </div>
+      </AuthGuard>
     </>
   )
 }

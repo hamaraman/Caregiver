@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import AuthGuard from '../components/AuthGuard'
 import './JobPostPage.css'
 
 const regionTree = {
@@ -172,6 +173,7 @@ export default function JobPostPage() {
   return (
     <div className="app">
       <Header />
+      <AuthGuard require="business">
       <main className="jp-page">
         <div className="container">
           <div className="jp-top">
@@ -619,6 +621,7 @@ export default function JobPostPage() {
           </form>
         </div>
       </main>
+      </AuthGuard>
       <Footer />
     </div>
   )

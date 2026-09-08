@@ -548,6 +548,106 @@
   color: #999;
 }
 
+/* 내가 쓴 공고 */
+.jl-myposts {
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid #f0e0ee;
+  padding: 18px 20px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(233, 30, 140, 0.06);
+}
+
+.jl-myposts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.jl-myposts-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+}
+
+.jl-myposts-manage {
+  font-size: 12px;
+  color: #e91e8c;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.jl-myposts-manage:hover { opacity: 0.7; }
+
+.jl-myposts-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.jl-myposts-list::-webkit-scrollbar { display: none; }
+
+.jl-mypost-card {
+  flex-shrink: 0;
+  width: 180px;
+  background: #fdf5fa;
+  border: 1.5px solid #f5d0e8;
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.jl-mypost-card:hover {
+  border-color: #e91e8c;
+  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.12);
+}
+
+.jl-mypost-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #2a9a2a;
+  background: #e8f8e8;
+  border: 1px solid #b8e8b8;
+  border-radius: 20px;
+  padding: 2px 8px;
+  width: fit-content;
+  margin-bottom: 2px;
+}
+
+.jl-mypost-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.jl-mypost-meta {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jl-mypost-date {
+  font-size: 11px;
+  color: #bbb;
+  margin: 0;
+}
+
 /* 결과 수 */
 .jl-result-count {
   font-size: 13px;

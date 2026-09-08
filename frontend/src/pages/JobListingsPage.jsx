@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { jobs } from '../data/jobs'
+import { myJobIds } from '../data/applicants'
+import { useAuth } from '../hooks/useAuth'
 import './JobListingsPage.css'
 
 const regionTree = {
@@ -37,6 +39,8 @@ function makeKey(do_, si) {
 }
 
 export default function JobListingsPage() {
+  const { user } = useAuth()
+  const myJobs = jobs.filter(j => myJobIds.includes(j.id))
   const [selectedRegions, setSelectedRegions] = useState([]) // ["서울 강남구", "경기"]
   const [panelOpen, setPanelOpen] = useState(false)
   const [panelDo, setPanelDo] = useState('')            // 패널 내 현재 도
@@ -384,6 +388,32 @@ export default function JobListingsPage() {
               </div>
             </div>  {/* jl-filter-body */}
           </div>    {/* jl-filter-bar */}
+
+          {/* 내가 쓴 공고 */}
+          {user?.userType === 'business' && myJobs.length > 0 && (
+            <div className="jl-myposts">
+              <div className="jl-myposts-header">
+                <span className="jl-myposts-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.2" strokeLinecap="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                  내가 쓴 공고
+                </span>
+                <Link to="/manage" className="jl-myposts-manage">채용 관리 →</Link>
+              </div>
+              <div className="jl-myposts-list">
+                {myJobs.map(job => (
+                  <Link to={`/jobs/${job.id}`} key={job.id} className="jl-mypost-card">
+                    <span className="jl-mypost-badge">진행중</span>
+                    <p className="jl-mypost-title">{job.postTitle || job.title}</p>
+                    <p className="jl-mypost-meta">{job.location} · {job.wage}</p>
+                    <p className="jl-mypost-date">등록 {job.date}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* 결과 수 */}
           <div className="jl-result-count">

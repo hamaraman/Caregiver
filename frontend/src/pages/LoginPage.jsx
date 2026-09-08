@@ -15,7 +15,6 @@ export default function LoginPage({ onNavigate }) {
   const [password, setPassword] = useState('')
   const [showPw, setShowPw] = useState(false)
   const [errors, setErrors] = useState({})
-  const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
   function validate() {
@@ -37,8 +36,12 @@ export default function LoginPage({ onNavigate }) {
     setErrors({})
     setSubmitting(true)
     try {
-      await login({ email: id, password })
-      setSubmitted(true)
+      await login({ email: id, password, userType })
+      if (userType === 'business') {
+        window.location.href = 'http://localhost:5174/'
+      } else {
+        onNavigate('home')
+      }
     } catch (err) {
       setErrors({ password: err.message })
     } finally {
@@ -151,17 +154,7 @@ export default function LoginPage({ onNavigate }) {
           )}
 
           {/* 폼 */}
-          {submitted ? (
-            <div className="lp-success">
-              <span className="lp-success-icon">✅</span>
-              <p>로그인 성공!</p>
-              <p className="lp-success-sub">서버 연동 후 메인 페이지로 이동합니다.</p>
-              <button className="lp-success-back" onClick={() => setSubmitted(false)}>
-                다시 시도
-              </button>
-            </div>
-          ) : (
-            <form className="lp-form" onSubmit={handleSubmit} noValidate>
+          <form className="lp-form" onSubmit={handleSubmit} noValidate>
               <div className="lp-field">
                 <input
                   type="email"
@@ -207,8 +200,7 @@ export default function LoginPage({ onNavigate }) {
               <button type="submit" className="lp-submit-btn" disabled={submitting}>
                 {submitting ? '로그인 중...' : '로그인'}
               </button>
-            </form>
-          )}
+          </form>
 
           <div className="lp-links">
             <button className="lp-link-btn">아이디 찾기</button>

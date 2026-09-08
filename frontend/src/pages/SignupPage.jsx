@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './SignupPage.css'
+import { register } from '../api'
 import AuthLeftPanel from './auth/AuthLeftPanel'
 
 const STEPS = ['기본 정보', '약관 동의']
@@ -84,9 +85,14 @@ export default function SignupPage({ onNavigate }) {
     }
     setErrors({})
     setSubmitting(true)
-    await new Promise(r => setTimeout(r, 900))
-    setSubmitting(false)
-    setDone(true)
+    try {
+      await register({ email, password, name, userType })
+      setDone(true)
+    } catch (err) {
+      setErrors({ submit: err.message })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const EyeIcon = () => (
@@ -302,6 +308,7 @@ export default function SignupPage({ onNavigate }) {
                   </div>
 
                   {errors.terms && <p className="sp-error sp-error-block">{errors.terms}</p>}
+                  {errors.submit && <p className="sp-error sp-error-block">{errors.submit}</p>}
 
                   <div className="sp-summary">
                     <p className="sp-summary-title">가입 정보 확인</p>

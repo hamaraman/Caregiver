@@ -116,11 +116,13 @@ frontend/
 - CSS (컴포넌트별 네임스페이스: `hp-` / `lp-` / `jsp-`)
 - 백엔드 부분 연동 — `AuthModal`은 API 연결, 나머지는 목업 데이터 사용 중
 - home
-<img width="1899" height="943" alt="image" src="https://github.com/user-attachments/assets/5b7aba9c-e6d1-46fa-93b8-ede445fa343f" />
+- <img width="1903" height="935" alt="image" src="https://github.com/user-attachments/assets/8cc7efe9-9642-4947-99e8-b01372b358e6" />
 
 - login
-- <img width="1903" height="936" alt="image" src="https://github.com/user-attachments/assets/6df97cb2-bf83-4616-807e-130d890485ce" />
+- <img width="1910" height="943" alt="image" src="https://github.com/user-attachments/assets/bf37310f-e6d6-41b1-80fb-6ecba6f2ac6d" />
+
 - account create
-- <img width="1915" height="944" alt="image" src="https://github.com/user-attachments/assets/244fa326-3d16-4738-8ecb-4c3d7394a9d8" />
+- <img width="1912" height="945" alt="image" src="https://github.com/user-attachments/assets/c7bf8c8a-a695-436f-aa85-057d365406a0" />
+
 
 

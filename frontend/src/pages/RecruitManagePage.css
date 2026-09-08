@@ -116,7 +116,7 @@
 }
 
 .rm-summary-card--sel {
-  box-shadow: 0 0 0 2.5px #e91e8c !important;
+  box-shadow: 0 0 0 2px rgba(233, 30, 140, 0.4) !important;
 }
 
 /* 빈 목록 */

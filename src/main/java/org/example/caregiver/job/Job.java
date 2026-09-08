@@ -11,13 +11,12 @@ public class Job {
     private String hours;
     private String days;
     private String date;
-    private boolean liked;
 
     public Job() {
     }
 
     public Job(Long id, String title, String badge, String badgeColor, String location,
-                String wage, String hours, String days, String date, boolean liked) {
+                String wage, String hours, String days, String date) {
         this.id = id;
         this.title = title;
         this.badge = badge;
@@ -27,7 +26,6 @@ public class Job {
         this.hours = hours;
         this.days = days;
         this.date = date;
-        this.liked = liked;
     }
 
     public Long getId() {
@@ -100,13 +98,5 @@ public class Job {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public boolean isLiked() {
-        return liked;
-    }
-
-    public void setLiked(boolean liked) {
-        this.liked = liked;
     }
 }

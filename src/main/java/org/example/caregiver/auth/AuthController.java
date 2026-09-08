@@ -15,27 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private static final String SESSION_USER_ID = "userId";
-
     private final AuthService authService;
-    private final UserRepository userRepository;
 
-    public AuthController(AuthService authService, UserRepository userRepository) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.userRepository = userRepository;
     }
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody RegisterRequest request, HttpServletRequest httpRequest) {
         User user = authService.register(request);
-        httpRequest.getSession(true).setAttribute(SESSION_USER_ID, user.getId());
+        httpRequest.getSession(true).setAttribute(AuthService.SESSION_USER_ID, user.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserResponse(user));
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@RequestBody LoginRequest request, HttpServletRequest httpRequest) {
         User user = authService.login(request);
-        httpRequest.getSession(true).setAttribute(SESSION_USER_ID, user.getId());
+        httpRequest.getSession(true).setAttribute(AuthService.SESSION_USER_ID, user.getId());
         return ResponseEntity.ok(new UserResponse(user));
     }
 
@@ -50,12 +46,7 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<UserResponse> me(HttpServletRequest httpRequest) {
-        HttpSession session = httpRequest.getSession(false);
-        Long userId = session == null ? null : (Long) session.getAttribute(SESSION_USER_ID);
-        if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        return userRepository.findById(userId)
+        return authService.currentUser(httpRequest)
                 .map(user -> ResponseEntity.ok(new UserResponse(user)))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }

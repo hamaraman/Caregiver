@@ -1,10 +1,15 @@
 package org.example.caregiver.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
+
+    public static final String SESSION_USER_ID = "userId";
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -28,7 +33,10 @@ public class AuthService {
 
     public User login(LoginRequest request) {
         String email = request.getEmail() == null ? null : request.getEmail().trim().toLowerCase();
-        User user = userRepository.findByEmail(email == null ? "" : email)
+        if (email == null || email.isEmpty() || request.getPassword() == null || request.getPassword().isEmpty()) {
+            throw new AuthException("이메일과 비밀번호를 입력해주세요.");
+        }
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new AuthException("이메일 또는 비밀번호가 올바르지 않습니다."));
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
             throw new AuthException("이메일 또는 비밀번호가 올바르지 않습니다.");
@@ -38,6 +46,15 @@ public class AuthService {
             throw new AuthException(typeLabel(user.getUserType()) + " 계정입니다. " + typeLabel(requestedType) + " 탭에서는 로그인할 수 없습니다.");
         }
         return user;
+    }
+
+    public Optional<User> currentUser(HttpServletRequest httpRequest) {
+        HttpSession session = httpRequest.getSession(false);
+        Long userId = session == null ? null : (Long) session.getAttribute(SESSION_USER_ID);
+        if (userId == null) {
+            return Optional.empty();
+        }
+        return userRepository.findById(userId);
     }
 
     private String normalizeType(String userType) {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
-import AuthModal from './AuthModal'
 import { fetchCurrentUser, logout } from '../api'
 
 const guinSubMenu = [
@@ -71,7 +70,6 @@ export default function Header() {
   const [active, setActive] = useState('구인')
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [user, setUser] = useState(null)
-  const [authMode, setAuthMode] = useState(null)
 
   useEffect(() => {
     let cancelled = false
@@ -87,11 +85,6 @@ export default function Header() {
       clearInterval(intervalId)
     }
   }, [])
-
-  const handleAuthSuccess = (loggedInUser) => {
-    setUser(loggedInUser)
-    setAuthMode(null)
-  }
 
   const handleLogout = async () => {
     await logout().catch(() => {})
@@ -171,19 +164,11 @@ export default function Header() {
           ) : (
             <>
               <button className="btn-login" onClick={() => { window.location.href = 'http://localhost:5173/' }}>로그인</button>
-              <button className="btn-signup" onClick={() => setAuthMode('register')}>회원가입</button>
+              <button className="btn-signup" onClick={() => { window.location.href = 'http://localhost:5173/?page=signup' }}>회원가입</button>
             </>
           )}
         </div>
       </div>
-
-      {authMode && (
-        <AuthModal
-          mode={authMode}
-          onClose={() => setAuthMode(null)}
-          onSuccess={handleAuthSuccess}
-        />
-      )}
     </header>
   )
 }

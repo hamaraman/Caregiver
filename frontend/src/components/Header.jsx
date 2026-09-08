@@ -83,7 +83,7 @@ export default function Header() {
     let cancelled = false
     const checkUser = () => {
       fetchCurrentUser()
-        .then((u) => { if (!cancelled) setUser(u.userType === 'business' ? u : null) })
+        .then((u) => { if (!cancelled) setUser(u) })
         .catch(() => { if (!cancelled) setUser(null) })
     }
     checkUser()

@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import { talents } from '../data/talents'
 import { jobs } from '../data/jobs'
 import { myJobIds } from '../data/applicants'
+import { useAuth } from '../hooks/useAuth'
 import './TalentListPage.css'
 
 const myJobs = jobs.filter(j => myJobIds.includes(j.id))
@@ -57,6 +58,7 @@ const expOptions = ['전체','신입','1년 이상','3년 이상','5년 이상',
 function makeKey(do_, si) { return si ? `${do_} ${si}` : do_ }
 
 export default function TalentListPage() {
+  const { user } = useAuth()
   const [selectedRegions, setSelectedRegions] = useState([])
   const [panelOpen, setPanelOpen] = useState(false)
   const [panelDo, setPanelDo] = useState('')
@@ -232,7 +234,7 @@ export default function TalentListPage() {
           </div>
 
           {/* 맞춤 인재 추천 섹션 */}
-          {recommendedTalents.length > 0 && (
+          {recommendedTalents.length > 0 && user?.userType === 'business' && (
             <div className="tl-recommend-section">
               <div className="tl-recommend-header">
                 <div className="tl-recommend-title">

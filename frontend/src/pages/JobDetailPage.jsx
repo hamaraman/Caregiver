@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { jobs } from '../data/jobs'
 import Header from '../components/Header'
+import { useAuth } from '../hooks/useAuth'
 import './JobDetailPage.css'
 
 export default function JobDetailPage() {
@@ -9,6 +10,7 @@ export default function JobDetailPage() {
   const navigate = useNavigate()
   const job = jobs.find(j => j.id === Number(id))
   const [liked, setLiked] = useState(false)
+  const { user } = useAuth()
 
   if (!job) {
     return (
@@ -70,8 +72,13 @@ export default function JobDetailPage() {
             </div>
 
             <div className="jd-hero-actions">
-              {job.applyMethod.includes('바로지원') && (
-                <button className="jd-apply-btn">바로지원하기</button>
+              {job.applyMethod.includes('바로지원') && user?.userType !== 'business' && (
+                <button
+                  className={`jd-apply-btn${!user ? ' jd-apply-btn--guest' : ''}`}
+                  onClick={() => { if (!user) window.location.href = 'http://localhost:5173/' }}
+                >
+                  {user ? '바로지원하기' : '로그인 후 지원하기'}
+                </button>
               )}
               <button
                 className={`jd-like-btn${liked ? ' jd-like-btn--active' : ''}`}
@@ -155,9 +162,14 @@ export default function JobDetailPage() {
           </div>
 
           {/* 하단 지원 버튼 */}
-          {job.applyMethod.includes('바로지원') && (
+          {job.applyMethod.includes('바로지원') && user?.userType !== 'business' && (
             <div className="jd-bottom-actions">
-              <button className="jd-apply-btn jd-apply-btn--lg">바로지원하기</button>
+              <button
+                className={`jd-apply-btn jd-apply-btn--lg${!user ? ' jd-apply-btn--guest' : ''}`}
+                onClick={() => { if (!user) window.location.href = 'http://localhost:5173/' }}
+              >
+                {user ? '바로지원하기' : '로그인 후 지원하기'}
+              </button>
             </div>
           )}
 

@@ -469,7 +469,7 @@ export default function JobPostPage() {
                       {applyMethods.map(m => (
                         <label key={m} className={`jp-check${m === '바로지원' ? ' jp-check--direct' : ''}`}>
                           <input type="checkbox" checked={applyMethod.includes(m)} onChange={() => toggleArr(applyMethod, setApplyMethod, m)} />
-                          {m === '바로지원' ? '⚡ 바로지원 (요양나라)' : m}
+                          {m === '바로지원' ? '⚡ 바로지원 (요양이지)' : m}
                         </label>
                       ))}
                     </div>

@@ -20,12 +20,12 @@ export default function CTABanner() {
 
       <p className="cta-text">
         구인공고 등록부터 맞춤 인재 추천까지<br />
-        <strong>요양나라에서 한 번에 해결하세요!</strong>
+        <strong>요양이지에서 한 번에 해결하세요!</strong>
       </p>
 
       <div className="cta-actions">
         <Link to="/jobs/post" className="cta-btn cta-btn--primary">구인공고 등록하기</Link>
-        <button className="cta-btn cta-btn--secondary">맞춤인재추천받기</button>
+        <Link to="/talents" className="cta-btn cta-btn--secondary" style={{ textDecoration: 'none' }}>맞춤인재추천받기</Link>
       </div>
 
       <div className="cta-person-icon">

@@ -80,7 +80,11 @@ export default function RecruitManagePage() {
                           {closed ? '마감' : '진행중'}
                         </span>
                         <span className="rm-card-title">{job.postTitle || job.title}</span>
-                        {job.badge && <span className="rm-badge">{job.badge}</span>}
+                        {job.badge && (
+                          <span className={`rm-badge rm-badge--${job.badgeColor ?? 'red'}`}>
+                            {job.badge}
+                          </span>
+                        )}
                       </div>
                       <div className="rm-card-meta">
                         <span>{job.location}</span>

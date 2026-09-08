@@ -660,3 +660,55 @@
   opacity: 0.35;
   cursor: not-allowed;
 }
+
+@media (max-width: 768px) {
+  .jl-filter-bar {
+    padding: 16px;
+  }
+
+  .jl-filter-body {
+    flex-direction: column;
+  }
+
+  .jl-filter-left {
+    padding-right: 0;
+  }
+
+  .jl-filter-right {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #f5d0e5;
+    padding-left: 0;
+    padding-top: 16px;
+  }
+
+  .jl-region-panel {
+    width: calc(100vw - 40px);
+    max-width: 360px;
+  }
+
+  .jl-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 16px;
+  }
+
+  .jl-title-cell {
+    width: 100%;
+    flex: none;
+  }
+
+  .jl-location::after { content: ' · '; color: #ccc; }
+  .jl-wage::after { content: ' · '; color: #ccc; }
+  .jl-hours::after { content: ' · '; color: #ccc; }
+
+  .jl-location,
+  .jl-wage,
+  .jl-hours,
+  .jl-days,
+  .jl-date {
+    font-size: 12px;
+    color: #666;
+  }
+}

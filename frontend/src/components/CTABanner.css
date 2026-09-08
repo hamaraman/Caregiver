@@ -75,3 +75,25 @@
   flex-shrink: 0;
   opacity: 0.85;
 }
+
+@media (max-width: 768px) {
+  .cta-banner {
+    flex-direction: column;
+    padding: 20px;
+    gap: 14px;
+  }
+
+  .cta-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .cta-btn {
+    justify-content: center;
+  }
+
+  .cta-building-icon,
+  .cta-person-icon {
+    display: none;
+  }
+}

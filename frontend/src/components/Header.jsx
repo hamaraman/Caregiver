@@ -66,9 +66,17 @@ const navItems = [
   { label: '고객센터', href: '#' },
 ]
 
+const subLinkMap = {
+  '구인 공고 등록': '/jobs/post',
+  '지원자 확인': '/applicants',
+  '채용 관리': '/manage',
+  '맞춤 인재 추천': '/talents',
+}
+
 export default function Header() {
   const [active, setActive] = useState('구인')
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -91,10 +99,12 @@ export default function Header() {
     setUser(null)
   }
 
+  const closeMobile = () => setMobileMenuOpen(false)
+
   return (
     <header className="header">
       <div className="header-inner">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={closeMobile}>
           <div className="logo-icon">
             <span className="logo-yn">YE</span>
           </div>
@@ -124,13 +134,7 @@ export default function Header() {
                 {dropdownOpen && (
                   <div className="nav-dropdown">
                     {guinSubMenu.map((sub) => {
-                      const linkMap = {
-                        '구인 공고 등록': '/jobs/post',
-                        '지원자 확인': '/applicants',
-                        '채용 관리': '/manage',
-                        '맞춤 인재 추천': '/talents',
-                      }
-                      const to = linkMap[sub.label]
+                      const to = subLinkMap[sub.label]
                       return to
                         ? <Link key={sub.label} to={to} className="nav-dropdown-item">
                             <span className="nav-dropdown-label">{sub.label}</span>
@@ -168,7 +172,74 @@ export default function Header() {
             </>
           )}
         </div>
+
+        <button
+          className="hamburger-btn"
+          onClick={() => setMobileMenuOpen((v) => !v)}
+          aria-label="메뉴"
+        >
+          {mobileMenuOpen ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" stroke="#444" strokeWidth="2.5" strokeLinecap="round"/>
+              <line x1="6" y1="6" x2="18" y2="18" stroke="#444" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <line x1="3" y1="6" x2="21" y2="6" stroke="#444" strokeWidth="2.5" strokeLinecap="round"/>
+              <line x1="3" y1="12" x2="21" y2="12" stroke="#444" strokeWidth="2.5" strokeLinecap="round"/>
+              <line x1="3" y1="18" x2="21" y2="18" stroke="#444" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+          )}
+        </button>
       </div>
+
+      {mobileMenuOpen && (
+        <div className="mobile-menu">
+          <nav className="mobile-nav">
+            {navItems.map((item) =>
+              item.hasDropdown ? (
+                <div key={item.label} className="mobile-nav-section">
+                  <span className="mobile-nav-section-label">{item.label}</span>
+                  {guinSubMenu.map((sub) => {
+                    const to = subLinkMap[sub.label]
+                    return to ? (
+                      <Link key={sub.label} to={to} className="mobile-nav-sub-item" onClick={closeMobile}>
+                        {sub.label}
+                      </Link>
+                    ) : (
+                      <a key={sub.label} href="#" className="mobile-nav-sub-item" onClick={closeMobile}>
+                        {sub.label}
+                      </a>
+                    )
+                  })}
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className="mobile-nav-item"
+                  onClick={() => { setActive(item.label); closeMobile() }}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
+          </nav>
+          <div className="mobile-menu-actions">
+            {user ? (
+              <>
+                <span className="mobile-user-greeting">{user.name || user.email}님</span>
+                <button className="mobile-btn-login" onClick={() => { handleLogout(); closeMobile() }}>로그아웃</button>
+              </>
+            ) : (
+              <>
+                <button className="mobile-btn-login" onClick={() => { window.location.href = 'http://localhost:5173/'; closeMobile() }}>로그인</button>
+                <button className="mobile-btn-signup" onClick={() => { window.location.href = 'http://localhost:5173/?page=signup'; closeMobile() }}>회원가입</button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   )
 }

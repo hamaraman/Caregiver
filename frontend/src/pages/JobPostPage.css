@@ -517,3 +517,67 @@
   border-radius: 8px;
   border: 1.5px solid #ccdaf8;
 }
+
+@media (max-width: 768px) {
+  .jp-steps {
+    padding: 12px 16px;
+    gap: 0;
+  }
+
+  .jp-step-label {
+    font-size: 11px;
+  }
+
+  .jp-step-line {
+    width: 16px;
+    margin: 0 4px;
+  }
+
+  .jp-section-body {
+    padding: 16px;
+  }
+
+  .jp-row {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    min-height: auto;
+  }
+
+  .jp-label {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .jp-input--full,
+  .jp-input--md,
+  .jp-input--wage,
+  .jp-input--date {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .jp-select--md {
+    width: 100%;
+  }
+
+  .jp-textarea {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .jp-agree-box--right {
+    margin-left: 0;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .jp-actions {
+    flex-direction: column;
+  }
+
+  .jp-btn {
+    justify-content: center;
+  }
+}

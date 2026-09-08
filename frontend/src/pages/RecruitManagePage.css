@@ -315,3 +315,46 @@
   color: #dc2626;
   font-weight: 700;
 }
+
+@media (max-width: 768px) {
+  .rm-top {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .rm-post-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rm-summary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rm-card-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .rm-card-right {
+    align-self: flex-start;
+  }
+
+  .rm-card-meta {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .rm-card-footer {
+    flex-wrap: wrap;
+    padding: 10px 16px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rm-summary-row {
+    grid-template-columns: 1fr;
+  }
+}

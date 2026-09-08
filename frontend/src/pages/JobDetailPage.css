@@ -266,3 +266,39 @@
   padding: 20px 32px;
   box-shadow: 0 2px 10px rgba(233,30,140,0.04);
 }
+
+@media (max-width: 768px) {
+  .jd-hero {
+    padding: 20px 16px;
+  }
+
+  .jd-title {
+    font-size: 18px;
+  }
+
+  .jd-key-info {
+    gap: 10px;
+  }
+
+  .jd-hero-actions {
+    flex-direction: column;
+  }
+
+  .jd-apply-btn,
+  .jd-like-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .jd-section {
+    padding: 20px 16px;
+  }
+
+  .jd-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jd-bottom-actions {
+    padding: 16px;
+  }
+}

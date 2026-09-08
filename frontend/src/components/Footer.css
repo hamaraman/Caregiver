@@ -72,3 +72,15 @@
 .footer-links a:hover {
   color: #e91e8c;
 }
+
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

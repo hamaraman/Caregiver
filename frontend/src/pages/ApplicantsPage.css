@@ -268,3 +268,49 @@
 }
 
 .ap-resume-btn:hover { background: #c8177a; }
+
+@media (max-width: 768px) {
+  .ap-job-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ap-job-tab {
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .ap-job-summary {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .ap-summary-link {
+    margin-left: 0;
+  }
+
+  .ap-card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    align-items: stretch;
+  }
+
+  .ap-card-left {
+    width: 100%;
+  }
+
+  .ap-card-mid {
+    grid-template-columns: 1fr;
+  }
+
+  .ap-card-right {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

@@ -3,6 +3,7 @@ package org.example.caregiver.auth;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,12 @@ public class AuthService {
         }
         String userType = normalizeType(request.getUserType());
         User user = new User(null, email, passwordEncoder.encode(request.getPassword()), request.getName(), userType);
-        return userRepository.save(user);
+        try {
+            return userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            // existsByEmail 체크와 save 사이의 경쟁 상태(동시 가입 요청)로 unique 제약이 걸린 경우
+            throw new AuthException("이미 가입된 이메일입니다.");
+        }
     }
 
     public User login(LoginRequest request) {

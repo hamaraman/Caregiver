@@ -24,15 +24,24 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody RegisterRequest request, HttpServletRequest httpRequest) {
         User user = authService.register(request);
-        httpRequest.getSession(true).setAttribute(AuthService.SESSION_USER_ID, user.getId());
+        establishSession(httpRequest, user.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserResponse(user));
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@RequestBody LoginRequest request, HttpServletRequest httpRequest) {
         User user = authService.login(request);
-        httpRequest.getSession(true).setAttribute(AuthService.SESSION_USER_ID, user.getId());
+        establishSession(httpRequest, user.getId());
         return ResponseEntity.ok(new UserResponse(user));
+    }
+
+    // 로그인/회원가입 시 기존 세션을 무효화하고 새 세션을 발급해 세션 고정(session fixation) 공격을 막는다.
+    private void establishSession(HttpServletRequest httpRequest, Long userId) {
+        HttpSession existing = httpRequest.getSession(false);
+        if (existing != null) {
+            existing.invalidate();
+        }
+        httpRequest.getSession(true).setAttribute(AuthService.SESSION_USER_ID, userId);
     }
 
     @PostMapping("/logout")

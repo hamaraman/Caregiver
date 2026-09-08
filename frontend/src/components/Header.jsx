@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
-import { fetchCurrentUser, logout } from '../api'
+import { logout } from '../api'
+import { useAuthContext } from '../contexts/AuthContext'
 
 const guinSubMenu = [
   {
@@ -92,22 +93,7 @@ export default function Header() {
   const [active, setActive] = useState('구인')
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    let cancelled = false
-    const checkUser = () => {
-      fetchCurrentUser()
-        .then((u) => { if (!cancelled) setUser(u) })
-        .catch(() => { if (!cancelled) setUser(null) })
-    }
-    checkUser()
-    const intervalId = setInterval(checkUser, 2000)
-    return () => {
-      cancelled = true
-      clearInterval(intervalId)
-    }
-  }, [])
+  const { user, setUser } = useAuthContext()
 
   const handleLogout = async () => {
     await logout().catch(() => {})

@@ -1,14 +1,6 @@
-import { useEffect, useState } from 'react'
-import { fetchCurrentUser } from '../api'
+import { useAuthContext } from '../contexts/AuthContext'
 
 export function useAuth() {
-  const [user, setUser] = useState(undefined) // undefined = 로딩중
-
-  useEffect(() => {
-    fetchCurrentUser()
-      .then(setUser)
-      .catch(() => setUser(null))
-  }, [])
-
+  const { user } = useAuthContext()
   return { user, loading: user === undefined }
 }

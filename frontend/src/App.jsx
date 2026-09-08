@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
 import HomePage from './pages/HomePage'
 import JobListingsPage from './pages/JobListingsPage'
 import JobPostPage from './pages/JobPostPage'
@@ -12,7 +13,7 @@ import './App.css'
 
 function App() {
   return (
-    <>
+    <AuthProvider>
     <ScrollToTop />
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -24,7 +25,7 @@ function App() {
       <Route path="/applicants" element={<ApplicantsPage />} />
       <Route path="/manage" element={<RecruitManagePage />} />
     </Routes>
-    </>
+    </AuthProvider>
   )
 }
 

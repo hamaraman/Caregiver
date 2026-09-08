@@ -14,7 +14,7 @@
 .jd-hero {
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #f0e0ee;
+  border: 1.5px solid #ddb8ce;
   padding: 28px 32px;
   margin-bottom: 16px;
   box-shadow: 0 2px 12px rgba(233,30,140,0.06);
@@ -75,7 +75,7 @@
   padding: 16px 20px;
   background: #fdf5f9;
   border-radius: 12px;
-  border: 1px solid #f5d8ec;
+  border: 1px solid #e0b8d0;
 }
 
 .jd-key-item {
@@ -154,7 +154,7 @@
 .jd-section {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #f0e0ee;
+  border: 1.5px solid #ddb8ce;
   padding: 24px 32px;
   box-shadow: 0 2px 10px rgba(233,30,140,0.04);
 }
@@ -256,7 +256,7 @@
   padding: 16px 18px;
   background: #fdf8fb;
   border-radius: 10px;
-  border: 1px solid #f0e0ee;
+  border: 1px solid #ddb8ce;
 }
 
 .jd-apply-methods {
@@ -269,7 +269,7 @@
 .jd-bottom-actions {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #f0e0ee;
+  border: 1.5px solid #ddb8ce;
   padding: 20px 32px;
   box-shadow: 0 2px 10px rgba(233,30,140,0.04);
 }

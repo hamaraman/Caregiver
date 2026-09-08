@@ -43,3 +43,9 @@ button {
   background: none;
   font-family: inherit;
 }
+
+button:active,
+a:active {
+  transform: scale(0.95);
+  transition: transform 0.08s ease;
+}

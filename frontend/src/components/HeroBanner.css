@@ -96,12 +96,22 @@
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.15s, color 0.15s, transform 0.08s;
 }
 
 .region-tab:hover {
   background: #fff;
   color: #e91e8c;
+}
+
+.region-tab:active {
+  transform: scale(0.93);
+  transition: transform 0.06s;
+}
+
+.search-btn:active {
+  transform: scale(0.9);
+  transition: transform 0.06s;
 }
 
 .region-tab--active {

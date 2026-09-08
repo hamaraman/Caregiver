@@ -146,7 +146,7 @@ export default function HomePage({ onNavigate }) {
             ) : (
               <>
                 <button className="hp-btn-login" onClick={() => onNavigate('login')}>로그인</button>
-                <button className="hp-btn-signup">회원가입</button>
+                <button className="hp-btn-signup" onClick={() => onNavigate('signup')}>회원가입</button>
               </>
             )}
           </div>

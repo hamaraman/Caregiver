@@ -3,10 +3,14 @@ import './LoginPage.css'
 import { login } from '../api'
 
 const BENEFITS = [
-  { icon: '💼', label: '일자리 찾기' },
-  { icon: '📝', label: '이력서 쓰기' },
-  { icon: '✅', label: '간편 지원' },
-  { icon: '🎉', label: '취업 성공' },
+  { label: '간편 가입',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg> },
+  { label: '일자리 탐색',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> },
+  { label: '이력서 관리',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> },
+  { label: '취업 성공',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> },
 ]
 
 export default function LoginPage({ onNavigate }) {
@@ -59,14 +63,14 @@ export default function LoginPage({ onNavigate }) {
             <span className="lp-logo-badge">YN</span>
             <div className="lp-logo-text-wrap">
               <span className="lp-logo-sub">요양보호사 구인구직 서비스 No.1</span>
-              <span className="lp-logo-name">요양나라</span>
+              <span className="lp-logo-name">요양이지</span>
             </div>
           </div>
 
           <div className="lp-hero">
             <p className="lp-tagline">사람과 사람을 이어주는 마음 따뜻한 일자리 플랫폼</p>
             <h1 className="lp-hero-title">
-              요양나라에서<br />
+              요양이지에서<br />
               새로운 시작을<br />
               만나보세요.
             </h1>
@@ -222,7 +226,7 @@ export default function LoginPage({ onNavigate }) {
           </div>
 
           <p className="lp-privacy">
-            로그인 시 요양나라의 <u>이용약관</u> 및 <u>개인정보처리방침</u>에 동의하게 됩니다.
+            로그인 시 요양이지의 <u>이용약관</u> 및 <u>개인정보처리방침</u>에 동의하게 됩니다.
           </p>
         </div>
       </div>

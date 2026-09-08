@@ -120,14 +120,14 @@ export default function SignupPage({ onNavigate }) {
             <span className="sp-logo-badge">YN</span>
             <div className="sp-logo-text">
               <span className="sp-logo-sub">요양보호사 구인구직 서비스 No.1</span>
-              <span className="sp-logo-name">요양나라</span>
+              <span className="sp-logo-name">요양이지</span>
             </div>
           </div>
 
           <div className="sp-hero">
             <p className="sp-tagline">사람과 사람을 이어주는 마음 따뜻한 일자리 플랫폼</p>
             <h1 className="sp-hero-title">
-              요양나라 회원으로<br />
+              요양이지 회원으로<br />
               새로운 시작을<br />
               만들어보세요.
             </h1>
@@ -163,7 +163,7 @@ export default function SignupPage({ onNavigate }) {
                 </svg>
               </div>
               <h2 className="sp-done-title">가입이 완료되었습니다!</h2>
-              <p className="sp-done-sub">요양나라 회원이 되신 것을 환영합니다.<br />지금 바로 서비스를 이용해보세요.</p>
+              <p className="sp-done-sub">요양이지 회원이 되신 것을 환영합니다.<br />지금 바로 서비스를 이용해보세요.</p>
               <button className="sp-done-btn" onClick={() => onNavigate('login')}>로그인 하러 가기</button>
               <button className="sp-done-home" onClick={() => onNavigate('home')}>홈으로 가기</button>
             </div>

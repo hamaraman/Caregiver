@@ -106,7 +106,7 @@ export default function Header() {
           </div>
           <div className="logo-text">
             <span className="logo-sub">요양보호사 구인구직 국내 1위</span>
-            <span className="logo-name">요양나라</span>
+            <span className="logo-name">요양이지</span>
           </div>
         </a>
 

@@ -161,7 +161,7 @@ export default function JobSeekerPage() {
             <span className="jsp-logo-badge">YN</span>
             <div className="jsp-logo-text-wrap">
               <span className="jsp-logo-sub">요양보호사 구인구직 서비스 No.1</span>
-              <span className="jsp-logo-text">요양나라</span>
+              <span className="jsp-logo-text">요양이지</span>
             </div>
           </div>
 
@@ -197,7 +197,7 @@ export default function JobSeekerPage() {
       <section className="jsp-hero">
         <div className="jsp-hero-inner">
           <div className="jsp-hero-text">
-            <p className="jsp-hero-eyebrow">요양나라와 함께라면</p>
+            <p className="jsp-hero-eyebrow">요양이지와 함께라면</p>
             <h1 className="jsp-hero-title">
               당신의 따뜻한 돌봄이<br />
               더 좋은 일자리로<br />

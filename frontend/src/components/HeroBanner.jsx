@@ -13,7 +13,7 @@ export default function HeroBanner() {
         <div className="hero-content">
           <h1 className="hero-title">
             믿을 수 있는 인재를<br />
-            <span className="hero-highlight">요양나라에서 만나보세요</span>
+            <span className="hero-highlight">요양이지에서 만나보세요</span>
           </h1>
           <p className="hero-desc">
             간편한 구인 등록으로, 빠르고 정확하게<br />

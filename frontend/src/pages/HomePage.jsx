@@ -65,7 +65,7 @@ const RECENT_LISTINGS = [
 ]
 
 const NOTICES = [
-  { type: '공지', title: '요양나라 서비스 점검 안내', date: '2026.09.05' },
+  { type: '공지', title: '요양이지 서비스 점검 안내', date: '2026.09.05' },
   { type: '공지', title: '포인트 정책 변경 안내', date: '2026.09.04' },
   { type: '안내', title: '구인공고 등록 방법 안내', date: '2026.09.03' },
   { type: '안내', title: '인재정보 이용 방법 안내', date: '2026.09.02' },
@@ -93,7 +93,7 @@ export default function HomePage({ onNavigate }) {
             </svg>
             <div className="hp-logo-text">
               <span className="hp-logo-tagline">요양보호사 구인구직 국내 1위</span>
-              <span className="hp-logo-name">요양나라</span>
+              <span className="hp-logo-name">요양이지</span>
             </div>
           </div>
 
@@ -137,7 +137,7 @@ export default function HomePage({ onNavigate }) {
         <div className="hp-hero-inner">
           <div className="hp-hero-content">
             <p className="hp-hero-sub">사람과 사람을 이어주는 따뜻한 일자리 플랫폼</p>
-            <h1 className="hp-hero-title">요양나라에 오신 것을 환영합니다.</h1>
+            <h1 className="hp-hero-title">요양이지에 오신 것을 환영합니다.</h1>
             <p className="hp-hero-desc">요양보호사, 간병인, 돌봄 일자리를 찾거나<br />인재를 등록하고 싶으신가요? 지금 바로 시작해보세요.</p>
             <div className="hp-search-wrap">
               <input
@@ -343,7 +343,7 @@ export default function HomePage({ onNavigate }) {
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#e91e8c" opacity="0.85"/>
               </svg>
             </div>
-            <p className="hp-notice-cta-text">함께 만드는 더 좋은 돌봄 사회<br /><span>요양나라가 함께합니다.</span></p>
+            <p className="hp-notice-cta-text">함께 만드는 더 좋은 돌봄 사회<br /><span>요양이지가 함께합니다.</span></p>
             <button className="hp-notice-cta-btn">이용안내 보기 →</button>
           </div>
         </div>
@@ -359,7 +359,7 @@ export default function HomePage({ onNavigate }) {
           <a href="#">FAQ</a><span>·</span>
           <a href="#">고객센터</a>
         </div>
-        <p className="hp-footer-copy">© 2026 요양나라. All rights reserved.</p>
+        <p className="hp-footer-copy">© 2026 요양이지. All rights reserved.</p>
       </footer>
 
     </div>

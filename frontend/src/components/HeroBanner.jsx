@@ -5,20 +5,21 @@ import './HeroBanner.css'
 const regions = ['전체', '서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
 
 export default function HeroBanner() {
-  const [selectedRegion, setSelectedRegion] = useState('전체')
+  const [selectedRegions, setSelectedRegions] = useState([])
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
 
-  const goToJobs = (region = selectedRegion) => {
+  const goToJobs = () => {
     const params = new URLSearchParams()
     if (query.trim()) params.set('q', query.trim())
-    if (region && region !== '전체') params.set('region', region)
+    if (selectedRegions.length > 0) params.set('region', selectedRegions.join(','))
     navigate(`/jobs${params.toString() ? '?' + params.toString() : ''}`)
   }
 
-  const handleRegionClick = (region) => {
-    setSelectedRegion(region)
-    goToJobs(region)
+  const toggleRegion = (region) => {
+    setSelectedRegions(prev =>
+      prev.includes(region) ? prev.filter(r => r !== region) : [...prev, region]
+    )
   }
 
   return (
@@ -55,13 +56,13 @@ export default function HeroBanner() {
             {regions.map((region) => (
               <button
                 key={region}
-                className={`region-tab ${selectedRegion === region ? 'region-tab--active' : ''}`}
-                onClick={() => handleRegionClick(region)}
+                className={`region-tab ${selectedRegions.includes(region) ? 'region-tab--active' : ''}`}
+                onClick={() => toggleRegion(region)}
               >
                 {region}
               </button>
             ))}
-            <button className="region-tab region-tab--more" onClick={() => navigate('/jobs')}>›</button>
+            <button className="region-tab region-tab--more" onClick={goToJobs}>›</button>
           </div>
         </div>
 

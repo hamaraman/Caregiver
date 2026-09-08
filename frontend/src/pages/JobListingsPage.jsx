@@ -44,7 +44,7 @@ export default function JobListingsPage() {
   const [searchParams] = useSearchParams()
   const [selectedRegions, setSelectedRegions] = useState(() => {
     const r = searchParams.get('region')
-    return r ? [r] : []
+    return r ? r.split(',') : []
   })
   const [panelOpen, setPanelOpen] = useState(false)
   const [panelDo, setPanelDo] = useState('')

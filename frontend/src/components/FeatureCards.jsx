@@ -78,11 +78,18 @@ export default function FeatureCards() {
             <p className="feature-desc">{f.desc}</p>
           </>
         )
-        return f.title === '구인 등록하기'
+        const linkMap = {
+          '구인 등록하기': '/jobs/post',
+          '지원자 확인': '/applicants',
+          '채용 관리': '/manage',
+          '맞춤 인재 추천': '/talents',
+        }
+        const linkTo = linkMap[f.title] ?? null
+        return linkTo
           ? (
             <Link
               key={f.title}
-              to="/jobs/post"
+              to={linkTo}
               className="feature-card"
               style={{ '--card-shadow': f.shadow, '--card-color': f.color, textDecoration: 'none' }}
             >

@@ -1,0 +1,261 @@
+.rm-page {
+  padding: 32px 0 80px;
+  min-height: calc(100vh - 64px);
+  background: #f5f7fc;
+}
+
+.rm-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.rm-title { font-size: 22px; font-weight: 800; color: #222; margin-bottom: 4px; }
+.rm-subtitle { font-size: 14px; color: #aaa; }
+
+.rm-post-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #e91e8c;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rm-post-btn:hover { background: #c8177a; }
+
+/* 요약 카드 */
+.rm-summary-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rm-summary-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 14px;
+  border: 1.5px solid #e8e0e8;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rm-summary-card--active { border-color: #f0c8e0; }
+.rm-summary-card--people { border-color: #c8d8f8; }
+
+.rm-summary-label { font-size: 13px; color: #aaa; }
+
+.rm-summary-val {
+  font-size: 24px;
+  font-weight: 800;
+  color: #222;
+}
+
+.rm-summary-val--active { color: #e91e8c; }
+.rm-summary-val--people { color: #5b8def; }
+
+.rm-summary-unit {
+  font-size: 14px;
+  font-weight: 400;
+  color: #aaa;
+  margin-left: 2px;
+}
+
+/* 공고 목록 */
+.rm-list { display: flex; flex-direction: column; gap: 12px; }
+
+.rm-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid #e2c4d8;
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+
+.rm-card:hover { box-shadow: 0 4px 16px rgba(233,30,140,0.08); }
+
+.rm-card--closed {
+  opacity: 0.7;
+  border-color: #e0e0e0;
+}
+
+.rm-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  gap: 20px;
+}
+
+.rm-card-info { flex: 1; }
+
+.rm-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.rm-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.rm-status-badge--active {
+  background: #e8f8e8;
+  color: #2a9a2a;
+  border: 1px solid #b8e8b8;
+}
+
+.rm-status-badge--closed {
+  background: #f0f0f0;
+  color: #999;
+  border: 1px solid #ddd;
+}
+
+.rm-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+}
+
+.rm-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #fff0f0;
+  color: #e04040;
+  border: 1px solid #f0c0c0;
+}
+
+.rm-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.rm-meta-dot { color: #ddd; }
+
+.rm-card-dates {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rm-date-item { font-size: 12px; color: #bbb; }
+
+/* 오른쪽 지원자 */
+.rm-card-right { flex-shrink: 0; }
+
+.rm-applicant-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1.5px solid #c2d4f8;
+  border-radius: 20px;
+  background: #f0f4ff;
+  color: #5b8def;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.rm-applicant-btn:hover {
+  background: #dce8ff;
+  border-color: #5b8def;
+}
+
+/* 푸터 버튼 줄 */
+.rm-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-top: 1px solid #f5f0f5;
+  background: #fdf9fc;
+}
+
+.rm-btn {
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid transparent;
+}
+
+.rm-btn--ghost {
+  background: #fff;
+  border-color: #e8e0e8;
+  color: #666;
+}
+
+.rm-btn--ghost:hover { border-color: #e91e8c; color: #e91e8c; }
+
+.rm-btn--close {
+  background: #fff;
+  border-color: #f0c0dc;
+  color: #e91e8c;
+}
+
+.rm-btn--close:hover { background: #fff0f7; }
+
+.rm-btn--reopen {
+  background: #e8f8e8;
+  border-color: #b8e8b8;
+  color: #2a9a2a;
+}
+
+.rm-btn--reopen:hover { background: #d0f0d0; }
+
+.rm-btn--danger {
+  background: #e04040;
+  border-color: #e04040;
+  color: #fff;
+}
+
+.rm-btn--danger:hover { background: #c03030; }
+
+.rm-btn--cancel {
+  background: #fff;
+  border-color: #ddd;
+  color: #888;
+}
+
+.rm-btn--cancel:hover { border-color: #999; color: #555; }
+
+.rm-confirm-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rm-confirm-text {
+  font-size: 13px;
+  color: #e04040;
+  font-weight: 600;
+}

@@ -130,19 +130,22 @@ export default function Header() {
 
                 {dropdownOpen && (
                   <div className="nav-dropdown">
-                    {guinSubMenu.map((sub) => (
-                      sub.label === '구인 공고 등록'
-                        ? <Link key={sub.label} to="/jobs/post" className="nav-dropdown-item">
+                    {guinSubMenu.map((sub) => {
+                      const linkMap = {
+                        '구인 공고 등록': '/jobs/post',
+                        '지원자 확인': '/applicants',
+                        '채용 관리': '/manage',
+                        '맞춤 인재 추천': '/talents',
+                      }
+                      const to = linkMap[sub.label]
+                      return to
+                        ? <Link key={sub.label} to={to} className="nav-dropdown-item">
                             <span className="nav-dropdown-label">{sub.label}</span>
                           </Link>
-                        : sub.label === '맞춤 인재 추천'
-                          ? <Link key={sub.label} to="/talents" className="nav-dropdown-item">
-                              <span className="nav-dropdown-label">{sub.label}</span>
-                            </Link>
-                          : <a key={sub.label} href="#" className="nav-dropdown-item">
-                              <span className="nav-dropdown-label">{sub.label}</span>
-                            </a>
-                    ))}
+                        : <a key={sub.label} href="#" className="nav-dropdown-item">
+                            <span className="nav-dropdown-label">{sub.label}</span>
+                          </a>
+                    })}
                   </div>
                 )}
               </div>

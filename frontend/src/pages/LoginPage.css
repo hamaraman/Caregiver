@@ -146,18 +146,18 @@
    RIGHT PANEL
 ════════════════════════════════ */
 .lp-right {
-  width: 460px;
+  width: 480px;
   flex-shrink: 0;
   background: #f4f6fb;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 24px;
+  padding: 28px 24px;
 }
 
 .lp-card {
   width: 100%;
-  max-width: 380px;
+  max-width: 400px;
   background: #fff;
   border-radius: 20px;
   padding: 36px 32px 28px;
@@ -200,21 +200,20 @@
   background: #fff;
   cursor: pointer;
   transition: all 0.18s;
+  color: #aaa;
 }
 
 .lp-type-tab:hover {
   border-color: #4A8FE7;
   background: #f0f6ff;
+  color: #4A8FE7;
 }
 
 .lp-type-tab.active {
   border-color: #4A8FE7;
   background: #EFF5FF;
   box-shadow: 0 0 0 3px rgba(74,143,231,0.12);
-}
-
-.lp-type-icon {
-  font-size: 22px;
+  color: #4A8FE7;
 }
 
 .lp-type-name {

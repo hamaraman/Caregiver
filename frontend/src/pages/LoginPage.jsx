@@ -110,7 +110,9 @@ export default function LoginPage({ onNavigate }) {
               className={`lp-type-tab ${userType === 'personal' ? 'active' : ''}`}
               onClick={() => setUserType('personal')}
             >
-              <span className="lp-type-icon">👤</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+              </svg>
               <span className="lp-type-name">개인회원</span>
               <span className="lp-type-desc">구직자·요양보호사</span>
             </button>
@@ -118,7 +120,9 @@ export default function LoginPage({ onNavigate }) {
               className={`lp-type-tab ${userType === 'business' ? 'active' : ''}`}
               onClick={() => setUserType('business')}
             >
-              <span className="lp-type-icon">🏢</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+              </svg>
               <span className="lp-type-name">사업자용</span>
               <span className="lp-type-desc">요양원·기관·업체</span>
             </button>

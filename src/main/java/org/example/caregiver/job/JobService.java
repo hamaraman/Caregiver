@@ -16,7 +16,7 @@ public class JobService {
     }
 
     public List<JobResponse> getJobs(Long viewerUserId) {
-        return jobRepository.findAll().stream()
+        return jobRepository.findAllByOrderByIdDesc().stream()
                 .map(job -> toResponse(job, viewerUserId))
                 .toList();
     }

@@ -1,8 +1,16 @@
 package org.example.caregiver.job;
 
+import jakarta.persistence.*;
+import org.example.caregiver.model.Region;
+
+@Entity
+@Table(name = "jobs")
 public class Job {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String badge;
     private String badgeColor;
@@ -12,11 +20,20 @@ public class Job {
     private String days;
     private String date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    private Region region;
+
     public Job() {
     }
 
     public Job(Long id, String title, String badge, String badgeColor, String location,
                 String wage, String hours, String days, String date) {
+        this(id, title, badge, badgeColor, location, wage, hours, days, date, null);
+    }
+
+    public Job(Long id, String title, String badge, String badgeColor, String location,
+                String wage, String hours, String days, String date, Region region) {
         this.id = id;
         this.title = title;
         this.badge = badge;
@@ -26,6 +43,7 @@ public class Job {
         this.hours = hours;
         this.days = days;
         this.date = date;
+        this.region = region;
     }
 
     public Long getId() {
@@ -98,5 +116,13 @@ public class Job {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

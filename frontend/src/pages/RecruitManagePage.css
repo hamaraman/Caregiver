@@ -101,6 +101,35 @@
   margin-left: 2px;
 }
 
+/* 필터 카드 버튼 */
+.rm-summary-card-btn {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  text-align: left;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.rm-summary-card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rm-summary-card--sel {
+  box-shadow: 0 0 0 2.5px #e91e8c !important;
+}
+
+/* 빈 목록 */
+.rm-empty {
+  text-align: center;
+  padding: 60px;
+  color: #bbb;
+  font-size: 15px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1.5px solid #ead4e4;
+}
+
 /* 공고 목록 */
 .rm-list { display: flex; flex-direction: column; gap: 14px; }
 

@@ -9,6 +9,7 @@ export default function RecruitManagePage() {
   const myJobs = jobs.filter((j) => myJobIds.includes(j.id))
   const [closedJobs, setClosedJobs] = useState([])
   const [confirmJobId, setConfirmJobId] = useState(null)
+  const [filter, setFilter] = useState('all')
 
   const isClosed = (id) => closedJobs.includes(id)
 
@@ -22,6 +23,21 @@ export default function RecruitManagePage() {
   }
 
   const countApplicants = (jobId) => applicants.filter((a) => a.jobId === jobId).length
+
+  const filteredJobs = myJobs.filter((job) => {
+    if (filter === 'active') return !isClosed(job.id)
+    if (filter === 'closed') return isClosed(job.id)
+    return true
+  })
+
+  const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
+  const totalApplicants = applicants.filter((a) => myJobIds.includes(a.jobId)).length
+
+  const filterCards = [
+    { key: 'all',    label: '전체',   val: myJobs.length,     unit: '개', mod: '',          valMod: '' },
+    { key: 'active', label: '진행중', val: activeCount,       unit: '개', mod: '--active',   valMod: '--active' },
+    { key: 'closed', label: '마감',   val: closedJobs.length, unit: '개', mod: '--closed',   valMod: '' },
+  ]
 
   return (
     <>
@@ -44,31 +60,34 @@ export default function RecruitManagePage() {
 
           {/* 요약 카드 */}
           <div className="rm-summary-row">
-            <div className="rm-summary-card">
-              <span className="rm-summary-label">총 공고</span>
-              <span className="rm-summary-val">{myJobs.length}<span className="rm-summary-unit">개</span></span>
-            </div>
-            <div className="rm-summary-card rm-summary-card--active">
-              <span className="rm-summary-label">진행중</span>
-              <span className="rm-summary-val rm-summary-val--active">
-                {myJobs.filter((j) => !isClosed(j.id)).length}<span className="rm-summary-unit">개</span>
-              </span>
-            </div>
-            <div className="rm-summary-card">
-              <span className="rm-summary-label">마감</span>
-              <span className="rm-summary-val">{closedJobs.length}<span className="rm-summary-unit">개</span></span>
-            </div>
+            {filterCards.map(({ key, label, val, unit, mod, valMod }) => (
+              <button
+                key={key}
+                className={`rm-summary-card rm-summary-card-btn${mod ? ` rm-summary-card${mod}` : ''}${filter === key ? ' rm-summary-card--sel' : ''}`}
+                onClick={() => setFilter(key)}
+              >
+                <span className="rm-summary-label">{label}</span>
+                <span className={`rm-summary-val${valMod ? ` rm-summary-val${valMod}` : ''}`}>
+                  {val}<span className="rm-summary-unit">{unit}</span>
+                </span>
+              </button>
+            ))}
             <div className="rm-summary-card rm-summary-card--people">
               <span className="rm-summary-label">총 지원자</span>
               <span className="rm-summary-val rm-summary-val--people">
-                {applicants.filter((a) => myJobIds.includes(a.jobId)).length}<span className="rm-summary-unit">명</span>
+                {totalApplicants}<span className="rm-summary-unit">명</span>
               </span>
             </div>
           </div>
 
           {/* 공고 목록 */}
           <div className="rm-list">
-            {myJobs.map((job) => {
+            {filteredJobs.length === 0 && (
+              <div className="rm-empty">
+                {filter === 'closed' ? '마감된 공고가 없습니다.' : '공고가 없습니다.'}
+              </div>
+            )}
+            {filteredJobs.map((job) => {
               const closed = isClosed(job.id)
               const appCnt = countApplicants(job.id)
               return (

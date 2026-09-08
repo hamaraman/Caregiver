@@ -77,7 +77,7 @@ export default function Header() {
     let cancelled = false
     const checkUser = () => {
       fetchCurrentUser()
-        .then((u) => { if (!cancelled) setUser(u) })
+        .then((u) => { if (!cancelled) setUser(u.userType === 'business' ? u : null) })
         .catch(() => { if (!cancelled) setUser(null) })
     }
     checkUser()
@@ -170,7 +170,7 @@ export default function Header() {
             </>
           ) : (
             <>
-              <button className="btn-login" onClick={() => setAuthMode('login')}>로그인</button>
+              <button className="btn-login" onClick={() => { window.location.href = 'http://localhost:5173/' }}>로그인</button>
               <button className="btn-signup" onClick={() => setAuthMode('register')}>회원가입</button>
             </>
           )}

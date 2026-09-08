@@ -16,6 +16,12 @@
 ### 인재 정보
 ![인재 정보](docs/screenshots/talents.png)
 
+### 지원자 확인
+![지원자 확인](docs/screenshots/applicants.png)
+
+### 채용 관리
+![채용 관리](docs/screenshots/manage.png)
+
 ## 기술 스택
 
 - React + Vite

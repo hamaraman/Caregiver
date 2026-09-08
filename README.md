@@ -23,6 +23,39 @@
 
 ---
 
+## 화면 구성
+
+### 홈
+![홈](docs/screenshots/home.png)
+
+### 구인공고 목록
+![구인공고 목록](docs/screenshots/jobs.png)
+
+### 구인공고 상세
+![구인공고 상세](docs/screenshots/job-detail.png)
+
+### 구인공고 등록
+![구인공고 등록](docs/screenshots/job-post.png)
+
+### 인재 정보
+![인재 정보](docs/screenshots/talents.png)
+
+### 인재 상세
+![인재 상세](docs/screenshots/talent-detail.png)
+
+### 지원자 확인
+![지원자 확인](docs/screenshots/applicants.png)
+
+### 채용 관리
+![채용 관리](docs/screenshots/manage.png)
+
+### 모바일
+| 홈 | 공고 목록 |
+|---|---|
+| ![모바일 홈](docs/screenshots/mobile-home.png) | ![모바일 공고 목록](docs/screenshots/mobile-jobs.png) |
+
+---
+
 ## 기술 스택
 
 | 구분 | 기술 |

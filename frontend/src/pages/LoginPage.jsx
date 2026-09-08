@@ -214,7 +214,7 @@ export default function LoginPage({ onNavigate }) {
 
           <div className="lp-signup">
             <span>아직 계정이 없으신가요?</span>
-            <button className="lp-signup-btn">회원가입 하기 →</button>
+            <button className="lp-signup-btn" onClick={() => onNavigate('signup')}>회원가입 하기 →</button>
           </div>
 
           <p className="lp-privacy">

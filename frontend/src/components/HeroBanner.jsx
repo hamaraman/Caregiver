@@ -56,8 +56,8 @@ export default function HeroBanner() {
             {regions.map((region) => (
               <button
                 key={region}
-                className={`region-tab ${selectedRegions.includes(region) ? 'region-tab--active' : ''}`}
-                onClick={() => toggleRegion(region)}
+                className={`region-tab ${region === '전체' ? (selectedRegions.length === 0 ? 'region-tab--active' : '') : (selectedRegions.includes(region) ? 'region-tab--active' : '')}`}
+                onClick={() => region === '전체' ? setSelectedRegions([]) : toggleRegion(region)}
               >
                 {region}
               </button>

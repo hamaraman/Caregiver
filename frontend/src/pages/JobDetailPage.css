@@ -54,10 +54,10 @@
   border-radius: 20px;
 }
 
-.jd-badge--urgent   { background: #fff0f0; color: #e03030; border: 1px solid #f5c0c0; }
-.jd-badge--recommend { background: #f5f0ff; color: #7b4fcf; border: 1px solid #d5c0f5; }
-.jd-badge--type     { background: #fff0f7; color: #e91e8c; border: 1px solid #f5c0e0; }
-.jd-badge--work     { background: #f0f5ff; color: #5b8def; border: 1px solid #c0d5f8; }
+.jd-badge--urgent   { background: #fde0e0; color: #e03030; border: 1px solid #f0a0a0; }
+.jd-badge--recommend { background: #ede0ff; color: #7b4fcf; border: 1px solid #c5a0f0; }
+.jd-badge--type     { background: #fde0f0; color: #e91e8c; border: 1px solid #f0a0d0; }
+.jd-badge--work     { background: #ddeaff; color: #5b8def; border: 1px solid #a0c0f5; }
 
 .jd-title {
   font-size: 22px;
@@ -228,22 +228,22 @@
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 20px;
-  background: #f5f0f8;
-  color: #666;
-  border: 1px solid #e8e0ee;
+  background: #ecddf5;
+  color: #555;
+  border: 1px solid #d8c0e8;
   font-weight: 500;
 }
 
 .jd-tag--work {
-  background: #f0f5ff;
+  background: #ddeaff;
   color: #5b8def;
-  border-color: #c8d8f8;
+  border-color: #a0c0f5;
 }
 
 .jd-tag--direct {
-  background: #fff0f7;
+  background: #fde0f0;
   color: #e91e8c;
-  border-color: #f5c0e0;
+  border-color: #f0a0d0;
   font-weight: 700;
 }
 

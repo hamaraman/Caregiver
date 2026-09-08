@@ -21,7 +21,8 @@ public class AuthService {
         if (userRepository.existsByEmail(email)) {
             throw new AuthException("이미 가입된 이메일입니다.");
         }
-        User user = new User(null, email, passwordEncoder.encode(request.getPassword()), request.getName());
+        String userType = normalizeType(request.getUserType());
+        User user = new User(null, email, passwordEncoder.encode(request.getPassword()), request.getName(), userType);
         return userRepository.save(user);
     }
 
@@ -32,6 +33,18 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
             throw new AuthException("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
+        String requestedType = normalizeType(request.getUserType());
+        if (!requestedType.equals(user.getUserType())) {
+            throw new AuthException(typeLabel(user.getUserType()) + " 계정입니다. " + typeLabel(requestedType) + " 탭에서는 로그인할 수 없습니다.");
+        }
         return user;
+    }
+
+    private String normalizeType(String userType) {
+        return "business".equals(userType) ? "business" : "personal";
+    }
+
+    private String typeLabel(String userType) {
+        return "business".equals(userType) ? "사업자용" : "개인회원";
     }
 }

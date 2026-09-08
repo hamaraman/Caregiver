@@ -6,12 +6,14 @@ public class User {
     private String email;
     private String passwordHash;
     private String name;
+    private String userType;
 
-    public User(Long id, String email, String passwordHash, String name) {
+    public User(Long id, String email, String passwordHash, String name, String userType) {
         this.id = id;
         this.email = email;
         this.passwordHash = passwordHash;
         this.name = name;
+        this.userType = userType;
     }
 
     public Long getId() {
@@ -32,5 +34,9 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getUserType() {
+        return userType;
     }
 }

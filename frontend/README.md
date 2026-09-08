@@ -115,3 +115,5 @@ frontend/
 - React 19 + Vite 8
 - CSS (컴포넌트별 네임스페이스: `hp-` / `lp-` / `jsp-`)
 - 백엔드 부분 연동 — `AuthModal`은 API 연결, 나머지는 목업 데이터 사용 중
+
+<img width="1899" height="943" alt="image" src="https://github.com/user-attachments/assets/5b7aba9c-e6d1-46fa-93b8-ede445fa343f" />

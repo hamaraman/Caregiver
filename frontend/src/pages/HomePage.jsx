@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './HomePage.css'
+import { fetchCurrentUser, logout } from '../api'
 
 const NAV_ITEMS = [
   { label: '홈', sub: [],
@@ -78,6 +79,18 @@ export default function HomePage({ onNavigate }) {
   const [keyword, setKeyword] = useState('')
   const [regionTab, setRegionTab] = useState('전체')
   const [listingTab, setListingTab] = useState('구인공고')
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    fetchCurrentUser()
+      .then(setUser)
+      .catch(() => setUser(null))
+  }, [])
+
+  const handleLogout = async () => {
+    await logout().catch(() => {})
+    setUser(null)
+  }
 
   return (
     <div className="hp-root">
@@ -125,8 +138,17 @@ export default function HomePage({ onNavigate }) {
                 <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
               </svg>
             </button>
-            <button className="hp-btn-login" onClick={() => onNavigate('login')}>로그인</button>
-            <button className="hp-btn-signup">회원가입</button>
+            {user ? (
+              <>
+                <span className="hp-user-greeting">{user.name || user.email}님</span>
+                <button className="hp-btn-login" onClick={handleLogout}>로그아웃</button>
+              </>
+            ) : (
+              <>
+                <button className="hp-btn-login" onClick={() => onNavigate('login')}>로그인</button>
+                <button className="hp-btn-signup">회원가입</button>
+              </>
+            )}
           </div>
         </div>
       </nav>

@@ -182,6 +182,12 @@
 }
 .hp-btn-search:hover { background: #f0f6ff; color: #4A8FE7; }
 
+.hp-user-greeting {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
 .hp-btn-login {
   padding: 7px 16px;
   border: 1.5px solid #e0e6ef;

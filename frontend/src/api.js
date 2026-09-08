@@ -35,10 +35,10 @@ export function register({ email, password, name }) {
   })
 }
 
-export function login({ email, password }) {
+export function login({ email, password, userType }) {
   return request('/api/auth/login', {
     method: 'POST',
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, userType }),
   })
 }
 

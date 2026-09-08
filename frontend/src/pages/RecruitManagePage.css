@@ -330,7 +330,29 @@
 
   .rm-summary-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .rm-summary-card {
+    padding: 12px 10px;
+    gap: 4px;
+  }
+
+  .rm-summary-icon {
+    display: none;
+  }
+
+  .rm-summary-label {
+    font-size: 10px;
+  }
+
+  .rm-summary-val {
+    font-size: 20px;
+  }
+
+  .rm-summary-unit {
+    font-size: 12px;
   }
 
   .rm-card-top {
@@ -350,11 +372,5 @@
   .rm-card-footer {
     flex-wrap: wrap;
     padding: 10px 16px 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .rm-summary-row {
-    grid-template-columns: 1fr;
   }
 }

@@ -1,36 +1,11 @@
 package org.example.caregiver.auth;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    private final Map<String, User> usersByEmail = new ConcurrentHashMap<>();
-    private final AtomicLong sequence = new AtomicLong();
+    Optional<User> findByEmail(String email);
 
-    public Optional<User> findByEmail(String email) {
-        return Optional.ofNullable(usersByEmail.get(email));
-    }
-
-    public Optional<User> findById(Long id) {
-        return usersByEmail.values().stream()
-                .filter(user -> user.getId().equals(id))
-                .findFirst();
-    }
-
-    public boolean existsByEmail(String email) {
-        return usersByEmail.containsKey(email);
-    }
-
-    public User save(User user) {
-        if (user.getId() == null) {
-            user.setId(sequence.incrementAndGet());
-        }
-        usersByEmail.put(user.getEmail(), user);
-        return user;
-    }
+    boolean existsByEmail(String email);
 }

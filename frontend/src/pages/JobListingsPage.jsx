@@ -62,6 +62,7 @@ export default function JobListingsPage() {
   const [likedJobs, setLikedJobs] = useState({})
   const navigate = useNavigate()
   const [filterOpen, setFilterOpen] = useState(false)
+  const [viewMode, setViewMode] = useState('list')
   const panelRef = useRef(null)
 
   // 패널 외부 클릭 시 닫기
@@ -439,9 +440,22 @@ export default function JobListingsPage() {
             </div>}  {/* jl-filter-body */}
           </div>    {/* jl-filter-bar */}
 
-          {/* 결과 수 */}
-          <div className="jl-result-count">
-            총 <strong>{sorted.length}</strong>개의 공고
+          {/* 결과 수 + 뷰 전환 */}
+          <div className="jl-result-bar">
+            <div className="jl-result-count">총 <strong>{sorted.length}</strong>개의 공고</div>
+            <div className="jl-view-toggle">
+              <button className={`jl-view-btn ${viewMode === 'list' ? 'jl-view-btn--active' : ''}`} onClick={() => setViewMode('list')} title="리스트">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+              </button>
+              <button className={`jl-view-btn ${viewMode === 'card' ? 'jl-view-btn--active' : ''}`} onClick={() => setViewMode('card')} title="카드">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/>
+                  <rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* 내가 쓴 공고 */}
@@ -471,36 +485,52 @@ export default function JobListingsPage() {
           )}
 
           {/* 목록 */}
-          <div className="jl-table">
-            {paginated.length === 0 ? (
-              <div className="jl-empty">조건에 맞는 공고가 없습니다.</div>
-            ) : paginated.map((job) => (
-              <div className="jl-row" key={job.id} onClick={e => { if (!e.target.closest('.job-like')) navigate(`/jobs/${job.id}`) }} style={{cursor:'pointer'}}>
-                <div className="jl-title-cell">
-                  <Link to={`/jobs/${job.id}`} className="jl-job-title">{job.title}</Link>
-                  {job.badge && (
-                    <span className={`job-badge job-badge--${job.badgeColor}`}>{job.badge}</span>
-                  )}
+          {viewMode === 'list' ? (
+            <div className="jl-table">
+              {paginated.length === 0 ? (
+                <div className="jl-empty">조건에 맞는 공고가 없습니다.</div>
+              ) : paginated.map((job) => (
+                <div className="jl-row" key={job.id} onClick={e => { if (!e.target.closest('.job-like')) navigate(`/jobs/${job.id}`) }} style={{cursor:'pointer'}}>
+                  <div className="jl-title-cell">
+                    <Link to={`/jobs/${job.id}`} className="jl-job-title">{job.title}</Link>
+                    {job.badge && <span className={`job-badge job-badge--${job.badgeColor}`}>{job.badge}</span>}
+                  </div>
+                  <div className="jl-location">{job.location}</div>
+                  <div className="jl-wage">{job.wage}</div>
+                  <div className="jl-hours">{job.hours}</div>
+                  <div className="jl-days">{job.days}</div>
+                  <div className="jl-date">{job.date}</div>
+                  <button className={`job-like ${likedJobs[job.id] ? 'job-like--active' : ''}`} onClick={() => toggleLike(job.id)}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#e91e8c' : 'none'} stroke={likedJobs[job.id] ? '#e91e8c' : '#ccc'} strokeWidth="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  </button>
                 </div>
-                <div className="jl-location">{job.location}</div>
-                <div className="jl-wage">{job.wage}</div>
-                <div className="jl-hours">{job.hours}</div>
-                <div className="jl-days">{job.days}</div>
-                <div className="jl-date">{job.date}</div>
-                <button
-                  className={`job-like ${likedJobs[job.id] ? 'job-like--active' : ''}`}
-                  onClick={() => toggleLike(job.id)}
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24"
-                    fill={likedJobs[job.id] ? '#e91e8c' : 'none'}
-                    stroke={likedJobs[job.id] ? '#e91e8c' : '#ccc'}
-                    strokeWidth="2">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                  </svg>
-                </button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="jl-card-grid">
+              {paginated.length === 0 ? (
+                <div className="jl-empty">조건에 맞는 공고가 없습니다.</div>
+              ) : paginated.map((job) => (
+                <Link to={`/jobs/${job.id}`} key={job.id} className="jl-card">
+                  <div className="jl-card-top">
+                    <span className="jl-card-title">{job.title}</span>
+                    {job.badge && <span className={`job-badge job-badge--${job.badgeColor}`}>{job.badge}</span>}
+                    <button className="jl-card-like" onClick={e => { e.preventDefault(); toggleLike(job.id) }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#e91e8c' : 'none'} stroke={likedJobs[job.id] ? '#e91e8c' : '#ccc'} strokeWidth="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="jl-card-location">{job.location}</div>
+                  <div className="jl-card-wage">{job.wage}</div>
+                  <div className="jl-card-meta">{job.hours} · {job.days}</div>
+                  <div className="jl-card-date">{job.date}</div>
+                </Link>
+              ))}
+            </div>
+          )}
 
           {/* 페이지네이션 */}
           {totalPages > 1 && (

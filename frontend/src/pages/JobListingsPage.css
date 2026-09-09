@@ -716,17 +716,113 @@
 }
 
 /* 결과 수 */
+.jl-result-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
 .jl-result-count {
   font-size: 13px;
   color: #888;
-  margin-bottom: 10px;
-  padding-left: 2px;
 }
 
 .jl-result-count strong {
   color: #e91e8c;
   font-weight: 700;
 }
+
+.jl-view-toggle {
+  display: flex;
+  gap: 4px;
+}
+
+.jl-view-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e0e0e0;
+  border-radius: 7px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #bbb;
+  transition: all 0.15s;
+}
+
+.jl-view-btn:hover { border-color: #e91e8c; color: #e91e8c; }
+
+.jl-view-btn--active {
+  border-color: #e91e8c;
+  color: #e91e8c;
+  background: #fff0f7;
+}
+
+/* 카드 그리드 */
+.jl-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.jl-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.jl-card:hover {
+  border-color: #e91e8c;
+  box-shadow: 0 6px 20px rgba(233,30,140,0.12);
+  transform: translateY(-2px);
+}
+
+.jl-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding-right: 24px;
+}
+
+.jl-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  flex: 1;
+  line-height: 1.4;
+  transition: color 0.15s;
+}
+
+.jl-card:hover .jl-card-title { color: #e91e8c; }
+
+.jl-card-like {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+}
+
+.jl-card-location { font-size: 13px; color: #444; }
+.jl-card-wage     { font-size: 14px; font-weight: 700; color: #e91e8c; }
+.jl-card-meta     { font-size: 13px; color: #555; }
+.jl-card-date     { font-size: 12px; color: #999; margin-top: 4px; }
 
 /* 테이블 */
 .jl-table {
@@ -741,8 +837,8 @@
   display: grid;
   grid-template-columns: 2fr 1.2fr 1.4fr 1.2fr 0.7fr 0.6fr 40px;
   align-items: center;
-  padding: 16px 24px;
-  border-bottom: 1px solid #f5f5f5;
+  padding: 15px 24px;
+  border-bottom: none;
   border-left: 3px solid transparent;
   gap: 12px;
   cursor: pointer;
@@ -754,7 +850,7 @@
 }
 
 .jl-row:hover {
-  background: linear-gradient(90deg, #fff0f7 0%, #fff 60%);
+  background: linear-gradient(90deg, #fdf5fa 0%, #fff 70%);
   border-left-color: #e91e8c;
 }
 
@@ -769,18 +865,18 @@
 }
 
 .jl-job-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  color: #222;
+  color: #444;
   text-decoration: none;
   transition: color 0.15s;
 }
 
-.jl-location { font-size: 13px; color: #555; }
-.jl-wage     { font-size: 13px; font-weight: 600; color: #333; }
+.jl-location { font-size: 13px; color: #444; }
+.jl-wage     { font-size: 13px; font-weight: 700; color: #e91e8c; }
 .jl-hours    { font-size: 13px; color: #555; }
 .jl-days     { font-size: 13px; color: #555; }
-.jl-date     { font-size: 12px; color: #aaa; text-align: center; }
+.jl-date     { font-size: 12px; color: #999; text-align: center; }
 
 .jl-empty {
   padding: 60px;
@@ -831,6 +927,10 @@
 @media (max-width: 768px) {
   .jl-filter-bar {
     padding: 14px 16px;
+  }
+
+  .jl-card-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
 

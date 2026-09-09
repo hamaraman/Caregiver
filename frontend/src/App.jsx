@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import HomePage from './pages/HomePage'
 import JobSeekerPage from './pages/JobSeekerPage'
+import JobRegisterPage from './pages/JobRegisterPage'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/jobseeker" element={<JobSeekerPage />} />
+      <Route path="/job-register" element={<JobRegisterPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

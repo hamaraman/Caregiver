@@ -8,6 +8,7 @@ export default function JspHero() {
 
   return (
     <section className="jsp-hero">
+      <img src="/caregiver-hero.png" className="jsp-hero-photo" alt="" aria-hidden="true" />
       <div className="jsp-hero-inner">
         <div className="jsp-hero-text">
           <p className="jsp-hero-eyebrow">당신의 새로운 시작을 응원합니다.</p>
@@ -57,14 +58,6 @@ export default function JspHero() {
           </div>
         </div>
 
-        <div className="jsp-hero-image">
-          <div className="jsp-hero-arch">
-            <span className="jsp-hero-emoji">👩‍⚕️</span>
-            <div className="jsp-hero-bubble">
-              좋은 일자리가<br />기다리고 있어요! ♥
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )

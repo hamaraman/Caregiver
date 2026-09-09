@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import './HomePage.css'
-import { fetchCurrentUser, logout } from '../api'
 import HomeNav from './home/HomeNav'
 import HomeHero from './home/HomeHero'
 import HomeTodayStats from './home/HomeTodayStats'
@@ -8,22 +6,9 @@ import HomeQuickMenu from './home/HomeQuickMenu'
 import HomeContentGrid from './home/HomeContentGrid'
 
 export default function HomePage() {
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    fetchCurrentUser()
-      .then(setUser)
-      .catch(() => setUser(null))
-  }, [])
-
-  const handleLogout = async () => {
-    await logout().catch(() => {})
-    setUser(null)
-  }
-
   return (
     <div className="hp-root">
-      <HomeNav user={user} onLogout={handleLogout} />
+      <HomeNav />
       <HomeHero />
       <HomeTodayStats />
       <HomeQuickMenu />

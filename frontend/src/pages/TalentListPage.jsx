@@ -69,6 +69,7 @@ export default function TalentListPage() {
   const [sort, setSort] = useState('최신순')
   const [filterOpen, setFilterOpen] = useState(false)
   const [page, setPage] = useState(1)
+  const [viewMode, setViewMode] = useState('list')
   const panelRef = useRef(null)
 
   useEffect(() => {
@@ -322,48 +323,97 @@ export default function TalentListPage() {
           {/* 결과 바 */}
           <div className="tl-result-bar">
             <span className="tl-result-count">총 <strong>{filtered.length}</strong>명</span>
-            <div className="tl-sort-group">
-              {['최신순','경력순'].map(s => (
-                <button key={s} className={`tl-sort-btn${sort === s ? ' tl-sort-btn--active' : ''}`} onClick={() => setSort(s)}>{s}</button>
-              ))}
+            <div className="tl-result-bar-right">
+              <div className="tl-sort-group">
+                {['최신순','경력순'].map(s => (
+                  <button key={s} className={`tl-sort-btn${sort === s ? ' tl-sort-btn--active' : ''}`} onClick={() => setSort(s)}>{s}</button>
+                ))}
+              </div>
+              <div className="tl-view-toggle">
+                <button className={`tl-view-btn ${viewMode === 'list' ? 'tl-view-btn--active' : ''}`} onClick={() => setViewMode('list')} title="리스트">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                  </svg>
+                </button>
+                <button className={`tl-view-btn ${viewMode === 'card' ? 'tl-view-btn--active' : ''}`} onClick={() => setViewMode('card')} title="카드">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/>
+                    <rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* 카드 목록 */}
-          <div className="tl-list">
-            {paginated.length === 0
-              ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
-              : paginated.map(t => (
-                <Link to={`/talents/${t.id}`} className="tl-card" key={t.id}>
-                  <div className="tl-avatar">
-                    {t.gender === '여'
-                      ? <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                      : <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5b8def" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                    }
-                  </div>
-                  <div className="tl-card-body">
-                    <div className="tl-card-name">
-                      {t.name}
-                      <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
-                      <span className="tl-age">{t.age}세</span>
-                      <span className="tl-status-badge">구직중</span>
+          {/* 목록 */}
+          {viewMode === 'list' ? (
+            <div className="tl-list">
+              {paginated.length === 0
+                ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
+                : paginated.map(t => (
+                  <Link to={`/talents/${t.id}`} className="tl-card" key={t.id}>
+                    <div className="tl-avatar">
+                      {t.gender === '여'
+                        ? <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                        : <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5b8def" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                      }
                     </div>
-                    <div className="tl-card-meta">
-                      <span>{t.jobType}</span>
-                      <span className="tl-meta-sep">|</span>
-                      <span>{t.experience}</span>
-                      <span className="tl-meta-sep">|</span>
-                      <span>{t.wishRegion}</span>
-                      <span className="tl-meta-sep">|</span>
-                      <span>{t.workType}</span>
-                      <span className="tl-meta-sep">|</span>
-                      <span className="tl-card-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</span>
+                    <div className="tl-card-body">
+                      <div className="tl-card-name">
+                        {t.name}
+                        <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+                        <span className="tl-age">{t.age}세</span>
+                        <span className="tl-status-badge">구직중</span>
+                      </div>
+                      <div className="tl-card-meta">
+                        <span>{t.jobType}</span>
+                        <span className="tl-meta-sep">|</span>
+                        <span>{t.experience}</span>
+                        <span className="tl-meta-sep">|</span>
+                        <span>{t.wishRegion}</span>
+                        <span className="tl-meta-sep">|</span>
+                        <span>{t.workType}</span>
+                        <span className="tl-meta-sep">|</span>
+                        <span className="tl-card-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))
-            }
-          </div>
+                  </Link>
+                ))
+              }
+            </div>
+          ) : (
+            <div className="tl-grid">
+              {paginated.length === 0
+                ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
+                : paginated.map(t => (
+                  <Link to={`/talents/${t.id}`} className="tl-grid-card" key={t.id}>
+                    <div className="tl-grid-card-top">
+                      <div className={`tl-grid-avatar tl-grid-avatar--${t.gender === '여' ? 'f' : 'm'}`}>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8">
+                          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="tl-grid-name">
+                          {t.name}
+                          <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+                          <span className="tl-age">{t.age}세</span>
+                        </div>
+                        <span className="tl-status-badge">구직중</span>
+                      </div>
+                    </div>
+                    <div className="tl-grid-info">
+                      <div className="tl-grid-row"><span className="tl-grid-label">직종</span><span>{t.jobType}</span></div>
+                      <div className="tl-grid-row"><span className="tl-grid-label">경력</span><span>{t.experience}</span></div>
+                      <div className="tl-grid-row"><span className="tl-grid-label">지역</span><span>{t.wishRegion}</span></div>
+                      <div className="tl-grid-row"><span className="tl-grid-label">형태</span><span>{t.workType}</span></div>
+                    </div>
+                    <div className="tl-grid-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</div>
+                  </Link>
+                ))
+              }
+            </div>
+          )}
 
           {/* 페이지네이션 */}
           {totalPages > 1 && (

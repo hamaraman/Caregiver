@@ -62,7 +62,7 @@ export default function JobListingsPage() {
   const [likedJobs, setLikedJobs] = useState({})
   const navigate = useNavigate()
   const [filterOpen, setFilterOpen] = useState(false)
-  const [viewMode, setViewMode] = useState('list')
+  const [viewMode, setViewMode] = useState(() => localStorage.getItem('jl-viewMode') || 'list')
   const panelRef = useRef(null)
 
   // 패널 외부 클릭 시 닫기
@@ -444,12 +444,12 @@ export default function JobListingsPage() {
           <div className="jl-result-bar">
             <div className="jl-result-count">총 <strong>{sorted.length}</strong>개의 공고</div>
             <div className="jl-view-toggle">
-              <button className={`jl-view-btn ${viewMode === 'list' ? 'jl-view-btn--active' : ''}`} onClick={() => setViewMode('list')} title="리스트">
+              <button className={`jl-view-btn ${viewMode === 'list' ? 'jl-view-btn--active' : ''}`} onClick={() => { setViewMode('list'); localStorage.setItem('jl-viewMode', 'list') }} title="리스트">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
                 </svg>
               </button>
-              <button className={`jl-view-btn ${viewMode === 'card' ? 'jl-view-btn--active' : ''}`} onClick={() => setViewMode('card')} title="카드">
+              <button className={`jl-view-btn ${viewMode === 'card' ? 'jl-view-btn--active' : ''}`} onClick={() => { setViewMode('card'); localStorage.setItem('jl-viewMode', 'card') }} title="카드">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/>
                   <rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>

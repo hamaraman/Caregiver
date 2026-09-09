@@ -69,7 +69,7 @@ export default function TalentListPage() {
   const [sort, setSort] = useState('최신순')
   const [filterOpen, setFilterOpen] = useState(false)
   const [page, setPage] = useState(1)
-  const [viewMode, setViewMode] = useState('card')
+  const [viewMode, setViewMode] = useState(() => localStorage.getItem('tl-viewMode') || 'card')
   const panelRef = useRef(null)
 
   useEffect(() => {
@@ -330,12 +330,12 @@ export default function TalentListPage() {
                 ))}
               </div>
               <div className="tl-view-toggle">
-                <button className={`tl-view-btn ${viewMode === 'list' ? 'tl-view-btn--active' : ''}`} onClick={() => setViewMode('list')} title="리스트">
+                <button className={`tl-view-btn ${viewMode === 'list' ? 'tl-view-btn--active' : ''}`} onClick={() => { setViewMode('list'); localStorage.setItem('tl-viewMode', 'list') }} title="리스트">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                     <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
                   </svg>
                 </button>
-                <button className={`tl-view-btn ${viewMode === 'card' ? 'tl-view-btn--active' : ''}`} onClick={() => setViewMode('card')} title="카드">
+                <button className={`tl-view-btn ${viewMode === 'card' ? 'tl-view-btn--active' : ''}`} onClick={() => { setViewMode('card'); localStorage.setItem('tl-viewMode', 'card') }} title="카드">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                     <rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/>
                     <rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>

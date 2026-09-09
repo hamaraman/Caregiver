@@ -37,3 +37,4 @@
   - JrSidebar: 구직 등록 안내 / 일자리 찾기 배너 / 자주 묻는 질문
   - App.jsx에 `/job-register` 라우트 추가
 - impeccable 플러그인 비활성화 (`~/.claude/settings.json`)
+- 구직 페이지 이력서 등록 버튼 → `/job-register` 연결 (사이드바 + 하단 CTA 배너)

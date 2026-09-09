@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const JOB_LIST = [
   { id: 1, shift: '주간', type: '요양보호사(주간)', location: '서울 강남구', workType: '주 5일', pay: '시급 14,000원', time: '09:00~15:00', date: '09.06', liked: false },
@@ -159,7 +160,7 @@ export default function JspJobTable() {
                   </svg>
                 </div>
                 <p className="jsp-resume-box-text">이력서를 등록하고<br />더 많은 일자리를 받아보세요!</p>
-                <button className="jsp-resume-box-btn">이력서 등록하기 →</button>
+                <Link to="/job-register" className="jsp-resume-box-btn">이력서 등록하기 →</Link>
               </div>
             </div>
 
@@ -178,7 +179,7 @@ export default function JspJobTable() {
             <p className="jsp-cta-eyebrow">지금, 당신의 꿈을 응원합니다.</p>
             <h3 className="jsp-cta-title">원하는 일자리를 찾는 첫걸음, 요양이지와 함께하세요.</h3>
           </div>
-          <button className="jsp-cta-btn">이력서 등록하기 →</button>
+          <Link to="/job-register" className="jsp-cta-btn">이력서 등록하기 →</Link>
         </div>
       </section>
     </>

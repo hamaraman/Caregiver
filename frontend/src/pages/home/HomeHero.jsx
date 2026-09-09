@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
 
-export default function HomeHero({ onNavigate }) {
+export default function HomeHero() {
+  const navigate = useNavigate()
   const [keyword, setKeyword] = useState('')
   const [selectedRegion, setSelectedRegion] = useState('')
 
@@ -48,7 +50,7 @@ export default function HomeHero({ onNavigate }) {
         </div>
 
         <div className="hp-hero-cards">
-          <button className="hp-hero-card" onClick={() => onNavigate('jobseeker')}>
+          <button className="hp-hero-card" onClick={() => navigate('/jobseeker')}>
             <p className="hp-hcard-label">일자리를 찾고 계신가요?</p>
             <div className="hp-hcard-icon hp-hcard-icon--blue">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

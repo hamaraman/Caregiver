@@ -4,10 +4,10 @@ import JspHero from './jobseeker/JspHero'
 import JspFeatureCards from './jobseeker/JspFeatureCards'
 import JspJobTable from './jobseeker/JspJobTable'
 
-export default function JobSeekerPage({ onNavigate }) {
+export default function JobSeekerPage() {
   return (
     <div className="jsp-root">
-      <JspHeader onNavigate={onNavigate} />
+      <JspHeader />
       <JspHero />
       <JspFeatureCards />
       <JspJobTable />

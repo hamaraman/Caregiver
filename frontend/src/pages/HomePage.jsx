@@ -7,7 +7,7 @@ import HomeTodayStats from './home/HomeTodayStats'
 import HomeQuickMenu from './home/HomeQuickMenu'
 import HomeContentGrid from './home/HomeContentGrid'
 
-export default function HomePage({ onNavigate }) {
+export default function HomePage() {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -23,8 +23,8 @@ export default function HomePage({ onNavigate }) {
 
   return (
     <div className="hp-root">
-      <HomeNav user={user} onLogout={handleLogout} onNavigate={onNavigate} />
-      <HomeHero onNavigate={onNavigate} />
+      <HomeNav user={user} onLogout={handleLogout} />
+      <HomeHero />
       <HomeTodayStats />
       <HomeQuickMenu />
       <HomeContentGrid />

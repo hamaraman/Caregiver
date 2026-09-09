@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
-import JobSeekerPage from './pages/JobSeekerPage'
-import HomePage from './pages/HomePage'
 import SignupPage from './pages/SignupPage'
+import HomePage from './pages/HomePage'
+import JobSeekerPage from './pages/JobSeekerPage'
 
 function App() {
-  const initial = new URLSearchParams(window.location.search).get('page') || 'login'
-  const [page, setPage] = useState(initial)
-
-  if (page === 'login')     return <LoginPage onNavigate={setPage} />
-  if (page === 'signup')    return <SignupPage onNavigate={setPage} />
-  if (page === 'jobseeker') return <JobSeekerPage onNavigate={setPage} />
-  return <HomePage onNavigate={setPage} />
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/jobseeker" element={<JobSeekerPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  )
 }
 
 export default App

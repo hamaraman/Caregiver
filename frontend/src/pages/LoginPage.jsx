@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './LoginPage.css'
 import { login } from '../api'
 import AuthLeftPanel from './auth/AuthLeftPanel'
 
-export default function LoginPage({ onNavigate }) {
+export default function LoginPage() {
+  const navigate = useNavigate()
   const [userType, setUserType] = useState('personal') // 'personal' | 'business'
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
@@ -31,11 +33,7 @@ export default function LoginPage({ onNavigate }) {
     setSubmitting(true)
     try {
       await login({ email: id, password, userType })
-      if (userType === 'business') {
-        window.location.href = 'http://localhost:5174/'
-      } else {
-        onNavigate('home')
-      }
+      navigate('/')
     } catch (err) {
       setErrors({ password: err.message })
     } finally {
@@ -166,7 +164,7 @@ export default function LoginPage({ onNavigate }) {
 
           <div className="lp-signup">
             <span>아직 계정이 없으신가요?</span>
-            <button className="lp-signup-btn" onClick={() => onNavigate('signup')}>회원가입 하기 →</button>
+            <button className="lp-signup-btn" onClick={() => navigate('/signup')}>회원가입 하기 →</button>
           </div>
 
           <p className="lp-privacy">

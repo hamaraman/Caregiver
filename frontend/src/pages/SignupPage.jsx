@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './SignupPage.css'
 import { register } from '../api'
 import AuthLeftPanel from './auth/AuthLeftPanel'
 
 const STEPS = ['기본 정보', '약관 동의']
 
-export default function SignupPage({ onNavigate }) {
+export default function SignupPage() {
+  const navigate = useNavigate()
   const [step, setStep] = useState(0)
   const [userType, setUserType] = useState('personal')
 
@@ -128,8 +130,8 @@ export default function SignupPage({ onNavigate }) {
               </div>
               <h2 className="sp-done-title">가입이 완료되었습니다!</h2>
               <p className="sp-done-sub">요양이지 회원이 되신 것을 환영합니다.<br />지금 바로 서비스를 이용해보세요.</p>
-              <button className="sp-done-btn" onClick={() => onNavigate('login')}>로그인 하러 가기</button>
-              <button className="sp-done-home" onClick={() => onNavigate('home')}>홈으로 가기</button>
+              <button className="sp-done-btn" onClick={() => navigate('/login')}>로그인 하러 가기</button>
+              <button className="sp-done-home" onClick={() => navigate('/')}>홈으로 가기</button>
             </div>
           ) : (
             <>
@@ -335,7 +337,7 @@ export default function SignupPage({ onNavigate }) {
 
               <div className="sp-login-row">
                 <span>이미 계정이 있으신가요?</span>
-                <button className="sp-login-link" onClick={() => onNavigate('login')}>로그인 하기 →</button>
+                <button className="sp-login-link" onClick={() => navigate('/login')}>로그인 하기 →</button>
               </div>
             </>
           )}

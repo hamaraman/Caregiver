@@ -44,9 +44,15 @@ public class JobController {
 
     @PostMapping
     public ResponseEntity<JobResponse> createJob(@RequestBody JobCreateRequest request, HttpServletRequest httpRequest) {
-        requireBusinessUser(httpRequest);
-        JobResponse created = jobService.createJob(request);
+        User owner = requireBusinessUser(httpRequest);
+        JobResponse created = jobService.createJob(request, owner);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @GetMapping("/mine")
+    public List<JobResponse> getMyJobs(HttpServletRequest httpRequest) {
+        User owner = requireBusinessUser(httpRequest);
+        return jobService.getMyJobs(owner.getId());
     }
 
     @PostMapping("/{id}/like")

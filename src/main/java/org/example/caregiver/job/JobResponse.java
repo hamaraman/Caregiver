@@ -11,6 +11,9 @@ public class JobResponse {
     private final String hours;
     private final String days;
     private final String date;
+    private final String companyName;
+    private final String postTitle;
+    private final Long ownerId;
     private final boolean liked;
 
     public JobResponse(Job job, boolean liked) {
@@ -23,6 +26,9 @@ public class JobResponse {
         this.hours = job.getHours();
         this.days = job.getDays();
         this.date = job.getDate();
+        this.companyName = job.getCompanyName();
+        this.postTitle = job.getPostTitle();
+        this.ownerId = job.getOwner() != null ? job.getOwner().getId() : null;
         this.liked = liked;
     }
 
@@ -60,6 +66,18 @@ public class JobResponse {
 
     public String getDate() {
         return date;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
     }
 
     public boolean isLiked() {

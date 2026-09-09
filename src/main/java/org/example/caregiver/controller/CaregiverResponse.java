@@ -9,6 +9,7 @@ public class CaregiverResponse {
     private final String specialty;
     private final int experienceYears;
     private final double rating;
+    private final String phone;
     private final String regionName;
 
     public CaregiverResponse(Caregiver caregiver) {
@@ -17,6 +18,7 @@ public class CaregiverResponse {
         this.specialty = caregiver.getSpecialty();
         this.experienceYears = caregiver.getExperienceYears();
         this.rating = caregiver.getRating();
+        this.phone = caregiver.getPhone();
         this.regionName = caregiver.getRegion() != null ? caregiver.getRegion().getName() : null;
     }
 
@@ -25,5 +27,6 @@ public class CaregiverResponse {
     public String getSpecialty() { return specialty; }
     public int getExperienceYears() { return experienceYears; }
     public double getRating() { return rating; }
+    public String getPhone() { return phone; }
     public String getRegionName() { return regionName; }
 }

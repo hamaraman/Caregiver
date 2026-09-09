@@ -15,6 +15,7 @@ public class Caregiver {
     private String specialty;
     private int experienceYears;
     private double rating;
+    private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -26,11 +27,12 @@ public class Caregiver {
 
     public Caregiver() {}
 
-    public Caregiver(String name, String specialty, int experienceYears, double rating, User owner, Region region) {
+    public Caregiver(String name, String specialty, int experienceYears, double rating, String phone, User owner, Region region) {
         this.name = name;
         this.specialty = specialty;
         this.experienceYears = experienceYears;
         this.rating = rating;
+        this.phone = phone;
         this.owner = owner;
         this.region = region;
     }
@@ -45,6 +47,8 @@ public class Caregiver {
     public void setExperienceYears(int experienceYears) { this.experienceYears = experienceYears; }
     public double getRating() { return rating; }
     public void setRating(double rating) { this.rating = rating; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
     public User getOwner() { return owner; }
     public void setOwner(User owner) { this.owner = owner; }
     public Region getRegion() { return region; }

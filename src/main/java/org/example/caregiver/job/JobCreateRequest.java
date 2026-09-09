@@ -10,6 +10,8 @@ public class JobCreateRequest {
     private String hours;
     private String days;
     private String date;
+    private String companyName;
+    private String postTitle;
 
     public String getTitle() {
         return title;
@@ -73,5 +75,21 @@ public class JobCreateRequest {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
     }
 }

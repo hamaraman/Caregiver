@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface JobRepository extends JpaRepository<Job, Long> {
 
     List<Job> findAllByOrderByIdDesc();
+
+    List<Job> findByOwnerIdOrderByIdDesc(Long ownerId);
 }

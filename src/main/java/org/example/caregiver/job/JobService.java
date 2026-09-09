@@ -2,6 +2,7 @@ package org.example.caregiver.job;
 
 import java.util.List;
 import java.util.Optional;
+import org.example.caregiver.auth.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,13 +27,19 @@ public class JobService {
                 .map(job -> toResponse(job, viewerUserId));
     }
 
-    public JobResponse createJob(JobCreateRequest request) {
+    public JobResponse createJob(JobCreateRequest request, User owner) {
         validate(request);
         Job job = new Job(null, request.getTitle(), request.getBadge(), request.getBadgeColor(),
                 request.getLocation(), request.getWage(), request.getHours(),
-                request.getDays(), request.getDate());
+                request.getDays(), request.getDate(), owner, request.getCompanyName(), request.getPostTitle());
         Job saved = jobRepository.save(job);
-        return toResponse(saved, null);
+        return toResponse(saved, owner != null ? owner.getId() : null);
+    }
+
+    public List<JobResponse> getMyJobs(Long ownerId) {
+        return jobRepository.findByOwnerIdOrderByIdDesc(ownerId).stream()
+                .map(job -> toResponse(job, ownerId))
+                .toList();
     }
 
     public Optional<JobResponse> like(Long jobId, Long userId) {

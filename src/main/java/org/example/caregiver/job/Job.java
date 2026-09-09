@@ -1,6 +1,7 @@
 package org.example.caregiver.job;
 
 import jakarta.persistence.*;
+import org.example.caregiver.auth.User;
 import org.example.caregiver.model.Region;
 
 @Entity
@@ -19,6 +20,12 @@ public class Job {
     private String hours;
     private String days;
     private String date;
+    private String companyName;
+    private String postTitle;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
@@ -28,12 +35,14 @@ public class Job {
     }
 
     public Job(Long id, String title, String badge, String badgeColor, String location,
-                String wage, String hours, String days, String date) {
-        this(id, title, badge, badgeColor, location, wage, hours, days, date, null);
+                String wage, String hours, String days, String date,
+                User owner, String companyName, String postTitle) {
+        this(id, title, badge, badgeColor, location, wage, hours, days, date, owner, companyName, postTitle, null);
     }
 
     public Job(Long id, String title, String badge, String badgeColor, String location,
-                String wage, String hours, String days, String date, Region region) {
+                String wage, String hours, String days, String date,
+                User owner, String companyName, String postTitle, Region region) {
         this.id = id;
         this.title = title;
         this.badge = badge;
@@ -43,6 +52,9 @@ public class Job {
         this.hours = hours;
         this.days = days;
         this.date = date;
+        this.owner = owner;
+        this.companyName = companyName;
+        this.postTitle = postTitle;
         this.region = region;
     }
 
@@ -116,6 +128,30 @@ public class Job {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Region getRegion() {

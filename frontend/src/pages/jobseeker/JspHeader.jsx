@@ -17,7 +17,10 @@ export default function JspHeader() {
     <header className="jsp-header">
       <div className="jsp-header-inner">
         <div className="jsp-logo">
-          <span className="jsp-logo-badge">YE</span>
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+            <rect width="38" height="38" rx="10" fill="#4A8FE7"/>
+            <text x="19" y="25" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" fontFamily="sans-serif">YE</text>
+          </svg>
           <div className="jsp-logo-text-wrap">
             <span className="jsp-logo-sub">전국 요양·돌봄 일자리 플랫폼</span>
             <span className="jsp-logo-text">요양이지</span>

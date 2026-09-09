@@ -16,8 +16,11 @@ public class JobService {
         this.jobLikeRepository = jobLikeRepository;
     }
 
-    public List<JobResponse> getJobs(Long viewerUserId) {
-        return jobRepository.findAllByOrderByIdDesc().stream()
+    public List<JobResponse> getJobs(Long viewerUserId, String region) {
+        List<Job> jobs = isBlank(region)
+                ? jobRepository.findAllByOrderByIdDesc()
+                : jobRepository.findByRegion_NameStartingWithOrderByIdDesc(region.trim());
+        return jobs.stream()
                 .map(job -> toResponse(job, viewerUserId))
                 .toList();
     }

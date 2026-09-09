@@ -11,7 +11,7 @@
 - `GET /me` - 현재 로그인 사용자 조회
 
 ### 구인공고 (`/api/jobs`)
-- `GET /` - 목록 조회
+- `GET /` - 목록 조회 (`?region=서울`처럼 지역 접두어로 필터링 가능, 생략 시 전체 조회)
 - `GET /{id}` - 상세 조회
 - `POST /` - 등록 (사업자 계정만 가능, 등록자가 owner로 저장됨)
 - `GET /mine` - 내가 등록한 공고 목록 (사업자)
@@ -33,4 +33,4 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - `GET /me` - 내 이력서 조회
 
 ### 인재 정보 (`/api/caregivers`)
-- `GET /` - 목록 조회 (연락처 phone 필드 포함)
+- `GET /` - 목록 조회 (연락처 phone 필드 포함, `?region=경기`처럼 지역 접두어로 필터링 가능)

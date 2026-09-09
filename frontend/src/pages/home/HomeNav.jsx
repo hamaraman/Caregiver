@@ -25,7 +25,6 @@ export default function HomeNav({ user, onLogout }) {
           <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
             <rect width="38" height="38" rx="10" fill="#4A8FE7"/>
             <text x="19" y="25" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" fontFamily="sans-serif">YE</text>
-            <path d="M26 10c1.8 0 3 1.5 3 3s-1.2 3.5-3 5c-1.8-1.5-3-3-3-5s1.2-3 3-3z" fill="#e91e8c" opacity="0.9"/>
           </svg>
           <div className="hp-logo-text">
             <span className="hp-logo-tagline">전국 요양·돌봄 일자리 플랫폼</span>

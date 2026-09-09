@@ -4,6 +4,10 @@ import './Header.css'
 import { logout } from '../api'
 import { useAuthContext } from '../contexts/AuthContext'
 
+function authUrl(path) {
+  return `http://localhost:5173${path}?redirect=${encodeURIComponent(window.location.href)}`
+}
+
 const guinSubMenu = [
   {
     label: '구인공고 목록',
@@ -168,8 +172,8 @@ export default function Header() {
             </>
           ) : (
             <>
-              <button className="btn-login" onClick={() => { window.location.href = 'http://localhost:5173/' }}>로그인</button>
-              <button className="btn-signup" onClick={() => { window.location.href = 'http://localhost:5173/?page=signup' }}>회원가입</button>
+              <button className="btn-login" onClick={() => { window.location.href = authUrl('/login') }}>로그인</button>
+              <button className="btn-signup" onClick={() => { window.location.href = authUrl('/signup') }}>회원가입</button>
             </>
           )}
         </div>
@@ -234,8 +238,8 @@ export default function Header() {
               </>
             ) : (
               <>
-                <button className="mobile-btn-login" onClick={() => { window.location.href = 'http://localhost:5173/'; closeMobile() }}>로그인</button>
-                <button className="mobile-btn-signup" onClick={() => { window.location.href = 'http://localhost:5173/?page=signup'; closeMobile() }}>회원가입</button>
+                <button className="mobile-btn-login" onClick={() => { window.location.href = authUrl('/login'); closeMobile() }}>로그인</button>
+                <button className="mobile-btn-signup" onClick={() => { window.location.href = authUrl('/signup'); closeMobile() }}>회원가입</button>
               </>
             )}
           </div>

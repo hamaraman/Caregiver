@@ -1,6 +1,10 @@
 import { useAuth } from '../hooks/useAuth'
 import './AuthGuard.css'
 
+function authUrl(path) {
+  return `http://localhost:5173${path}?redirect=${encodeURIComponent(window.location.href)}`
+}
+
 export default function AuthGuard({ require: requiredType, children }) {
   const { user, loading } = useAuth()
 
@@ -30,13 +34,13 @@ export default function AuthGuard({ require: requiredType, children }) {
           <div className="ag-actions">
             <button
               className="ag-btn ag-btn--primary"
-              onClick={() => { window.location.href = 'http://localhost:5173/' }}
+              onClick={() => { window.location.href = authUrl('/login') }}
             >
               로그인하기
             </button>
             <button
               className="ag-btn ag-btn--secondary"
-              onClick={() => { window.location.href = 'http://localhost:5173/?page=signup' }}
+              onClick={() => { window.location.href = authUrl('/signup') }}
             >
               회원가입
             </button>
@@ -66,7 +70,7 @@ export default function AuthGuard({ require: requiredType, children }) {
           <div className="ag-actions">
             <button
               className="ag-btn ag-btn--primary"
-              onClick={() => { window.location.href = 'http://localhost:5173/' }}
+              onClick={() => { window.location.href = authUrl('/login') }}
             >
               다른 계정으로 로그인
             </button>

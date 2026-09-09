@@ -5,6 +5,10 @@ import Header from '../components/Header'
 import { useAuth } from '../hooks/useAuth'
 import './JobDetailPage.css'
 
+function authUrl(path) {
+  return `http://localhost:5173${path}?redirect=${encodeURIComponent(window.location.href)}`
+}
+
 export default function JobDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -75,7 +79,7 @@ export default function JobDetailPage() {
               {job.applyMethod.includes('바로지원') && user?.userType !== 'business' && (
                 <button
                   className={`jd-apply-btn${!user ? ' jd-apply-btn--guest' : ''}`}
-                  onClick={() => { if (!user) window.location.href = 'http://localhost:5173/' }}
+                  onClick={() => { if (!user) window.location.href = authUrl('/login') }}
                 >
                   {user ? '바로지원하기' : '로그인 후 지원하기'}
                 </button>
@@ -191,7 +195,7 @@ export default function JobDetailPage() {
             <div className="jd-bottom-actions">
               <button
                 className={`jd-apply-btn jd-apply-btn--lg${!user ? ' jd-apply-btn--guest' : ''}`}
-                onClick={() => { if (!user) window.location.href = 'http://localhost:5173/' }}
+                onClick={() => { if (!user) window.location.href = authUrl('/login') }}
               >
                 {user ? '바로지원하기' : '로그인 후 지원하기'}
               </button>

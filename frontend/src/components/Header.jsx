@@ -102,10 +102,10 @@ export default function Header() {
       <div className="header-inner">
         <a href="#" className="logo">
           <div className="logo-icon">
-            <span className="logo-yn">YN</span>
+            <span className="logo-yn">YE</span>
           </div>
           <div className="logo-text">
-            <span className="logo-sub">요양보호사 구인구직 국내 1위</span>
+            <span className="logo-sub">전국 요양·돌봄 일자리 플랫폼</span>
             <span className="logo-name">요양이지</span>
           </div>
         </a>

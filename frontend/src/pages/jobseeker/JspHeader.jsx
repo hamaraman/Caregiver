@@ -17,9 +17,9 @@ export default function JspHeader() {
     <header className="jsp-header">
       <div className="jsp-header-inner">
         <div className="jsp-logo">
-          <span className="jsp-logo-badge">YN</span>
+          <span className="jsp-logo-badge">YE</span>
           <div className="jsp-logo-text-wrap">
-            <span className="jsp-logo-sub">요양보호사 구인구직 서비스 No.1</span>
+            <span className="jsp-logo-sub">전국 요양·돌봄 일자리 플랫폼</span>
             <span className="jsp-logo-text">요양이지</span>
           </div>
         </div>

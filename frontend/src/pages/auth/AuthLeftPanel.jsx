@@ -16,9 +16,9 @@ export default function AuthLeftPanel({ title, desc }) {
     <div className="alp-left">
       <div className="alp-inner">
         <div className="alp-logo">
-          <span className="alp-logo-badge">YN</span>
+          <span className="alp-logo-badge">YE</span>
           <div className="alp-logo-text">
-            <span className="alp-logo-sub">요양보호사 구인구직 서비스 No.1</span>
+            <span className="alp-logo-sub">전국 요양·돌봄 일자리 플랫폼</span>
             <span className="alp-logo-name">요양이지</span>
           </div>
         </div>

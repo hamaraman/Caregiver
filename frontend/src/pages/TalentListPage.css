@@ -467,6 +467,18 @@
 .tl-result-count { font-size: 14px; color: #666; }
 .tl-result-count strong { color: #e91e8c; }
 
+.tl-result-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tl-col-label {
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 500;
+}
+
 .tl-result-bar-right {
   display: flex;
   align-items: center;
@@ -512,13 +524,76 @@
 
 .tl-sort-btn--active { background: #fce4f1; border-color: #e91e8c; color: #c01070; font-weight: 600; }
 
-/* 카드 목록 */
+/* 리스트 목록 */
 .tl-list {
-  background: #fff;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 24px;
+}
+
+.tl-list-header {
+  display: grid;
+  grid-template-columns: 1.4fr 1.1fr 1fr 1.2fr 1fr 1.4fr;
+  padding: 10px 20px 8px;
+  gap: 12px;
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.tl-list-header span { text-align: center; }
+.tl-list-header span:first-child { text-align: left; }
+.tl-list-header span:last-child { text-align: right; }
+
+.tl-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1.1fr 1fr 1.2fr 1fr 1.4fr;
+  align-items: center;
+  padding: 14px 20px;
+  border-radius: 10px;
+  border: 1px solid #f0d0e4;
+  background: #fff;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+
+
+.tl-row:hover {
+  border-color: #e91e8c;
+  box-shadow: 0 2px 12px rgba(233,30,140,0.08);
+}
+
+.tl-row:hover .tl-row-name-text { color: #e91e8c; }
+
+.tl-row-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tl-row-name-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  transition: color 0.15s;
+}
+
+.tl-row-cell {
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+}
+
+.tl-row-wage {
+  font-size: 13px;
+  font-weight: 700;
+  color: #e91e8c;
+  text-align: right;
 }
 
 .tl-empty { text-align: center; padding: 60px; color: #bbb; font-size: 15px; background: #fff; border-radius: 14px; }

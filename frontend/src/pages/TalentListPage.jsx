@@ -348,35 +348,29 @@ export default function TalentListPage() {
           {/* 목록 */}
           {viewMode === 'list' ? (
             <div className="tl-list">
+              <div className="tl-list-header">
+                <span>이름</span>
+                <span>직종</span>
+                <span>경력</span>
+                <span>희망지역</span>
+                <span>근무형태</span>
+                <span>희망임금</span>
+              </div>
               {paginated.length === 0
                 ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
                 : paginated.map(t => (
-                  <Link to={`/talents/${t.id}`} className="tl-card" key={t.id}>
-                    <div className="tl-avatar">
-                      {t.gender === '여'
-                        ? <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                        : <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5b8def" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                      }
+                  <Link to={`/talents/${t.id}`} className="tl-row" key={t.id}>
+                    <div className="tl-row-name">
+                      <span className="tl-row-name-text">{t.name}</span>
+                      <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+                      <span className="tl-age">{t.age}세</span>
+                      <span className="tl-status-badge">구직중</span>
                     </div>
-                    <div className="tl-card-body">
-                      <div className="tl-card-name">
-                        {t.name}
-                        <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
-                        <span className="tl-age">{t.age}세</span>
-                        <span className="tl-status-badge">구직중</span>
-                      </div>
-                      <div className="tl-card-meta">
-                        <span>{t.jobType}</span>
-                        <span className="tl-meta-sep">|</span>
-                        <span>{t.experience}</span>
-                        <span className="tl-meta-sep">|</span>
-                        <span>{t.wishRegion}</span>
-                        <span className="tl-meta-sep">|</span>
-                        <span>{t.workType}</span>
-                        <span className="tl-meta-sep">|</span>
-                        <span className="tl-card-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</span>
-                      </div>
-                    </div>
+                    <div className="tl-row-cell">{t.jobType}</div>
+                    <div className="tl-row-cell">{t.experience}</div>
+                    <div className="tl-row-cell">{t.wishRegion}</div>
+                    <div className="tl-row-cell">{t.workType}</div>
+                    <div className="tl-row-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</div>
                   </Link>
                 ))
               }

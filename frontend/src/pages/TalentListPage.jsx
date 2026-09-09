@@ -69,7 +69,7 @@ export default function TalentListPage() {
   const [sort, setSort] = useState('최신순')
   const [filterOpen, setFilterOpen] = useState(false)
   const [page, setPage] = useState(1)
-  const [viewMode, setViewMode] = useState('list')
+  const [viewMode, setViewMode] = useState('card')
   const panelRef = useRef(null)
 
   useEffect(() => {

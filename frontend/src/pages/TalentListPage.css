@@ -636,7 +636,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 

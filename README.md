@@ -18,3 +18,8 @@
 - 전 페이지 로고 배지 스타일 통일: 38×38, `border-radius: 10px`, 파란 그라디언트(`#4A8FE7→#3A7FD7`), `font-size: 13px bold` (`Header`, `Footer`, `AuthLeftPanel` 수정)
 - JspHeader 배지를 CSS span → SVG로 교체해 YE 위치를 HomeNav와 완전히 통일
 - JspHeader 로고 텍스트 스타일 맞춤: 로고명 `18px→19px`, 태그라인 `font-weight: 500` / `letter-spacing: 0.1px` / `line-height: 1` 추가, 텍스트 wrap `gap: 1px`
+- 구직 페이지 전면 리디자인 (홈 화면 연계):
+  - Hero: 제목 2줄(두 번째 줄 파란 강조), 검색버튼 원형 아이콘화, 인기지역 레이블 추가
+  - JspFeatureCards → 직종별 일자리 8종 카테고리 그리드 (요양보호사/간병인/돌봄교사 등)
+  - JspJobTable → 2컬럼 레이아웃: 추천 일자리 테이블(주간·야간·단기 배지) + 맞춤 일자리 사이드바 + 이력서 등록 CTA 박스
+  - CTA 배너: 문구·아이콘 업데이트

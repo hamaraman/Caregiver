@@ -1,38 +1,49 @@
 import { useState } from 'react'
 
-const REGIONS = ['전체', '서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
+const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
 
 export default function JspHero() {
-  const [selectedRegion, setSelectedRegion] = useState('전체')
   const [keyword, setKeyword] = useState('')
+  const [selectedRegion, setSelectedRegion] = useState('')
 
   return (
     <section className="jsp-hero">
       <div className="jsp-hero-inner">
         <div className="jsp-hero-text">
-          <p className="jsp-hero-eyebrow">요양이지와 함께라면</p>
+          <p className="jsp-hero-eyebrow">당신의 새로운 시작을 응원합니다.</p>
           <h1 className="jsp-hero-title">
-            당신의 따뜻한 돌봄이<br />
-            더 좋은 일자리로<br />
-            이어지도록
+            원하는 조건의 일자리를<br />
+            <span className="jsp-hero-accent">지금 바로 찾아보세요.</span>
           </h1>
           <p className="jsp-hero-desc">
-            간편한 구직 등록으로, 빠르고 정확하게<br />
-            원하는 일자리를 찾을 수 있습니다.
+            요양보호사, 간병인, 돌봄 일자리를 한눈에!<br />
+            지금, 당신에게 꼭 맞는 일자리를 만나보세요.
           </p>
 
           <div className="jsp-search-box">
-            <span className="jsp-search-icon">🔍</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}>
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
             <input
               className="jsp-search-input"
-              placeholder="직종, 근무형태, 지역을 검색해보세요"
+              placeholder="지역, 근무형태, 직종, 키워드로 검색해보세요"
               value={keyword}
               onChange={e => setKeyword(e.target.value)}
             />
-            <button className="jsp-search-btn">검색</button>
+            <button className="jsp-search-btn" aria-label="검색">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </button>
           </div>
 
           <div className="jsp-region-chips">
+            <span className="jsp-region-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              인기지역
+            </span>
             {REGIONS.map(r => (
               <button
                 key={r}
@@ -50,7 +61,7 @@ export default function JspHero() {
           <div className="jsp-hero-arch">
             <span className="jsp-hero-emoji">👩‍⚕️</span>
             <div className="jsp-hero-bubble">
-              좋은 일자리를<br />함께 찾아드려요! 🎉
+              좋은 일자리가<br />기다리고 있어요! ♥
             </div>
           </div>
         </div>

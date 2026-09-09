@@ -28,17 +28,17 @@ function tryParseJson(text) {
   }
 }
 
-export function register({ email, password, name }) {
+export function register({ email, password, name, userType }) {
   return request('/api/auth/register', {
     method: 'POST',
-    body: JSON.stringify({ email, password, name, userType: 'business' }),
+    body: JSON.stringify({ email, password, name, userType }),
   })
 }
 
-export function login({ email, password }) {
+export function login({ email, password, userType }) {
   return request('/api/auth/login', {
     method: 'POST',
-    body: JSON.stringify({ email, password, userType: 'business' }),
+    body: JSON.stringify({ email, password, userType }),
   })
 }
 

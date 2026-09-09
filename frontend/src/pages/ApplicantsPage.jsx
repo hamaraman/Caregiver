@@ -36,7 +36,6 @@ export default function ApplicantsPage() {
   return (
     <>
       <Header />
-      <AuthGuard require="business">
       <div className="ap-page">
         <div className="container">
           <div className="ap-top">
@@ -172,7 +171,6 @@ export default function ApplicantsPage() {
           )}
         </div>
       </div>
-      </AuthGuard>
     </>
   )
 }

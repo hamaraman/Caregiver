@@ -15,40 +15,111 @@
   border: 2px solid #f0b8d8;
   padding: 20px 24px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 10px rgba(233,30,140,0.05);
+  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.tl-search-row { margin-bottom: 16px; }
+.tl-search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 .tl-search-wrap {
-  position: relative;
-  max-width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #f9f0f5;
+  border: 1.5px solid #e8b4d0;
+  border-radius: 50px;
+  padding: 4px 4px 4px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.tl-search-wrap:focus-within {
+  background: #fff;
+  border-color: #e91e8c;
+  box-shadow: 0 4px 20px rgba(233, 30, 140, 0.15);
 }
 
 .tl-search-icon {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
+  flex-shrink: 0;
+  color: #ccc;
+  transition: color 0.2s;
 }
+
+.tl-search-wrap:focus-within .tl-search-icon { color: #e91e8c; }
 
 .tl-search-input {
-  width: 100%;
-  padding: 10px 16px 10px 40px;
-  border: 1.5px solid #e8b4d0;
-  border-radius: 10px;
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
   font-size: 14px;
   color: #333;
-  outline: none;
-  transition: border-color 0.2s;
-  box-sizing: border-box;
+  padding: 4px 8px;
 }
 
-.tl-search-input:focus { border-color: #e91e8c; }
-.tl-search-input::placeholder { color: #ccc; }
+.tl-search-input::placeholder { color: #b0a0a8; }
 
-.tl-filter-rows { display: flex; flex-direction: column; gap: 12px; }
+.tl-search-btn {
+  width: 34px;
+  height: 34px;
+  background: #e91e8c;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.tl-search-btn:hover { background: #c91677; }
+
+.tl-filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #f0b8d8;
+  background: #fff;
+  color: #e91e8c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.tl-filter-toggle:hover { background: #fce8f3; }
+
+.tl-active-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: 4px;
+}
+
+.tl-active-chip {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #fce4f1;
+  border: 1px solid #f0b8d8;
+  color: #c01070;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tl-filter-rows { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
 
 .tl-filter-row {
   display: flex;
@@ -412,7 +483,13 @@
 .tl-sort-btn--active { background: #fce4f1; border-color: #e91e8c; color: #c01070; font-weight: 600; }
 
 /* 카드 목록 */
-.tl-list { display: flex; flex-direction: column; gap: 10px; }
+.tl-list {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 24px;
+}
 
 .tl-empty { text-align: center; padding: 60px; color: #bbb; font-size: 15px; background: #fff; border-radius: 14px; }
 
@@ -420,40 +497,41 @@
   display: flex;
   align-items: center;
   background: #fff;
-  border-radius: 14px;
-  border: 1.5px solid #e8b4d0;
-  padding: 20px 24px;
+  padding: 14px 20px;
   text-decoration: none;
   color: inherit;
-  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
-  gap: 24px;
+  gap: 14px;
+  border-bottom: 1px solid #f5f5f5;
+  border-left: 3px solid transparent;
+  transition: background 0.15s, border-left-color 0.15s;
+}
+
+.tl-card:last-child {
+  border-bottom: none;
 }
 
 .tl-card:hover {
-  border-color: #e91e8c;
-  box-shadow: 0 4px 16px rgba(233,30,140,0.1);
-  transform: translateY(-1px);
+  background: linear-gradient(90deg, #fff0f7 0%, #fff 60%);
+  border-left-color: #e91e8c;
 }
 
-/* 왼쪽: 아바타 + 기본정보 */
-.tl-card-left {
+.tl-card-body {
+  flex: 1;
+  min-width: 0;
   display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-shrink: 0;
-  width: 220px;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .tl-avatar {
-  width: 50px;
-  height: 50px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: #fdf0f7;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 2px solid #f0b8d8;
 }
 
 .tl-card-name {
@@ -478,60 +556,27 @@
 
 .tl-age { font-size: 13px; color: #999; font-weight: 400; }
 
-.tl-card-location { font-size: 12px; color: #aaa; margin-bottom: 6px; }
-
-.tl-card-certs { display: flex; flex-wrap: wrap; gap: 4px; }
-
-.tl-cert-tag {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: #f5f0ff;
-  color: #7b4fcf;
-  border: 1px solid #d8c8f0;
-  font-weight: 500;
-}
-
-/* 중간: 상세정보 */
-.tl-card-mid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 20px;
-}
-
-.tl-card-row {
+.tl-card-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 4px;
   font-size: 13px;
-  color: #444;
+  color: #555;
 }
 
-.tl-card-label {
-  color: #bbb;
+.tl-meta-sep {
+  color: #ccc;
   font-size: 12px;
-  flex-shrink: 0;
-  width: 44px;
-}
-
-/* 오른쪽: 급여/날짜/상태 */
-.tl-card-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-  flex-shrink: 0;
+  line-height: 1;
 }
 
 .tl-card-wage {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: #e91e8c;
   white-space: nowrap;
 }
-
-.tl-card-date { font-size: 12px; color: #bbb; }
 
 .tl-status-badge {
   font-size: 11px;
@@ -543,7 +588,50 @@
   border: 1px solid #b8e8b8;
 }
 
+.tl-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.tl-page-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fff;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.tl-page-btn:hover:not(:disabled) {
+  border-color: #e91e8c;
+  color: #e91e8c;
+}
+
+.tl-page-btn--active {
+  background: #e91e8c;
+  border-color: #e91e8c;
+  color: #fff;
+  font-weight: 700;
+}
+
+.tl-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
+  .tl-filter-box {
+    padding: 14px 16px;
+  }
+
   .tl-recommend-list {
     grid-template-columns: repeat(2, 1fr);
     padding: 0 12px 12px;
@@ -563,26 +651,19 @@
   }
 
   .tl-card {
-    flex-direction: column;
-    gap: 12px;
-    padding: 16px;
-    align-items: stretch;
+    padding: 10px 14px;
+    gap: 10px;
   }
 
-  .tl-card-left {
-    width: 100%;
+  .tl-avatar { display: none; }
+
+  .tl-card-name {
+    font-size: 14px;
+    margin-bottom: 2px;
   }
 
-  .tl-card-mid {
-    width: 100%;
-    grid-template-columns: 1fr;
-  }
-
-  .tl-card-right {
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  .tl-card-meta {
+    font-size: 12px;
   }
 
   .tl-result-bar {

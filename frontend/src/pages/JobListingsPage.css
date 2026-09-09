@@ -35,12 +35,63 @@
   background: #fff;
   border-radius: 16px;
   border: 2px solid #f0b8d8;
-  padding: 24px 28px;
+  padding: 20px 24px;
   margin-bottom: 16px;
   box-shadow: 0 4px 16px rgba(233, 30, 140, 0.07);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
+}
+
+.jl-active-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.jl-active-chip {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #fce4f1;
+  border: 1px solid #f0b8d8;
+  color: #c01070;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.jl-search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jl-search-row .jl-search {
+  flex: 1;
+}
+
+.jl-filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #f0b8d8;
+  background: #fff;
+  color: #e91e8c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.jl-filter-toggle:hover {
+  background: #fce8f3;
 }
 
 .jl-filter-body {
@@ -122,7 +173,7 @@
   background: #f9f0f5;
   border: 1.5px solid #e8b4d0;
   border-radius: 50px;
-  padding: 6px 6px 6px 20px;
+  padding: 4px 4px 4px 16px;
   max-width: 100%;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
@@ -158,8 +209,8 @@
 }
 
 .jl-search-btn {
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   background: #e91e8c;
   border: none;
   border-radius: 50%;
@@ -779,8 +830,10 @@
 
 @media (max-width: 768px) {
   .jl-filter-bar {
-    padding: 16px;
+    padding: 14px 16px;
   }
+
+
 
   .jl-filter-body {
     flex-direction: column;
@@ -788,6 +841,7 @@
 
   .jl-filter-left {
     padding-right: 0;
+    padding-bottom: 16px;
   }
 
   .jl-filter-right {
@@ -796,6 +850,25 @@
     border-top: 1px solid #f5d0e5;
     padding-left: 0;
     padding-top: 16px;
+    flex-direction: row;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  .jl-right-section {
+    flex: 1;
+    padding: 0 14px;
+  }
+
+  .jl-right-section:first-child {
+    padding-left: 0;
+  }
+
+  .jl-right-divider {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    background: #f5d0e5;
   }
 
   .jl-region-panel {

@@ -191,6 +191,16 @@
 
 .jp-input::placeholder { color: #c0b0b8; }
 
+.jp-input--error { border-color: #e03030 !important; }
+.jp-input--error:focus { box-shadow: 0 0 0 3px rgba(224,48,48,0.12); }
+
+.jp-error-msg {
+  color: #e03030;
+  font-size: 12px;
+  margin: 2px 0 0;
+  line-height: 1.4;
+}
+
 /* 셀렉트 */
 .jp-select {
   padding: 8px 32px 8px 12px;
@@ -208,6 +218,7 @@
 .jp-select:focus { border-color: #e91e8c; }
 .jp-select:disabled { background-color: #f5f5f5; color: #aaa; cursor: not-allowed; }
 .jp-select--md { width: 200px; }
+.jp-select--mobile-only { display: none; }
 .jp-select--sm { width: 110px; }
 
 /* 그룹 */
@@ -506,7 +517,9 @@
 }
 
 .jp-chip-tip-wrap:hover::after,
-.jp-chip-tip-wrap:hover::before {
+.jp-chip-tip-wrap:hover::before,
+.jp-chip-tip-wrap:focus-within::after,
+.jp-chip-tip-wrap:focus-within::before {
   opacity: 1;
 }
 
@@ -575,11 +588,57 @@
     min-width: 0;
   }
 
+  .jp-section {
+    overflow: visible;
+  }
+
+  .jp-section-header {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .jp-chip-tip-wrap::after {
+    bottom: auto;
+    top: calc(100% + 7px);
+    left: 0;
+    transform: none;
+  }
+
+  .jp-chip-tip-wrap::before {
+    bottom: auto;
+    top: calc(100% + 2px);
+    left: 14px;
+    transform: none;
+    border-top-color: transparent;
+    border-bottom-color: #333;
+  }
+
+  .jp-always-badge {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .jp-actions {
     flex-direction: column;
   }
 
   .jp-btn {
     justify-content: center;
+  }
+
+  .jp-check-group {
+    flex-wrap: wrap;
+  }
+
+  .jp-radio-group--hide-mobile {
+    display: none;
+  }
+
+  .jp-select--mobile-only {
+    display: block;
+    width: 100%;
+  }
+
+  .jp-steps {
+    display: none;
   }
 }

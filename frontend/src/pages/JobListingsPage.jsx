@@ -60,6 +60,7 @@ export default function JobListingsPage() {
   const [query, setQuery] = useState(searchParams.get('q') || '')
   const [page, setPage] = useState(1)
   const [likedJobs, setLikedJobs] = useState({})
+  const [filterOpen, setFilterOpen] = useState(false)
   const panelRef = useRef(null)
 
   // 패널 외부 클릭 시 닫기
@@ -175,7 +176,8 @@ export default function JobListingsPage() {
           </div>
 
           <div className="jl-filter-bar">
-            {/* 검색 — 전체 너비 */}
+            {/* 검색 + 필터 토글 */}
+            <div className="jl-search-row">
             <div className="jl-search">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/>
@@ -194,8 +196,35 @@ export default function JobListingsPage() {
                 </svg>
               </button>
             </div>
+            <button className="jl-filter-toggle" onClick={() => setFilterOpen(o => !o)} aria-label="필터 접기/펼치기">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                style={{ transform: filterOpen ? 'rotate(0deg)' : 'rotate(180deg)', transition: 'transform 0.2s' }}>
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+              {filterOpen ? '접기' : '필터'}
+            </button>
+            </div>
 
-            <div className="jl-filter-body">
+            {/* 접힌 상태: 활성 필터 요약 칩 */}
+            {!filterOpen && (() => {
+              const chips = [
+                ...selectedRegions.slice(0, 2),
+                selectedRegions.length > 2 && `+${selectedRegions.length - 2}`,
+                selectedJobType !== '전체' && selectedJobType,
+                selectedWorkType !== '전체' && selectedWorkType,
+                wageType !== '전체' && wageType,
+                quickFilter && quickFilter,
+              ].filter(Boolean)
+              return chips.length > 0 ? (
+                <div className="jl-active-chips">
+                  {chips.map((c, i) => (
+                    <span key={i} className="jl-active-chip">{c}</span>
+                  ))}
+                </div>
+              ) : null
+            })()}
+
+            {filterOpen && <div className="jl-filter-body">
               <div className="jl-filter-left">
                 <div className="jl-filters">
               {/* 지역 선택 — 팝업 트리거 */}
@@ -406,8 +435,13 @@ export default function JobListingsPage() {
                   </div>
                 </div>
               </div>
-            </div>  {/* jl-filter-body */}
+            </div>}  {/* jl-filter-body */}
           </div>    {/* jl-filter-bar */}
+
+          {/* 결과 수 */}
+          <div className="jl-result-count">
+            총 <strong>{sorted.length}</strong>개의 공고
+          </div>
 
           {/* 내가 쓴 공고 */}
           {user?.userType === 'business' && myJobs.length > 0 && (
@@ -434,11 +468,6 @@ export default function JobListingsPage() {
               </div>
             </div>
           )}
-
-          {/* 결과 수 */}
-          <div className="jl-result-count">
-            총 <strong>{sorted.length}</strong>개의 공고
-          </div>
 
           {/* 목록 */}
           <div className="jl-table">

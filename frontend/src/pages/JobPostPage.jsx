@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -127,6 +127,29 @@ export default function JobPostPage() {
   const [managerPhone, setManagerPhone] = useState('')
   const [sameAsCompany, setSameAsCompany] = useState(false)
   const [managerEmail, setManagerEmail] = useState('')
+  const companyPhoneRef = useRef(null)
+
+  const [errors, setErrors] = useState({})
+
+  const phoneRegex = /^(02|0[3-9]\d)-\d{3,4}-\d{4}$|^01[0-9]-\d{3,4}-\d{4}$/
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'companyName':   return value.trim() ? '' : '업체명을 입력해주세요.'
+      case 'companyPhone':  return !value ? '전화번호를 입력해주세요.' : !phoneRegex.test(value) ? '올바른 전화번호 형식이 아닙니다.' : ''
+      case 'managerName':   return value.trim() ? '' : '담당자명을 입력해주세요.'
+      case 'managerPhone':  return value && !phoneRegex.test(value) ? '올바른 전화번호 형식이 아닙니다.' : ''
+      case 'managerEmail':  return value && !emailRegex.test(value) ? '올바른 이메일 형식이 아닙니다.' : ''
+      case 'applyEmail':    return applyMethod.includes('이메일') && !value ? '접수용 이메일을 입력해주세요.' : value && !emailRegex.test(value) ? '올바른 이메일 형식이 아닙니다.' : ''
+      case 'applyFax':      return applyMethod.includes('팩스') && !value ? '팩스번호를 입력해주세요.' : value && !phoneRegex.test(value) ? '올바른 팩스번호 형식이 아닙니다.' : ''
+      default: return ''
+    }
+  }
+
+  const handleBlur = (name, value) => {
+    setErrors(prev => ({ ...prev, [name]: validateField(name, value) }))
+  }
 
   // 약관
   const [agreed, setAgreed] = useState(false)
@@ -161,12 +184,21 @@ export default function JobPostPage() {
   }
 
   const handleSameAsCompany = (checked) => {
+    if (checked && !companyPhone) {
+      alert('업체 전화번호를 먼저 입력해주세요.')
+      companyPhoneRef.current?.focus()
+      return
+    }
     setSameAsCompany(checked)
     if (checked) setManagerPhone(companyPhone)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const fields = { companyName, companyPhone, managerName, managerPhone, managerEmail, applyEmail, applyFax }
+    const newErrors = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, validateField(k, v)]))
+    setErrors(newErrors)
+    if (Object.values(newErrors).some(v => v)) return
     alert('구인공고가 등록되었습니다.')
   }
 
@@ -235,7 +267,7 @@ export default function JobPostPage() {
 
                 <div className="jp-row">
                   <label className="jp-label jp-label--required">근무형태</label>
-                  <div className="jp-radio-group">
+                  <div className="jp-radio-group jp-radio-group--hide-mobile">
                     {workForms.map(w => (
                       <label key={w} className="jp-radio">
                         <input type="radio" name="workForm" value={w} checked={workForm === w} onChange={() => setWorkForm(w)} required />
@@ -243,11 +275,15 @@ export default function JobPostPage() {
                       </label>
                     ))}
                   </div>
+                  <select className="jp-select jp-select--mobile-only" value={workForm} onChange={e => setWorkForm(e.target.value)} required>
+                    <option value="">선택</option>
+                    {workForms.map(w => <option key={w} value={w}>{w}</option>)}
+                  </select>
                 </div>
 
                 <div className="jp-row">
                   <label className="jp-label jp-label--required">고용형태</label>
-                  <div className="jp-radio-group">
+                  <div className="jp-radio-group jp-radio-group--hide-mobile">
                     {employForms.map(e => (
                       <label key={e} className="jp-radio">
                         <input type="radio" name="employForm" value={e} checked={employForm === e} onChange={() => setEmployForm(e)} required />
@@ -255,6 +291,10 @@ export default function JobPostPage() {
                       </label>
                     ))}
                   </div>
+                  <select className="jp-select jp-select--mobile-only" value={employForm} onChange={e => setEmployForm(e.target.value)} required>
+                    <option value="">선택</option>
+                    {employForms.map(e => <option key={e} value={e}>{e}</option>)}
+                  </select>
                 </div>
 
                 <div className="jp-row">
@@ -477,29 +517,37 @@ export default function JobPostPage() {
                       ))}
                     </div>
                     {applyMethod.includes('이메일') && (
-                      <div className="jp-field-group" style={{ marginTop: '8px' }}>
-                        <span className="jp-unit">접수 이메일</span>
-                        <input
-                          className="jp-input jp-input--full"
-                          type="email"
-                          placeholder="example@email.com"
-                          value={applyEmail}
-                          onChange={e => setApplyEmail(e.target.value)}
-                          required
-                        />
+                      <div className="jp-field-group jp-field-group--col" style={{ marginTop: '8px' }}>
+                        <div className="jp-field-group">
+                          <span className="jp-unit">접수 이메일</span>
+                          <input
+                            className={`jp-input jp-input--full${errors.applyEmail ? ' jp-input--error' : ''}`}
+                            type="email"
+                            placeholder="example@email.com"
+                            value={applyEmail}
+                            onChange={e => setApplyEmail(e.target.value)}
+                            onBlur={e => handleBlur('applyEmail', e.target.value)}
+                            required
+                          />
+                        </div>
+                        {errors.applyEmail && <p className="jp-error-msg">{errors.applyEmail}</p>}
                       </div>
                     )}
                     {applyMethod.includes('팩스') && (
-                      <div className="jp-field-group" style={{ marginTop: '8px' }}>
-                        <span className="jp-unit">팩스번호</span>
-                        <input
-                          className="jp-input jp-input--md"
-                          type="tel"
-                          placeholder="예) 02-1234-5678"
-                          value={applyFax}
-                          onChange={e => setApplyFax(formatPhone(e.target.value))}
-                          required
-                        />
+                      <div className="jp-field-group jp-field-group--col" style={{ marginTop: '8px' }}>
+                        <div className="jp-field-group">
+                          <span className="jp-unit">팩스번호</span>
+                          <input
+                            className={`jp-input jp-input--md${errors.applyFax ? ' jp-input--error' : ''}`}
+                            type="tel"
+                            placeholder="예) 02-1234-5678"
+                            value={applyFax}
+                            onChange={e => setApplyFax(formatPhone(e.target.value))}
+                            onBlur={e => handleBlur('applyFax', e.target.value)}
+                            required
+                          />
+                        </div>
+                        {errors.applyFax && <p className="jp-error-msg">{errors.applyFax}</p>}
                       </div>
                     )}
                     {applyMethod.includes('홈페이지') && (
@@ -528,14 +576,20 @@ export default function JobPostPage() {
               </div>
               <div className="jp-section-body">
 
-                <div className="jp-row">
+                <div className="jp-row jp-row--top">
                   <label className="jp-label jp-label--required">업체명</label>
-                  <input className="jp-input jp-input--md" type="text" placeholder="업체명 입력" value={companyName} onChange={e => setCompanyName(e.target.value)} required />
+                  <div className="jp-field-group--col">
+                    <input className={`jp-input jp-input--md${errors.companyName ? ' jp-input--error' : ''}`} type="text" placeholder="업체명 입력" value={companyName} onChange={e => setCompanyName(e.target.value)} onBlur={e => handleBlur('companyName', e.target.value)} required />
+                    {errors.companyName && <p className="jp-error-msg">{errors.companyName}</p>}
+                  </div>
                 </div>
 
-                <div className="jp-row">
+                <div className="jp-row jp-row--top">
                   <label className="jp-label jp-label--required">전화번호</label>
-                  <input className="jp-input jp-input--md" type="tel" placeholder="예) 02-1234-5678" value={companyPhone} onChange={e => handleCompanyPhone(e.target.value)} required />
+                  <div className="jp-field-group--col">
+                    <input ref={companyPhoneRef} className={`jp-input jp-input--md${errors.companyPhone ? ' jp-input--error' : ''}`} type="tel" placeholder="예) 02-1234-5678" value={companyPhone} onChange={e => handleCompanyPhone(e.target.value)} onBlur={e => handleBlur('companyPhone', e.target.value)} required />
+                    {errors.companyPhone && <p className="jp-error-msg">{errors.companyPhone}</p>}
+                  </div>
                 </div>
 
                 <div className="jp-row jp-row--top">
@@ -587,33 +641,41 @@ export default function JobPostPage() {
               </div>
               <div className="jp-section-body">
 
-                <div className="jp-row">
+                <div className="jp-row jp-row--top">
                   <label className="jp-label jp-label--required">담당자명</label>
-                  <input className="jp-input jp-input--md" type="text" placeholder="담당자 이름" value={managerName} onChange={e => setManagerName(e.target.value)} required />
+                  <div className="jp-field-group--col">
+                    <input className={`jp-input jp-input--md${errors.managerName ? ' jp-input--error' : ''}`} type="text" placeholder="담당자 이름" value={managerName} onChange={e => setManagerName(e.target.value)} onBlur={e => handleBlur('managerName', e.target.value)} required />
+                    {errors.managerName && <p className="jp-error-msg">{errors.managerName}</p>}
+                  </div>
                 </div>
 
-                <div className="jp-row">
+                <div className="jp-row jp-row--top">
                   <label className="jp-label">담당자 연락처</label>
                   <div className="jp-field-group jp-field-group--col">
                     <div className="jp-field-group">
                       <input
-                        className="jp-input jp-input--md"
+                        className={`jp-input jp-input--md${errors.managerPhone ? ' jp-input--error' : ''}`}
                         type="tel"
                         placeholder="예) 010-1234-5678"
                         value={managerPhone}
                         onChange={e => { setManagerPhone(formatPhone(e.target.value)); setSameAsCompany(false) }}
+                        onBlur={e => handleBlur('managerPhone', e.target.value)}
                       />
+                      <label className="jp-check jp-check--same">
+                        <input type="checkbox" checked={sameAsCompany} onChange={e => handleSameAsCompany(e.target.checked)} />
+                        업체 전화번호와 동일
+                      </label>
                     </div>
-                    <label className="jp-check jp-check--same">
-                      <input type="checkbox" checked={sameAsCompany} onChange={e => handleSameAsCompany(e.target.checked)} />
-                      업체 전화번호와 동일
-                    </label>
+                    {errors.managerPhone && <p className="jp-error-msg">{errors.managerPhone}</p>}
                   </div>
                 </div>
 
-                <div className="jp-row">
+                <div className="jp-row jp-row--top">
                   <label className="jp-label">이메일 <span className="jp-optional">선택</span></label>
-                  <input className="jp-input jp-input--md" type="email" placeholder="example@email.com" value={managerEmail} onChange={e => setManagerEmail(e.target.value)} />
+                  <div className="jp-field-group--col">
+                    <input className={`jp-input jp-input--md${errors.managerEmail ? ' jp-input--error' : ''}`} type="email" placeholder="example@email.com" value={managerEmail} onChange={e => setManagerEmail(e.target.value)} onBlur={e => handleBlur('managerEmail', e.target.value)} />
+                    {errors.managerEmail && <p className="jp-error-msg">{errors.managerEmail}</p>}
+                  </div>
                 </div>
 
               </div>

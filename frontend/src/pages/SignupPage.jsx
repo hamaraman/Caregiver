@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import './SignupPage.css'
 import { register } from '../api'
 import AuthLeftPanel from './auth/AuthLeftPanel'
@@ -7,6 +7,8 @@ import AuthLeftPanel from './auth/AuthLeftPanel'
 const STEPS = ['기본 정보', '약관 동의']
 
 export default function SignupPage() {
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirect')
   const [step, setStep] = useState(0)
   const [userType, setUserType] = useState('personal')
 
@@ -129,7 +131,10 @@ export default function SignupPage() {
               </div>
               <h2 className="sp-done-title">가입이 완료되었습니다!</h2>
               <p className="sp-done-sub">요양이지 회원이 되신 것을 환영합니다.<br />지금 바로 서비스를 이용해보세요.</p>
-              <Link to="/login" className="sp-done-btn">로그인 하러 가기</Link>
+              <Link
+                to={redirectTo ? `/login?redirect=${encodeURIComponent(redirectTo)}` : '/login'}
+                className="sp-done-btn"
+              >로그인 하러 가기</Link>
               <Link to="/" className="sp-done-home">홈으로 가기</Link>
             </div>
           ) : (

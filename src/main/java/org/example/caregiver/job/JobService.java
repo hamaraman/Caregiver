@@ -32,8 +32,38 @@ public class JobService {
         Job job = new Job(null, request.getTitle(), request.getBadge(), request.getBadgeColor(),
                 request.getLocation(), request.getWage(), request.getHours(),
                 request.getDays(), request.getDate(), owner, request.getCompanyName(), request.getPostTitle());
+        applyDetails(job, request);
         Job saved = jobRepository.save(job);
         return toResponse(saved, owner != null ? owner.getId() : null);
+    }
+
+    private void applyDetails(Job job, JobCreateRequest request) {
+        job.setJobType(request.getJobType());
+        job.setFacility(request.getFacility());
+        job.setWorkForm(request.getWorkForm());
+        job.setEmployForm(request.getEmployForm());
+        job.setEducation(request.getEducation());
+        job.setExperience(request.getExperience());
+        job.setDeadline(request.getDeadline());
+        job.setDaysNegotiable(request.getDaysNegotiable());
+        job.setWeekdays(request.getWeekdays());
+        job.setCareGender(request.getCareGender());
+        job.setCareAge(request.getCareAge());
+        job.setCareGrade(request.getCareGrade());
+        job.setCareCondition(request.getCareCondition());
+        job.setCareWork(request.getCareWork());
+        job.setPostDetail(request.getPostDetail());
+        job.setApplyMethod(request.getApplyMethod());
+        job.setCompanyUrl(request.getCompanyUrl());
+        job.setApplyEmail(request.getApplyEmail());
+        job.setApplyFax(request.getApplyFax());
+        job.setCompanyPhone(request.getCompanyPhone());
+        job.setCompanyAddr(request.getCompanyAddr());
+        job.setCompanyAddrDetail(request.getCompanyAddrDetail());
+        job.setPhonePublic(request.getPhonePublic());
+        job.setManagerName(request.getManagerName());
+        job.setManagerPhone(request.getManagerPhone());
+        job.setManagerEmail(request.getManagerEmail());
     }
 
     public List<JobResponse> getMyJobs(Long ownerId) {

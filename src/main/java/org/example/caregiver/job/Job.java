@@ -1,6 +1,8 @@
 package org.example.caregiver.job;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.example.caregiver.auth.User;
 import org.example.caregiver.model.Region;
 
@@ -22,6 +24,58 @@ public class Job {
     private String date;
     private String companyName;
     private String postTitle;
+
+    // 근무 조건 상세
+    private String jobType;
+    private String facility;
+    private String workForm;
+    private String employForm;
+    private String education;
+    private String experience;
+    private String deadline;
+    private Boolean daysNegotiable;
+
+    @ElementCollection
+    @CollectionTable(name = "job_weekdays", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "weekday")
+    private List<String> weekdays = new ArrayList<>();
+
+    // 케어 대상자 정보
+    private String careGender;
+    private String careAge;
+    private String careGrade;
+
+    @ElementCollection
+    @CollectionTable(name = "job_care_conditions", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "care_condition_item")
+    private List<String> careCondition = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "job_care_works", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "care_work_item")
+    private List<String> careWork = new ArrayList<>();
+
+    // 공고 내용
+    @Column(length = 2000)
+    private String postDetail;
+
+    @ElementCollection
+    @CollectionTable(name = "job_apply_methods", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "apply_method_item")
+    private List<String> applyMethod = new ArrayList<>();
+
+    private String companyUrl;
+    private String applyEmail;
+    private String applyFax;
+
+    // 업체/담당자 정보
+    private String companyPhone;
+    private String companyAddr;
+    private String companyAddrDetail;
+    private String phonePublic;
+    private String managerName;
+    private String managerPhone;
+    private String managerEmail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -144,6 +198,214 @@ public class Job {
 
     public void setPostTitle(String postTitle) {
         this.postTitle = postTitle;
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
+    }
+
+    public String getFacility() {
+        return facility;
+    }
+
+    public void setFacility(String facility) {
+        this.facility = facility;
+    }
+
+    public String getWorkForm() {
+        return workForm;
+    }
+
+    public void setWorkForm(String workForm) {
+        this.workForm = workForm;
+    }
+
+    public String getEmployForm() {
+        return employForm;
+    }
+
+    public void setEmployForm(String employForm) {
+        this.employForm = employForm;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public Boolean getDaysNegotiable() {
+        return daysNegotiable;
+    }
+
+    public void setDaysNegotiable(Boolean daysNegotiable) {
+        this.daysNegotiable = daysNegotiable;
+    }
+
+    public List<String> getWeekdays() {
+        return weekdays;
+    }
+
+    public void setWeekdays(List<String> weekdays) {
+        this.weekdays = weekdays != null ? weekdays : new ArrayList<>();
+    }
+
+    public String getCareGender() {
+        return careGender;
+    }
+
+    public void setCareGender(String careGender) {
+        this.careGender = careGender;
+    }
+
+    public String getCareAge() {
+        return careAge;
+    }
+
+    public void setCareAge(String careAge) {
+        this.careAge = careAge;
+    }
+
+    public String getCareGrade() {
+        return careGrade;
+    }
+
+    public void setCareGrade(String careGrade) {
+        this.careGrade = careGrade;
+    }
+
+    public List<String> getCareCondition() {
+        return careCondition;
+    }
+
+    public void setCareCondition(List<String> careCondition) {
+        this.careCondition = careCondition != null ? careCondition : new ArrayList<>();
+    }
+
+    public List<String> getCareWork() {
+        return careWork;
+    }
+
+    public void setCareWork(List<String> careWork) {
+        this.careWork = careWork != null ? careWork : new ArrayList<>();
+    }
+
+    public String getPostDetail() {
+        return postDetail;
+    }
+
+    public void setPostDetail(String postDetail) {
+        this.postDetail = postDetail;
+    }
+
+    public List<String> getApplyMethod() {
+        return applyMethod;
+    }
+
+    public void setApplyMethod(List<String> applyMethod) {
+        this.applyMethod = applyMethod != null ? applyMethod : new ArrayList<>();
+    }
+
+    public String getCompanyUrl() {
+        return companyUrl;
+    }
+
+    public void setCompanyUrl(String companyUrl) {
+        this.companyUrl = companyUrl;
+    }
+
+    public String getApplyEmail() {
+        return applyEmail;
+    }
+
+    public void setApplyEmail(String applyEmail) {
+        this.applyEmail = applyEmail;
+    }
+
+    public String getApplyFax() {
+        return applyFax;
+    }
+
+    public void setApplyFax(String applyFax) {
+        this.applyFax = applyFax;
+    }
+
+    public String getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(String companyPhone) {
+        this.companyPhone = companyPhone;
+    }
+
+    public String getCompanyAddr() {
+        return companyAddr;
+    }
+
+    public void setCompanyAddr(String companyAddr) {
+        this.companyAddr = companyAddr;
+    }
+
+    public String getCompanyAddrDetail() {
+        return companyAddrDetail;
+    }
+
+    public void setCompanyAddrDetail(String companyAddrDetail) {
+        this.companyAddrDetail = companyAddrDetail;
+    }
+
+    public String getPhonePublic() {
+        return phonePublic;
+    }
+
+    public void setPhonePublic(String phonePublic) {
+        this.phonePublic = phonePublic;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+    public String getManagerPhone() {
+        return managerPhone;
+    }
+
+    public void setManagerPhone(String managerPhone) {
+        this.managerPhone = managerPhone;
+    }
+
+    public String getManagerEmail() {
+        return managerEmail;
+    }
+
+    public void setManagerEmail(String managerEmail) {
+        this.managerEmail = managerEmail;
     }
 
     public User getOwner() {

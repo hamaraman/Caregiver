@@ -62,6 +62,8 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(HttpSession session) {
         Long memberId = (Long) session.getAttribute("memberId");
+        System.out.println("Session ID: " + session.getId() + ", MemberId in session: " + memberId);
+        
         if (memberId != null) {
             Optional<Member> memberOpt = memberRepository.findById(memberId);
             if (memberOpt.isPresent()) {

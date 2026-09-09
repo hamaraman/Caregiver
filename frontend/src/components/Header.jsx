@@ -76,7 +76,7 @@ const guinSubMenu = [
 const navItems = [
   { label: '홈', href: '/' },
   { label: '구직', href: '/jobs' },
-  { label: '구인', href: '#', hasDropdown: true },
+  { label: '구인', href: '/employer', hasDropdown: true },
   { label: '커뮤니티', href: '#' },
   { label: '고객센터', href: '#' },
 ]
@@ -124,13 +124,13 @@ export default function Header() {
                 onMouseEnter={() => setDropdownOpen(true)}
                 onMouseLeave={() => setDropdownOpen(false)}
               >
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   className={`nav-item ${active === item.label ? 'nav-item--active' : ''}`}
                   onClick={() => setActive(item.label)}
                 >
                   {item.label}
-                </a>
+                </Link>
 
                 {dropdownOpen && (
                   <div className="nav-dropdown">

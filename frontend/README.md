@@ -125,7 +125,7 @@ frontend/
   <img width="1916" height="948" alt="회원가입화면디자인ver1" src="https://github.com/user-attachments/assets/e1e9c35d-6c3a-4a58-9ea7-924cebe8ee1f" />
 - jobseeker
   <img width="1899" height="944" alt="구직화면디자인ver1" src="https://github.com/user-attachments/assets/1af2dabd-e901-47bc-ab40-67f83d8b96b7" />
-- jobcreate
+- job-register
   <img width="1904" height="945" alt="구직등록디자인ver1" src="https://github.com/user-attachments/assets/95810332-d2b1-425b-87da-163ea7805634" />
 - seekerlist
   <img width="1898" height="945" alt="일자리찾기디자인ver1" src="https://github.com/user-attachments/assets/728ec271-25a0-4b99-a7d0-21903ebc7b76" />

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { jobs } from '../data/jobs'
@@ -60,6 +60,7 @@ export default function JobListingsPage() {
   const [query, setQuery] = useState(searchParams.get('q') || '')
   const [page, setPage] = useState(1)
   const [likedJobs, setLikedJobs] = useState({})
+  const navigate = useNavigate()
   const [filterOpen, setFilterOpen] = useState(false)
   const panelRef = useRef(null)
 
@@ -474,7 +475,7 @@ export default function JobListingsPage() {
             {paginated.length === 0 ? (
               <div className="jl-empty">조건에 맞는 공고가 없습니다.</div>
             ) : paginated.map((job) => (
-              <div className="jl-row" key={job.id}>
+              <div className="jl-row" key={job.id} onClick={e => { if (!e.target.closest('.job-like')) navigate(`/jobs/${job.id}`) }} style={{cursor:'pointer'}}>
                 <div className="jl-title-cell">
                   <Link to={`/jobs/${job.id}`} className="jl-job-title">{job.title}</Link>
                   {job.badge && (

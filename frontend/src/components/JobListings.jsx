@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './JobListings.css'
 
 const jobs = [
@@ -97,6 +97,7 @@ const jobs = [
 
 export default function JobListings() {
   const [likedJobs, setLikedJobs] = useState({})
+  const navigate = useNavigate()
 
   const toggleLike = (id) => {
     setLikedJobs((prev) => ({ ...prev, [id]: !prev[id] }))
@@ -111,7 +112,7 @@ export default function JobListings() {
 
       <div className="job-table">
         {jobs.map((job) => (
-          <div className="job-row" key={job.id}>
+          <div className="job-row" key={job.id} onClick={e => { if (!e.target.closest('.job-like')) navigate(`/jobs/${job.id}`) }} style={{cursor:'pointer'}}>
             <div className="job-title-cell">
               <span className="job-title">{job.title}</span>
               {job.badge && (

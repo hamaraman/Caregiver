@@ -304,18 +304,34 @@ export default function JobListingsPage() {
                     {jobTypeExpanded ? '접기 ↑' : `더보기 +${jobTypes.length - 7}`}
                   </button>
                 </div>
+                <select
+                  className="jl-filter-select"
+                  value={selectedJobType}
+                  onChange={e => { setSelectedJobType(e.target.value); setPage(1) }}
+                >
+                  {jobTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
               </div>
 
               {/* 근무형태 */}
               <div className="jl-filter-group">
                 <span className="jl-filter-label">형태</span>
-                {workTypes.map((w) => (
-                  <button
-                    key={w}
-                    className={`jl-chip ${selectedWorkType === w ? 'jl-chip--active' : ''}`}
-                    onClick={() => { setSelectedWorkType(w); setPage(1) }}
-                  >{w}</button>
-                ))}
+                <div className="jl-chip-wrap">
+                  {workTypes.map((w) => (
+                    <button
+                      key={w}
+                      className={`jl-chip ${selectedWorkType === w ? 'jl-chip--active' : ''}`}
+                      onClick={() => { setSelectedWorkType(w); setPage(1) }}
+                    >{w}</button>
+                  ))}
+                </div>
+                <select
+                  className="jl-filter-select"
+                  value={selectedWorkType}
+                  onChange={e => { setSelectedWorkType(e.target.value); setPage(1) }}
+                >
+                  {workTypes.map(w => <option key={w} value={w}>{w}</option>)}
+                </select>
               </div>
 
               {/* 급여 */}

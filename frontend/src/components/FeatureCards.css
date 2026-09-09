@@ -66,6 +66,32 @@
 
 @media (max-width: 480px) {
   .features {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .feature-card {
+    padding: 0 12px 16px;
+  }
+
+  .feature-card-bar {
+    margin-bottom: 14px;
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .feature-title {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .feature-desc {
+    font-size: 11px;
   }
 }

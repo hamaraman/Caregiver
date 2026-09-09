@@ -120,11 +120,15 @@ export default function JobListings() {
                 </span>
               )}
             </div>
-            <div className="job-location">{job.location}</div>
-            <div className="job-wage">{job.wage}</div>
-            <div className="job-hours">{job.hours}</div>
-            <div className="job-days">{job.days}</div>
-            <div className="job-date">{job.date}</div>
+            <div className="job-meta-primary">
+              <span className="job-location">{job.location}</span>
+              <span className="job-wage">{job.wage}</span>
+            </div>
+            <div className="job-meta-secondary">
+              <span className="job-hours">{job.hours}</span>
+              <span className="job-days">{job.days}</span>
+              <span className="job-date">{job.date}</span>
+            </div>
             <button
               className={`job-like ${likedJobs[job.id] ? 'job-like--active' : ''}`}
               onClick={() => toggleLike(job.id)}

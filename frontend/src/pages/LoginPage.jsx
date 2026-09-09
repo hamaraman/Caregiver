@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import './LoginPage.css'
 import { login } from '../api'
 import AuthLeftPanel from './auth/AuthLeftPanel'
@@ -164,7 +164,7 @@ export default function LoginPage() {
 
           <div className="lp-signup">
             <span>아직 계정이 없으신가요?</span>
-            <button className="lp-signup-btn" onClick={() => navigate('/signup')}>회원가입 하기 →</button>
+            <Link to="/signup" className="lp-signup-btn">회원가입 하기 →</Link>
           </div>
 
           <p className="lp-privacy">

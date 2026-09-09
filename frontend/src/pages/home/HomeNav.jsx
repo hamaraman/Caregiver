@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const NAV_ITEMS = [
   { label: '홈', sub: [],
@@ -15,7 +15,6 @@ const NAV_ITEMS = [
 ]
 
 export default function HomeNav({ user, onLogout }) {
-  const navigate = useNavigate()
   const [activeNav, setActiveNav] = useState(null)
 
   return (
@@ -67,8 +66,8 @@ export default function HomeNav({ user, onLogout }) {
             </>
           ) : (
             <>
-              <button className="hp-btn-login" onClick={() => navigate('/login')}>로그인</button>
-              <button className="hp-btn-signup" onClick={() => navigate('/signup')}>회원가입</button>
+              <Link to="/login" className="hp-btn-login">로그인</Link>
+              <Link to="/signup" className="hp-btn-signup">회원가입</Link>
             </>
           )}
         </div>

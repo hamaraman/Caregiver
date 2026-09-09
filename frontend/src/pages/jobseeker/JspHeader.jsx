@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const NAV_ITEMS = [
   { label: '홈', sub: [] },
@@ -10,7 +10,6 @@ const NAV_ITEMS = [
 ]
 
 export default function JspHeader() {
-  const navigate = useNavigate()
   const [activeNav, setActiveNav] = useState('구직')
 
   return (
@@ -49,8 +48,8 @@ export default function JspHeader() {
         </nav>
 
         <div className="jsp-auth">
-          <button className="jsp-btn-ghost" onClick={() => navigate('/login')}>로그인</button>
-          <button className="jsp-btn-primary" onClick={() => navigate('/signup')}>회원가입</button>
+          <Link to="/login" className="jsp-btn-ghost">로그인</Link>
+          <Link to="/signup" className="jsp-btn-primary">회원가입</Link>
         </div>
       </div>
     </header>

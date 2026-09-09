@@ -412,6 +412,7 @@
   color: #4A8FE7;
   cursor: pointer;
   padding: 0;
+  text-decoration: none;
   transition: opacity 0.15s;
 }
 .sp-login-link:hover { opacity: 0.7; }
@@ -454,6 +455,9 @@
   color: #fff;
   cursor: pointer;
   margin-top: 8px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
   transition: background 0.15s, transform 0.15s;
 }
 .sp-done-btn:hover { background: #3A7FD7; transform: translateY(-1px); }
@@ -468,6 +472,9 @@
   font-weight: 600;
   color: #888;
   cursor: pointer;
+  text-decoration: none;
+  display: block;
+  text-align: center;
   transition: border-color 0.15s, color 0.15s;
 }
 .sp-done-home:hover { border-color: #4A8FE7; color: #4A8FE7; }

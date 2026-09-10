@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CaregiverRepository extends JpaRepository<Caregiver, Long> {
 
-    List<Caregiver> findByRegion_NameStartingWith(String region);
+    List<Caregiver> findAllByOrderByIdDesc();
+
+    List<Caregiver> findByRegion_NameStartingWithOrderByIdDesc(String region);
 }

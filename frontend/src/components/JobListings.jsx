@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './JobListings.css'
 
 export default function JobListings() {
   const [jobs, setJobs] = useState([])
   const [likedJobs, setLikedJobs] = useState({})
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch('/api/jobs')
@@ -20,12 +22,12 @@ export default function JobListings() {
     <section className="job-listings">
       <div className="job-listings-header">
         <h2 className="job-listings-title">최근 등록된 구인 공고</h2>
-        <a href="#" className="job-listings-more">더보기 ›</a>
+        <Link to="/jobs" className="job-listings-more">더보기 ›</Link>
       </div>
 
       <div className="job-table">
         {jobs.map((job) => (
-          <div className="job-row" key={job.id}>
+          <div className="job-row" key={job.id} onClick={e => { if (!e.target.closest('.job-like')) navigate(`/job/${job.id}`) }} style={{cursor:'pointer'}}>
             <div className="job-title-cell">
               <span className="job-title">{job.title}</span>
               {job.badge && (
@@ -34,11 +36,15 @@ export default function JobListings() {
                 </span>
               )}
             </div>
-            <div className="job-location">{job.location}</div>
-            <div className="job-wage">{job.wage}</div>
-            <div className="job-hours">{job.hours}</div>
-            <div className="job-days">{job.days}</div>
-            <div className="job-date">{job.date}</div>
+            <div className="job-meta-primary">
+              <span className="job-location">{job.location}</span>
+              <span className="job-wage">{job.wage}</span>
+            </div>
+            <div className="job-meta-secondary">
+              <span className="job-hours">{job.hours}</span>
+              <span className="job-days">{job.days}</span>
+              <span className="job-date">{job.date}</span>
+            </div>
             <button
               className={`job-like ${likedJobs[job.id] ? 'job-like--active' : ''}`}
               onClick={() => toggleLike(job.id)}

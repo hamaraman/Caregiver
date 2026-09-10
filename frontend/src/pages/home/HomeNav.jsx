@@ -12,7 +12,7 @@ const NAV_ITEMS = [
     sub: ['요양보호사 구직', '간호조무사 구직', '사회복지사 구직', '물리치료사 구직'] },
   { label: '구인', path: '/employer',
     icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-    sub: ['채용공고 등록', '구인 현황', '인재 찾기'] },
+    sub: [] },
   { label: '커뮤니티', path: '/community',
     icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
     sub: ['자유게시판', '취업 후기', '자격증 정보', 'Q&A'] },

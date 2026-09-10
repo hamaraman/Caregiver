@@ -72,7 +72,7 @@ export default function HomeHero() {
             </div>
           </Link>
 
-          <button className="hp-hero-card">
+          <Link to="/jobs/post" className="hp-hero-card">
             <p className="hp-hcard-label">인재를 찾고 계신가요?</p>
             <div className="hp-hcard-header">
               <div className="hp-hcard-icon hp-hcard-icon--pink">
@@ -90,7 +90,7 @@ export default function HomeHero() {
                 </svg>
               </div>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
     </section>

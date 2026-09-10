@@ -1,101 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './JobListings.css'
 
-const jobs = [
-  {
-    id: 1,
-    title: '요양보호사 (주간)',
-    badge: '급구',
-    badgeColor: 'red',
-    location: '서울 강남구',
-    wage: '시급 14,000원',
-    hours: '09:00~15:00',
-    days: '주 5일',
-    date: '09.06',
-    liked: false,
-  },
-  {
-    id: 2,
-    title: '요양보호사 (야간)',
-    badge: null,
-    location: '경기 성남시',
-    wage: '시급 13,500원',
-    hours: '16:00~22:00',
-    days: '주 5일',
-    date: '09.05',
-    liked: false,
-  },
-  {
-    id: 3,
-    title: '요양보호사 (오후)',
-    badge: null,
-    location: '인천 남동구',
-    wage: '시급 13,000원',
-    hours: '13:00~18:00',
-    days: '주 5일',
-    date: '09.05',
-    liked: false,
-  },
-  {
-    id: 4,
-    title: '요양보호사 (주간)',
-    badge: null,
-    location: '부산 해운대구',
-    wage: '시급 14,500원',
-    hours: '09:00~15:00',
-    days: '주 5일',
-    date: '09.04',
-    liked: false,
-  },
-  {
-    id: 5,
-    title: '간병인(상시)',
-    badge: null,
-    location: '대구 달서구',
-    wage: '월급 4,500,000원',
-    hours: '08:00~17:00',
-    days: '주 5일',
-    date: '09.03',
-    liked: false,
-  },
-  {
-    id: 6,
-    title: '요양보호사 (교대)',
-    badge: null,
-    location: '광주 북구',
-    wage: '시급 13,000원',
-    hours: '07:00~13:00',
-    days: '주 5일',
-    date: '09.02',
-    liked: false,
-  },
-  {
-    id: 7,
-    title: '요양보호사 (주간)',
-    badge: '추천',
-    badgeColor: 'purple',
-    location: '대전 서구',
-    wage: '시급 13,500원',
-    hours: '09:00~15:00',
-    days: '주 5일',
-    date: '09.01',
-    liked: false,
-  },
-  {
-    id: 8,
-    title: '간병인(야간)',
-    badge: null,
-    location: '울산 남구',
-    wage: '월급 4,200,000원',
-    hours: '17:00~09:00',
-    days: '주 5일',
-    date: '08.31',
-    liked: false,
-  },
-]
-
 export default function JobListings() {
+  const [jobs, setJobs] = useState([])
   const [likedJobs, setLikedJobs] = useState({})
+
+  useEffect(() => {
+    fetch('/api/jobs')
+      .then(res => res.json())
+      .then(data => setJobs(data))
+      .catch(err => console.error(err))
+  }, [])
 
   const toggleLike = (id) => {
     setLikedJobs((prev) => ({ ...prev, [id]: !prev[id] }))

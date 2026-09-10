@@ -1,6 +1,6 @@
 # Caregiver
 
-요양이지 - 요양보호사 관련 사이트 (백엔드 + 프론트엔드 + 모바일)
+요양이지 - 요양보호사 관련 사이트 백엔드
 
 ## API
 
@@ -36,18 +36,13 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ### 인재 정보 (`/api/caregivers`)
 - `GET /` - 목록 조회 (연락처 phone 필드 포함, `?region=경기`처럼 지역 접두어로 필터링 가능)
 
-## 프론트엔드 / 모바일
+## 이 브랜치(`feature/backend-db-auth+WCH`)는 두 브랜치의 백엔드를 합친 것입니다
 
-- `frontend/` - React + Vite 웹 프론트엔드 (`npm run dev`, 3000번 포트, `/api`는 8080번 백엔드로 프록시)
-- `mobile/` - Expo(React Native) 모바일 앱 (`npm start`, 기본 8081 포트가 백엔드와 겹치므로 로컬에서는 `npx expo start --port 8082`처럼 다른 포트로 띄울 것)
-
-## 이 브랜치(`feature/backend-db-auth+WCH`)는 두 브랜치를 합친 것입니다
-
-`WCH`(세션 기반 인증 + 구인공고/지원/찜/이력서까지 갖춘 백엔드)와 `feature/backend-db-auth`(카카오·네이버·구글 OAuth2 로그인 + React 프론트엔드 + Expo 모바일 앱)를 병합한 브랜치입니다.
+`WCH`(세션 기반 인증 + 구인공고/지원/찜/이력서까지 갖춘 백엔드)와 `feature/backend-db-auth`(카카오·네이버·구글 OAuth2 로그인)의 백엔드 부분만 병합한 브랜치입니다. 프론트엔드/모바일 앱은 포함하지 않습니다 (아래 참고).
 
 - 백엔드 핵심 로직(회원/구인공고/인재정보)은 `WCH` 쪽을 그대로 채택했습니다. `feature/backend-db-auth`에 있던 중복 구현(`Member` 엔티티, `controller.AuthController`, `controller.JobController` 등)은 라우트가 겹쳐서 제거했습니다.
 - OAuth2 로그인(`CustomOAuth2UserService`, `OAuth2SuccessHandler`)은 `WCH`의 `auth.User`/`UserRepository`를 그대로 사용하도록 다시 연결했습니다. 즉 이메일/비밀번호 로그인과 소셜 로그인이 같은 계정(User)으로 합쳐집니다.
-- `frontend/`, `mobile/`은 `feature/backend-db-auth` 쪽 것을 그대로 채택했습니다.
+- `feature/backend-db-auth`에 같이 들어있던 `frontend/`(React+Vite), `mobile/`(Expo) 앱은 이 브랜치에는 포함하지 않았습니다. 필요하면 `feature/backend-db-auth` 브랜치에서 직접 확인하세요.
 
 ### 로컬 실행 순서
 
@@ -58,15 +53,15 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
    spring.security.oauth2.client.registration.google.client-secret=...
    ```
    구글 로그인을 당장 쓸 게 아니면 더미 값이라도 넣어야 합니다. 카카오/네이버는 `application.properties`에 키가 이미 있어 별도 설정 없이 동작합니다.
-3. `.\gradlew.bat bootRun` → 백엔드 `http://localhost:8080`
-4. `cd frontend && npm run dev` → 구직자 웹 `http://localhost:3000`
-5. (선택) `cd mobile && npm install && npx expo start --port 8082`
+3. `.\gradlew.bat bootRun` → 백엔드 `http://localhost:8081`
 
-### 사업자(고용주)용 프론트엔드는 이 브랜치에 없습니다
+### 프론트엔드 연동
 
-사업자용 화면(공고 등록/지원자 관리/인재 검색 등)은 별도 브랜치 `feature/frontend-ui-inhwa`에 독립적으로 개발되어 있습니다. 이 브랜치와는 별개이므로 필요하면 그 브랜치/워크트리에서 직접 `npm run dev`로 띄우세요 (기본 `http://localhost:5173`). 백엔드 `SecurityConfig`의 CORS 허용 목록에 `http://localhost:3000`과 `http://localhost:5173` 둘 다 등록해뒀으니 포트를 8080으로 맞추기만 하면(그 브랜치의 `frontend/src/api.js`의 `API_BASE`) 로그인/회원가입 API 연동이 됩니다.
+이 브랜치는 백엔드만 있습니다. 다른 브랜치의 프론트엔드(구직자용 `feature/backend-db-auth`의 `frontend/`, 사업자용 `feature/frontend-ui-inhwa`)를 붙이려면:
+- 백엔드가 `8081`에서 뜨므로, 각 프론트엔드의 API 호출 주소(`API_BASE`, vite proxy 등)를 `8081`에 맞춰야 합니다.
+- 백엔드 `SecurityConfig`의 CORS 허용 목록에 `http://localhost:3000`, `http://localhost:5173`을 등록해뒀습니다. 다른 포트를 쓰는 프론트엔드를 붙이려면 이 목록에 추가해야 합니다.
 
 ### 알려진 이슈
 
 - 카카오/네이버 OAuth2 client-secret이 `application.properties`에 평문으로 커밋되어 있습니다. 나중에 키 순환(rotate) 또는 `application-secret.properties`로 이전을 권장합니다.
-- 카카오/네이버 `redirect-uri`가 `{baseUrl}`(요청 주소 기반 자동 계산)이라, 백엔드 포트를 바꾸면 카카오/네이버 개발자 콘솔에 등록된 콜백 주소도 같이 맞춰줘야 소셜 로그인이 동작합니다.
+- 카카오/네이버/구글 `redirect-uri`가 `{baseUrl}`(요청 주소 기반 자동 계산)이라, 백엔드 포트를 바꾸면 각 서비스 개발자 콘솔에 등록된 콜백 주소도 같이 맞춰줘야 소셜 로그인이 동작합니다. 현재 8081로 고정한 이유가 이것입니다.

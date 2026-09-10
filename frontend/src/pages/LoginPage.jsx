@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import './LoginPage.css'
 import { login } from '../api'
 import AuthLeftPanel from './auth/AuthLeftPanel'
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirect')
   const [userType, setUserType] = useState('personal') // 'personal' | 'business'
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
@@ -33,7 +35,11 @@ export default function LoginPage() {
     setSubmitting(true)
     try {
       await login({ email: id, password, userType })
-      navigate('/')
+      if (redirectTo) {
+        window.location.href = redirectTo
+      } else {
+        navigate('/')
+      }
     } catch (err) {
       setErrors({ password: err.message })
     } finally {
@@ -164,7 +170,10 @@ export default function LoginPage() {
 
           <div className="lp-signup">
             <span>아직 계정이 없으신가요?</span>
-            <Link to="/signup" className="lp-signup-btn">회원가입 하기 →</Link>
+            <Link
+              to={redirectTo ? `/signup?redirect=${encodeURIComponent(redirectTo)}` : '/signup'}
+              className="lp-signup-btn"
+            >회원가입 하기 →</Link>
           </div>
 
           <p className="lp-privacy">

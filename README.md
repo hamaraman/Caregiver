@@ -3,6 +3,35 @@
 
 ---
 
+## 백엔드 API
+
+### 인증 (`/api/auth`)
+- `POST /register` - 회원가입 (개인/사업자)
+- `POST /login` - 로그인 (계정 유형 불일치 시 거부)
+- `POST /logout` - 로그아웃
+- `GET /me` - 현재 로그인 사용자 조회
+
+### 구인공고 (`/api/jobs`)
+- `GET /` - 목록 조회 (`?region=서울`처럼 지역 접두어로 필터링 가능)
+- `GET /{id}` - 상세 조회
+- `POST /` - 등록 (사업자 계정만)
+- `GET /mine` - 내가 등록한 공고 목록
+- `POST /{id}/like`, `DELETE /{id}/like` - 찜하기/찜 해제
+
+### 지원자 (`/api/jobs/{jobId}/applications`)
+- `POST /api/jobs/{jobId}/applications` - 공고 지원
+- `GET /api/jobs/{jobId}/applications` - 지원자 목록 (공고 소유 사업자만)
+- `PATCH /api/applications/{id}/status` - 지원 상태 변경 (검토중/합격/불합격)
+
+### 구직자 이력서 (`/api/resumes/me`)
+- `POST /me` - 이력서 등록/수정
+- `GET /me` - 내 이력서 조회
+
+### 인재 정보 (`/api/caregivers`)
+- `GET /` - 목록 조회 (`?region=경기`처럼 지역 필터링 가능)
+
+---
+
 ## 작업 로그
 
 ### 2026-09-10

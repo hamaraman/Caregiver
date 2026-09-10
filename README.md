@@ -8,6 +8,12 @@
 ### 2026-09-10
 - `JobSearchPage` 신규 생성 (`/jobs` 라우트): JsHero, JsFilter, JsJobList, JsSidebar 컴포넌트 구성
 - `App.jsx`에 `/jobs` 라우트 추가
+- `JobDetailPage` 신규 생성 (`/job/:id`): 일자리 상세 페이지 (모집내용, 자격, 복리후생, 지원하기)
+- `jobs.js` 공유 데이터 파일 생성 (30개 일자리 데이터), JspJobTable·JsJobList·JobDetailPage 공유
+- 추천 일자리 더보기 → `/jobs` 연결, 직종명 클릭 → 상세 페이지 연결
+- `/jobs` 페이지 전면 리디자인: 이모지 제거, 홈/구직 화면 스타일 통일 (행 리스트, 인기지역 칩)
+- 홈 히어로 검색창 왼쪽 돋보기 아이콘 추가, 인기지역 줄바꿈 방지
+- CLAUDE.md 존댓말 규칙 추가
 - 홈 히어로 카드 레이아웃 개선: 아이콘+타이틀을 `hp-hcard-header`로 묶고, 화살표를 `hp-hcard-footer`로 이동
 - `HomeNav` 활성 메뉴 폰트 굵기 전환 시 레이아웃 이동 방지 (`hp-nav-label` + `data-text` 트릭 적용)
 

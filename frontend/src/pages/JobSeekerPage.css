@@ -594,6 +594,12 @@
   display: flex;
   align-items: center;
   gap: 7px;
+  text-decoration: none;
+  color: inherit;
+}
+.jsp-job-type-cell:hover .jsp-job-type-name {
+  color: #4A8FE7;
+  text-decoration: underline;
 }
 
 .jsp-shift-badge {

@@ -302,6 +302,7 @@
 .hp-search-wrap {
   display: flex;
   align-items: center;
+  gap: 8px;
   border-radius: 50px;
   background: #fff;
   box-shadow: 0 4px 20px rgba(74,143,231,0.18);
@@ -341,7 +342,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .hp-region-label {

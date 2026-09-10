@@ -1,19 +1,17 @@
 import { useState } from 'react'
-import './App.css'
+import LoginPage from './pages/LoginPage'
+import JobSeekerPage from './pages/JobSeekerPage'
+import HomePage from './pages/HomePage'
+import SignupPage from './pages/SignupPage'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const initial = new URLSearchParams(window.location.search).get('page') || 'login'
+  const [page, setPage] = useState(initial)
 
-  return (
-    <div className="app">
-      <h1>Caregiver</h1>
-      <div className="card">
-        <button onClick={() => setCount((c) => c + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </div>
-  )
+  if (page === 'login')     return <LoginPage onNavigate={setPage} />
+  if (page === 'signup')    return <SignupPage onNavigate={setPage} />
+  if (page === 'jobseeker') return <JobSeekerPage onNavigate={setPage} />
+  return <HomePage onNavigate={setPage} />
 }
 
 export default App

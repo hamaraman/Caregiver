@@ -1,0 +1,76 @@
+.cta-banner {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #f3eeff 0%, #fce4f0 100%);
+  border-radius: 16px;
+  padding: 28px 36px;
+  margin-bottom: 40px;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.cta-building-icon {
+  flex-shrink: 0;
+}
+
+.cta-text {
+  flex: 1;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.7;
+}
+
+.cta-text strong {
+  color: #222;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-btn--primary {
+  background: #e91e8c;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.35);
+}
+
+.cta-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 30, 140, 0.4);
+}
+
+.cta-btn--secondary {
+  background: #fff;
+  color: #e91e8c;
+  border: 2px solid #e91e8c;
+  box-shadow: 0 2px 8px rgba(233, 30, 140, 0.12);
+}
+
+.cta-btn--secondary:hover {
+  transform: translateY(-2px);
+  background: #fff0f7;
+  box-shadow: 0 6px 16px rgba(233, 30, 140, 0.2);
+}
+
+.cta-person-icon {
+  flex-shrink: 0;
+  opacity: 0.85;
+}

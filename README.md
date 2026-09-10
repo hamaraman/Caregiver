@@ -1,6 +1,6 @@
 # Caregiver
 
-요양보호사 관련 사이트 백엔드
+요양이지 - 요양보호사 관련 사이트 (백엔드 + 프론트엔드 + 모바일)
 
 ## API
 
@@ -9,6 +9,7 @@
 - `POST /login` - 로그인 (계정 유형 불일치 시 거부)
 - `POST /logout` - 로그아웃
 - `GET /me` - 현재 로그인 사용자 조회
+- `GET /oauth2/authorization/{kakao|naver|google}` - 소셜 로그인 시작 (세션 기반 로그인과 동일한 사용자로 연동됨)
 
 ### 구인공고 (`/api/jobs`)
 - `GET /` - 목록 조회 (`?region=서울`처럼 지역 접두어로 필터링 가능, 생략 시 전체 조회)
@@ -34,3 +35,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ### 인재 정보 (`/api/caregivers`)
 - `GET /` - 목록 조회 (연락처 phone 필드 포함, `?region=경기`처럼 지역 접두어로 필터링 가능)
+
+## 프론트엔드 / 모바일
+
+- `frontend/` - React + Vite 웹 프론트엔드 (`npm run dev`, 3000번 포트, `/api`는 8081번 백엔드로 프록시)
+- `mobile/` - Expo(React Native) 모바일 앱

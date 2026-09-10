@@ -51,33 +51,41 @@ export default function HomeHero() {
         <div className="hp-hero-cards">
           <Link to="/jobseeker" className="hp-hero-card">
             <p className="hp-hcard-label">일자리를 찾고 계신가요?</p>
-            <div className="hp-hcard-icon hp-hcard-icon--blue">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-              </svg>
+            <div className="hp-hcard-header">
+              <div className="hp-hcard-icon hp-hcard-icon--blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+              </div>
+              <p className="hp-hcard-title">구직하기</p>
             </div>
-            <p className="hp-hcard-title">구직하기</p>
-            <p className="hp-hcard-desc">요양보호사, 간병인, 돌봄 일자리를<br />지금 바로 찾아보세요.</p>
-            <div className="hp-hcard-arrow hp-hcard-arrow--blue">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+            <p className="hp-hcard-desc">요양보호사, 간병인, 돌봄 일자리를 지금 바로 찾아보세요.</p>
+            <div className="hp-hcard-footer">
+              <div className="hp-hcard-arrow hp-hcard-arrow--blue">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
           </Link>
 
           <button className="hp-hero-card">
             <p className="hp-hcard-label">인재를 찾고 계신가요?</p>
-            <div className="hp-hcard-icon hp-hcard-icon--pink">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/>
-              </svg>
+            <div className="hp-hcard-header">
+              <div className="hp-hcard-icon hp-hcard-icon--pink">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/>
+                </svg>
+              </div>
+              <p className="hp-hcard-title">구인공고 등록</p>
             </div>
-            <p className="hp-hcard-title">구인공고 등록</p>
-            <p className="hp-hcard-desc">필요한 인재를 쉽고 빠르게<br />찾아보세요.</p>
-            <div className="hp-hcard-arrow hp-hcard-arrow--pink">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+            <p className="hp-hcard-desc">필요한 인재를 쉽고 빠르게 찾아보세요.</p>
+            <div className="hp-hcard-footer">
+              <div className="hp-hcard-arrow hp-hcard-arrow--pink">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
           </button>
         </div>

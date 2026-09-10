@@ -5,6 +5,12 @@
 
 ## 작업 로그
 
+### 2026-09-10
+- `JobSearchPage` 신규 생성 (`/jobs` 라우트): JsHero, JsFilter, JsJobList, JsSidebar 컴포넌트 구성
+- `App.jsx`에 `/jobs` 라우트 추가
+- 홈 히어로 카드 레이아웃 개선: 아이콘+타이틀을 `hp-hcard-header`로 묶고, 화살표를 `hp-hcard-footer`로 이동
+- `HomeNav` 활성 메뉴 폰트 굵기 전환 시 레이아웃 이동 방지 (`hp-nav-label` + `data-text` 트릭 적용)
+
 ### 2026-09-09
 - `react-router-dom` 설치
 - `main.jsx`에 `BrowserRouter` 적용

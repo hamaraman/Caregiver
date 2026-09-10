@@ -103,6 +103,23 @@
 
 .hp-nav-btn.active {
   color: #4A8FE7;
+}
+
+.hp-nav-label {
+  display: inline-block;
+}
+
+.hp-nav-label::after {
+  content: attr(data-text);
+  font-weight: 700;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hp-nav-btn.active .hp-nav-label {
   font-weight: 700;
 }
 
@@ -363,8 +380,8 @@
 }
 
 .hp-hero-card {
-  width: 176px;
-  padding: 20px 18px;
+  width: 186px;
+  padding: 18px 16px;
   background: #fff;
   border: none;
   border-radius: 18px;
@@ -372,7 +389,7 @@
   flex-direction: column;
   align-items: flex-start;
   text-decoration: none;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
   box-shadow: 0 6px 24px rgba(0,0,0,0.13);
   transition: transform 0.18s, box-shadow 0.18s;
@@ -391,10 +408,16 @@
   line-height: 1.3;
 }
 
+.hp-hcard-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .hp-hcard-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -404,31 +427,36 @@
 .hp-hcard-icon--pink { background: #e91e8c; }
 
 .hp-hcard-title {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 800;
   color: #1a2d4d;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .hp-hcard-desc {
   font-size: 11.5px;
   color: #999;
-  line-height: 1.55;
+  line-height: 1.6;
   margin: 0;
   flex: 1;
+  word-break: keep-all;
+}
+
+.hp-hcard-footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .hp-hcard-arrow {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: flex-end;
-  margin-top: 4px;
   flex-shrink: 0;
 }
 .hp-hcard-arrow--blue { background: #4A8FE7; }

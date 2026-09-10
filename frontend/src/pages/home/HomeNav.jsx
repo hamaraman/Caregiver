@@ -61,7 +61,7 @@ export default function HomeNav() {
             >
               <button className={`hp-nav-btn ${isActive(item.path) ? 'active' : ''}`} onClick={() => navigate(item.path)}>
                 <span className="hp-nav-icon">{item.icon}</span>
-                {item.label}
+                <span className="hp-nav-label" data-text={item.label}>{item.label}</span>
                 {item.sub.length > 0 && <span className="hp-nav-caret">▾</span>}
               </button>
               {item.sub.length > 0 && activeNav === item.label && (

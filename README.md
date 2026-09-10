@@ -113,6 +113,9 @@ npm run dev
 ## 작업 로그
 
 ### 2026-09-10
+- 원격 브랜치 전체 통합: WCH(백엔드 API) → backend-db-auth(OAuth2) → frontend-ui-inhwa(인재정보·구인관리) 순차 머지
+- AuthProvider, ScrollToTop, AuthGuard, TalentListPage, TalentDetailPage, ApplicantsPage, RecruitManagePage 등 inhwa 작업 통합
+- App.jsx 라우트 통합: `/jobs`=JobSearchPage, `/job/:id`=JobDetailPage(juhyun 버전) 유지
 - `JobSearchPage` 신규 생성 (`/jobs` 라우트): JsHero, JsFilter, JsJobList, JsSidebar 컴포넌트 구성
 - `App.jsx`에 `/jobs` 라우트 추가
 - `JobDetailPage` 신규 생성 (`/job/:id`): 일자리 상세 페이지 (모집내용, 자격, 복리후생, 지원하기)

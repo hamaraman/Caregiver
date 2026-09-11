@@ -22,16 +22,17 @@
 }
 
 .footer-logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #e91e8c, #ff6eb4);
-  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #e91e8c, #c01070);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-weight: 800;
-  font-size: 12px;
+  font-size: 13px;
+  flex-shrink: 0;
 }
 
 .footer-logo-name {
@@ -71,4 +72,16 @@
 
 .footer-links a:hover {
   color: #e91e8c;
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }

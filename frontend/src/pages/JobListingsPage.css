@@ -1,0 +1,1016 @@
+.jl-page {
+  padding: 32px 0 60px;
+  min-height: calc(100vh - 64px);
+  background: #f5f7fc;
+}
+
+.jl-top {
+  margin-bottom: 20px;
+}
+
+.jl-breadcrumb {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+.jl-breadcrumb a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.jl-breadcrumb a:hover {
+  color: #e91e8c;
+}
+
+.jl-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #222;
+}
+
+/* 검색 + 필터 */
+.jl-filter-bar {
+  background: #fff;
+  border-radius: 16px;
+  border: 2px solid #f0b8d8;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jl-active-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.jl-active-chip {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #fce4f1;
+  border: 1px solid #f0b8d8;
+  color: #c01070;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.jl-search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jl-search-row .jl-search {
+  flex: 1;
+}
+
+.jl-filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #f0b8d8;
+  background: #fff;
+  color: #e91e8c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.jl-filter-toggle:hover {
+  background: #fce8f3;
+}
+
+.jl-filter-body {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: stretch;
+}
+
+.jl-filter-left {
+  flex: 1;
+  min-width: 0;
+  padding-right: 28px;
+}
+
+.jl-filter-right {
+  width: 200px;
+  flex-shrink: 0;
+  border-left: 1px solid #f5d0e5;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.jl-right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jl-right-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jl-right-divider {
+  height: 1px;
+  background: #f5d0e5;
+}
+
+.jl-sort-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jl-sort-btn {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-sort-btn:hover {
+  color: #e91e8c;
+  background: #fce4f1;
+  border-color: #f0b8d8;
+}
+
+.jl-sort-btn--active {
+  background: #e91e8c;
+  border-color: #e91e8c;
+  color: #fff;
+}
+
+.jl-search {
+  display: flex;
+  align-items: center;
+  background: #f9f0f5;
+  border: 1.5px solid #e8b4d0;
+  border-radius: 50px;
+  padding: 4px 4px 4px 16px;
+  max-width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.jl-search:focus-within {
+  background: #fff;
+  border-color: #e91e8c;
+  box-shadow: 0 4px 20px rgba(233, 30, 140, 0.15);
+}
+
+.jl-search svg {
+  flex-shrink: 0;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.jl-search:focus-within svg {
+  color: #e91e8c;
+}
+
+.jl-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  padding: 4px 8px;
+}
+
+.jl-search input::placeholder {
+  color: #b0a0a8;
+}
+
+.jl-search-btn {
+  width: 34px;
+  height: 34px;
+  background: #e91e8c;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.jl-search-btn:hover {
+  background: #c91677;
+}
+
+.jl-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jl-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 급여 범위 */
+.jl-filter-group--wage {
+  align-items: center;
+}
+
+.jl-wage-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jl-wage-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.jl-wage-input {
+  width: 130px;
+  padding: 5px 12px;
+  border: 1.5px solid #e8b4d0;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #333;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.jl-wage-input:focus {
+  border-color: #e91e8c;
+  box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.1);
+}
+
+.jl-wage-input::placeholder { color: #c0b0b8; }
+
+.jl-wage-input--disabled {
+  background: #f5f5f5;
+  border-color: #e8e0e4;
+  color: #ccc;
+  cursor: default;
+  pointer-events: none;
+}
+
+.jl-wage-input--disabled::placeholder { color: #d8cdd2; }
+
+.jl-wage-sep {
+  font-size: 14px;
+  color: #bbb;
+  font-weight: 500;
+}
+
+.jl-wage-sep--disabled { color: #ddd; }
+
+.jl-wage-hint {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fade-in 0.15s ease;
+}
+
+.jl-wage-hint::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+
+.jl-chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jl-filter-select {
+  display: none;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid #ddb8ce;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+.jl-chip--more {
+  color: #e91e8c;
+  background: #fff0f7;
+  border-color: #f0b8d8;
+  flex-shrink: 0;
+}
+
+.jl-chip--more:hover {
+  background: #fce4f1;
+  color: #c01070;
+}
+
+/* ── 지역 팝업 피커 ── */
+.jl-region-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+}
+
+.jl-region-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 6px 12px 6px 14px;
+  border: 1.5px solid #e8b4d0;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  flex-wrap: wrap;
+}
+
+.jl-region-trigger:hover {
+  border-color: #e91e8c;
+}
+
+.jl-region-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #b0a0a8;
+  flex: 1;
+}
+
+.jl-region-selected-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex: 1;
+}
+
+.jl-region-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fce4f1;
+  color: #c01070;
+  border-radius: 20px;
+  padding: 3px 10px 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.jl-region-chip-remove {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #c01070;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  margin-left: 2px;
+  opacity: 0.7;
+}
+
+.jl-region-chip-remove:hover { opacity: 1; }
+
+.jl-region-arrow {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* 팝업 패널 */
+.jl-region-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 420px;
+  background: #fff;
+  border: 1.5px solid #f0b8d8;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.13);
+  z-index: 200;
+  animation: fade-in 0.15s ease;
+  overflow: hidden;
+}
+
+.jl-panel-do-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 16px 16px 12px;
+}
+
+.jl-panel-do-chip {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-panel-do-chip:hover {
+  color: #e91e8c;
+  background: #fce4f1;
+  border-color: #f0b8d8;
+}
+
+.jl-panel-do-chip--focused {
+  background: #fff0f7;
+  border-color: #e91e8c;
+  color: #e91e8c;
+}
+
+.jl-panel-do-chip--active {
+  background: #e91e8c;
+  border-color: #e91e8c;
+  color: #fff;
+}
+
+.jl-panel-do-chip--active.jl-panel-do-chip--focused {
+  background: #c01070;
+  border-color: #c01070;
+}
+
+.jl-panel-divider {
+  height: 1px;
+  background: #f5d0e5;
+  margin: 0 16px;
+}
+
+.jl-panel-si-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.jl-panel-do-all {
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-panel-do-all:hover { color: #e91e8c; border-color: #e91e8c; }
+.jl-panel-do-all--active { background: #e91e8c; border-color: #e91e8c; color: #fff; }
+
+.jl-panel-si-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 6px 16px 14px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.jl-panel-si-chip {
+  padding: 4px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-panel-si-chip:hover { color: #e91e8c; background: #fce4f1; border-color: #f0b8d8; }
+.jl-panel-si-chip--active { background: #e91e8c; border-color: #e91e8c; color: #fff; }
+
+.jl-panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-top: 1px solid #f5d0e5;
+  background: #fdf5f9;
+}
+
+.jl-panel-clear {
+  font-size: 12px;
+  color: #aaa;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+.jl-panel-clear:hover { color: #e91e8c; }
+
+.jl-panel-confirm {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: #e91e8c;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.jl-panel-confirm:hover { background: #c01070; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.jl-chip--sub {
+  font-size: 12px;
+  padding: 4px 11px;
+}
+
+.jl-filter-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #999;
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.jl-chip {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.jl-chip:hover {
+  color: #e91e8c;
+  background: #fff;
+}
+
+.jl-chip--active {
+  background: #e91e8c;
+  color: #fff;
+  border-color: #e91e8c;
+}
+
+.jl-filter-label {
+  color: #999;
+}
+
+/* 내가 쓴 공고 */
+.jl-myposts {
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid #e8c0d8;
+  padding: 18px 20px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 16px rgba(233, 30, 140, 0.10);
+}
+
+.jl-myposts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.jl-myposts-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #222;
+}
+
+.jl-myposts-manage {
+  font-size: 12px;
+  color: #e91e8c;
+  text-decoration: none;
+  font-weight: 700;
+  transition: opacity 0.15s;
+}
+.jl-myposts-manage:hover { opacity: 0.7; }
+
+.jl-myposts-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.jl-myposts-list::-webkit-scrollbar { display: none; }
+
+.jl-mypost-card {
+  flex-shrink: 0;
+  width: 180px;
+  background: #fceef6;
+  border: 1.5px solid #e8b8d4;
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.jl-mypost-card:hover {
+  border-color: #e91e8c;
+  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.18);
+}
+
+.jl-mypost-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #2a9a2a;
+  background: #e8f8e8;
+  border: 1px solid #b8e8b8;
+  border-radius: 20px;
+  padding: 2px 8px;
+  width: fit-content;
+  margin-bottom: 2px;
+}
+
+.jl-mypost-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.jl-mypost-meta {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jl-mypost-date {
+  font-size: 11px;
+  color: #999;
+  margin: 0;
+}
+
+/* 결과 수 */
+.jl-result-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.jl-result-count {
+  font-size: 13px;
+  color: #888;
+}
+
+.jl-result-count strong {
+  color: #e91e8c;
+  font-weight: 700;
+}
+
+.jl-view-toggle {
+  display: flex;
+  gap: 4px;
+}
+
+.jl-view-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e0e0e0;
+  border-radius: 7px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #bbb;
+  transition: all 0.15s;
+}
+
+.jl-view-btn:hover { border-color: #e91e8c; color: #e91e8c; }
+
+.jl-view-btn--active {
+  border-color: #e91e8c;
+  color: #e91e8c;
+  background: #fff0f7;
+}
+
+/* 카드 그리드 */
+.jl-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.jl-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.jl-card:hover {
+  border-color: #e91e8c;
+  box-shadow: 0 6px 20px rgba(233,30,140,0.12);
+  transform: translateY(-2px);
+}
+
+.jl-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding-right: 24px;
+}
+
+.jl-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  flex: 1;
+  line-height: 1.4;
+  transition: color 0.15s;
+}
+
+.jl-card:hover .jl-card-title { color: #e91e8c; }
+
+.jl-card-like {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+}
+
+.jl-card-location { font-size: 13px; color: #444; }
+.jl-card-wage     { font-size: 14px; font-weight: 700; color: #e91e8c; }
+.jl-card-meta     { font-size: 13px; color: #555; }
+.jl-card-date     { font-size: 12px; color: #999; margin-top: 4px; }
+
+/* 테이블 */
+.jl-table {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 24px;
+}
+
+.jl-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.4fr 1.2fr 0.7fr 0.6fr 40px;
+  align-items: center;
+  padding: 15px 24px;
+  border-bottom: none;
+  border-left: 3px solid transparent;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.15s, border-left-color 0.15s;
+}
+
+.jl-row:last-child {
+  border-bottom: none;
+}
+
+.jl-row:hover {
+  background: linear-gradient(90deg, #fdf5fa 0%, #fff 70%);
+  border-left-color: #e91e8c;
+}
+
+.jl-row:hover .jl-job-title {
+  color: #e91e8c;
+}
+
+.jl-title-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jl-job-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.jl-location { font-size: 13px; color: #444; }
+.jl-wage     { font-size: 13px; font-weight: 700; color: #e91e8c; }
+.jl-hours    { font-size: 13px; color: #555; }
+.jl-days     { font-size: 13px; color: #555; }
+.jl-date     { font-size: 12px; color: #999; text-align: center; }
+
+.jl-empty {
+  padding: 60px;
+  text-align: center;
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* 페이지네이션 */
+.jl-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.jl-page-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fff;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jl-page-btn:hover:not(:disabled) {
+  border-color: #e91e8c;
+  color: #e91e8c;
+}
+
+.jl-page-btn--active {
+  background: #e91e8c;
+  border-color: #e91e8c;
+  color: #fff;
+  font-weight: 700;
+}
+
+.jl-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .jl-filter-bar {
+    padding: 14px 16px;
+  }
+
+  .jl-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+
+  .jl-filter-body {
+    flex-direction: column;
+  }
+
+  .jl-filter-left {
+    padding-right: 0;
+    padding-bottom: 16px;
+  }
+
+  .jl-filter-right {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #f5d0e5;
+    padding-left: 0;
+    padding-top: 16px;
+    flex-direction: row;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  .jl-right-section {
+    flex: 1;
+    padding: 0 14px;
+  }
+
+  .jl-right-section:first-child {
+    padding-left: 0;
+  }
+
+  .jl-right-divider {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    background: #f5d0e5;
+  }
+
+  .jl-region-panel {
+    width: calc(100vw - 40px);
+    max-width: 360px;
+  }
+
+  .jl-chip-wrap {
+    display: none;
+  }
+
+  .jl-filter-select {
+    display: block;
+  }
+
+  .jl-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 8px 14px;
+  }
+
+  .jl-title-cell {
+    width: 100%;
+    flex: none;
+    margin-bottom: 2px;
+  }
+
+  .jl-job-title {
+    font-size: 13px;
+  }
+
+  .jl-location::after { content: ' · '; color: #ccc; }
+  .jl-wage::after { content: ' · '; color: #ccc; }
+  .jl-hours::after { content: ' · '; color: #ccc; }
+
+  .jl-location,
+  .jl-wage,
+  .jl-hours,
+  .jl-days,
+  .jl-date {
+    font-size: 11px;
+    color: #666;
+  }
+}

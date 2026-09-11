@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Caregiver" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#4A8FE7</item>
+        <item name="colorPrimaryDark">#3A7FD7</item>
+        <item name="colorAccent">#E75480</item>
+    </style>
+</resources>

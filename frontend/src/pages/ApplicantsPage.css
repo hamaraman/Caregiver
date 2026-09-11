@@ -1,0 +1,316 @@
+.ap-page {
+  padding: 32px 0 80px;
+  min-height: calc(100vh - 64px);
+  background: #f5f7fc;
+}
+
+.ap-top { margin-bottom: 24px; }
+.ap-title { font-size: 22px; font-weight: 800; color: #222; margin-bottom: 4px; }
+.ap-subtitle { font-size: 14px; color: #aaa; }
+
+/* 공고 탭 */
+.ap-job-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.ap-job-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 14px 18px;
+  border: 1.5px solid #e8e0e8;
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-width: 160px;
+}
+
+.ap-job-tab:hover { border-color: #e91e8c; }
+
+.ap-job-tab--active {
+  border-color: #e91e8c;
+  background: #fff0f7;
+}
+
+.ap-tab-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #222;
+}
+
+.ap-tab-loc {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.ap-tab-cnt {
+  font-size: 12px;
+  color: #bbb;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.ap-tab-cnt--has { color: #e91e8c; }
+
+/* 공고 요약 바 */
+.ap-job-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid #f0d0e8;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #444;
+}
+
+.ap-summary-name { font-weight: 700; color: #222; }
+.ap-summary-dot { color: #ddd; }
+.ap-summary-wage { color: #e91e8c; font-weight: 600; }
+
+.ap-summary-link {
+  margin-left: auto;
+  font-size: 13px;
+  color: #e91e8c;
+  text-decoration: none;
+  border: 1px solid #f0c0dc;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: background 0.15s;
+}
+
+.ap-summary-link:hover { background: #fff0f7; }
+
+/* 결과 바 */
+.ap-result-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0 4px;
+}
+
+.ap-result-count { font-size: 14px; color: #666; }
+.ap-result-count strong { color: #e91e8c; }
+.ap-result-tip { font-size: 12px; color: #bbb; }
+
+/* 빈 상태 */
+.ap-empty {
+  text-align: center;
+  padding: 60px;
+  color: #bbb;
+  font-size: 15px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1.5px solid #e8e0e8;
+}
+
+/* 카드 목록 */
+.ap-list { display: flex; flex-direction: column; gap: 10px; }
+
+.ap-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 14px;
+  border: 1.5px solid #e2c4d8;
+  padding: 20px 24px;
+  gap: 24px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.ap-card:hover {
+  border-color: #d8a8cc;
+  box-shadow: 0 4px 16px rgba(233,30,140,0.07);
+}
+
+/* 왼쪽 */
+.ap-card-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.ap-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fdf0f7;
+  border: 2px solid #f5d0e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ap-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.ap-card-name:hover { color: #e91e8c; }
+
+.ap-gender-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.ap-gender-badge--f { background: #fff0f7; color: #e91e8c; }
+.ap-gender-badge--m { background: #eff4ff; color: #5b8def; }
+
+.ap-card-age { font-size: 12px; color: #aaa; margin-bottom: 6px; }
+
+.ap-card-certs { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.ap-cert-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #f5f0ff;
+  color: #7b4fcf;
+  border: 1px solid #d8c8f0;
+  font-weight: 500;
+}
+
+/* 중간 */
+.ap-card-mid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 20px;
+}
+
+.ap-card-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #444;
+}
+
+.ap-card-label {
+  color: #bbb;
+  font-size: 12px;
+  flex-shrink: 0;
+  width: 44px;
+}
+
+.ap-wage { color: #e91e8c; font-weight: 600; }
+
+/* 오른쪽 */
+.ap-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ap-status-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.ap-status-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.ap-status-change-btn {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 14px;
+  border: 1.5px solid #e8e0e8;
+  background: #fafafa;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ap-status-change-btn:hover {
+  border-color: #e91e8c;
+  color: #e91e8c;
+  background: #fff0f7;
+}
+
+.ap-resume-btn {
+  font-size: 13px;
+  color: #fff;
+  background: #e91e8c;
+  border: none;
+  border-radius: 10px;
+  padding: 7px 16px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.ap-resume-btn:hover { background: #c8177a; }
+
+@media (max-width: 768px) {
+  .ap-job-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ap-job-tab {
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .ap-job-summary {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .ap-summary-link {
+    margin-left: 0;
+  }
+
+  .ap-card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    align-items: stretch;
+  }
+
+  .ap-card-left {
+    width: 100%;
+  }
+
+  .ap-card-mid {
+    grid-template-columns: 1fr;
+  }
+
+  .ap-card-right {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

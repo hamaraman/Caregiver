@@ -2,7 +2,7 @@ import { useAuth } from '../hooks/useAuth'
 import './AuthGuard.css'
 
 function authUrl(path) {
-  return `http://localhost:5173${path}?redirect=${encodeURIComponent(window.location.href)}`
+  return `${window.location.origin}${path}?redirect=${encodeURIComponent(window.location.href)}`
 }
 
 export default function AuthGuard({ require: requiredType, children }) {

@@ -14,6 +14,7 @@ import JobSeekerPage from './pages/JobSeekerPage'
 import JobRegisterPage from './pages/JobRegisterPage'
 import JobSearchPage from './pages/JobSearchPage'
 import EmployerHomePage from './pages/EmployerHomePage'
+import MyApplicationsPage from './pages/MyApplicationsPage'
 import ScrollToTop from './components/ScrollToTop'
 import './App.css'
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/jobseeker" element={<JobSeekerPage />} />
         <Route path="/job-register" element={<JobRegisterPage />} />
         <Route path="/employer" element={<EmployerHomePage />} />
+        <Route path="/my-applications" element={<MyApplicationsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>

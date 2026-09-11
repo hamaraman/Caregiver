@@ -22,7 +22,7 @@
   align-items: flex-start;
   gap: 3px;
   padding: 14px 18px;
-  border: 1.5px solid #e8e0e8;
+  border: 1.5px solid #d8e0f0;
   border-radius: 14px;
   background: #fff;
   cursor: pointer;
@@ -30,11 +30,11 @@
   min-width: 160px;
 }
 
-.ap-job-tab:hover { border-color: #e91e8c; }
+.ap-job-tab:hover { border-color: #4A8FE7; }
 
 .ap-job-tab--active {
-  border-color: #e91e8c;
-  background: #fff0f7;
+  border-color: #4A8FE7;
+  background: #f0f5ff;
 }
 
 .ap-tab-title {
@@ -55,7 +55,7 @@
   margin-top: 4px;
 }
 
-.ap-tab-cnt--has { color: #e91e8c; }
+.ap-tab-cnt--has { color: #4A8FE7; }
 
 /* 공고 요약 바 */
 .ap-job-summary {
@@ -63,7 +63,7 @@
   align-items: center;
   gap: 10px;
   background: #fff;
-  border: 1.5px solid #f0d0e8;
+  border: 1.5px solid #c8d8f5;
   border-radius: 12px;
   padding: 12px 18px;
   margin-bottom: 16px;
@@ -73,20 +73,20 @@
 
 .ap-summary-name { font-weight: 700; color: #222; }
 .ap-summary-dot { color: #ddd; }
-.ap-summary-wage { color: #e91e8c; font-weight: 600; }
+.ap-summary-wage { color: #4A8FE7; font-weight: 600; }
 
 .ap-summary-link {
   margin-left: auto;
   font-size: 13px;
-  color: #e91e8c;
+  color: #4A8FE7;
   text-decoration: none;
-  border: 1px solid #f0c0dc;
+  border: 1px solid #a8c8f5;
   padding: 4px 12px;
   border-radius: 20px;
   transition: background 0.15s;
 }
 
-.ap-summary-link:hover { background: #fff0f7; }
+.ap-summary-link:hover { background: #f0f5ff; }
 
 /* 결과 바 */
 .ap-result-bar {
@@ -98,7 +98,7 @@
 }
 
 .ap-result-count { font-size: 14px; color: #666; }
-.ap-result-count strong { color: #e91e8c; }
+.ap-result-count strong { color: #4A8FE7; }
 .ap-result-tip { font-size: 12px; color: #bbb; }
 
 /* 빈 상태 */
@@ -109,7 +109,7 @@
   font-size: 15px;
   background: #fff;
   border-radius: 14px;
-  border: 1.5px solid #e8e0e8;
+  border: 1.5px solid #d8e0f0;
 }
 
 /* 카드 목록 */
@@ -120,15 +120,15 @@
   align-items: center;
   background: #fff;
   border-radius: 14px;
-  border: 1.5px solid #e2c4d8;
+  border: 1.5px solid #c8d8f5;
   padding: 20px 24px;
   gap: 24px;
   transition: box-shadow 0.15s, border-color 0.15s;
 }
 
 .ap-card:hover {
-  border-color: #d8a8cc;
-  box-shadow: 0 4px 16px rgba(233,30,140,0.07);
+  border-color: #a8c4f0;
+  box-shadow: 0 4px 16px rgba(74,143,231,0.07);
 }
 
 /* 왼쪽 */
@@ -144,13 +144,15 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #fdf0f7;
-  border: 2px solid #f5d0e8;
+  background: #f0f5ff;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
+.ap-avatar--f { background: #fff0f7; }
+.ap-avatar--m { background: #eff5ff; }
 
 .ap-card-name {
   font-size: 15px;
@@ -164,7 +166,7 @@
   transition: color 0.15s;
 }
 
-.ap-card-name:hover { color: #e91e8c; }
+.ap-card-name:hover { color: #4A8FE7; }
 
 .ap-gender-badge {
   font-size: 11px;
@@ -213,7 +215,7 @@
   width: 44px;
 }
 
-.ap-wage { color: #e91e8c; font-weight: 600; }
+.ap-wage { color: #4A8FE7; font-weight: 600; }
 
 /* 오른쪽 */
 .ap-card-right {
@@ -241,7 +243,7 @@
   font-size: 11px;
   padding: 3px 10px;
   border-radius: 14px;
-  border: 1.5px solid #e8e0e8;
+  border: 1.5px solid #d8e0f0;
   background: #fafafa;
   color: #888;
   cursor: pointer;
@@ -249,15 +251,15 @@
 }
 
 .ap-status-change-btn:hover {
-  border-color: #e91e8c;
-  color: #e91e8c;
-  background: #fff0f7;
+  border-color: #4A8FE7;
+  color: #4A8FE7;
+  background: #f0f5ff;
 }
 
 .ap-resume-btn {
   font-size: 13px;
   color: #fff;
-  background: #e91e8c;
+  background: #4A8FE7;
   border: none;
   border-radius: 10px;
   padding: 7px 16px;
@@ -267,7 +269,7 @@
   white-space: nowrap;
 }
 
-.ap-resume-btn:hover { background: #c8177a; }
+.ap-resume-btn:hover { background: #3A7FD7; }
 
 @media (max-width: 768px) {
   .ap-job-tabs {

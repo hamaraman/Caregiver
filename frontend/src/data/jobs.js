@@ -31,3 +31,5 @@ export const JOB_LIST = [
   { id: 29, shift: '주간', type: '재가요양보호사',      location: '서울 중랑구', workType: '주 5일', pay: '월 2,150,000원',     time: '09:00~17:00', date: '08.14', liked: false, facility: '중랑 나눔재단',       address: '서울시 중랑구 면목동 77-8',         tags: ['월급제', '재가', '4대보험'],          dday: 30, logo: '🏠', desc: '월급제 재가 요양보호사를 모집합니다. 안정적인 월급제로 장기 근무하실 분을 환영합니다.',                             requirements: ['요양보호사 자격증 필수', '장기 근무 희망자', '서울 거주자 우대'],        benefits: ['4대보험', '퇴직금', '명절 상여', '경력 급여 반영'],      contact: '02-789-0123' },
   { id: 30, shift: '주간', type: '작업치료사',          location: '경기 성남시', workType: '주 5일', pay: '월 2,700,000원',     time: '09:00~18:00', date: '08.13', liked: false, facility: '성남 분당 재활센터',  address: '경기도 성남시 분당구 서현동 10-9',  tags: ['작업치료', '면허 필수', '복리후생'],  dday: 15, logo: '✋', desc: '분당 재활센터 내 작업치료사를 모집합니다. 다양한 환자 케이스를 경험할 수 있는 좋은 기회입니다.',                   requirements: ['작업치료사 면허 필수', '경력 1년 이상 우대', '의사소통 능숙한 분'],      benefits: ['4대보험', '퇴직금', '세미나 지원', '중식 제공', '연차'], contact: '031-890-1234' },
 ]
+
+export const jobs = JOB_LIST

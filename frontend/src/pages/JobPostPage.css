@@ -13,7 +13,7 @@
 }
 
 .jp-breadcrumb a { color: #aaa; text-decoration: none; }
-.jp-breadcrumb a:hover { color: #e91e8c; }
+.jp-breadcrumb a:hover { color: #4A8FE7; }
 
 .jp-title {
   font-size: 22px;
@@ -27,12 +27,12 @@
   align-items: center;
   background: #fff;
   border-radius: 14px;
-  border: 1.5px solid #f0b8d8;
+  border: 1.5px solid #b8d0f5;
   padding: 18px 28px;
   margin-bottom: 28px;
   gap: 0;
   overflow-x: auto;
-  box-shadow: 0 2px 10px rgba(233,30,140,0.06);
+  box-shadow: 0 2px 10px rgba(74,143,231,0.06);
 }
 
 .jp-step {
@@ -46,7 +46,7 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #e91e8c;
+  background: #4A8FE7;
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -66,7 +66,7 @@
 .jp-step-line {
   width: 32px;
   height: 1px;
-  background: #f0b8d8;
+  background: #b8d0f5;
   margin: 0 8px;
   flex-shrink: 0;
 }
@@ -77,9 +77,9 @@
 .jp-section {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #ddb8ce;
+  border: 1.5px solid #b8cef0;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(233,30,140,0.08);
+  box-shadow: 0 2px 12px rgba(74,143,231,0.08);
 }
 
 .jp-section-header {
@@ -87,15 +87,15 @@
   align-items: center;
   gap: 10px;
   padding: 16px 24px;
-  background: #fce8f3;
-  border-bottom: 1px solid #e0b0cc;
+  background: #eff5ff;
+  border-bottom: 1px solid #b0c8f0;
 }
 
 .jp-section-num {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #e91e8c;
+  background: #4A8FE7;
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -153,16 +153,16 @@
 
 .jp-label--required::after {
   content: '*';
-  color: #e91e8c;
+  color: #4A8FE7;
   font-size: 14px;
 }
 
-.jp-label--required-star { color: #e91e8c; }
+.jp-label--required-star { color: #4A8FE7; }
 
 /* 인풋 */
 .jp-input {
   padding: 8px 12px;
-  border: 1.5px solid #c8a8bc;
+  border: 1.5px solid #b8cce0;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -172,8 +172,8 @@
 }
 
 .jp-input:focus {
-  border-color: #e91e8c;
-  box-shadow: 0 0 0 3px rgba(233,30,140,0.1);
+  border-color: #4A8FE7;
+  box-shadow: 0 0 0 3px rgba(74,143,231,0.1);
 }
 
 .jp-input:disabled {
@@ -189,7 +189,7 @@
 .jp-input--wage { width: 180px; }
 .jp-input--date { width: 180px; }
 
-.jp-input::placeholder { color: #c0b0b8; }
+.jp-input::placeholder { color: #aabbd0; }
 
 .jp-input--error { border-color: #e03030 !important; }
 .jp-input--error:focus { box-shadow: 0 0 0 3px rgba(224,48,48,0.12); }
@@ -204,18 +204,18 @@
 /* 셀렉트 */
 .jp-select {
   padding: 8px 32px 8px 12px;
-  border: 1.5px solid #c8a8bc;
+  border: 1.5px solid #b8cce0;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
   outline: none;
-  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23e91e8c' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234A8FE7' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center;
   appearance: none;
   transition: border-color 0.2s;
   cursor: pointer;
 }
 
-.jp-select:focus { border-color: #e91e8c; }
+.jp-select:focus { border-color: #4A8FE7; }
 .jp-select:disabled { background-color: #f5f5f5; color: #aaa; cursor: not-allowed; }
 .jp-select--md { width: 200px; }
 .jp-select--mobile-only { display: none; }
@@ -250,7 +250,7 @@
   cursor: pointer;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #e8e0e8;
+  border: 1.5px solid #d8e0f0;
   background: #fafafa;
   transition: all 0.15s;
   user-select: none;
@@ -258,9 +258,9 @@
 }
 
 .jp-radio:has(input:checked) {
-  background: #fce4f1;
-  border-color: #e91e8c;
-  color: #c01070;
+  background: #e8f0fd;
+  border-color: #4A8FE7;
+  color: #3A7FD7;
   font-weight: 600;
 }
 
@@ -283,7 +283,7 @@
   cursor: pointer;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #e8e0e8;
+  border: 1.5px solid #d8e0f0;
   background: #fafafa;
   transition: all 0.15s;
   user-select: none;
@@ -291,9 +291,9 @@
 }
 
 .jp-check:has(input:checked) {
-  background: #fce4f1;
-  border-color: #e91e8c;
-  color: #c01070;
+  background: #e8f0fd;
+  border-color: #4A8FE7;
+  color: #3A7FD7;
   font-weight: 600;
 }
 
@@ -301,35 +301,35 @@
 .jp-check--neg:has(input:checked) { background: #f0f0f5; border-color: #999; color: #555; }
 
 .jp-check--direct {
-  border-color: #e91e8c;
-  color: #c01070;
-  background: #fff0f7;
+  border-color: #4A8FE7;
+  color: #3A7FD7;
+  background: #f0f5ff;
   font-weight: 600;
 }
 
 .jp-check--direct:has(input:checked) {
-  background: #fce4f1;
-  border-color: #e91e8c;
+  background: #e8f0fd;
+  border-color: #4A8FE7;
 }
 
 .jp-check--same {
   font-size: 12px;
   padding: 5px 12px;
-  background: #f9f0f5;
-  border-color: #f0d0e5;
+  background: #f0f5ff;
+  border-color: #c0d4f5;
 }
 
 .jp-check--agree {
   font-size: 14px;
   font-weight: 600;
   padding: 10px 16px;
-  background: #fff0f7;
-  border-color: #f0b8d8;
+  background: #f0f5ff;
+  border-color: #b8d0f5;
 }
 
 .jp-check input { display: none; }
 .jp-check--agree input { display: none; }
-.jp-check--agree:has(input:checked) { background: #fce4f1; border-color: #e91e8c; color: #c01070; }
+.jp-check--agree:has(input:checked) { background: #e8f0fd; border-color: #4A8FE7; color: #3A7FD7; }
 
 .jp-time-group {
   display: flex;
@@ -343,7 +343,7 @@
 
 .jp-age-result {
   font-size: 13px;
-  color: #e91e8c;
+  color: #4A8FE7;
   font-weight: 500;
 }
 
@@ -357,7 +357,7 @@
   width: 100%;
   max-width: 560px;
   padding: 12px 14px;
-  border: 1.5px solid #c8a8bc;
+  border: 1.5px solid #b8cce0;
   border-radius: 10px;
   font-size: 13px;
   color: #333;
@@ -369,16 +369,16 @@
 }
 
 .jp-textarea:focus {
-  border-color: #e91e8c;
-  box-shadow: 0 0 0 3px rgba(233,30,140,0.1);
+  border-color: #4A8FE7;
+  box-shadow: 0 0 0 3px rgba(74,143,231,0.1);
 }
 
-.jp-textarea::placeholder { color: #c0b0b8; }
+.jp-textarea::placeholder { color: #aabbd0; }
 
 /* 약관 */
 .jp-agree-box {
-  background: #fdf5f9;
-  border: 1px solid #f5d0e5;
+  background: #f5f8ff;
+  border: 1px solid #ccdaf8;
   border-radius: 12px;
   padding: 16px 20px;
   display: flex;
@@ -428,23 +428,23 @@
 .jp-btn--cancel:hover { background: #ececec; }
 
 .jp-btn--submit {
-  background: #e91e8c;
+  background: #4A8FE7;
   color: #fff;
 }
 
-.jp-btn--submit:hover:not(:disabled) { background: #c01070; }
+.jp-btn--submit:hover:not(:disabled) { background: #3A7FD7; }
 
 .jp-btn--submit:disabled {
-  background: #f0c0dc;
+  background: #a8c8f5;
   cursor: not-allowed;
 }
 
 .jp-addr-btn {
   padding: 8px 16px;
   background: #fff;
-  border: 1.5px solid #e91e8c;
+  border: 1.5px solid #4A8FE7;
   border-radius: 8px;
-  color: #e91e8c;
+  color: #4A8FE7;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -454,13 +454,13 @@
 }
 
 .jp-addr-btn:hover {
-  background: #fff0f7;
+  background: #f0f5ff;
 }
 
 .jp-deadline-chip {
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #e8e0e8;
+  border: 1.5px solid #d8e0f0;
   background: #fafafa;
   font-size: 13px;
   font-weight: 600;

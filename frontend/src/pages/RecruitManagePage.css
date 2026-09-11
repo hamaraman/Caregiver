@@ -19,7 +19,7 @@
   align-items: center;
   gap: 6px;
   padding: 11px 22px;
-  background: linear-gradient(135deg, #e91e8c, #c8177a);
+  background: linear-gradient(135deg, #4A8FE7, #3A7FD7);
   color: #fff;
   border-radius: 12px;
   font-size: 14px;
@@ -28,10 +28,10 @@
   transition: opacity 0.15s, box-shadow 0.15s;
   white-space: nowrap;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(233,30,140,0.35);
+  box-shadow: 0 4px 14px rgba(74,143,231,0.35);
 }
 
-.rm-post-btn:hover { opacity: 0.9; box-shadow: 0 6px 18px rgba(233,30,140,0.45); }
+.rm-post-btn:hover { opacity: 0.9; box-shadow: 0 6px 18px rgba(74,143,231,0.45); }
 
 /* 요약 카드 */
 .rm-summary-row {
@@ -57,8 +57,8 @@
 }
 
 .rm-summary-card--active {
-  background: linear-gradient(135deg, #fce4f1 0%, #fff0f7 100%);
-  border: 1.5px solid #f0bcd8;
+  background: linear-gradient(135deg, #e8f0fd 0%, #f0f5ff 100%);
+  border: 1.5px solid #b8d0f5;
 }
 
 .rm-summary-card--closed {
@@ -90,7 +90,7 @@
   line-height: 1;
 }
 
-.rm-summary-val--active { color: #e91e8c; }
+.rm-summary-val--active { color: #4A8FE7; }
 .rm-summary-val--people { color: #5b8def; }
 
 .rm-summary-unit {
@@ -116,7 +116,7 @@
 }
 
 .rm-summary-card--sel {
-  box-shadow: 0 0 0 2px rgba(233, 30, 140, 0.4) !important;
+  box-shadow: 0 0 0 2px rgba(74,143,231,0.4) !important;
 }
 
 /* 빈 목록 */
@@ -127,7 +127,7 @@
   font-size: 15px;
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #ead4e4;
+  border: 1.5px solid #c8d8f5;
 }
 
 /* 공고 목록 */
@@ -136,14 +136,14 @@
 .rm-card {
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #ead4e4;
+  border: 1.5px solid #c8d8f5;
   overflow: hidden;
   transition: box-shadow 0.18s, transform 0.18s;
   position: relative;
 }
 
 .rm-card:hover {
-  box-shadow: 0 6px 24px rgba(233,30,140,0.12);
+  box-shadow: 0 6px 24px rgba(74,143,231,0.12);
   transform: translateY(-1px);
 }
 
@@ -276,7 +276,7 @@
   gap: 8px;
   padding: 12px 24px 14px;
   border-top: 1px solid #f8f0f6;
-  background: linear-gradient(90deg, #fdf7fb, #fff);
+  background: linear-gradient(90deg, #f5f8ff, #fff);
 }
 
 .rm-btn {
@@ -298,15 +298,15 @@
   color: #777;
 }
 
-.rm-btn--ghost:hover { border-color: #e91e8c; color: #e91e8c; background: #fff8fc; }
+.rm-btn--ghost:hover { border-color: #4A8FE7; color: #4A8FE7; background: #f0f5ff; }
 
 .rm-btn--close {
-  background: linear-gradient(90deg, #fff0f7, #fce4f1);
-  border-color: #f0bcd8;
-  color: #e91e8c;
+  background: linear-gradient(90deg, #f0f5ff, #e8f0fd);
+  border-color: #b8d0f5;
+  color: #4A8FE7;
 }
 
-.rm-btn--close:hover { background: #fcd8ec; border-color: #e91e8c; }
+.rm-btn--close:hover { background: #dce8fb; border-color: #4A8FE7; }
 
 .rm-btn--reopen {
   background: linear-gradient(90deg, #dcfce7, #bbf7d0);

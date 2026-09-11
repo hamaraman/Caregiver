@@ -100,7 +100,7 @@ export default function LoginPage() {
                   <span className="lp-social-logo">N</span>
                   네이버 로그인
                 </button>
-                <button className="lp-social-btn lp-social-kakao" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/kakao?t=' + new Date().getTime()}>
+                <button className="lp-social-btn lp-social-kakao" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/kakao'}>
                   <span className="lp-social-logo">K</span>
                   카카오 로그인
                 </button>

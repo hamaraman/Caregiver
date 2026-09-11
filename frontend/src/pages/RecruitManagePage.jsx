@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Header from '../components/Header'
+import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
 import { jobs } from '../data/jobs'
 import { applicants, myJobIds } from '../data/applicants'
@@ -42,7 +42,7 @@ export default function RecruitManagePage() {
 
   return (
     <>
-      <Header />
+      <HomeNav />
       <div className="rm-page">
         <div className="container">
           <div className="rm-top">

@@ -19,6 +19,6 @@ public class OAuth2FailureHandler implements AuthenticationFailureHandler {
         exception.printStackTrace();
         String errorMessage = exception.getMessage() != null ? exception.getMessage() : "Unknown error";
         String encodedError = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
-        response.sendRedirect("http://localhost:3000/?error=" + encodedError);
+        response.sendRedirect("http://localhost:3001/?error=" + encodedError);
     }
 }

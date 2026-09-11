@@ -1,23 +1,16 @@
-import Header from '../components/Header'
-import HeroBanner from '../components/HeroBanner'
-import FeatureCards from '../components/FeatureCards'
-import JobListings from '../components/JobListings'
-import CTABanner from '../components/CTABanner'
-import Footer from '../components/Footer'
+import './JobSeekerPage.css'
+import HomeNav from './home/HomeNav'
+import EhpHero from './employer/EhpHero'
+import EhpFeatureCards from './employer/EhpFeatureCards'
+import EhpMainContent from './employer/EhpMainContent'
 
 export default function EmployerHomePage() {
   return (
-    <div className="app">
-      <Header />
-      <main>
-        <HeroBanner />
-        <div className="container">
-          <FeatureCards />
-          <JobListings />
-          <CTABanner />
-        </div>
-      </main>
-      <Footer />
+    <div className="jsp-root">
+      <HomeNav />
+      <EhpHero />
+      <EhpFeatureCards />
+      <EhpMainContent />
     </div>
   )
 }

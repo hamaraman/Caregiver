@@ -1,7 +1,7 @@
 package org.example.caregiver.config;
 
-import org.example.caregiver.model.Member;
-import org.example.caregiver.repository.MemberRepository;
+import org.example.caregiver.auth.User;
+import org.example.caregiver.auth.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -13,15 +13,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
 
-    public CustomOAuth2UserService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+    public CustomOAuth2UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -61,17 +60,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         final String finalEmail = email;
 
-        // DB에 회원이 있는지 확인 후 없으면 저장
-        Member member = null;
-        Optional<Member> memberOpt = memberRepository.findAll().stream()
-                .filter(m -> finalEmail.equals(m.getUsername()))
-                .findFirst();
-
-        if (memberOpt.isPresent()) {
-            member = memberOpt.get();
-        } else {
-            member = new Member(finalEmail, "OAUTH_LOGIN", name, null);
-            memberRepository.save(member);
+        // DB에 유저가 있는지 확인 후 없으면 저장
+        if (!userRepository.existsByEmail(finalEmail)) {
+            userRepository.save(new User(null, finalEmail, "OAUTH_LOGIN", name, "personal"));
         }
 
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();

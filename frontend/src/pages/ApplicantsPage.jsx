@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Header from '../components/Header'
+import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
 import { jobs } from '../data/jobs'
 import { talents } from '../data/talents'
@@ -35,7 +35,7 @@ export default function ApplicantsPage() {
 
   return (
     <>
-      <Header />
+      <HomeNav />
       <div className="ap-page">
         <div className="container">
           <div className="ap-top">
@@ -97,10 +97,10 @@ export default function ApplicantsPage() {
                   <div key={app.id} className="ap-card">
                     {/* 왼쪽: 프로필 */}
                     <div className="ap-card-left">
-                      <div className="ap-avatar">
+                      <div className={`ap-avatar ap-avatar--${talent.gender === '여' ? 'f' : 'm'}`}>
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                          <circle cx="12" cy="8" r="4" stroke="#e91e8c" strokeWidth="1.8"/>
-                          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#e91e8c" strokeWidth="1.8" strokeLinecap="round"/>
+                          <circle cx="12" cy="8" r="4" stroke={talent.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8"/>
+                          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke={talent.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8" strokeLinecap="round"/>
                         </svg>
                       </div>
                       <div>

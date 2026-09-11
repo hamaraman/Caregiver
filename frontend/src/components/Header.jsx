@@ -5,7 +5,7 @@ import { logout } from '../api'
 import { useAuthContext } from '../contexts/AuthContext'
 
 function authUrl(path) {
-  return `http://localhost:5173${path}?redirect=${encodeURIComponent(window.location.href)}`
+  return `${window.location.origin}${path}?redirect=${encodeURIComponent(window.location.href)}`
 }
 
 const guinSubMenu = [

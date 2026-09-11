@@ -14,6 +14,7 @@ public class Caregiver {
     private String specialty;
     private int experienceYears;
     private double rating;
+    private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -48,4 +49,6 @@ public class Caregiver {
     public void setMember(Member member) { this.member = member; }
     public Region getRegion() { return region; }
     public void setRegion(Region region) { this.region = region; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 }

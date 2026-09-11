@@ -112,6 +112,14 @@ npm run dev
 
 ## 작업 로그
 
+### 2026-09-11
+- `JobPostPage`, `ApplicantsPage`, `RecruitManagePage`, `TalentListPage` 상단 헤더를 공통 `HomeNav`로 교체, 전체 색상 파란색(`#4A8FE7`) 통일
+- `TalentListPage` 전면 리디자인: Hero + 3컬럼(필터 사이드바 + 인재 목록 + 추천 사이드바) 레이아웃, 성별별 아바타 색상 분리
+- `JobListingsPage` 신규 생성 (`/listings`, 구인공고 목록): Hero + 3컬럼 레이아웃, 근무시간대 배지(주간/야간/단기), 내 구인공고 위젯
+- `MyApplicationsPage` 신규 생성 (`/my-applications`, 지원 현황): 상태 필터(전체·검토중·합격·불합격), 시설명 첫 글자 아바타
+- `HomeNav` 구직 드롭다운에 페이지 링크 추가: 일자리 찾기(`/jobs`), 구직 등록(`/job-register`), 지원 현황(`/my-applications`)
+- OAuth2 리다이렉트 포트 3001→3000 수정
+
 ### 2026-09-10
 - 원격 브랜치 전체 통합: WCH(백엔드 API) → backend-db-auth(OAuth2) → frontend-ui-inhwa(인재정보·구인관리) 순차 머지
 - AuthProvider, ScrollToTop, AuthGuard, TalentListPage, TalentDetailPage, ApplicantsPage, RecruitManagePage 등 inhwa 작업 통합

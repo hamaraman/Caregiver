@@ -9,16 +9,35 @@ const NAV_ITEMS = [
     sub: [] },
   { label: '구직', path: '/jobseeker',
     icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>,
-    sub: ['요양보호사 구직', '간호조무사 구직', '사회복지사 구직', '물리치료사 구직'] },
+    sub: [
+      { label: '일자리 찾기', path: '/jobs' },
+      { label: '구직 등록', path: '/job-register' },
+      { label: '지원 현황', path: '/my-applications' },
+    ] },
   { label: '구인', path: '/employer',
     icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-    sub: [] },
+    sub: [
+      { label: '구인공고 목록', path: '/listings' },
+      { label: '구인 공고 등록', path: '/jobs/post' },
+      { label: '지원자 확인', path: '/applicants' },
+      { label: '채용 관리', path: '/manage' },
+      { label: '맞춤 인재 추천', path: '/talents' },
+    ] },
   { label: '커뮤니티', path: '/community',
     icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
-    sub: ['자유게시판', '취업 후기', '자격증 정보', 'Q&A'] },
+    sub: [
+      { label: '자유게시판', path: null },
+      { label: '취업 후기', path: null },
+      { label: '자격증 정보', path: null },
+      { label: 'Q&A', path: null },
+    ] },
   { label: '고객센터', path: '/support',
     icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.5a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
-    sub: ['공지사항', 'FAQ', '1:1 문의'] },
+    sub: [
+      { label: '공지사항', path: null },
+      { label: 'FAQ', path: null },
+      { label: '1:1 문의', path: null },
+    ] },
 ]
 
 export default function HomeNav() {
@@ -67,7 +86,9 @@ export default function HomeNav() {
               {item.sub.length > 0 && activeNav === item.label && (
                 <div className="hp-dropdown">
                   {item.sub.map(s => (
-                    <button key={s} className="hp-dropdown-item">{s}</button>
+                    s.path
+                      ? <Link key={s.label} to={s.path} className="hp-dropdown-item">{s.label}</Link>
+                      : <button key={s.label} className="hp-dropdown-item">{s.label}</button>
                   ))}
                 </div>
               )}

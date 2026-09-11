@@ -64,7 +64,10 @@ public class AuthService {
     }
 
     private String normalizeType(String userType) {
-        return "business".equals(userType) ? "business" : "personal";
+        if ("personal".equals(userType) || "business".equals(userType)) {
+            return userType;
+        }
+        throw new AuthException("계정 유형은 personal 또는 business여야 합니다.");
     }
 
     private String typeLabel(String userType) {

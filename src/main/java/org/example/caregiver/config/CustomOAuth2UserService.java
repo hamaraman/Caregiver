@@ -30,40 +30,18 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        
-        String email = "";
-        String name = "";
 
-        if ("naver".equals(registrationId)) {
-            Map<String, Object> responseMap = (Map<String, Object>) attributes.get("response");
-            email = (String) responseMap.get("email");
-            name = (String) responseMap.get("name");
-        } else if ("kakao".equals(registrationId)) {
-            Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-            Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-            
-            if (kakaoAccount != null && kakaoAccount.containsKey("email")) {
-                email = (String) kakaoAccount.get("email");
-            } else {
-                email = attributes.get("id") + "@kakao.local";
-            }
-            
-            if (properties != null && properties.containsKey("nickname")) {
-                name = (String) properties.get("nickname");
-            } else {
-                name = "카카오사용자";
-            }
-        } else if ("google".equals(registrationId)) {
-            email = (String) attributes.get("email");
-            name = (String) attributes.get("name");
+        String email = OAuth2UserInfoExtractor.extractEmail(registrationId, attributes);
+        String name = OAuth2UserInfoExtractor.extractName(registrationId, attributes);
+
+        String normalizedEmail = email == null ? null : email.trim().toLowerCase();
+        if (normalizedEmail == null || normalizedEmail.isEmpty()) {
+            throw new OAuth2AuthenticationException("소셜 로그인 계정에서 이메일을 확인할 수 없습니다.");
         }
 
-        final String finalEmail = email;
-
-        // DB에 유저가 있는지 확인 후 없으면 저장
-        if (!userRepository.existsByEmail(finalEmail)) {
-            userRepository.save(new User(null, finalEmail, "OAUTH_LOGIN", name, "personal"));
-        }
+        String displayName = name;
+        userRepository.findByEmail(normalizedEmail)
+                .orElseGet(() -> userRepository.save(new User(null, normalizedEmail, "OAUTH_LOGIN", displayName, "personal")));
 
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 

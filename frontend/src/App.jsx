@@ -16,6 +16,7 @@ import JobSearchPage from './pages/JobSearchPage'
 import EmployerHomePage from './pages/EmployerHomePage'
 import MyApplicationsPage from './pages/MyApplicationsPage'
 import ScrollToTop from './components/ScrollToTop'
+import Footer from './components/Footer'
 import './App.css'
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/my-applications" element={<MyApplicationsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <Footer />
     </AuthProvider>
   )
 }

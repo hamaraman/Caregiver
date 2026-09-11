@@ -416,16 +416,6 @@ export default function TalentListPage() {
           </div>
         </div>
 
-        {/* 푸터 */}
-        <footer className="tl-footer">
-          <div className="tl-footer-links">
-            <a href="#">이용약관</a><span>|</span>
-            <a href="#">개인정보처리방침</a><span>|</span>
-            <a href="#">운영정책</a><span>|</span>
-            <a href="#">고객센터</a>
-          </div>
-          <p className="tl-footer-copy">© 2025 Caregiver Platform. All rights reserved.</p>
-        </footer>
 
       </div>
     </>

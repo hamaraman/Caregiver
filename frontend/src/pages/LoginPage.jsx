@@ -96,15 +96,15 @@ export default function LoginPage() {
             <>
               <p className="lp-section-label">간편 로그인</p>
               <div className="lp-social-btns">
-                <button className="lp-social-btn lp-social-naver" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/naver'}>
+                <button className="lp-social-btn lp-social-naver" onClick={() => window.location.href = `http://${window.location.hostname}:8081/oauth2/authorization/naver`}>
                   <span className="lp-social-logo">N</span>
                   네이버 로그인
                 </button>
-                <button className="lp-social-btn lp-social-kakao" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/kakao?t=' + new Date().getTime()}>
+                <button className="lp-social-btn lp-social-kakao" onClick={() => window.location.href = `http://${window.location.hostname}:8081/oauth2/authorization/kakao?t=` + new Date().getTime()}>
                   <span className="lp-social-logo">K</span>
                   카카오 로그인
                 </button>
-                <button className="lp-social-btn lp-social-google" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/google'}>
+                <button className="lp-social-btn lp-social-google" onClick={() => window.location.href = `http://${window.location.hostname}:8081/oauth2/authorization/google`}>
                   <span className="lp-social-logo lp-social-logo--g">G</span>
                   구글 로그인
                 </button>

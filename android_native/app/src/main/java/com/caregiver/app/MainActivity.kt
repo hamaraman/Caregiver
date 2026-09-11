@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         webSettings.useWideViewPort = true
         webSettings.loadWithOverviewMode = true
         
+        // 간편로그인(OAuth) 시 구글/카카오 등이 웹뷰를 차단하는 것을 방지하기 위해 User-Agent 변경
+        webSettings.userAgentString = "Mozilla/5.0 (Linux; Android 13; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36"
+        
         webView.webViewClient = WebViewClient()
         webView.webChromeClient = WebChromeClient()
 

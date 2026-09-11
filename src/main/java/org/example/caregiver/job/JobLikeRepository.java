@@ -1,5 +1,8 @@
 package org.example.caregiver.job;
 
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +20,16 @@ public class JobLikeRepository {
             return false;
         }
         return jobLikeJpaRepository.existsByJobIdAndUserId(jobId, userId);
+    }
+
+    /** 목록 조회 시 공고마다 찜 여부를 따로 쿼리하지 않도록 한 번에 조회한다. */
+    public Set<Long> likedJobIds(Long userId, Collection<Long> jobIds) {
+        if (userId == null || jobIds.isEmpty()) {
+            return Set.of();
+        }
+        return jobLikeJpaRepository.findByUserIdAndJobIdIn(userId, jobIds).stream()
+                .map(JobLike::getJobId)
+                .collect(Collectors.toSet());
     }
 
     public void like(Long userId, Long jobId) {

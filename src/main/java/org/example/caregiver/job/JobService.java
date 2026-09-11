@@ -2,7 +2,11 @@ package org.example.caregiver.job;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.example.caregiver.auth.User;
+import org.example.caregiver.model.Region;
+import org.example.caregiver.model.RegionQuery;
+import org.example.caregiver.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,19 +14,20 @@ public class JobService {
 
     private final JobRepository jobRepository;
     private final JobLikeRepository jobLikeRepository;
+    private final RegionRepository regionRepository;
 
-    public JobService(JobRepository jobRepository, JobLikeRepository jobLikeRepository) {
+    public JobService(JobRepository jobRepository, JobLikeRepository jobLikeRepository, RegionRepository regionRepository) {
         this.jobRepository = jobRepository;
         this.jobLikeRepository = jobLikeRepository;
+        this.regionRepository = regionRepository;
     }
 
     public List<JobResponse> getJobs(Long viewerUserId, String region) {
-        List<Job> jobs = isBlank(region)
+        String normalizedRegion = RegionQuery.normalize(region);
+        List<Job> jobs = normalizedRegion == null
                 ? jobRepository.findAllByOrderByIdDesc()
-                : jobRepository.findByRegion_NameStartingWithOrderByIdDesc(region.trim());
-        return jobs.stream()
-                .map(job -> toResponse(job, viewerUserId))
-                .toList();
+                : jobRepository.findByRegion_NameStartingWithOrderByIdDesc(normalizedRegion);
+        return toResponses(jobs, viewerUserId);
     }
 
     public Optional<JobResponse> getJob(Long id, Long viewerUserId) {
@@ -32,12 +37,17 @@ public class JobService {
 
     public JobResponse createJob(JobCreateRequest request, User owner) {
         validate(request);
+        Region region = getOrCreateRegion(request.getLocation().trim());
         Job job = new Job(null, request.getTitle(), request.getBadge(), request.getBadgeColor(),
                 request.getLocation(), request.getWage(), request.getHours(),
-                request.getDays(), request.getDate(), owner, request.getCompanyName(), request.getPostTitle());
+                request.getDays(), request.getDate(), owner, request.getCompanyName(), request.getPostTitle(), region);
         applyDetails(job, request);
         Job saved = jobRepository.save(job);
         return toResponse(saved, owner != null ? owner.getId() : null);
+    }
+
+    private Region getOrCreateRegion(String name) {
+        return regionRepository.findByName(name).orElseGet(() -> regionRepository.save(new Region(name)));
     }
 
     private void applyDetails(Job job, JobCreateRequest request) {
@@ -70,8 +80,13 @@ public class JobService {
     }
 
     public List<JobResponse> getMyJobs(Long ownerId) {
-        return jobRepository.findByOwnerIdOrderByIdDesc(ownerId).stream()
-                .map(job -> toResponse(job, ownerId))
+        return toResponses(jobRepository.findByOwnerIdOrderByIdDesc(ownerId), ownerId);
+    }
+
+    private List<JobResponse> toResponses(List<Job> jobs, Long viewerUserId) {
+        Set<Long> likedJobIds = jobLikeRepository.likedJobIds(viewerUserId, jobs.stream().map(Job::getId).toList());
+        return jobs.stream()
+                .map(job -> new JobResponse(job, likedJobIds.contains(job.getId())))
                 .toList();
     }
 

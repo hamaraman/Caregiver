@@ -832,3 +832,57 @@
 }
 
 .jsp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.16); }
+
+/* ════════════════════════════════
+   MOBILE RESPONSIVE (ADDED)
+════════════════════════════════ */
+@media screen and (max-width: 1024px) {
+  .jsp-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .jsp-content-grid {
+    gap: 16px;
+  }
+  .jsp-main-col { min-width: 0; width: 100%; }
+  .jsp-inner { padding: 0 16px; width: 100%; }
+  .jsp-hero-inner { padding: 0 16px; gap: 16px; flex-direction: column; align-items: flex-start; }
+  .jsp-hero-title { font-size: 26px; }
+  .jsp-hero-desc { word-break: keep-all; }
+  
+  .jsp-categories-layout { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .jsp-cat-info { width: 100%; }
+  .jsp-cat-grid { flex-wrap: wrap; width: 100%; justify-content: flex-start; }
+  .jsp-cat-item { flex: 0 0 22%; min-width: 70px; }
+
+  /* Table horizontal scroll */
+  .jsp-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+  .jsp-table {
+    white-space: nowrap;
+  }
+
+  /* CTA Banner */
+  .jsp-cta-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  .jsp-cta-icon-wrap {
+    margin: 0 auto;
+  }
+  .jsp-cta-btn {
+    margin: 16px auto 0;
+    width: 100%;
+    justify-content: center;
+  }
+  .jsp-cta-title {
+    font-size: 18px;
+    word-break: keep-all;
+  }
+}

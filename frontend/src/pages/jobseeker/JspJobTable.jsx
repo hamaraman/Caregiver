@@ -70,45 +70,47 @@ export default function JspJobTable() {
                 <Link to="/jobs" className="jsp-more-btn">더보기 ›</Link>
               </div>
 
-              <table className="jsp-table">
-                <thead>
-                  <tr>
-                    <th>직종</th><th>근무지</th><th>근무형태</th>
-                    <th>급여</th><th>근무시간</th><th>등록일</th><th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {JOB_LIST.slice(0, 7).map(job => {
-                    const s = SHIFT_STYLE[job.shift] || {}
-                    return (
-                      <tr key={job.id}>
-                        <td>
-                          <Link to={`/job/${job.id}`} className="jsp-job-type-cell">
-                            <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>
-                              {job.shift}
-                            </span>
-                            <span className="jsp-job-type-name">{job.type}</span>
-                          </Link>
-                        </td>
-                        <td>{job.location}</td>
-                        <td>{job.workType}</td>
-                        <td className="jsp-pay">{job.pay}</td>
-                        <td>{job.time}</td>
-                        <td className="jsp-date">{job.date}</td>
-                        <td>
-                          <button
-                            className="jsp-like-btn"
-                            onClick={() => setLikes(p => ({ ...p, [job.id]: !p[job.id] }))}
-                            aria-label="찜하기"
-                          >
-                            {likes[job.id] ? <HeartFilled /> : <HeartEmpty />}
-                          </button>
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
+              <div className="jsp-table-wrap">
+                <table className="jsp-table">
+                  <thead>
+                    <tr>
+                      <th>직종</th><th>근무지</th><th>근무형태</th>
+                      <th>급여</th><th>근무시간</th><th>등록일</th><th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {JOB_LIST.slice(0, 7).map(job => {
+                      const s = SHIFT_STYLE[job.shift] || {}
+                      return (
+                        <tr key={job.id}>
+                          <td>
+                            <Link to={`/job/${job.id}`} className="jsp-job-type-cell">
+                              <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>
+                                {job.shift}
+                              </span>
+                              <span className="jsp-job-type-name">{job.type}</span>
+                            </Link>
+                          </td>
+                          <td>{job.location}</td>
+                          <td>{job.workType}</td>
+                          <td className="jsp-pay">{job.pay}</td>
+                          <td>{job.time}</td>
+                          <td className="jsp-date">{job.date}</td>
+                          <td>
+                            <button
+                              className="jsp-like-btn"
+                              onClick={() => setLikes(p => ({ ...p, [job.id]: !p[job.id] }))}
+                              aria-label="찜하기"
+                            >
+                              {likes[job.id] ? <HeartFilled /> : <HeartEmpty />}
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {/* ── Right: 사이드바 ── */}

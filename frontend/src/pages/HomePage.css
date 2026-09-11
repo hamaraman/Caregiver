@@ -2,6 +2,7 @@
   min-height: 100vh;
   background: #f5f7fc;
   font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  overflow-x: hidden;
 }
 
 /* ════════════════════════════════
@@ -984,6 +985,11 @@
 
 @media (max-width: 768px) {
   .hp-nav-list { display: none; }
+  .hp-nav-inner { padding: 0 16px; gap: 8px; justify-content: space-between; }
+  .hp-nav-actions { gap: 4px; }
+  .hp-btn-login, .hp-btn-signup { padding: 6px 10px; font-size: 12px; }
+  .hp-logo-tagline { display: none; }
+  .hp-logo-name { font-size: 16px; }
   .hp-hero { padding: 36px 0 32px; }
   .hp-hero-inner { flex-direction: column; align-items: flex-start; gap: 24px; padding: 0 16px; }
   .hp-hero-content { max-width: 100%; }
@@ -995,5 +1001,6 @@
   .hp-quick-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
   .hp-quick-lead { border-right: none; padding-right: 0; }
   .hp-quick-items { width: 100%; flex-wrap: wrap; justify-content: flex-start; }
-  .hp-content { grid-template-columns: 1fr; padding: 0 16px; }
+  .hp-content { grid-template-columns: 1fr; padding: 0 16px; min-width: 0; }
+  .hp-region-row { flex-wrap: wrap; }
 }

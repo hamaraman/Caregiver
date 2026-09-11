@@ -654,5 +654,6 @@
   .jr-steps { padding: 14px 16px; overflow-x: auto; }
   .jr-step-label { display: none; }
   .jr-row-3 { grid-template-columns: 1fr; }
-  .jr-body-inner { padding: 0 16px; }
+  .jr-body-inner { padding: 0 16px; min-width: 0; }
+  .jr-hero-inner { padding: 0 16px; min-width: 0; flex-direction: column; align-items: flex-start; }
 }

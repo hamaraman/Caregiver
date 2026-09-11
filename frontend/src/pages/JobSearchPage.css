@@ -589,3 +589,17 @@
 .js-footer-links a:hover { color: #4A8FE7; }
 .js-footer-links span { color: #d0d8e8; font-size: 12px; }
 .js-footer-copy { font-size: 11.5px; color: #b0bdd4; margin: 0; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1024px) {
+  .js-body-inner { grid-template-columns: 210px 1fr; }
+  .js-sidebar { display: none; }
+}
+
+@media (max-width: 768px) {
+  .js-hero-inner { padding: 0 16px; }
+  .js-hero-title { font-size: 24px; word-break: keep-all; }
+  .js-region-row { flex-wrap: wrap; }
+  .js-body-inner { grid-template-columns: 1fr; padding: 0 16px; min-width: 0; }
+  .js-filter { position: static; }
+}

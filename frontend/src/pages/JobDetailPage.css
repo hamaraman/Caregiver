@@ -1,0 +1,252 @@
+.jd-page {
+  background: #f4f6fb;
+  min-height: 100vh;
+  padding: 32px 0 60px;
+}
+
+.jd-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.jd-back-link {
+  display: inline-block;
+  font-size: 13px;
+  color: #4A8FE7;
+  text-decoration: none;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.jd-back-link:hover { text-decoration: underline; }
+
+.jd-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ── 헤더 카드 ── */
+.jd-header-card,
+.jd-section-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.jd-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.jd-shift-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.jd-like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.jd-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a2d4d;
+  margin: 0 0 4px;
+}
+
+.jd-facility {
+  font-size: 14px;
+  color: #888;
+  margin: 0 0 20px;
+}
+
+.jd-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 20px;
+}
+
+.jd-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jd-meta-label {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.jd-meta-value {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.jd-pay {
+  color: #4A8FE7;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* ── 섹션 카드 ── */
+.jd-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a2d4d;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.jd-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.jd-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jd-list li {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.jd-benefit-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.jd-benefit-chip {
+  background: #EFF5FF;
+  color: #4A8FE7;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* ── 사이드바 ── */
+.jd-apply-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jd-apply-label {
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 600;
+  margin: 0;
+}
+
+.jd-apply-contact {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a2d4d;
+  margin: 0;
+}
+
+.jd-apply-btn {
+  width: 100%;
+  padding: 13px;
+  background: #4A8FE7;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.jd-apply-btn:hover { background: #3A7FD7; }
+
+.jd-contact-btn {
+  width: 100%;
+  padding: 11px;
+  background: #fff;
+  color: #4A8FE7;
+  border: 1.5px solid #4A8FE7;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.jd-contact-btn:hover { background: #EFF5FF; }
+
+.jd-info-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jd-info-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2d4d;
+  margin: 0;
+}
+
+.jd-info-desc {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.jd-resume-link {
+  font-size: 13px;
+  color: #4A8FE7;
+  font-weight: 600;
+  text-decoration: none;
+}
+.jd-resume-link:hover { text-decoration: underline; }
+
+/* ── 없는 공고 ── */
+.jd-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: #888;
+  font-size: 15px;
+}

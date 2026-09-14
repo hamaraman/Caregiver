@@ -1,6 +1,6 @@
-﻿.hero {
-  background: linear-gradient(135deg, #fff5f9 0%, #fce4f0 50%, #f0e8ff 100%);
-  padding: 40px 0 0;
+.hero {
+  background: linear-gradient(120deg, #cce0f8 0%, #ddeeff 45%, #eef5ff 100%);
+  padding: 44px 0 0;
   overflow: hidden;
 }
 
@@ -10,20 +10,28 @@
   padding: 0 20px;
   display: flex;
   align-items: flex-end;
-  gap: 20px;
-  min-height: 340px;
+  gap: 0;
+  min-height: 360px;
 }
 
 .hero-content {
   flex: 1;
-  padding-bottom: 40px;
+  padding-bottom: 44px;
+}
+
+.hero-eyebrow {
+  font-size: 13px;
+  color: #4A8FE7;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 0.01em;
 }
 
 .hero-title {
-  font-size: 32px;
-  font-weight: 800;
-  line-height: 1.35;
-  color: #222;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.3;
+  color: #1a2740;
   margin-bottom: 12px;
 }
 
@@ -33,8 +41,8 @@
 
 .hero-desc {
   font-size: 14px;
-  color: #666;
-  line-height: 1.7;
+  color: #5a7090;
+  line-height: 1.75;
   margin-bottom: 24px;
 }
 
@@ -43,10 +51,11 @@
   align-items: center;
   background: #fff;
   border-radius: 50px;
-  padding: 6px 6px 6px 20px;
-  box-shadow: 0 4px 20px rgba(74, 143, 231, 0.15);
-  max-width: 480px;
+  padding: 6px 6px 6px 18px;
+  box-shadow: 0 4px 24px rgba(74, 143, 231, 0.18);
+  max-width: 500px;
   margin-bottom: 16px;
+  gap: 8px;
 }
 
 .search-input {
@@ -87,14 +96,25 @@
   flex-wrap: wrap;
 }
 
+.region-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4A8FE7;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
 .region-tab {
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 13px;
   font-weight: 500;
-  color: #555;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #446;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(74, 143, 231, 0.2);
   cursor: pointer;
   transition: background 0.15s, color 0.15s, transform 0.08s;
 }
@@ -106,12 +126,10 @@
 
 .region-tab:active {
   transform: scale(0.93);
-  transition: transform 0.06s;
 }
 
 .search-btn:active {
   transform: scale(0.9);
-  transition: transform 0.06s;
 }
 
 .region-tab--active {
@@ -128,54 +146,24 @@
 }
 
 .hero-image {
-  width: 300px;
+  width: 420px;
   flex-shrink: 0;
   display: flex;
-  justify-content: center;
   align-items: flex-end;
+  justify-content: flex-end;
 }
 
-.hero-img-wrapper {
-  position: relative;
-  width: 260px;
-  height: 300px;
+.hero-photo {
+  width: 420px;
+  height: 360px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
-.hero-bubble {
-  position: absolute;
-  top: 20px;
-  right: 0;
-  background: #fff;
-  border: 2px solid #4A8FE7;
-  border-radius: 16px 16px 4px 16px;
-  padding: 10px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #4A8FE7;
-  line-height: 1.5;
-  box-shadow: 0 4px 12px rgba(74, 143, 231, 0.15);
-  z-index: 2;
-  white-space: nowrap;
-}
-
-.hero-avatar {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 280px;
-  background: linear-gradient(180deg, #f8d4e8 0%, #e8f1ff 100%);
-  border-radius: 100px 100px 0 0;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.hero-avatar svg {
-  width: 100%;
-  height: 100%;
+@media (max-width: 900px) {
+  .hero-image { width: 300px; }
+  .hero-photo { width: 300px; height: 300px; }
 }
 
 @media (max-width: 768px) {
@@ -191,31 +179,19 @@
     width: 100%;
   }
 
-  .hero-title {
-    font-size: 24px;
-  }
+  .hero-title { font-size: 26px; }
 
-  .hero-image {
-    display: none;
-  }
+  .hero-image { display: none; }
 
-  .hero-search {
-    max-width: 100%;
-  }
+  .hero-search { max-width: 100%; }
 
   .region-tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding-bottom: 2px;
   }
 
-  .region-tabs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .region-tab {
-    flex-shrink: 0;
-  }
+  .region-tabs::-webkit-scrollbar { display: none; }
+  .region-tab { flex-shrink: 0; }
 }

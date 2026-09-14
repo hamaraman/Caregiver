@@ -206,12 +206,23 @@ export default function JobPostPage() {
   return (
     <div className="app">
       <HomeNav />
+
+      <section className="jpp-hero">
+        <img src="/employer-hero.png" className="jpp-hero-photo" alt="" aria-hidden="true" />
+        <div className="jpp-hero-inner">
+          <div className="jpp-hero-text">
+            <p className="jpp-hero-eyebrow">믿을 수 있는 인재를 찾는 첫걸음, 요양이지와 함께합니다.</p>
+            <h1 className="jpp-hero-title">구인공고 등록하기</h1>
+            <p className="jpp-hero-desc">
+              공고를 등록하면 자격을 갖춘 요양 전문 인재를<br />
+              빠르게 만나볼 수 있습니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <main className="jp-page">
         <div className="container">
-          <div className="jp-top">
-            <div className="jp-breadcrumb"><Link to="/">홈</Link> › 구인공고 등록</div>
-            <h2 className="jp-title">구인공고 등록</h2>
-          </div>
 
           {/* 진행 단계 */}
           <div className="jp-steps">
@@ -686,19 +697,15 @@ export default function JobPostPage() {
                 <span className="jp-section-num">6</span>
                 <h3 className="jp-section-title">약관 동의</h3>
               </div>
-              <div className="jp-section-body">
-                <div className="jp-agree-box">
-                  <p className="jp-agree-text">
-                    수집된 개인정보는 구인공고 서비스 제공 목적으로만 사용되며,
-                    관련 법령에 따라 안전하게 보호됩니다.
-                    구인공고 등록 시 입력하신 업체·담당자 정보는 구직자에게 공개될 수 있습니다.
-                  </p>
-                  <label className="jp-check jp-check--agree" style={{ alignSelf: 'flex-end' }}>
-                    <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} required />
-                    개인정보 수집·이용에 동의합니다 <span className="jp-label--required-star">*</span>
-                  </label>
-                </div>
-              </div>
+              <p className="jp-agree-text">
+                수집된 개인정보는 구인공고 서비스 제공 목적으로만 사용되며,
+                관련 법령에 따라 안전하게 보호됩니다.
+                구인공고 등록 시 입력하신 업체·담당자 정보는 구직자에게 공개될 수 있습니다.
+              </p>
+              <label className="jp-agree-check">
+                <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} required />
+                개인정보 수집·이용에 동의합니다 <span className="jp-label--required-star">*</span>
+              </label>
             </div>
 
             <div className="jp-actions">

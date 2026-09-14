@@ -299,7 +299,7 @@ export default function JobListingsPage() {
                   : paginated.map(job => {
                     const shiftStyle = SHIFT_COLOR[job.shift] || { bg: '#f0f4fa', color: '#6b7a99' }
                     return (
-                      <Link to={`/jobs/${job.id}`} className="jl2-job-row" key={job.id}>
+                      <Link to={`/job/${job.id}`} className="jl2-job-row" key={job.id}>
                         <div className="jl2-job-row-main">
                           <div className="jl2-job-row-top">
                             <span className="jl2-job-row-badge" style={{ background: shiftStyle.bg, color: shiftStyle.color }}>
@@ -362,7 +362,7 @@ export default function JobListingsPage() {
                     내 구인공고
                   </div>
                   {myJobs.map(job => (
-                    <Link to={`/jobs/${job.id}`} key={job.id} className="jl2-my-job">
+                    <Link to={`/job/${job.id}`} key={job.id} className="jl2-my-job">
                       <div className="jl2-my-job-title">{job.type}</div>
                       <div className="jl2-my-job-meta">{job.location} · {job.pay}</div>
                       <div className="jl2-my-job-footer">

@@ -19,6 +19,7 @@
   font-weight: 500;
 }
 .jd-back-link:hover { text-decoration: underline; }
+button.jd-back-link { background: none; border: none; cursor: pointer; padding: 0; }
 
 .jd-layout {
   display: grid;

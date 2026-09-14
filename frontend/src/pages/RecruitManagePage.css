@@ -57,8 +57,8 @@
 }
 
 .rm-summary-card--active {
-  background: linear-gradient(135deg, #e8f1ff 0%, #f0f6ff 100%);
-  border: 1.5px solid #c5d8f8;
+  background: linear-gradient(135deg, #c5d8f8 0%, #d8ebff 100%);
+  border: 2px solid #4A8FE7;
 }
 
 .rm-summary-card--closed {
@@ -116,7 +116,8 @@
 }
 
 .rm-summary-card--sel {
-  box-shadow: 0 0 0 2px rgba(74, 143, 231, 0.4) !important;
+  box-shadow: 0 0 0 3px #4A8FE7 !important;
+  transform: translateY(-2px);
 }
 
 /* 빈 목록 */

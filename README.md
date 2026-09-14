@@ -94,6 +94,10 @@ npm run dev
 - 헤더·푸터 로고 그라디언트 순수 블루로 변경
 - FeatureCards 다양한 컬러 팔레트 적용: 블루·틸·앰버·퍼플로 카드별 개성 부여
 - 전 페이지(JobListings, TalentList, RecruitManage, Applicants 등) 잔여 핑크 색상 모두 블루 계열로 교체
+- 검색창 핑크 배경/테두리 전체 블루 계열로 수정
+- 채용관리 진행중 요약카드 선택 상태 색감 강화
+- CTABanner·TalentList 추천뱃지 핑크 → 블루/틸로 변경
+- JspFeatureCards·JspJobTable 간병인/찜한일자리 핑크 → 퍼플로 변경
 
 ### 2026-09-09
 - 인재정보 리스트뷰 결과바와 컬럼 헤더 사이 여백 추가

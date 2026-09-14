@@ -77,7 +77,7 @@
 .jp-section {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #ddb8ce;
+  border: 1.5px solid #c5d8f8;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(74,143,231,0.08);
 }
@@ -87,8 +87,8 @@
   align-items: center;
   gap: 10px;
   padding: 16px 24px;
-  background: #fce8f3;
-  border-bottom: 1px solid #e0b0cc;
+  background: #e8f1ff;
+  border-bottom: 1px solid #c5d8f8;
 }
 
 .jp-section-num {
@@ -162,7 +162,7 @@
 /* 인풋 */
 .jp-input {
   padding: 8px 12px;
-  border: 1.5px solid #c8a8bc;
+  border: 1.5px solid #c5d8f8;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -189,7 +189,7 @@
 .jp-input--wage { width: 180px; }
 .jp-input--date { width: 180px; }
 
-.jp-input::placeholder { color: #c0b0b8; }
+.jp-input::placeholder { color: #a0b0c8; }
 
 .jp-input--error { border-color: #e03030 !important; }
 .jp-input--error:focus { box-shadow: 0 0 0 3px rgba(224,48,48,0.12); }
@@ -204,7 +204,7 @@
 /* 셀렉트 */
 .jp-select {
   padding: 8px 32px 8px 12px;
-  border: 1.5px solid #c8a8bc;
+  border: 1.5px solid #c5d8f8;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -315,8 +315,8 @@
 .jp-check--same {
   font-size: 12px;
   padding: 5px 12px;
-  background: #f9f0f5;
-  border-color: #f0d0e5;
+  background: #f0f6ff;
+  border-color: #d0e4fb;
 }
 
 .jp-check--agree {
@@ -357,7 +357,7 @@
   width: 100%;
   max-width: 560px;
   padding: 12px 14px;
-  border: 1.5px solid #c8a8bc;
+  border: 1.5px solid #c5d8f8;
   border-radius: 10px;
   font-size: 13px;
   color: #333;
@@ -373,7 +373,7 @@
   box-shadow: 0 0 0 3px rgba(74,143,231,0.1);
 }
 
-.jp-textarea::placeholder { color: #c0b0b8; }
+.jp-textarea::placeholder { color: #a0b0c8; }
 
 /* 약관 */
 .jp-agree-box {

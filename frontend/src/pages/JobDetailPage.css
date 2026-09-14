@@ -14,7 +14,7 @@
 .jd-hero {
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #ddb8ce;
+  border: 1.5px solid #c5d8f8;
   padding: 28px 32px;
   margin-bottom: 16px;
   box-shadow: 0 2px 12px rgba(74,143,231,0.06);
@@ -73,7 +73,7 @@
   gap: 16px;
   margin-bottom: 24px;
   padding: 16px 20px;
-  background: #fce8f3;
+  background: #e8f1ff;
   border-radius: 12px;
   border: 1px solid #e0b8d0;
 }
@@ -154,7 +154,7 @@
 .jd-section {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #ddb8ce;
+  border: 1.5px solid #c5d8f8;
   padding: 24px 32px;
   box-shadow: 0 2px 10px rgba(74,143,231,0.04);
 }
@@ -229,7 +229,7 @@
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 20px;
-  background: #fce8f3;
+  background: #e8f1ff;
   color: #c0337a;
   border: 1px solid #e8b8d4;
   font-weight: 500;
@@ -265,7 +265,7 @@
   padding: 16px 18px;
   background: #fdf8fb;
   border-radius: 10px;
-  border: 1px solid #ddb8ce;
+  border: 1px solid #c5d8f8;
 }
 
 .jd-apply-methods {
@@ -278,7 +278,7 @@
 .jd-bottom-actions {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #ddb8ce;
+  border: 1.5px solid #c5d8f8;
   padding: 20px 32px;
   box-shadow: 0 2px 16px rgba(74,143,231,0.10);
 }

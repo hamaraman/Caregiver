@@ -18,7 +18,7 @@ public class CaregiverResponse {
         this.specialty = caregiver.getSpecialty();
         this.experienceYears = caregiver.getExperienceYears();
         this.rating = caregiver.getRating();
-        this.phone = caregiver.getPhone();
+        this.phone = "010-0000-0000";
         this.regionName = caregiver.getRegion() != null ? caregiver.getRegion().getName() : null;
     }
 

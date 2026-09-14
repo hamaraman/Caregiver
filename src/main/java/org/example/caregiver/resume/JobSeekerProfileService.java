@@ -1,6 +1,11 @@
 package org.example.caregiver.resume;
 
+import java.util.List;
 import java.util.Optional;
+import org.example.caregiver.auth.User;
+import org.example.caregiver.job.Job;
+import org.example.caregiver.job.JobApplicationRepository;
+import org.example.caregiver.job.JobRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +13,15 @@ import org.springframework.stereotype.Service;
 public class JobSeekerProfileService {
 
     private final JobSeekerProfileRepository jobSeekerProfileRepository;
+    private final JobRepository jobRepository;
+    private final JobApplicationRepository jobApplicationRepository;
 
-    public JobSeekerProfileService(JobSeekerProfileRepository jobSeekerProfileRepository) {
+    public JobSeekerProfileService(JobSeekerProfileRepository jobSeekerProfileRepository,
+                                    JobRepository jobRepository,
+                                    JobApplicationRepository jobApplicationRepository) {
         this.jobSeekerProfileRepository = jobSeekerProfileRepository;
+        this.jobRepository = jobRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
     }
 
     public JobSeekerProfileResponse upsert(Long userId, JobSeekerProfileRequest request) {
@@ -44,6 +55,15 @@ public class JobSeekerProfileService {
 
     public Optional<JobSeekerProfileResponse> getMine(Long userId) {
         return jobSeekerProfileRepository.findByUserId(userId).map(JobSeekerProfileResponse::new);
+    }
+
+    public boolean canViewAsEmployer(Long applicantId, User requester) {
+        if (!"business".equals(requester.getUserType())) {
+            return false;
+        }
+        List<Long> jobIds = jobRepository.findByOwnerIdOrderByIdDesc(requester.getId())
+                .stream().map(Job::getId).toList();
+        return !jobIds.isEmpty() && jobApplicationRepository.existsByApplicantIdAndJobIdIn(applicantId, jobIds);
     }
 
     private void validate(JobSeekerProfileRequest request) {

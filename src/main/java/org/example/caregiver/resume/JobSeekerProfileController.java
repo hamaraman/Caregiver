@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,15 @@ public class JobSeekerProfileController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<JobSeekerProfileResponse> getByUserId(@PathVariable Long userId, HttpServletRequest httpRequest) {
+        User requester = requireLoggedInUser(httpRequest);
+        requireCanView(requester, userId);
+        return jobSeekerProfileService.getMine(userId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     @ExceptionHandler(ResumeException.class)
     public ResponseEntity<String> handleResumeException(ResumeException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
@@ -47,5 +57,14 @@ public class JobSeekerProfileController {
     private User requireLoggedInUser(HttpServletRequest httpRequest) {
         return authService.currentUser(httpRequest)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."));
+    }
+
+    private void requireCanView(User requester, Long targetUserId) {
+        if (requester.getId().equals(targetUserId)) {
+            return;
+        }
+        if (!jobSeekerProfileService.canViewAsEmployer(targetUserId, requester)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 지원자의 이력서를 조회할 권한이 없습니다.");
+        }
     }
 }

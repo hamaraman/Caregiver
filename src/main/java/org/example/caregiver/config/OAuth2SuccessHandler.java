@@ -60,6 +60,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         }
 
         // 로그인 성공 후 프론트엔드 메인 페이지로 리다이렉트
-        getRedirectStrategy().sendRedirect(request, response, "http://localhost:3000/?page=home");
+        getRedirectStrategy().sendRedirect(request, response, "/?page=home");
     }
 }

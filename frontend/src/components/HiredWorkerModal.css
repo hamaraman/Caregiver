@@ -27,8 +27,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 28px 22px 22px;
-  background: #fce4f1;
-  border-bottom: 1.5px solid #f4bcd8;
+  background: #e8f1ff;
+  border-bottom: 1.5px solid #c5d8f8;
   gap: 12px;
 }
 
@@ -42,7 +42,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #fcd4ea;
+  background: #d0e4fb;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +116,7 @@
   transition: background 0.15s, color 0.15s;
 }
 
-.hwm-close:hover { background: #ffe4f3; color: #e91e8c; }
+.hwm-close:hover { background: #dbeafe; color: #4A8FE7; }
 
 /* 바디 */
 .hwm-body {
@@ -135,7 +135,7 @@
 .hwm-section-title {
   font-size: 12px;
   font-weight: 700;
-  color: #e91e8c;
+  color: #4A8FE7;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
@@ -170,7 +170,7 @@
 }
 
 .hwm-wage {
-  color: #e91e8c;
+  color: #4A8FE7;
   font-weight: 800;
 }
 
@@ -194,7 +194,7 @@
   line-height: 1.6;
 }
 
-.hwm-memo:focus { border-color: #e91e8c; }
+.hwm-memo:focus { border-color: #4A8FE7; }
 .hwm-memo::placeholder { color: #ccc; }
 
 /* 푸터 */
@@ -219,9 +219,9 @@
 }
 
 .hwm-footer-close:hover {
-  border-color: #e91e8c;
-  color: #e91e8c;
-  background: #fff8fc;
+  border-color: #4A8FE7;
+  color: #4A8FE7;
+  background: #f0f6ff;
 }
 
 @media (max-width: 520px) {

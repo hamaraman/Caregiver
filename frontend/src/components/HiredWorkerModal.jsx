@@ -36,8 +36,8 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
           <div className="hwm-header-left">
             <div className="hwm-avatar">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="8" r="4" stroke="#e91e8c" strokeWidth="1.8"/>
-                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#e91e8c" strokeWidth="1.8" strokeLinecap="round"/>
+                <circle cx="12" cy="8" r="4" stroke="#4A8FE7" strokeWidth="1.8"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#4A8FE7" strokeWidth="1.8" strokeLinecap="round"/>
               </svg>
             </div>
             <div>

@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from 'react-router-dom'
+﻿import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Header from '../components/Header'
 import HiredWorkerModal from '../components/HiredWorkerModal'
@@ -82,7 +82,7 @@ export default function RecruitDetailPage() {
                   {job.hours} / {job.days}
                 </div>
                 <div className="rd-meta-item rd-meta-wage">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" strokeLinecap="round"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" strokeLinecap="round"/></svg>
                   {job.wage}
                 </div>
               </div>

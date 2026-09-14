@@ -1,4 +1,4 @@
-.apm-backdrop {
+﻿.apm-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.45);
@@ -59,7 +59,7 @@
   flex-shrink: 0;
 }
 
-.apm-close:hover { background: #fff0f7; border-color: #e91e8c; color: #e91e8c; }
+.apm-close:hover { background: #f0f6ff; border-color: #4A8FE7; color: #4A8FE7; }
 
 .apm-body {
   overflow-y: auto;
@@ -85,7 +85,7 @@
 
 .apm-label { color: #aaa; font-weight: 500; min-width: 54px; flex-shrink: 0; }
 .apm-value { color: #444; }
-.apm-wage  { color: #e91e8c; font-weight: 700; }
+.apm-wage  { color: #4A8FE7; font-weight: 700; }
 
 /* 자격증 */
 .apm-tag-group { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -154,7 +154,7 @@
 .apm-profile-btn {
   padding: 8px 18px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #e91e8c, #c8177a);
+  background: linear-gradient(135deg, #4A8FE7, #3A7FD7);
   color: #fff;
   font-size: 13px;
   font-weight: 700;
@@ -172,7 +172,7 @@
   border-radius: 20px;
 }
 
-.apm-gender-badge--f { background: #fff0f7; color: #e91e8c; border: 1px solid #f0bcd8; }
+.apm-gender-badge--f { background: #f0f6ff; color: #4A8FE7; border: 1px solid #c5d8f8; }
 .apm-gender-badge--m { background: #eff4ff; color: #5b8def; border: 1px solid #c8d8f5; }
 
 .apm-age { font-size: 12px; color: #aaa; }
@@ -208,7 +208,7 @@
   top: calc(100% + 6px);
   right: 0;
   background: #fff;
-  border: 1.5px solid #ead4e4;
+  border: 1.5px solid #d0e4fb;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   overflow: hidden;

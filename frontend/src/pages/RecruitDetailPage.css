@@ -1,4 +1,4 @@
-.rd-page {
+﻿.rd-page {
   padding: 32px 0 80px;
   min-height: calc(100vh - 64px);
   background: #f5f7fc;
@@ -18,7 +18,7 @@
   transition: color 0.15s;
 }
 
-.rd-back:hover { color: #e91e8c; }
+.rd-back:hover { color: #4A8FE7; }
 
 /* 섹션 */
 .rd-section { margin-bottom: 32px; }
@@ -36,9 +36,9 @@
 .rd-applicant-count {
   font-size: 13px;
   font-weight: 700;
-  color: #e91e8c;
-  background: #fff0f7;
-  border: 1px solid #f0bcd8;
+  color: #4A8FE7;
+  background: #f0f6ff;
+  border: 1px solid #c5d8f8;
   border-radius: 20px;
   padding: 2px 10px;
 }
@@ -47,7 +47,7 @@
 .rd-job-card {
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #ead4e4;
+  border: 1.5px solid #d0e4fb;
   padding: 24px 28px;
 }
 
@@ -107,7 +107,7 @@
   flex-shrink: 0;
   padding: 8px 18px;
   border-radius: 10px;
-  border: 1.5px solid #e0d8e8;
+  border: 1.5px solid #d0e4fb;
   background: #fff;
   color: #777;
   font-size: 13px;
@@ -117,7 +117,7 @@
   white-space: nowrap;
 }
 
-.rd-view-btn:hover { border-color: #e91e8c; color: #e91e8c; background: #fff8fc; }
+.rd-view-btn:hover { border-color: #4A8FE7; color: #4A8FE7; background: #f0f6ff; }
 
 /* 메타 */
 .rd-job-meta {
@@ -137,7 +137,7 @@
   font-weight: 500;
 }
 
-.rd-meta-wage { color: #e91e8c; font-weight: 700; }
+.rd-meta-wage { color: #4A8FE7; font-weight: 700; }
 
 .rd-job-dates {
   display: flex;
@@ -195,9 +195,9 @@
 }
 
 .rd-tag--pink {
-  background: #fff0f7;
-  color: #c01070;
-  border-color: #f0bcd8;
+  background: #f0f6ff;
+  color: #4A8FE7;
+  border-color: #c5d8f8;
 }
 
 /* 회사 정보 */
@@ -224,7 +224,7 @@
 .rd-applicant-card {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #ead4e4;
+  border: 1.5px solid #d0e4fb;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -233,7 +233,7 @@
 }
 
 .rd-applicant-card:hover {
-  box-shadow: 0 6px 20px rgba(233,30,140,0.10);
+  box-shadow: 0 6px 20px rgba(74,143,231,0.10);
   transform: translateY(-2px);
 }
 
@@ -263,7 +263,7 @@
   border-radius: 20px;
 }
 
-.rd-gender-badge--f { background: #fff0f7; color: #e91e8c; border: 1px solid #f0bcd8; }
+.rd-gender-badge--f { background: #f0f6ff; color: #4A8FE7; border: 1px solid #c5d8f8; }
 .rd-gender-badge--m { background: #eff4ff; color: #5b8def; border: 1px solid #c8d8f5; }
 
 .rd-age { font-size: 12px; color: #aaa; }
@@ -303,7 +303,7 @@
   top: calc(100% + 6px);
   right: 0;
   background: #fff;
-  border: 1.5px solid #ead4e4;
+  border: 1.5px solid #d0e4fb;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   overflow: hidden;
@@ -352,7 +352,7 @@
 }
 
 .rd-app-value { color: #444; }
-.rd-app-wage { color: #e91e8c; font-weight: 700; }
+.rd-app-wage { color: #4A8FE7; font-weight: 700; }
 
 /* 자격증 */
 .rd-app-certs {
@@ -385,7 +385,7 @@
 .rd-profile-btn {
   padding: 6px 14px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #e91e8c, #c8177a);
+  background: linear-gradient(135deg, #4A8FE7, #3A7FD7);
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -479,7 +479,7 @@
   flex-shrink: 0;
 }
 
-.rd-modal-close:hover { background: #fff0f7; border-color: #e91e8c; color: #e91e8c; }
+.rd-modal-close:hover { background: #f0f6ff; border-color: #4A8FE7; color: #4A8FE7; }
 
 .rd-modal-body {
   overflow-y: auto;
@@ -589,14 +589,14 @@
   font-size: 15px;
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #ead4e4;
+  border: 1.5px solid #d0e4fb;
 }
 
 .rd-empty p { margin: 0; }
 
 .rd-goto-applicants {
   font-size: 13px;
-  color: #e91e8c;
+  color: #4A8FE7;
   text-decoration: none;
   font-weight: 600;
   margin-top: 4px;

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+﻿import { useState, useRef, useEffect } from 'react'
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -237,7 +237,7 @@ export default function JobListingsPage() {
                   <div className="jl-region-trigger" onClick={openPanel}>
                     {selectedRegions.length === 0 ? (
                       <span className="jl-region-placeholder">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.5">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5">
                           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
                           <circle cx="12" cy="9" r="2.5"/>
                         </svg>
@@ -463,7 +463,7 @@ export default function JobListingsPage() {
             <div className="jl-myposts">
               <div className="jl-myposts-header">
                 <span className="jl-myposts-title">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.2" strokeLinecap="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.2" strokeLinecap="round">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                   </svg>
@@ -501,7 +501,7 @@ export default function JobListingsPage() {
                   <div className="jl-days">{job.days}</div>
                   <div className="jl-date">{job.date}</div>
                   <button className={`job-like ${likedJobs[job.id] ? 'job-like--active' : ''}`} onClick={() => toggleLike(job.id)}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#e91e8c' : 'none'} stroke={likedJobs[job.id] ? '#e91e8c' : '#ccc'} strokeWidth="2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#4A8FE7' : 'none'} stroke={likedJobs[job.id] ? '#4A8FE7' : '#ccc'} strokeWidth="2">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
                   </button>
@@ -518,7 +518,7 @@ export default function JobListingsPage() {
                     <span className="jl-card-title">{job.title}</span>
                     {job.badge && <span className={`job-badge job-badge--${job.badgeColor}`}>{job.badge}</span>}
                     <button className="jl-card-like" onClick={e => { e.preventDefault(); toggleLike(job.id) }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#e91e8c' : 'none'} stroke={likedJobs[job.id] ? '#e91e8c' : '#ccc'} strokeWidth="2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#4A8FE7' : 'none'} stroke={likedJobs[job.id] ? '#4A8FE7' : '#ccc'} strokeWidth="2">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                       </svg>
                     </button>

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+﻿import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { talents } from '../data/talents'
@@ -178,7 +178,7 @@ export default function TalentListPage() {
                   <div className="tl-region-trigger" onClick={() => setPanelOpen(v => !v)}>
                     {selectedRegions.length === 0
                       ? <span className="tl-region-placeholder">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
                           지역 선택
                         </span>
                       : <div className="tl-region-chips">
@@ -274,7 +274,7 @@ export default function TalentListPage() {
               <div className="tl-recommend-header">
                 <div className="tl-recommend-title">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#e91e8c" stroke="#e91e8c" strokeWidth="1.5" strokeLinejoin="round"/>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#4A8FE7" stroke="#4A8FE7" strokeWidth="1.5" strokeLinejoin="round"/>
                   </svg>
                   맞춤 인재 추천
                 </div>
@@ -291,7 +291,7 @@ export default function TalentListPage() {
                     <span className="tl-rec-badge">✦ 추천</span>
                     <div className="tl-rec-card-top">
                       <div className="tl-rec-avatar">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#4A8FE7' : '#5b8def'} strokeWidth="1.8">
                           <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
                         </svg>
                       </div>
@@ -383,7 +383,7 @@ export default function TalentListPage() {
                   <Link to={`/talents/${t.id}`} className="tl-grid-card" key={t.id}>
                     <div className="tl-grid-card-top">
                       <div className={`tl-grid-avatar tl-grid-avatar--${t.gender === '여' ? 'f' : 'm'}`}>
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#4A8FE7' : '#5b8def'} strokeWidth="1.8">
                           <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
                         </svg>
                       </div>

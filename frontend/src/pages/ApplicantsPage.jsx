@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import ApplicantModal, { StatusDropdown } from '../components/ApplicantModal'
@@ -104,8 +104,8 @@ export default function ApplicantsPage() {
                     <div className="ap-card-left">
                       <div className="ap-avatar">
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                          <circle cx="12" cy="8" r="4" stroke="#e91e8c" strokeWidth="1.8"/>
-                          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#e91e8c" strokeWidth="1.8" strokeLinecap="round"/>
+                          <circle cx="12" cy="8" r="4" stroke="#4A8FE7" strokeWidth="1.8"/>
+                          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#4A8FE7" strokeWidth="1.8" strokeLinecap="round"/>
                         </svg>
                       </div>
                       <div>

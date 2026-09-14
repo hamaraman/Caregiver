@@ -1,4 +1,4 @@
-.header {
+﻿.header {
   background: #fff;
   border-bottom: 1px solid #eee;
   position: sticky;
@@ -27,7 +27,7 @@
 .logo-icon {
   width: 38px;
   height: 38px;
-  background: linear-gradient(135deg, #e91e8c, #c01070);
+  background: linear-gradient(135deg, #4A8FE7, #3A7FD7);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -55,7 +55,7 @@
 .logo-name {
   font-size: 18px;
   font-weight: 800;
-  color: #e91e8c;
+  color: #4A8FE7;
   letter-spacing: -0.5px;
 }
 
@@ -80,11 +80,11 @@
 }
 
 .nav-item:hover {
-  color: #e91e8c;
+  color: #4A8FE7;
 }
 
 .nav-item--active {
-  color: #e91e8c;
+  color: #4A8FE7;
   font-weight: 700;
 }
 
@@ -95,7 +95,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: #e91e8c;
+  background: #4A8FE7;
   border-radius: 2px 2px 0 0;
 }
 
@@ -124,7 +124,7 @@
 }
 
 .btn-login:hover {
-  color: #e91e8c;
+  color: #4A8FE7;
 }
 
 .btn-signup {
@@ -132,7 +132,7 @@
   font-size: 14px;
   font-weight: 700;
   color: #fff;
-  background: #e91e8c;
+  background: #4A8FE7;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -140,7 +140,7 @@
 }
 
 .btn-signup:hover {
-  background: #c91677;
+  background: #3A7FD7;
 }
 
 /* 드롭다운 */
@@ -167,7 +167,7 @@
   background: #fff;
   border-radius: 0 0 10px 10px;
   border: 1px solid #f0f0f0;
-  border-top: 2px solid #e91e8c;
+  border-top: 2px solid #4A8FE7;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   padding: 4px;
   display: flex;
@@ -197,8 +197,8 @@
 }
 
 .nav-dropdown-item:hover {
-  background: #fce4f1;
-  color: #e91e8c;
+  background: #e8f1ff;
+  color: #4A8FE7;
 }
 
 .nav-dropdown-label {
@@ -251,8 +251,8 @@
 }
 
 .mobile-nav-item:hover {
-  background: #fff0f7;
-  color: #e91e8c;
+  background: #f0f6ff;
+  color: #4A8FE7;
 }
 
 .mobile-nav-section {
@@ -280,8 +280,8 @@
 }
 
 .mobile-nav-sub-item:hover {
-  background: #fff0f7;
-  color: #e91e8c;
+  background: #f0f6ff;
+  color: #4A8FE7;
 }
 
 .mobile-menu-actions {
@@ -324,7 +324,7 @@
   font-size: 14px;
   font-weight: 700;
   color: #fff;
-  background: #e91e8c;
+  background: #4A8FE7;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -333,7 +333,7 @@
 }
 
 .mobile-btn-signup:hover {
-  background: #c91677;
+  background: #3A7FD7;
 }
 
 /* ── 미디어 쿼리 ── */

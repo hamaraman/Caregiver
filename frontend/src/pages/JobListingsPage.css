@@ -1,4 +1,4 @@
-.jl-page {
+﻿.jl-page {
   padding: 32px 0 60px;
   min-height: calc(100vh - 64px);
   background: #f5f7fc;
@@ -21,7 +21,7 @@
 }
 
 .jl-breadcrumb a:hover {
-  color: #e91e8c;
+  color: #4A8FE7;
 }
 
 .jl-title {
@@ -34,10 +34,10 @@
 .jl-filter-bar {
   background: #fff;
   border-radius: 16px;
-  border: 2px solid #f0b8d8;
+  border: 2px solid #c5d8f8;
   padding: 20px 24px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.07);
+  box-shadow: 0 4px 16px rgba(74, 143, 231, 0.07);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -56,9 +56,9 @@
   flex-shrink: 0;
   padding: 3px 10px;
   border-radius: 20px;
-  background: #fce4f1;
-  border: 1px solid #f0b8d8;
-  color: #c01070;
+  background: #e8f1ff;
+  border: 1px solid #c5d8f8;
+  color: #4A8FE7;
   font-size: 12px;
   font-weight: 600;
 }
@@ -79,9 +79,9 @@
   gap: 5px;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #f0b8d8;
+  border: 1.5px solid #c5d8f8;
   background: #fff;
-  color: #e91e8c;
+  color: #4A8FE7;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -110,7 +110,7 @@
 .jl-filter-right {
   width: 200px;
   flex-shrink: 0;
-  border-left: 1px solid #f5d0e5;
+  border-left: 1px solid #d0e4fb;
   padding-left: 24px;
   display: flex;
   flex-direction: column;
@@ -134,7 +134,7 @@
 
 .jl-right-divider {
   height: 1px;
-  background: #f5d0e5;
+  background: #d0e4fb;
 }
 
 .jl-sort-btns {
@@ -156,14 +156,14 @@
 }
 
 .jl-sort-btn:hover {
-  color: #e91e8c;
-  background: #fce4f1;
-  border-color: #f0b8d8;
+  color: #4A8FE7;
+  background: #e8f1ff;
+  border-color: #c5d8f8;
 }
 
 .jl-sort-btn--active {
-  background: #e91e8c;
-  border-color: #e91e8c;
+  background: #4A8FE7;
+  border-color: #4A8FE7;
   color: #fff;
 }
 
@@ -180,8 +180,8 @@
 
 .jl-search:focus-within {
   background: #fff;
-  border-color: #e91e8c;
-  box-shadow: 0 4px 20px rgba(233, 30, 140, 0.15);
+  border-color: #4A8FE7;
+  box-shadow: 0 4px 20px rgba(74, 143, 231, 0.15);
 }
 
 .jl-search svg {
@@ -191,7 +191,7 @@
 }
 
 .jl-search:focus-within svg {
-  color: #e91e8c;
+  color: #4A8FE7;
 }
 
 .jl-search input {
@@ -211,7 +211,7 @@
 .jl-search-btn {
   width: 34px;
   height: 34px;
-  background: #e91e8c;
+  background: #4A8FE7;
   border: none;
   border-radius: 50%;
   display: flex;
@@ -223,7 +223,7 @@
 }
 
 .jl-search-btn:hover {
-  background: #c91677;
+  background: #3A7FD7;
 }
 
 .jl-filters {
@@ -271,8 +271,8 @@
 }
 
 .jl-wage-input:focus {
-  border-color: #e91e8c;
-  box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.1);
+  border-color: #4A8FE7;
+  box-shadow: 0 0 0 3px rgba(74, 143, 231, 0.1);
 }
 
 .jl-wage-input::placeholder { color: #c0b0b8; }
@@ -341,15 +341,15 @@
 }
 
 .jl-chip--more {
-  color: #e91e8c;
-  background: #fff0f7;
-  border-color: #f0b8d8;
+  color: #4A8FE7;
+  background: #f0f6ff;
+  border-color: #c5d8f8;
   flex-shrink: 0;
 }
 
 .jl-chip--more:hover {
-  background: #fce4f1;
-  color: #c01070;
+  background: #e8f1ff;
+  color: #4A8FE7;
 }
 
 /* ── 지역 팝업 피커 ── */
@@ -374,7 +374,7 @@
 }
 
 .jl-region-trigger:hover {
-  border-color: #e91e8c;
+  border-color: #4A8FE7;
 }
 
 .jl-region-placeholder {
@@ -397,8 +397,8 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #fce4f1;
-  color: #c01070;
+  background: #e8f1ff;
+  color: #4A8FE7;
   border-radius: 20px;
   padding: 3px 10px 3px 10px;
   font-size: 12px;
@@ -409,7 +409,7 @@
   border: none;
   background: none;
   cursor: pointer;
-  color: #c01070;
+  color: #4A8FE7;
   font-size: 14px;
   line-height: 1;
   padding: 0;
@@ -431,9 +431,9 @@
   left: 0;
   width: 420px;
   background: #fff;
-  border: 1.5px solid #f0b8d8;
+  border: 1.5px solid #c5d8f8;
   border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.13);
+  box-shadow: 0 8px 32px rgba(74, 143, 231, 0.13);
   z-index: 200;
   animation: fade-in 0.15s ease;
   overflow: hidden;
@@ -459,31 +459,31 @@
 }
 
 .jl-panel-do-chip:hover {
-  color: #e91e8c;
-  background: #fce4f1;
-  border-color: #f0b8d8;
+  color: #4A8FE7;
+  background: #e8f1ff;
+  border-color: #c5d8f8;
 }
 
 .jl-panel-do-chip--focused {
-  background: #fff0f7;
-  border-color: #e91e8c;
-  color: #e91e8c;
+  background: #f0f6ff;
+  border-color: #4A8FE7;
+  color: #4A8FE7;
 }
 
 .jl-panel-do-chip--active {
-  background: #e91e8c;
-  border-color: #e91e8c;
+  background: #4A8FE7;
+  border-color: #4A8FE7;
   color: #fff;
 }
 
 .jl-panel-do-chip--active.jl-panel-do-chip--focused {
-  background: #c01070;
-  border-color: #c01070;
+  background: #4A8FE7;
+  border-color: #4A8FE7;
 }
 
 .jl-panel-divider {
   height: 1px;
-  background: #f5d0e5;
+  background: #d0e4fb;
   margin: 0 16px;
 }
 
@@ -509,8 +509,8 @@
   transition: all 0.15s;
 }
 
-.jl-panel-do-all:hover { color: #e91e8c; border-color: #e91e8c; }
-.jl-panel-do-all--active { background: #e91e8c; border-color: #e91e8c; color: #fff; }
+.jl-panel-do-all:hover { color: #4A8FE7; border-color: #4A8FE7; }
+.jl-panel-do-all--active { background: #4A8FE7; border-color: #4A8FE7; color: #fff; }
 
 .jl-panel-si-row {
   display: flex;
@@ -533,15 +533,15 @@
   transition: all 0.15s;
 }
 
-.jl-panel-si-chip:hover { color: #e91e8c; background: #fce4f1; border-color: #f0b8d8; }
-.jl-panel-si-chip--active { background: #e91e8c; border-color: #e91e8c; color: #fff; }
+.jl-panel-si-chip:hover { color: #4A8FE7; background: #e8f1ff; border-color: #c5d8f8; }
+.jl-panel-si-chip--active { background: #4A8FE7; border-color: #4A8FE7; color: #fff; }
 
 .jl-panel-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  border-top: 1px solid #f5d0e5;
+  border-top: 1px solid #d0e4fb;
   background: #fdf5f9;
 }
 
@@ -555,20 +555,20 @@
   border-radius: 6px;
   transition: color 0.15s;
 }
-.jl-panel-clear:hover { color: #e91e8c; }
+.jl-panel-clear:hover { color: #4A8FE7; }
 
 .jl-panel-confirm {
   font-size: 13px;
   font-weight: 700;
   color: #fff;
-  background: #e91e8c;
+  background: #4A8FE7;
   border: none;
   border-radius: 20px;
   padding: 7px 20px;
   cursor: pointer;
   transition: background 0.15s;
 }
-.jl-panel-confirm:hover { background: #c01070; }
+.jl-panel-confirm:hover { background: #4A8FE7; }
 
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(-4px); }
@@ -601,14 +601,14 @@
 }
 
 .jl-chip:hover {
-  color: #e91e8c;
+  color: #4A8FE7;
   background: #fff;
 }
 
 .jl-chip--active {
-  background: #e91e8c;
+  background: #4A8FE7;
   color: #fff;
-  border-color: #e91e8c;
+  border-color: #4A8FE7;
 }
 
 .jl-filter-label {
@@ -622,7 +622,7 @@
   border: 1.5px solid #e8c0d8;
   padding: 18px 20px 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 16px rgba(233, 30, 140, 0.10);
+  box-shadow: 0 2px 16px rgba(74, 143, 231, 0.10);
 }
 
 .jl-myposts-header {
@@ -643,7 +643,7 @@
 
 .jl-myposts-manage {
   font-size: 12px;
-  color: #e91e8c;
+  color: #4A8FE7;
   text-decoration: none;
   font-weight: 700;
   transition: opacity 0.15s;
@@ -673,8 +673,8 @@
   transition: box-shadow 0.15s, border-color 0.15s;
 }
 .jl-mypost-card:hover {
-  border-color: #e91e8c;
-  box-shadow: 0 4px 16px rgba(233, 30, 140, 0.18);
+  border-color: #4A8FE7;
+  box-shadow: 0 4px 16px rgba(74, 143, 231, 0.18);
 }
 
 .jl-mypost-badge {
@@ -730,7 +730,7 @@
 }
 
 .jl-result-count strong {
-  color: #e91e8c;
+  color: #4A8FE7;
   font-weight: 700;
 }
 
@@ -753,12 +753,12 @@
   transition: all 0.15s;
 }
 
-.jl-view-btn:hover { border-color: #e91e8c; color: #e91e8c; }
+.jl-view-btn:hover { border-color: #4A8FE7; color: #4A8FE7; }
 
 .jl-view-btn--active {
-  border-color: #e91e8c;
-  color: #e91e8c;
-  background: #fff0f7;
+  border-color: #4A8FE7;
+  color: #4A8FE7;
+  background: #f0f6ff;
 }
 
 /* 카드 그리드 */
@@ -785,8 +785,8 @@
 }
 
 .jl-card:hover {
-  border-color: #e91e8c;
-  box-shadow: 0 6px 20px rgba(233,30,140,0.12);
+  border-color: #4A8FE7;
+  box-shadow: 0 6px 20px rgba(74,143,231,0.12);
   transform: translateY(-2px);
 }
 
@@ -806,7 +806,7 @@
   transition: color 0.15s;
 }
 
-.jl-card:hover .jl-card-title { color: #e91e8c; }
+.jl-card:hover .jl-card-title { color: #4A8FE7; }
 
 .jl-card-like {
   position: absolute;
@@ -820,7 +820,7 @@
 }
 
 .jl-card-location { font-size: 13px; color: #444; }
-.jl-card-wage     { font-size: 14px; font-weight: 700; color: #e91e8c; }
+.jl-card-wage     { font-size: 14px; font-weight: 700; color: #4A8FE7; }
 .jl-card-meta     { font-size: 13px; color: #555; }
 .jl-card-date     { font-size: 12px; color: #999; margin-top: 4px; }
 
@@ -851,11 +851,11 @@
 
 .jl-row:hover {
   background: linear-gradient(90deg, #fdf5fa 0%, #fff 70%);
-  border-left-color: #e91e8c;
+  border-left-color: #4A8FE7;
 }
 
 .jl-row:hover .jl-job-title {
-  color: #e91e8c;
+  color: #4A8FE7;
 }
 
 .jl-title-cell {
@@ -873,7 +873,7 @@
 }
 
 .jl-location { font-size: 13px; color: #444; }
-.jl-wage     { font-size: 13px; font-weight: 700; color: #e91e8c; }
+.jl-wage     { font-size: 13px; font-weight: 700; color: #4A8FE7; }
 .jl-hours    { font-size: 13px; color: #555; }
 .jl-days     { font-size: 13px; color: #555; }
 .jl-date     { font-size: 12px; color: #999; text-align: center; }
@@ -908,13 +908,13 @@
 }
 
 .jl-page-btn:hover:not(:disabled) {
-  border-color: #e91e8c;
-  color: #e91e8c;
+  border-color: #4A8FE7;
+  color: #4A8FE7;
 }
 
 .jl-page-btn--active {
-  background: #e91e8c;
-  border-color: #e91e8c;
+  background: #4A8FE7;
+  border-color: #4A8FE7;
   color: #fff;
   font-weight: 700;
 }
@@ -947,7 +947,7 @@
   .jl-filter-right {
     width: 100%;
     border-left: none;
-    border-top: 1px solid #f5d0e5;
+    border-top: 1px solid #d0e4fb;
     padding-left: 0;
     padding-top: 16px;
     flex-direction: row;
@@ -968,7 +968,7 @@
     width: 1px;
     height: auto;
     align-self: stretch;
-    background: #f5d0e5;
+    background: #d0e4fb;
   }
 
   .jl-region-panel {

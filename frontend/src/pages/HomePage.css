@@ -1,4 +1,4 @@
-.hp-root {
+﻿.hp-root {
   min-height: 100vh;
   background: #f5f7fc;
   font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
@@ -401,7 +401,7 @@
   flex-shrink: 0;
 }
 .hp-hcard-icon--blue { background: #4A8FE7; }
-.hp-hcard-icon--pink { background: #e91e8c; }
+.hp-hcard-icon--pink { background: #06b6d4; }
 
 .hp-hcard-title {
   font-size: 20px;
@@ -432,7 +432,7 @@
   flex-shrink: 0;
 }
 .hp-hcard-arrow--blue { background: #4A8FE7; }
-.hp-hcard-arrow--pink { background: #e91e8c; }
+.hp-hcard-arrow--pink { background: #06b6d4; }
 
 /* ════════════════════════════════
    TODAY STATS
@@ -789,8 +789,8 @@
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 4px;
-  background: #fff0f7;
-  color: #e91e8c;
+  background: #e0f7fa;
+  color: #06b6d4;
   flex-shrink: 0;
 }
 

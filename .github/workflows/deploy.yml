@@ -43,6 +43,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true
           script: |
             cd /home/ubuntu/Caregiver
             git pull origin main
@@ -57,17 +58,17 @@ jobs:
             # Build backend
             chmod +x gradlew
             ./gradlew build -x test
-            ./gradlew --stop || true
 
-            # Restart Spring Boot (kill only the JAR process, not Gradle)
-            PID=$(pgrep -f 'Caregiver-0.0.1-SNAPSHOT.jar' || true)
-            if [ -n "$PID" ]; then
-              kill $PID || true
-              sleep 3
-            fi
+            # Stop Gradle daemon (ignore exit code)
+            ./gradlew --stop > /dev/null 2>&1; true
+
+            # Restart Spring Boot
+            bash -c 'kill $(cat /tmp/caregiver.pid 2>/dev/null) 2>/dev/null; true'
+            sleep 2
             nohup java -jar build/libs/Caregiver-0.0.1-SNAPSHOT.jar \
               --spring.config.additional-location=file:./application-secret.properties \
               > backend.log 2>&1 &
+            echo $! > /tmp/caregiver.pid
             disown
-            sleep 5
+            sleep 3
             echo "Deployment completed!"

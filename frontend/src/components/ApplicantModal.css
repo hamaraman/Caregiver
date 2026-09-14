@@ -172,7 +172,7 @@
   border-radius: 20px;
 }
 
-.apm-gender-badge--f { background: #f0f6ff; color: #4A8FE7; border: 1px solid #c5d8f8; }
+.apm-gender-badge--f { background: #f0f6ff; color: #4A8FE7; border: 1px solid #9dbef4; }
 .apm-gender-badge--m { background: #eff4ff; color: #5b8def; border: 1px solid #c8d8f5; }
 
 .apm-age { font-size: 12px; color: #aaa; }
@@ -208,7 +208,7 @@
   top: calc(100% + 6px);
   right: 0;
   background: #fff;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   overflow: hidden;

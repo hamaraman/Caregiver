@@ -63,7 +63,7 @@
   align-items: center;
   gap: 10px;
   background: #fff;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 12px;
   padding: 12px 18px;
   margin-bottom: 16px;
@@ -80,7 +80,7 @@
   font-size: 13px;
   color: #4A8FE7;
   text-decoration: none;
-  border: 1px solid #c5d8f8;
+  border: 1px solid #9dbef4;
   padding: 4px 12px;
   border-radius: 20px;
   transition: background 0.15s;
@@ -120,7 +120,7 @@
   align-items: center;
   background: #fff;
   border-radius: 14px;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
   padding: 20px 24px;
   gap: 24px;
   transition: box-shadow 0.15s, border-color 0.15s;
@@ -128,7 +128,7 @@
 
 .ap-card:hover {
   border-color: #b8cef5;
-  box-shadow: 0 4px 16px rgba(74,143,231,0.07);
+  box-shadow: 0 4px 16px rgba(74,143,231,0.13);
 }
 
 /* 왼쪽 */
@@ -145,7 +145,7 @@
   height: 48px;
   border-radius: 50%;
   background: #f0f6ff;
-  border: 2px solid #c5d8f8;
+  border: 2px solid #9dbef4;
   display: flex;
   align-items: center;
   justify-content: center;

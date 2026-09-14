@@ -14,10 +14,10 @@
 .jd-hero {
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   padding: 28px 32px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 12px rgba(74,143,231,0.06);
+  box-shadow: 0 2px 12px rgba(74,143,231,0.13);
 }
 
 .jd-hero-top {
@@ -56,7 +56,7 @@
 
 .jd-badge--urgent   { background: #fde0e0; color: #e03030; border: 1px solid #f0a0a0; }
 .jd-badge--recommend { background: #ede0ff; color: #7b4fcf; border: 1px solid #c5a0f0; }
-.jd-badge--type     { background: #e8f1ff; color: #4A8FE7; border: 1px solid #c5d8f8; }
+.jd-badge--type     { background: #e8f1ff; color: #4A8FE7; border: 1px solid #9dbef4; }
 .jd-badge--work     { background: #ddeaff; color: #5b8def; border: 1px solid #a0c0f5; }
 
 .jd-title {
@@ -154,9 +154,9 @@
 .jd-section {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   padding: 24px 32px;
-  box-shadow: 0 2px 10px rgba(74,143,231,0.04);
+  box-shadow: 0 2px 10px rgba(74,143,231,0.18);
 }
 
 .jd-section-title {
@@ -165,7 +165,7 @@
   color: #222;
   margin-bottom: 18px;
   padding-bottom: 12px;
-  border-bottom: 1.5px solid #d0e4fb;
+  border-bottom: 1.5px solid #aacaf5;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -252,7 +252,7 @@
 .jd-tag--direct {
   background: #e8f1ff;
   color: #4A8FE7;
-  border-color: #c5d8f8;
+  border-color: #9dbef4;
   font-weight: 700;
 }
 
@@ -265,7 +265,7 @@
   padding: 16px 18px;
   background: #fdf8fb;
   border-radius: 10px;
-  border: 1px solid #c5d8f8;
+  border: 1px solid #9dbef4;
 }
 
 .jd-apply-methods {
@@ -278,9 +278,9 @@
 .jd-bottom-actions {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   padding: 20px 32px;
-  box-shadow: 0 2px 16px rgba(74,143,231,0.10);
+  box-shadow: 0 2px 16px rgba(74,143,231,0.18);
 }
 
 @media (max-width: 768px) {

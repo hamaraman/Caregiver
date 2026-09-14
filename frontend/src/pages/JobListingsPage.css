@@ -34,10 +34,10 @@
 .jl-filter-bar {
   background: #fff;
   border-radius: 16px;
-  border: 2px solid #c5d8f8;
+  border: 2px solid #9dbef4;
   padding: 20px 24px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 16px rgba(74, 143, 231, 0.07);
+  box-shadow: 0 4px 16px rgba(74, 143, 231, 0.13);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -57,7 +57,7 @@
   padding: 3px 10px;
   border-radius: 20px;
   background: #e8f1ff;
-  border: 1px solid #c5d8f8;
+  border: 1px solid #9dbef4;
   color: #4A8FE7;
   font-size: 12px;
   font-weight: 600;
@@ -79,7 +79,7 @@
   gap: 5px;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   background: #fff;
   color: #4A8FE7;
   font-size: 13px;
@@ -110,7 +110,7 @@
 .jl-filter-right {
   width: 200px;
   flex-shrink: 0;
-  border-left: 1px solid #d0e4fb;
+  border-left: 1px solid #aacaf5;
   padding-left: 24px;
   display: flex;
   flex-direction: column;
@@ -134,7 +134,7 @@
 
 .jl-right-divider {
   height: 1px;
-  background: #d0e4fb;
+  background: #aacaf5;
 }
 
 .jl-sort-btns {
@@ -158,7 +158,7 @@
 .jl-sort-btn:hover {
   color: #4A8FE7;
   background: #e8f1ff;
-  border-color: #c5d8f8;
+  border-color: #9dbef4;
 }
 
 .jl-sort-btn--active {
@@ -171,7 +171,7 @@
   display: flex;
   align-items: center;
   background: #f0f6ff;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 50px;
   padding: 4px 4px 4px 16px;
   max-width: 100%;
@@ -261,7 +261,7 @@
 .jl-wage-input {
   width: 130px;
   padding: 5px 12px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -279,7 +279,7 @@
 
 .jl-wage-input--disabled {
   background: #f5f5f5;
-  border-color: #d0e4fb;
+  border-color: #aacaf5;
   color: #ccc;
   cursor: default;
   pointer-events: none;
@@ -328,7 +328,7 @@
   display: none;
   width: 100%;
   padding: 8px 12px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 8px;
   font-size: 14px;
   color: #333;
@@ -343,7 +343,7 @@
 .jl-chip--more {
   color: #4A8FE7;
   background: #f0f6ff;
-  border-color: #c5d8f8;
+  border-color: #9dbef4;
   flex-shrink: 0;
 }
 
@@ -365,7 +365,7 @@
   gap: 8px;
   min-height: 38px;
   padding: 6px 12px 6px 14px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 10px;
   background: #fff;
   cursor: pointer;
@@ -431,7 +431,7 @@
   left: 0;
   width: 420px;
   background: #fff;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 14px;
   box-shadow: 0 8px 32px rgba(74, 143, 231, 0.13);
   z-index: 200;
@@ -461,7 +461,7 @@
 .jl-panel-do-chip:hover {
   color: #4A8FE7;
   background: #e8f1ff;
-  border-color: #c5d8f8;
+  border-color: #9dbef4;
 }
 
 .jl-panel-do-chip--focused {
@@ -483,7 +483,7 @@
 
 .jl-panel-divider {
   height: 1px;
-  background: #d0e4fb;
+  background: #aacaf5;
   margin: 0 16px;
 }
 
@@ -533,7 +533,7 @@
   transition: all 0.15s;
 }
 
-.jl-panel-si-chip:hover { color: #4A8FE7; background: #e8f1ff; border-color: #c5d8f8; }
+.jl-panel-si-chip:hover { color: #4A8FE7; background: #e8f1ff; border-color: #9dbef4; }
 .jl-panel-si-chip--active { background: #4A8FE7; border-color: #4A8FE7; color: #fff; }
 
 .jl-panel-footer {
@@ -541,7 +541,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  border-top: 1px solid #d0e4fb;
+  border-top: 1px solid #aacaf5;
   background: #fdf5f9;
 }
 
@@ -619,10 +619,10 @@
 .jl-myposts {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   padding: 18px 20px 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 16px rgba(74, 143, 231, 0.10);
+  box-shadow: 0 2px 16px rgba(74, 143, 231, 0.18);
 }
 
 .jl-myposts-header {
@@ -786,7 +786,7 @@
 
 .jl-card:hover {
   border-color: #4A8FE7;
-  box-shadow: 0 6px 20px rgba(74,143,231,0.12);
+  box-shadow: 0 6px 20px rgba(74,143,231,0.20);
   transform: translateY(-2px);
 }
 
@@ -947,7 +947,7 @@
   .jl-filter-right {
     width: 100%;
     border-left: none;
-    border-top: 1px solid #d0e4fb;
+    border-top: 1px solid #aacaf5;
     padding-left: 0;
     padding-top: 16px;
     flex-direction: row;
@@ -968,7 +968,7 @@
     width: 1px;
     height: auto;
     align-self: stretch;
-    background: #d0e4fb;
+    background: #aacaf5;
   }
 
   .jl-region-panel {

@@ -12,10 +12,10 @@
 .tl-filter-box {
   background: #fff;
   border-radius: 16px;
-  border: 2px solid #c5d8f8;
+  border: 2px solid #9dbef4;
   padding: 20px 24px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 16px rgba(74, 143, 231, 0.07);
+  box-shadow: 0 4px 16px rgba(74, 143, 231, 0.13);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   background: #f0f6ff;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 50px;
   padding: 4px 4px 4px 16px;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
@@ -86,7 +86,7 @@
   gap: 5px;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   background: #fff;
   color: #4A8FE7;
   font-size: 13px;
@@ -113,7 +113,7 @@
   padding: 3px 10px;
   border-radius: 20px;
   background: #e8f1ff;
-  border: 1px solid #c5d8f8;
+  border: 1px solid #9dbef4;
   color: #4A8FE7;
   font-size: 12px;
   font-weight: 600;
@@ -161,7 +161,7 @@
   align-items: center;
   gap: 8px;
   padding: 7px 14px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 20px;
   background: #fff;
   cursor: pointer;
@@ -211,9 +211,9 @@
   left: 0;
   z-index: 200;
   background: #fff;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(74,143,231,0.12);
+  box-shadow: 0 8px 32px rgba(74,143,231,0.20);
   padding: 16px;
   width: 560px;
 }
@@ -234,7 +234,7 @@
 .tl-panel-do-chip--focused { border-color: #4A8FE7; background: #f0f6ff; color: #4A8FE7; }
 .tl-panel-do-chip--active { font-weight: 700; color: #4A8FE7; }
 
-.tl-panel-divider { height: 1px; background: #d0e4fb; margin: 12px 0 8px; }
+.tl-panel-divider { height: 1px; background: #aacaf5; margin: 12px 0 8px; }
 
 .tl-panel-si-header {
   display: flex;
@@ -250,7 +250,7 @@
   font-size: 12px;
   padding: 3px 10px;
   border-radius: 12px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   background: #fff;
   color: #aaa;
   cursor: pointer;
@@ -280,7 +280,7 @@
   gap: 8px;
   margin-top: 14px;
   padding-top: 12px;
-  border-top: 1px solid #d0e4fb;
+  border-top: 1px solid #aacaf5;
 }
 
 .tl-panel-clear {
@@ -345,7 +345,7 @@
   display: inline-block;
   background: #e8f1ff;
   color: #4A8FE7;
-  border: 1px solid #c5d8f8;
+  border: 1px solid #9dbef4;
   border-radius: 20px;
   padding: 2px 10px;
   font-size: 12px;
@@ -360,9 +360,9 @@
 }
 
 .tl-rec-card {
-  background: linear-gradient(160deg, #f0f6ff 0%, #fff8fb 100%);
+  background: linear-gradient(160deg, #f0f6ff 0%, #f8fbff 100%);
   border-radius: 14px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   padding: 16px;
   text-decoration: none;
   color: inherit;
@@ -403,7 +403,7 @@
   height: 38px;
   border-radius: 50%;
   background: #f0f6ff;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -451,7 +451,7 @@
   border-radius: 10px;
   background: #f0f6ff;
   color: #4A8FE7;
-  border: 1px solid #f0c8e0;
+  border: 1px solid #9dbef4;
   font-weight: 600;
 }
 
@@ -552,7 +552,7 @@
   align-items: center;
   padding: 14px 20px;
   border-radius: 10px;
-  border: 1px solid #f0d0e4;
+  border: 1px solid #aacaf5;
   background: #fff;
   gap: 12px;
   text-decoration: none;
@@ -565,7 +565,7 @@
 
 .tl-row:hover {
   border-color: #4A8FE7;
-  box-shadow: 0 2px 12px rgba(74,143,231,0.08);
+  box-shadow: 0 2px 12px rgba(74,143,231,0.15);
 }
 
 .tl-row:hover .tl-row-name-text { color: #4A8FE7; }
@@ -717,7 +717,7 @@
 
 .tl-grid-card:hover {
   border-color: #4A8FE7;
-  box-shadow: 0 6px 20px rgba(74,143,231,0.12);
+  box-shadow: 0 6px 20px rgba(74,143,231,0.20);
   transform: translateY(-2px);
 }
 

@@ -38,7 +38,7 @@
   font-weight: 700;
   color: #4A8FE7;
   background: #f0f6ff;
-  border: 1px solid #c5d8f8;
+  border: 1px solid #9dbef4;
   border-radius: 20px;
   padding: 2px 10px;
 }
@@ -47,7 +47,7 @@
 .rd-job-card {
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
   padding: 24px 28px;
 }
 
@@ -107,7 +107,7 @@
   flex-shrink: 0;
   padding: 8px 18px;
   border-radius: 10px;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
   background: #fff;
   color: #777;
   font-size: 13px;
@@ -197,7 +197,7 @@
 .rd-tag--pink {
   background: #f0f6ff;
   color: #4A8FE7;
-  border-color: #c5d8f8;
+  border-color: #9dbef4;
 }
 
 /* 회사 정보 */
@@ -224,7 +224,7 @@
 .rd-applicant-card {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -233,7 +233,7 @@
 }
 
 .rd-applicant-card:hover {
-  box-shadow: 0 6px 20px rgba(74,143,231,0.10);
+  box-shadow: 0 6px 20px rgba(74,143,231,0.18);
   transform: translateY(-2px);
 }
 
@@ -263,7 +263,7 @@
   border-radius: 20px;
 }
 
-.rd-gender-badge--f { background: #f0f6ff; color: #4A8FE7; border: 1px solid #c5d8f8; }
+.rd-gender-badge--f { background: #f0f6ff; color: #4A8FE7; border: 1px solid #9dbef4; }
 .rd-gender-badge--m { background: #eff4ff; color: #5b8def; border: 1px solid #c8d8f5; }
 
 .rd-age { font-size: 12px; color: #aaa; }
@@ -303,7 +303,7 @@
   top: calc(100% + 6px);
   right: 0;
   background: #fff;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   overflow: hidden;
@@ -589,7 +589,7 @@
   font-size: 15px;
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
 }
 
 .rd-empty p { margin: 0; }

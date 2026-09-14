@@ -27,12 +27,12 @@
   align-items: center;
   background: #fff;
   border-radius: 14px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   padding: 18px 28px;
   margin-bottom: 28px;
   gap: 0;
   overflow-x: auto;
-  box-shadow: 0 2px 10px rgba(74,143,231,0.06);
+  box-shadow: 0 2px 10px rgba(74,143,231,0.13);
 }
 
 .jp-step {
@@ -66,7 +66,7 @@
 .jp-step-line {
   width: 32px;
   height: 1px;
-  background: #c5d8f8;
+  background: #9dbef4;
   margin: 0 8px;
   flex-shrink: 0;
 }
@@ -77,9 +77,9 @@
 .jp-section {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(74,143,231,0.08);
+  box-shadow: 0 2px 12px rgba(74,143,231,0.15);
 }
 
 .jp-section-header {
@@ -88,7 +88,7 @@
   gap: 10px;
   padding: 16px 24px;
   background: #e8f1ff;
-  border-bottom: 1px solid #c5d8f8;
+  border-bottom: 1px solid #9dbef4;
 }
 
 .jp-section-num {
@@ -162,7 +162,7 @@
 /* 인풋 */
 .jp-input {
   padding: 8px 12px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -204,7 +204,7 @@
 /* 셀렉트 */
 .jp-select {
   padding: 8px 32px 8px 12px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 8px;
   font-size: 13px;
   color: #333;
@@ -316,7 +316,7 @@
   font-size: 12px;
   padding: 5px 12px;
   background: #f0f6ff;
-  border-color: #d0e4fb;
+  border-color: #aacaf5;
 }
 
 .jp-check--agree {
@@ -324,7 +324,7 @@
   font-weight: 600;
   padding: 10px 16px;
   background: #f0f6ff;
-  border-color: #c5d8f8;
+  border-color: #9dbef4;
 }
 
 .jp-check input { display: none; }
@@ -357,7 +357,7 @@
   width: 100%;
   max-width: 560px;
   padding: 12px 14px;
-  border: 1.5px solid #c5d8f8;
+  border: 1.5px solid #9dbef4;
   border-radius: 10px;
   font-size: 13px;
   color: #333;
@@ -378,7 +378,7 @@
 /* 약관 */
 .jp-agree-box {
   background: #fdf5f9;
-  border: 1px solid #d0e4fb;
+  border: 1px solid #aacaf5;
   border-radius: 12px;
   padding: 16px 20px;
   display: flex;
@@ -435,7 +435,7 @@
 .jp-btn--submit:hover:not(:disabled) { background: #4A8FE7; }
 
 .jp-btn--submit:disabled {
-  background: #c5d8f8;
+  background: #9dbef4;
   cursor: not-allowed;
 }
 

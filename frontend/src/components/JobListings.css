@@ -53,7 +53,7 @@
 .job-row:hover {
   background: linear-gradient(90deg, #f0f6ff 0%, #fff 60%);
   border-left-color: #4A8FE7;
-  box-shadow: inset 0 0 0 0 transparent, 0 2px 12px rgba(74, 143, 231, 0.07);
+  box-shadow: inset 0 0 0 0 transparent, 0 2px 12px rgba(74, 143, 231, 0.13);
 }
 
 .job-row:hover .job-title {
@@ -161,7 +161,7 @@
     background: #fff;
     border-radius: 10px;
     border: 1.5px solid #e8d0e0;
-    box-shadow: 0 2px 8px rgba(74, 143, 231, 0.07);
+    box-shadow: 0 2px 8px rgba(74, 143, 231, 0.13);
     border-left: 1.5px solid #e8d0e0;
   }
 

@@ -53,12 +53,12 @@
 
 .rm-summary-card--default {
   background: #fff;
-  border: 1.5px solid #e0eaf8;
+  border: 1.5px solid #bdd4f6;
 }
 
 .rm-summary-card--active {
-  background: linear-gradient(135deg, #c5d8f8 0%, #d8ebff 100%);
-  border: 2px solid #4A8FE7;
+  background: #dce9fb;
+  border: 1.5px solid #6ba3ec;
 }
 
 .rm-summary-card--closed {
@@ -68,7 +68,7 @@
 
 .rm-summary-card--people {
   background: linear-gradient(135deg, #e8f0ff 0%, #f0f5ff 100%);
-  border: 1.5px solid #c0d4f8;
+  border: 1.5px solid #6ba3ec;
 }
 
 .rm-summary-icon {
@@ -90,8 +90,8 @@
   line-height: 1;
 }
 
-.rm-summary-val--active { color: #4A8FE7; }
-.rm-summary-val--people { color: #5b8def; }
+.rm-summary-val--active { color: #2b6fd4; }
+.rm-summary-val--people { color: #2b6fd4; }
 
 .rm-summary-unit {
   font-size: 14px;
@@ -112,7 +112,7 @@
 
 .rm-summary-card-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .rm-summary-card--sel {
@@ -128,7 +128,7 @@
   font-size: 15px;
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
 }
 
 /* 공고 목록 */
@@ -137,14 +137,14 @@
 .rm-card {
   background: #fff;
   border-radius: 18px;
-  border: 1.5px solid #d0e4fb;
+  border: 1.5px solid #aacaf5;
   overflow: hidden;
   transition: box-shadow 0.18s, transform 0.18s;
   position: relative;
 }
 
 .rm-card:hover {
-  box-shadow: 0 6px 24px rgba(74,143,231,0.12);
+  box-shadow: 0 6px 24px rgba(74,143,231,0.20);
   transform: translateY(-1px);
 }
 
@@ -294,7 +294,7 @@
 
 .rm-btn--ghost {
   background: #fff;
-  border-color: #d0e4fb;
+  border-color: #aacaf5;
   color: #777;
 }
 
@@ -302,7 +302,7 @@
 
 .rm-btn--close {
   background: linear-gradient(90deg, #f0f6ff, #e8f1ff);
-  border-color: #c5d8f8;
+  border-color: #9dbef4;
   color: #4A8FE7;
 }
 

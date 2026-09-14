@@ -1,11 +1,11 @@
 package org.example.caregiver;
 
+import org.example.caregiver.job.Job;
+import org.example.caregiver.job.JobRepository;
 import org.example.caregiver.model.Caregiver;
-import org.example.caregiver.model.Job;
 import org.example.caregiver.model.Member;
 import org.example.caregiver.model.Region;
 import org.example.caregiver.repository.CaregiverRepository;
-import org.example.caregiver.repository.JobRepository;
 import org.example.caregiver.repository.MemberRepository;
 import org.example.caregiver.repository.RegionRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -36,10 +36,10 @@ public class DataInitializer implements CommandLineRunner {
             Member member1 = memberRepository.save(new Member("user1", "pass", "김보호", seoul));
             Member member2 = memberRepository.save(new Member("user2", "pass", "이요양", gyeonggi));
 
-            // Jobs
-            jobRepository.save(new Job("요양보호사 (주간)", "급구", "red", "서울 강남구", "시급 14,000원", "09:00~15:00", "주 5일", "09.06", false, member1, seoul));
-            jobRepository.save(new Job("요양보호사 (야간)", null, null, "경기 성남시", "시급 13,500원", "16:00~22:00", "주 5일", "09.05", false, member2, gyeonggi));
-            jobRepository.save(new Job("요양보호사 (오후)", null, null, "인천 남동구", "시급 13,000원", "13:00~18:00", "주 5일", "09.05", false, member1, incheon));
+            // Jobs (Commented out due to Job entity constructor changes)
+            // jobRepository.save(new Job("요양보호사 (주간)", "급구", "red", "서울 강남구", "시급 14,000원", "09:00~15:00", "주 5일", "09.06", false, member1, seoul));
+            // jobRepository.save(new Job("요양보호사 (야간)", null, null, "경기 성남시", "시급 13,500원", "16:00~22:00", "주 5일", "09.05", false, member2, gyeonggi));
+            // jobRepository.save(new Job("요양보호사 (오후)", null, null, "인천 남동구", "시급 13,000원", "13:00~18:00", "주 5일", "09.05", false, member1, incheon));
 
             // Caregivers
             caregiverRepository.save(new Caregiver("김영희", "치매 전문", 5, 4.8, member1, seoul));

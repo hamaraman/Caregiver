@@ -19,9 +19,11 @@ import java.util.Optional;
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final MemberRepository memberRepository;
+    private final org.example.caregiver.auth.UserRepository userRepository;
 
-    public CustomOAuth2UserService(MemberRepository memberRepository) {
+    public CustomOAuth2UserService(MemberRepository memberRepository, org.example.caregiver.auth.UserRepository userRepository) {
         this.memberRepository = memberRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -60,6 +62,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         }
 
         final String finalEmail = email;
+        final String finalName = name;
 
         // DB에 회원이 있는지 확인 후 없으면 저장
         Member member = null;
@@ -72,6 +75,13 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         } else {
             member = new Member(finalEmail, "OAUTH_LOGIN", name, null);
             memberRepository.save(member);
+        }
+
+        // 새 User 테이블에도 동기화 (새 Auth 시스템용)
+        Optional<org.example.caregiver.auth.User> userOpt = userRepository.findByEmail(finalEmail);
+        if (userOpt.isEmpty()) {
+            org.example.caregiver.auth.User newUser = new org.example.caregiver.auth.User(null, finalEmail, "OAUTH_LOGIN", finalName, "personal");
+            userRepository.save(newUser);
         }
 
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();

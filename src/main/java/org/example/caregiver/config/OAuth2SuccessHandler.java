@@ -19,9 +19,11 @@ import java.util.Optional;
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final MemberRepository memberRepository;
+    private final org.example.caregiver.auth.UserRepository userRepository;
 
-    public OAuth2SuccessHandler(MemberRepository memberRepository) {
+    public OAuth2SuccessHandler(MemberRepository memberRepository, org.example.caregiver.auth.UserRepository userRepository) {
         this.memberRepository = memberRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -50,10 +52,15 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 .filter(m -> finalEmail.equals(m.getUsername()))
                 .findFirst();
 
+        Optional<org.example.caregiver.auth.User> userOpt = userRepository.findByEmail(finalEmail);
+
         if (memberOpt.isPresent()) {
             // 기존 컨트롤러에서 사용하던 방식대로 세션에 ID 저장
             HttpSession session = request.getSession();
             session.setAttribute("memberId", memberOpt.get().getId());
+            if (userOpt.isPresent()) {
+                session.setAttribute("userId", userOpt.get().getId());
+            }
             System.out.println("OAuth2 Login Success! Set session ID: " + session.getId() + " for member: " + email);
         } else {
             System.out.println("OAuth2 Login failed: member not found in DB for email: " + email);

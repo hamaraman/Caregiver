@@ -12,9 +12,22 @@
    HERO
 ════════════════════════════════ */
 .jr-hero {
+  position: relative;
   background: linear-gradient(135deg, #c5e0f8 0%, #d8ecff 45%, #eaf4ff 100%);
   padding: 48px 0 0;
   overflow: hidden;
+}
+
+.jr-hero-photo {
+  position: absolute;
+  right: clamp(0px, calc(100vw - 1520px), 385px);
+  top: 0;
+  height: 140%;
+  width: auto;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  mask-image: linear-gradient(to right, transparent 0%, black 20%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 75%, transparent 100%);
 }
 
 .jr-hero-inner {
@@ -334,6 +347,42 @@
   pointer-events: none;
 }
 
+/* 지역 태그 */
+.jr-region-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.jr-region-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #EFF5FF;
+  color: #4A8FE7;
+  border: 1px solid #c8dcf8;
+  border-radius: 20px;
+  padding: 4px 10px 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.jr-region-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4A8FE7;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.jr-region-tag button:hover { opacity: 1; }
+
 /* 근무 형태 버튼 */
 .jr-type-btns {
   display: flex;
@@ -640,19 +689,21 @@
    RESPONSIVE
 ════════════════════════════════ */
 @media (max-width: 1024px) {
-  .jr-body-inner { flex-direction: column; }
-  .jr-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; }
-  .jr-sidebar-card { flex: 1; min-width: 260px; }
-  .jr-sidebar-banner { flex: 1; min-width: 260px; }
+  .jr-sidebar { width: 220px; }
   .jr-row-3 { grid-template-columns: 1fr 1fr; }
+  .jr-banner-btn { align-self: center; }
 }
 
 @media (max-width: 768px) {
+  .jr-body-inner { flex-direction: column; padding: 0 16px; }
+  .jr-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; }
+  .jr-sidebar-card { flex: 1; min-width: 260px; }
+  .jr-sidebar-banner { flex: 1; min-width: 260px; }
   .jr-hero-inner { flex-direction: column; align-items: flex-start; }
   .jr-hero-char { display: none; }
+  .jr-hero-photo { display: none; }
   .jr-hero-title { font-size: 32px; }
   .jr-steps { padding: 14px 16px; overflow-x: auto; }
   .jr-step-label { display: none; }
   .jr-row-3 { grid-template-columns: 1fr; }
-  .jr-body-inner { padding: 0 16px; }
 }

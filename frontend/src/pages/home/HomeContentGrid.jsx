@@ -46,7 +46,6 @@ export default function HomeContentGrid() {
       <div className="hp-card">
         <div className="hp-card-header">
           <h2 className="hp-card-title">지역별 인기 정보</h2>
-          <button className="hp-more-btn">전체보기 ›</button>
         </div>
         <div className="hp-rtabs">
           {REGION_TABS.map(t => (
@@ -56,30 +55,36 @@ export default function HomeContentGrid() {
         </div>
         <div className="hp-popular-grid">
           <div className="hp-popular-col">
-            <p className="hp-popular-col-title">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.5" strokeLinecap="round"><path d="M21 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              인기 구인 지역
-            </p>
+            <div className="hp-popular-col-header">
+              <p className="hp-popular-col-title">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.5" strokeLinecap="round"><path d="M21 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                인기 구인 지역
+              </p>
+              <Link to="/listings" className="hp-more-btn">전체보기 ›</Link>
+            </div>
             {POPULAR_HIRE.map(r => (
-              <div key={r.rank} className="hp-popular-row">
+              <Link key={r.rank} to={`/listings?region=${r.region}`} className="hp-popular-row hp-popular-row--link">
                 <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
                 <span className="hp-popular-region">{r.region}</span>
                 <span className="hp-popular-count">{r.count}</span>
-              </div>
+              </Link>
             ))}
           </div>
           <div className="hp-popular-divider" />
           <div className="hp-popular-col">
-            <p className="hp-popular-col-title">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              인기 구직 지역
-            </p>
+            <div className="hp-popular-col-header">
+              <p className="hp-popular-col-title">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                인기 구직 지역
+              </p>
+              <Link to="/jobs" className="hp-more-btn">전체보기 ›</Link>
+            </div>
             {POPULAR_JOB.map(r => (
-              <div key={r.rank} className="hp-popular-row">
+              <Link key={r.rank} to={`/jobs?region=${r.region}`} className="hp-popular-row hp-popular-row--link">
                 <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
                 <span className="hp-popular-region">{r.region}</span>
                 <span className="hp-popular-count">{r.count}</span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -89,7 +94,9 @@ export default function HomeContentGrid() {
       <div className="hp-card">
         <div className="hp-card-header">
           <h2 className="hp-card-title">최근 등록된 정보</h2>
-          <button className="hp-more-btn">전체보기 ›</button>
+          <Link to={listingTab === '구인공고' ? '/listings' : '/talents'} className="hp-more-btn">
+            {listingTab} 전체보기 ›
+          </Link>
         </div>
         <div className="hp-ltabs">
           {['구인공고', '인재정보'].map(t => (

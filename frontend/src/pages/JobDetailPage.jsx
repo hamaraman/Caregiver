@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { JOB_LIST } from '../data/jobs'
+import { addRecentJob, isWishlisted, toggleWishlist } from '../hooks/useJobStorage'
 import './JobDetailPage.css'
 
 const SHIFT_STYLE = {
@@ -12,7 +13,9 @@ const SHIFT_STYLE = {
 export default function JobDetailPage() {
   const { id } = useParams()
   const job = JOB_LIST.find(j => j.id === Number(id))
-  const [liked, setLiked] = useState(job?.liked ?? false)
+  const [liked, setLiked] = useState(() => isWishlisted(Number(id)))
+
+  useEffect(() => { addRecentJob(Number(id)) }, [id])
 
   if (!job) {
     return (
@@ -43,7 +46,7 @@ export default function JobDetailPage() {
                 </span>
                 <button
                   className="jd-like-btn"
-                  onClick={() => setLiked(p => !p)}
+                  onClick={() => setLiked(toggleWishlist(Number(id)))}
                   aria-label="찜하기"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24"

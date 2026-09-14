@@ -505,6 +505,46 @@
   white-space: nowrap;
 }
 
+/* ── 퀵메뉴 그리드 (JspFeatureCards 교체) ── */
+.jsp-quickmenu-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #4A8FE7;
+  margin-bottom: 14px;
+}
+
+.jsp-quickmenu-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.jsp-quickmenu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fafbfc;
+  border: 1px solid #f0f0f5;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.jsp-quickmenu-item:hover {
+  background: #f4f7ff;
+  box-shadow: 0 2px 8px rgba(74,143,231,0.08);
+}
+
+@media (max-width: 640px) {
+  .jsp-quickmenu-grid { grid-template-columns: 1fr; }
+}
+
 /* ════════════════════════════════
    MAIN CONTENT
 ════════════════════════════════ */
@@ -515,9 +555,9 @@
 
 .jsp-content-grid {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 300px;
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* Section header */
@@ -554,6 +594,25 @@
 .jsp-more-btn:hover { color: #4A8FE7; }
 
 /* Table */
+.jsp-main-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.jsp-main-card {
+  background: #fff;
+  border: 1px solid #eef0f5;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  overflow: hidden;
+  flex: 1;
+}
+
+.jsp-main-card .jsp-section-header {
+  padding: 14px 16px;
+  margin-bottom: 0;
+}
+
 .jsp-table {
   width: 100%;
   border-collapse: separate;
@@ -563,6 +622,12 @@
   overflow: hidden;
   border: 1px solid #eef0f5;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.jsp-main-card .jsp-table {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .jsp-table thead { background: #f4f7ff; }
@@ -832,3 +897,72 @@
 }
 
 .jsp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.16); }
+
+/* ── 사이드 카드 ── */
+.jsp-side-col { display: flex; flex-direction: column; gap: 16px; }
+
+.jsp-side-card {
+  background: #fff;
+  border: 1px solid #eef0f5;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.jsp-side-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.jsp-side-job-item {
+  display: block;
+  padding: 10px 0;
+  border-bottom: 1px solid #f2f3f5;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s;
+}
+
+.jsp-side-job-item:last-child { border-bottom: none; }
+.jsp-side-job-item:hover { opacity: 0.75; }
+
+.jsp-side-job-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.jsp-side-job-type {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.jsp-side-job-info {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 2px;
+}
+
+.jsp-side-job-pay {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4A8FE7;
+}
+
+.jsp-side-empty {
+  font-size: 12px;
+  color: #bbb;
+  text-align: center;
+  padding: 12px 0;
+}
+
+@media (max-width: 960px) {
+  .jsp-content-grid { grid-template-columns: 1fr; }
+  .jsp-cat-grid { flex-wrap: wrap; }
+}

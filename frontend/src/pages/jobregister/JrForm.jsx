@@ -10,13 +10,22 @@ export default function JrForm() {
   const [activeStep] = useState(0)
   const [form, setForm] = useState({
     name: '', phone: '', birth: '', region: '',
-    workRegion: '', workTypes: [], salary: '',
+    workRegions: [], workTypes: [], salary: '',
     cert: '', isNew: true, expPeriod: '',
     intro: '',
   })
   const [fileName, setFileName] = useState('')
 
   const update = (key, val) => setForm(f => ({ ...f, [key]: val }))
+
+  const addWorkRegion = (r) => {
+    if (!r || form.workRegions.includes(r)) return
+    setForm(f => ({ ...f, workRegions: [...f.workRegions, r] }))
+  }
+
+  const removeWorkRegion = (r) => {
+    setForm(f => ({ ...f, workRegions: f.workRegions.filter(x => x !== r) }))
+  }
 
   const toggleWorkType = (t) => {
     setForm(f => ({
@@ -96,11 +105,23 @@ export default function JrForm() {
             <label className="jr-label">희망 근무 지역</label>
             <div className="jr-select-wrap">
               <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <select className="jr-select" value={form.workRegion} onChange={e => update('workRegion', e.target.value)}>
+              <select className="jr-select" value="" onChange={e => addWorkRegion(e.target.value)}>
                 <option value="">근무 희망 지역을 선택해주세요</option>
-                {REGIONS.map(r => <option key={r} value={r}>{r}</option>)}
+                {REGIONS.filter(r => !form.workRegions.includes(r)).map(r => (
+                  <option key={r} value={r}>{r}</option>
+                ))}
               </select>
             </div>
+            {form.workRegions.length > 0 && (
+              <div className="jr-region-tags">
+                {form.workRegions.map(r => (
+                  <span key={r} className="jr-region-tag">
+                    {r}
+                    <button type="button" onClick={() => removeWorkRegion(r)}>×</button>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
           <div className="jr-field">
             <label className="jr-label">희망 근무 형태</label>

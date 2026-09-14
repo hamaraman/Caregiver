@@ -36,3 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 application-secret.properties
+app.log
+backend.log
+nohup.out
+src/main/resources/static/

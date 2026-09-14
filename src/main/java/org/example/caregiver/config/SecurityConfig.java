@@ -29,10 +29,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable()) // 로컬 테스트 및 API 서버용 단순화
+            .csrf(csrf -> csrf.disable()) // 로컬 테스트 묏 API 서버용 단슬화
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**", "/login/**", "/oauth2/**").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/api/**", "/login/**", "/oauth2/**", "/", "/index.html", "/assets/**", "/vite.svg").permitAll()
+                .anyRequest().permitAll()
             )
             .oauth2Login(oauth2 -> oauth2
                 .userInfoEndpoint(userInfo -> userInfo
@@ -48,7 +48,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // 프론트엔드 주소 허용
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:3001", "http://161.33.154.237:3000", "http://161.33.154.237:8081", "http://161.33.154.237"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

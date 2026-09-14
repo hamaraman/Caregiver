@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
-import AuthGuard from '../components/AuthGuard'
 import { jobs } from '../data/jobs'
 import { applicants, myJobIds } from '../data/applicants'
 import './RecruitManagePage.css'
 
 export default function RecruitManagePage() {
+  const navigate = useNavigate()
   const myJobs = jobs.filter((j) => myJobIds.includes(j.id))
   const [closedJobs, setClosedJobs] = useState([])
   const [confirmJobId, setConfirmJobId] = useState(null)
@@ -23,7 +23,7 @@ export default function RecruitManagePage() {
     setClosedJobs((prev) => prev.filter((i) => i !== id))
   }
 
-  const countApplicants = (jobId) => applicants.filter((a) => a.jobId === jobId).length
+  const countHired = (jobId) => applicants.filter((a) => a.jobId === jobId && a.status === '합격').length
 
   const filteredJobs = myJobs.filter((job) => {
     if (filter === 'active') return !isClosed(job.id)
@@ -32,12 +32,12 @@ export default function RecruitManagePage() {
   })
 
   const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
-  const totalApplicants = applicants.filter((a) => myJobIds.includes(a.jobId)).length
+  const totalHired = applicants.filter((a) => myJobIds.includes(a.jobId) && a.status === '합격').length
 
   const filterCards = [
-    { key: 'all',    label: '전체',   val: myJobs.length,     unit: '개', mod: '',          valMod: '' },
-    { key: 'active', label: '진행중', val: activeCount,       unit: '개', mod: '--active',   valMod: '--active' },
-    { key: 'closed', label: '마감',   val: closedJobs.length, unit: '개', mod: '--closed',   valMod: '' },
+    { key: 'all',    label: '전체',   val: myJobs.length,     unit: '개', mod: '',         valMod: '' },
+    { key: 'active', label: '진행중', val: activeCount,       unit: '개', mod: '--active',  valMod: '--active' },
+    { key: 'closed', label: '마감',   val: closedJobs.length, unit: '개', mod: '--closed',  valMod: '' },
   ]
 
   return (
@@ -48,7 +48,7 @@ export default function RecruitManagePage() {
           <div className="rm-top">
             <div>
               <h2 className="rm-title">채용 관리</h2>
-              <p className="rm-subtitle">등록한 공고를 확인하고 채용 상태를 관리하세요</p>
+              <p className="rm-subtitle">합격 처리한 채용 인원을 공고별로 확인하세요</p>
             </div>
             <Link to="/jobs/post" className="rm-post-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -74,9 +74,9 @@ export default function RecruitManagePage() {
               </button>
             ))}
             <div className="rm-summary-card rm-summary-card--people">
-              <span className="rm-summary-label">총 지원자</span>
+              <span className="rm-summary-label">총 채용 인원</span>
               <span className="rm-summary-val rm-summary-val--people">
-                {totalApplicants}<span className="rm-summary-unit">명</span>
+                {totalHired}<span className="rm-summary-unit">명</span>
               </span>
             </div>
           </div>
@@ -90,9 +90,14 @@ export default function RecruitManagePage() {
             )}
             {filteredJobs.map((job) => {
               const closed = isClosed(job.id)
-              const appCnt = countApplicants(job.id)
+              const hiredCnt = countHired(job.id)
               return (
-                <div key={job.id} className={`rm-card${closed ? ' rm-card--closed' : ''}`}>
+                <div
+                  key={job.id}
+                  className={`rm-card${closed ? ' rm-card--closed' : ''}`}
+                  onClick={() => navigate(`/manage/${job.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div className="rm-card-top">
                     <div className="rm-card-info">
                       <div className="rm-card-title-row">
@@ -120,20 +125,22 @@ export default function RecruitManagePage() {
                       </div>
                     </div>
 
-                    <div className="rm-card-right">
-                      <Link to={`/applicants`} className="rm-applicant-btn">
+                    <div className="rm-card-right" onClick={e => e.stopPropagation()}>
+                      <div className={`rm-hired-badge${hiredCnt > 0 ? ' rm-hired-badge--has' : ''}`}>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                          <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/>
-                          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        지원자 {appCnt}명
-                      </Link>
+                        채용 {hiredCnt}명
+                      </div>
                     </div>
                   </div>
 
-                  <div className="rm-card-footer">
+                  <div className="rm-card-footer" onClick={e => e.stopPropagation()}>
                     <Link to={`/jobs/${job.id}`} className="rm-btn rm-btn--ghost">
                       공고 보기
+                    </Link>
+                    <Link to={`/applicants`} className="rm-btn rm-btn--ghost">
+                      지원자 확인
                     </Link>
                     {closed ? (
                       <button className="rm-btn rm-btn--reopen" onClick={() => reopenJob(job.id)}>

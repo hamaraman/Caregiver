@@ -248,25 +248,24 @@
 /* 오른쪽 지원자 버튼 */
 .rm-card-right { flex-shrink: 0; }
 
-.rm-applicant-btn {
+.rm-hired-badge {
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
-  border: 1.5px solid #a8c4f0;
+  border: 1.5px solid #e0e0e0;
   border-radius: 22px;
-  background: #e4eeff;
-  color: #4a7ad4;
+  background: #f8f8f8;
+  color: #aaa;
   font-size: 13px;
   font-weight: 700;
-  text-decoration: none;
-  transition: all 0.15s;
   white-space: nowrap;
 }
 
-.rm-applicant-btn:hover {
-  background: #d0e0ff;
-  border-color: #4a7ad4;
+.rm-hired-badge--has {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #15803d;
 }
 
 /* 푸터 */

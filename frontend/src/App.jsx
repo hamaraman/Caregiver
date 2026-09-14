@@ -8,6 +8,8 @@ import TalentListPage from './pages/TalentListPage'
 import TalentDetailPage from './pages/TalentDetailPage'
 import ApplicantsPage from './pages/ApplicantsPage'
 import RecruitManagePage from './pages/RecruitManagePage'
+import RecruitDetailPage from './pages/RecruitDetailPage'
+import ApplicantDetailPage from './pages/ApplicantDetailPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import JobSeekerPage from './pages/JobSeekerPage'
@@ -29,6 +31,8 @@ function App() {
         <Route path="/talents/:id" element={<TalentDetailPage />} />
         <Route path="/applicants" element={<ApplicantsPage />} />
         <Route path="/manage" element={<RecruitManagePage />} />
+        <Route path="/manage/:id" element={<RecruitDetailPage />} />
+        <Route path="/applicants/:id" element={<ApplicantDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/jobseeker" element={<JobSeekerPage />} />

@@ -1,21 +1,14 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
-import AuthGuard from '../components/AuthGuard'
+import ApplicantModal, { StatusDropdown } from '../components/ApplicantModal'
 import { jobs } from '../data/jobs'
 import { talents } from '../data/talents'
 import { applicants, myJobIds } from '../data/applicants'
 import './ApplicantsPage.css'
 
-const STATUS_LIST = ['검토중', '합격', '불합격']
-
-const STATUS_STYLE = {
-  '검토중': { bg: '#f0f4ff', color: '#5b8def', border: '#c2d4f8' },
-  '합격':   { bg: '#e8f8e8', color: '#2a9a2a', border: '#b8e8b8' },
-  '불합격': { bg: '#fef0f0', color: '#e04040', border: '#f0c0c0' },
-}
-
 export default function ApplicantsPage() {
+  const navigate = useNavigate()
   const myJobs = jobs.filter((j) => myJobIds.includes(j.id))
   const [selectedJobId, setSelectedJobId] = useState(myJobs[0]?.id ?? null)
   const [statusMap, setStatusMap] = useState(() => {
@@ -23,6 +16,7 @@ export default function ApplicantsPage() {
     applicants.forEach((a) => { m[a.id] = a.status })
     return m
   })
+  const [selectedAppId, setSelectedAppId] = useState(null)
 
   const currentApplicants = applicants.filter((a) => a.jobId === selectedJobId)
   const selectedJob = myJobs.find((j) => j.id === selectedJobId)
@@ -32,6 +26,15 @@ export default function ApplicantsPage() {
   }
 
   const countByJob = (jobId) => applicants.filter((a) => a.jobId === jobId).length
+
+  const selectedApp = selectedAppId
+    ? (() => {
+        const a = applicants.find(ap => ap.id === selectedAppId)
+        if (!a) return null
+        const talent = talents.find(t => t.id === a.talentId)
+        return talent ? { ...a, talent } : null
+      })()
+    : null
 
   return (
     <>
@@ -52,7 +55,7 @@ export default function ApplicantsPage() {
                 <button
                   key={job.id}
                   className={`ap-job-tab${isActive ? ' ap-job-tab--active' : ''}`}
-                  onClick={() => setSelectedJobId(job.id)}
+                  onClick={() => navigate(`/applicants/${job.id}`)}
                 >
                   <span className="ap-tab-title">{job.title}</span>
                   <span className="ap-tab-loc">{job.location}</span>
@@ -81,7 +84,6 @@ export default function ApplicantsPage() {
             <span className="ap-result-count">
               총 <strong>{currentApplicants.length}</strong>명 지원
             </span>
-            <span className="ap-result-tip">* 이름을 클릭하면 상세 이력서를 확인할 수 있어요</span>
           </div>
 
           {currentApplicants.length === 0 ? (
@@ -92,9 +94,12 @@ export default function ApplicantsPage() {
                 const talent = talents.find((t) => t.id === app.talentId)
                 if (!talent) return null
                 const st = statusMap[app.id]
-                const stStyle = STATUS_STYLE[st]
                 return (
-                  <div key={app.id} className="ap-card">
+                  <div
+                    key={app.id}
+                    className="ap-card"
+                    onClick={() => setSelectedAppId(app.id)}
+                  >
                     {/* 왼쪽: 프로필 */}
                     <div className="ap-card-left">
                       <div className="ap-avatar">
@@ -104,12 +109,12 @@ export default function ApplicantsPage() {
                         </svg>
                       </div>
                       <div>
-                        <Link to={`/talents/${talent.id}`} className="ap-card-name">
+                        <div className="ap-card-name" onClick={e => e.stopPropagation()}>
                           {talent.name}
                           <span className={`ap-gender-badge ap-gender-badge--${talent.gender === '여' ? 'f' : 'm'}`}>
                             {talent.gender}
                           </span>
-                        </Link>
+                        </div>
                         <p className="ap-card-age">{talent.age}세 · {talent.location}</p>
                         <div className="ap-card-certs">
                           {talent.certs.map((c) => (
@@ -142,25 +147,12 @@ export default function ApplicantsPage() {
                     </div>
 
                     {/* 오른쪽: 상태 */}
-                    <div className="ap-card-right">
-                      <div
-                        className="ap-status-badge"
-                        style={{ background: stStyle.bg, color: stStyle.color, border: `1px solid ${stStyle.border}` }}
-                      >
-                        {st}
-                      </div>
-                      <div className="ap-status-btns">
-                        {STATUS_LIST.filter((s) => s !== st).map((s) => (
-                          <button
-                            key={s}
-                            className="ap-status-change-btn"
-                            onClick={() => changeStatus(app.id, s)}
-                          >
-                            {s}
-                          </button>
-                        ))}
-                      </div>
-                      <Link to={`/talents/${talent.id}`} className="ap-resume-btn">
+                    <div className="ap-card-right" onClick={e => e.stopPropagation()}>
+                      <StatusDropdown
+                        status={st}
+                        onChange={newStatus => changeStatus(app.id, newStatus)}
+                      />
+                      <Link to={`/talents/${talent.id}`} className="ap-resume-btn" onClick={e => e.stopPropagation()}>
                         이력서 보기
                       </Link>
                     </div>
@@ -171,6 +163,15 @@ export default function ApplicantsPage() {
           )}
         </div>
       </div>
+
+      {selectedApp && (
+        <ApplicantModal
+          app={selectedApp}
+          status={statusMap[selectedApp.id] ?? selectedApp.status}
+          onStatusChange={newStatus => changeStatus(selectedApp.id, newStatus)}
+          onClose={() => setSelectedAppId(null)}
+        />
+      )}
     </>
   )
 }

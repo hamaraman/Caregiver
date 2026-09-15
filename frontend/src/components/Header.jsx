@@ -82,7 +82,7 @@ const navItems = [
   { label: '구직', href: '/jobseeker' },
   { label: '구인', href: '/employer', hasDropdown: true },
   // { label: '커뮤니티', href: '#' },
-  { label: '고객센터', href: '#' },
+  { label: '고객센터', href: '/support' },
 ]
 
 const subLinkMap = {

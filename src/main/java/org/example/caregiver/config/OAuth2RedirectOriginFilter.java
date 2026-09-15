@@ -27,7 +27,7 @@ public class OAuth2RedirectOriginFilter implements Filter {
     public static final String SESSION_ATTRIBUTE = "oauth2RedirectOrigin";
     public static final String DEFAULT_ORIGIN = "http://localhost:3000";
 
-    private static final List<String> ALLOWED_ORIGINS = List.of(DEFAULT_ORIGIN, "http://localhost:5173");
+    private static final List<String> ALLOWED_ORIGINS = List.of(DEFAULT_ORIGIN, "http://localhost:5173", "http://161.33.154.237:3000", "http://161.33.154.237:8081", "https://161.33.154.237.nip.io", "http://161.33.154.237");
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

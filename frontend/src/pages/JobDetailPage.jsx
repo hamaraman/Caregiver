@@ -1,7 +1,8 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { fetchJob } from '../api'
+import { fetchJob, applyToJob } from '../api'
 import { addRecentJob, isWishlisted, toggleWishlist } from '../hooks/useJobStorage'
+import { useAuth } from '../hooks/useAuth'
 import HomeNav from './home/HomeNav'
 import './JobDetailPage.css'
 
@@ -11,21 +12,59 @@ const SHIFT_STYLE = {
   단기: { bg: '#FFF8EC', color: '#E07800' },
 }
 
+function authUrl(path) {
+  return `${window.location.origin}${path}?redirect=${encodeURIComponent(window.location.href)}`
+}
+
 export default function JobDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [job, setJob] = useState(null)
   const [loading, setLoading] = useState(true)
   const [liked, setLiked] = useState(() => isWishlisted(Number(id)))
+  const [applied, setApplied] = useState(false)
+  const [applying, setApplying] = useState(false)
 
   useEffect(() => {
     setLoading(true)
+    setApplied(false)
     fetchJob(Number(id))
       .then(setJob)
       .catch(() => setJob(null))
       .finally(() => setLoading(false))
     addRecentJob(Number(id))
   }, [id])
+
+  const handleApply = async () => {
+    if (!user) {
+      if (confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
+        window.location.href = authUrl('/login')
+      }
+      return
+    }
+    setApplying(true)
+    try {
+      await applyToJob(Number(id))
+      setApplied(true)
+      alert('지원이 완료되었습니다.')
+    } catch (err) {
+      if (err.message && err.message.includes('이미 지원')) {
+        setApplied(true)
+      }
+      alert(err.message || '지원 중 오류가 발생했습니다.')
+    } finally {
+      setApplying(false)
+    }
+  }
+
+  const handleContact = () => {
+    if (job && job.contact && /\d{2,4}-\d{3,4}-\d{4}/.test(job.contact)) {
+      window.location.href = `tel:${job.contact}`
+    } else {
+      alert(job?.contact || '등록된 연락처가 없습니다.')
+    }
+  }
 
   if (loading) {
     return (
@@ -144,8 +183,10 @@ export default function JobDetailPage() {
             <div className="jd-apply-card">
               <p className="jd-apply-label">지원 문의</p>
               <p className="jd-apply-contact">{job.contact}</p>
-              <button className="jd-apply-btn">지원하기</button>
-              <button className="jd-contact-btn">전화 문의</button>
+              <button className="jd-apply-btn" onClick={handleApply} disabled={applying || applied}>
+                {applied ? '지원 완료' : applying ? '지원 중...' : '지원하기'}
+              </button>
+              <button className="jd-contact-btn" onClick={handleContact}>전화 문의</button>
             </div>
 
             <div className="jd-info-card">

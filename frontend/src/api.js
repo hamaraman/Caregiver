@@ -117,6 +117,10 @@ export async function fetchJob(id) {
   return job ? normalizeJob(job) : null
 }
 
+export function applyToJob(jobId) {
+  return request(`/api/jobs/${jobId}/applications`, { method: 'POST' })
+}
+
 export async function fetchMyJobs() {
   const jobs = await request('/api/jobs/mine')
   return (jobs || []).map(normalizeJob)

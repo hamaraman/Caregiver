@@ -91,3 +91,5 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 홈 화면 "오늘 확인해보세요" 통계와 구인공고 사이드바 "인기 검색어"의 하드코딩된 가짜 숫자를 실제 API 데이터 기반으로 교체, 동작하지 않던 알림 신청/FAQ 버튼에 최소한의 반응 추가
 - `origin/main`의 배포 파이프라인·고객센터 페이지·JobPostPage 히어로 배너 등을 `main-merged`에 병합
 - 공고 상세 페이지의 "지원하기"/"전화 문의" 버튼에 onClick이 없어서 아무 동작도 안 하던 것을 실제 `POST /api/jobs/{jobId}/applications` 호출과 `tel:` 링크로 연결
+- 상단 네비게이션 검색 아이콘 버튼이 아무 반응 없던 것을 `/jobs`로 이동하도록 연결
+- `SupportPage`에 `?tab=` 쿼리파라미터 지원 추가, `Footer`/`HomeContentGrid`/`JsSidebar`의 공지사항·FAQ·고객센터 링크(`href="#"` 또는 미연결 버튼)를 전부 `/support`로 연결. `JobListingsPage` 사이드바 "알림 신청" 버튼도 "준비 중" 안내로 연결

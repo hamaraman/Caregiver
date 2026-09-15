@@ -127,7 +127,7 @@ export default function HomeContentGrid() {
       <div className="hp-card">
         <div className="hp-card-header">
           <h2 className="hp-card-title">공지사항 &amp; 이용안내</h2>
-          <button className="hp-more-btn">전체보기 ›</button>
+          <Link to="/support?tab=notice" className="hp-more-btn">전체보기 ›</Link>
         </div>
         <ul className="hp-notice-list">
           {NOTICES.map((n, i) => (
@@ -145,7 +145,7 @@ export default function HomeContentGrid() {
             </svg>
           </div>
           <p className="hp-notice-cta-text">함께 만드는 더 좋은 돌봄 사회<br /><span>요양이지가 함께합니다.</span></p>
-          <button className="hp-notice-cta-btn">이용안내 보기 →</button>
+          <Link to="/support" className="hp-notice-cta-btn">이용안내 보기 →</Link>
         </div>
       </div>
 

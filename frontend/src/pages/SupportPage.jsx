@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import './SupportPage.css'
+
+const VALID_TABS = ['notice', 'faq', 'contact']
 
 const NOTICES = [
   { id: 1, title: '요양이지 서비스 정식 오픈 안내', date: '2026-09-01', important: true },
@@ -38,7 +41,9 @@ const FAQS = [
 ]
 
 export default function SupportPage() {
-  const [tab, setTab] = useState('notice')
+  const [searchParams] = useSearchParams()
+  const initialTab = searchParams.get('tab')
+  const [tab, setTab] = useState(VALID_TABS.includes(initialTab) ? initialTab : 'notice')
   const [openFaq, setOpenFaq] = useState(null)
   const [form, setForm] = useState({ name: '', email: '', category: '', message: '' })
   const [submitted, setSubmitted] = useState(false)

@@ -5,12 +5,18 @@ import { NOTICES } from '../../data/notices'
 
 const REGION_TABS = ['전체', '서울', '경기', '인천', '대구', '광주', '울산']
 
-function rankByRegion(items) {
+// '전체'면 시/도 단위로, 특정 시/도가 선택되면 그 안의 구/군 단위로 순위를 매긴다.
+function rankByRegion(items, regionTab) {
   const counts = {}
   items.forEach(item => {
-    const region = item.region || (item.location ? item.location.split(' ')[0] : '')
-    if (!region) return
-    counts[region] = (counts[region] || 0) + 1
+    const [sido, sigu] = (item.location || '').split(' ')
+    if (!sido) return
+    if (regionTab === '전체') {
+      counts[sido] = (counts[sido] || 0) + 1
+    } else if (sido === regionTab && sigu) {
+      const label = `${sido} ${sigu}`
+      counts[label] = (counts[label] || 0) + 1
+    }
   })
   return Object.entries(counts)
     .sort((a, b) => b[1] - a[1])
@@ -29,8 +35,8 @@ export default function HomeContentGrid() {
     fetchCaregivers().then(setCaregivers).catch(() => setCaregivers([]))
   }, [])
 
-  const popularHireRegions = useMemo(() => rankByRegion(jobs), [jobs])
-  const popularSeekerRegions = useMemo(() => rankByRegion(caregivers), [caregivers])
+  const popularHireRegions = useMemo(() => rankByRegion(jobs, regionTab), [jobs, regionTab])
+  const popularSeekerRegions = useMemo(() => rankByRegion(caregivers, regionTab), [caregivers, regionTab])
 
   const recentJobs = useMemo(
     () => [...jobs].sort((a, b) => b.id - a.id).slice(0, 5),
@@ -67,7 +73,7 @@ export default function HomeContentGrid() {
             {popularHireRegions.length === 0
               ? <p className="hp-listing-empty">등록된 공고가 없습니다.</p>
               : popularHireRegions.map(r => (
-                <Link key={r.rank} to={`/listings?region=${r.region}`} className="hp-popular-row hp-popular-row--link">
+                <Link key={r.rank} to={`/listings?region=${encodeURIComponent(r.region)}`} className="hp-popular-row hp-popular-row--link">
                   <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
                   <span className="hp-popular-region">{r.region}</span>
                   <span className="hp-popular-count">{r.count}</span>
@@ -87,7 +93,7 @@ export default function HomeContentGrid() {
             {popularSeekerRegions.length === 0
               ? <p className="hp-listing-empty">등록된 인재 정보가 없습니다.</p>
               : popularSeekerRegions.map(r => (
-                <Link key={r.rank} to={`/talents?region=${r.region}`} className="hp-popular-row hp-popular-row--link">
+                <Link key={r.rank} to={`/talents?region=${encodeURIComponent(r.region)}`} className="hp-popular-row hp-popular-row--link">
                   <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
                   <span className="hp-popular-region">{r.region}</span>
                   <span className="hp-popular-count">{r.count}</span>

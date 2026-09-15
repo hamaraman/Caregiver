@@ -25,8 +25,8 @@ public class JobService {
     public List<JobResponse> getJobs(Long viewerUserId, String region) {
         String normalizedRegion = RegionQuery.normalize(region);
         List<Job> jobs = normalizedRegion == null
-                ? jobRepository.findAllByOrderByIdDesc()
-                : jobRepository.findByRegion_NameStartingWithOrderByIdDesc(normalizedRegion);
+                ? jobRepository.findByClosedFalseOrderByIdDesc()
+                : jobRepository.findByClosedFalseAndRegion_NameStartingWithOrderByIdDesc(normalizedRegion);
         return toResponses(jobs, viewerUserId);
     }
 
@@ -81,6 +81,25 @@ public class JobService {
 
     public List<JobResponse> getMyJobs(Long ownerId) {
         return toResponses(jobRepository.findByOwnerIdOrderByIdDesc(ownerId), ownerId);
+    }
+
+    public JobResponse closeJob(Long jobId, Long ownerId) {
+        return setClosed(jobId, ownerId, true);
+    }
+
+    public JobResponse reopenJob(Long jobId, Long ownerId) {
+        return setClosed(jobId, ownerId, false);
+    }
+
+    private JobResponse setClosed(Long jobId, Long ownerId, boolean closed) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new JobException("존재하지 않는 공고입니다."));
+        if (job.getOwner() == null || !job.getOwner().getId().equals(ownerId)) {
+            throw new JobException("본인이 등록한 공고만 마감/재개할 수 있습니다.");
+        }
+        job.setClosed(closed);
+        jobRepository.save(job);
+        return toResponse(job, ownerId);
     }
 
     private List<JobResponse> toResponses(List<Job> jobs, Long viewerUserId) {

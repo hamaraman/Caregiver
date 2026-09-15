@@ -17,6 +17,7 @@ public class JobResponse {
     private final String postTitle;
     private final Long ownerId;
     private final boolean liked;
+    private final boolean closed;
 
     private final String jobType;
     private final String facility;
@@ -62,6 +63,7 @@ public class JobResponse {
         this.postTitle = job.getPostTitle();
         this.ownerId = job.getOwner() != null ? job.getOwner().getId() : null;
         this.liked = liked;
+        this.closed = job.isClosed();
 
         this.jobType = job.getJobType();
         this.facility = job.getFacility();
@@ -144,6 +146,10 @@ public class JobResponse {
 
     public boolean isLiked() {
         return liked;
+    }
+
+    public boolean isClosed() {
+        return closed;
     }
 
     public String getJobType() {

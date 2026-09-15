@@ -24,6 +24,7 @@ public class Job {
     private String date;
     private String companyName;
     private String postTitle;
+    private boolean closed;
 
     // 근무 조건 상세
     private String jobType;
@@ -194,6 +195,14 @@ public class Job {
 
     public String getPostTitle() {
         return postTitle;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
 
     public void setPostTitle(String postTitle) {

@@ -77,6 +77,7 @@ function normalizeJob(job) {
     id: job.id,
     ownerId: job.ownerId,
     liked: !!job.liked,
+    closed: !!job.closed,
     title: job.title || '',
     shift: deriveShift(job.hours),
     type: job.jobType || job.title || '채용공고',
@@ -133,6 +134,16 @@ export async function likeJob(id) {
 
 export async function unlikeJob(id) {
   const job = await request(`/api/jobs/${id}/like`, { method: 'DELETE' })
+  return normalizeJob(job)
+}
+
+export async function closeJob(id) {
+  const job = await request(`/api/jobs/${id}/close`, { method: 'PATCH' })
+  return normalizeJob(job)
+}
+
+export async function reopenJob(id) {
+  const job = await request(`/api/jobs/${id}/reopen`, { method: 'PATCH' })
   return normalizeJob(job)
 }
 

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,6 +71,18 @@ public class JobController {
         return jobService.unlike(id, user.getId())
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}/close")
+    public ResponseEntity<JobResponse> close(@PathVariable Long id, HttpServletRequest httpRequest) {
+        User owner = requireLoggedInUser(httpRequest);
+        return ResponseEntity.ok(jobService.closeJob(id, owner.getId()));
+    }
+
+    @PatchMapping("/{id}/reopen")
+    public ResponseEntity<JobResponse> reopen(@PathVariable Long id, HttpServletRequest httpRequest) {
+        User owner = requireLoggedInUser(httpRequest);
+        return ResponseEntity.ok(jobService.reopenJob(id, owner.getId()));
     }
 
     @ExceptionHandler(JobException.class)

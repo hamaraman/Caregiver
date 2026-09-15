@@ -121,6 +121,9 @@ export default function JobDetailPage() {
 
             <div className="jd-header-card">
               <div className="jd-header-top">
+                {job.closed && (
+                  <span className="jd-shift-badge" style={{ background: '#f0f0f0', color: '#999' }}>마감</span>
+                )}
                 <span className="jd-shift-badge" style={{ background: s.bg, color: s.color }}>
                   {job.shift}
                 </span>
@@ -202,9 +205,12 @@ export default function JobDetailPage() {
             <div className="jd-apply-card">
               <p className="jd-apply-label">지원 문의</p>
               <p className="jd-apply-contact">{job.contact}</p>
-              <button className="jd-apply-btn" onClick={handleApply} disabled={applying || applied}>
-                {applied ? '지원 완료' : applying ? '지원 중...' : '지원하기'}
-              </button>
+              {job.closed
+                ? <button className="jd-apply-btn" disabled>마감된 공고입니다</button>
+                : <button className="jd-apply-btn" onClick={handleApply} disabled={applying || applied}>
+                    {applied ? '지원 완료' : applying ? '지원 중...' : '지원하기'}
+                  </button>
+              }
               <button className="jd-contact-btn" onClick={handleContact}>전화 문의</button>
             </div>
 

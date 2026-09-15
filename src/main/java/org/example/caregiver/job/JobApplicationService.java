@@ -31,6 +31,9 @@ public class JobApplicationService {
     public JobApplicationResponse apply(Long jobId, Long applicantId) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new JobApplicationException("존재하지 않는 공고입니다."));
+        if (job.isClosed()) {
+            throw new JobApplicationException("마감된 공고입니다.");
+        }
         if (jobApplicationRepository.existsByJobIdAndApplicantId(jobId, applicantId)) {
             throw new JobApplicationException("이미 지원한 공고입니다.");
         }

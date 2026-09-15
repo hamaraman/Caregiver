@@ -70,6 +70,13 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-14
+- 고객센터 페이지(`/support`) 신규 생성: 공지사항·FAQ·1:1 문의 탭 구성
+- 구인공고 등록 페이지 약관 동의 섹션 체크박스 UI 개선 (박스 중첩 제거, 일반 체크박스로 변경)
+- 공고 상세 페이지(`/job/:id`) 추가: NavBar 연결, 뒤로가기 버튼, 찜하기 기능
+- `/listings` 공고 링크 경로 오류 수정 (`/jobs/:id` → `/job/:id`)
+- 구인공고 등록 페이지(`/jobs/post`) 히어로 배너 추가, 레이아웃 개선
+
 ### 2026-09-15
 - 프론트엔드 구인공고 목록/상세 화면이 mock 데이터(`data/jobs.js` 등) 대신 실제 백엔드 API(`/api/jobs`)를 사용하도록 연동
 - `api.js`에 `normalizeJob` 어댑터를 추가해 `JobResponse` 필드를 프론트 UI가 기대하던 형태(shift/dday/tags 등)로 변환
@@ -82,3 +89,4 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 홈/구직자 페이지 히어로 검색창·인기지역 칩이 실제로 `/jobs`, `/talents`로 이동하며 지역/키워드 쿼리파라미터를 검색 결과 페이지가 읽어서 반영하도록 연동
 - `JsFilter`의 직무/근무형태/급여/경력 필터를 전부 실제로 동작하게 구현(클라이언트 사이드 필터링)
 - 홈 화면 "오늘 확인해보세요" 통계와 구인공고 사이드바 "인기 검색어"의 하드코딩된 가짜 숫자를 실제 API 데이터 기반으로 교체, 동작하지 않던 알림 신청/FAQ 버튼에 최소한의 반응 추가
+- `origin/main`의 배포 파이프라인·고객센터 페이지·JobPostPage 히어로 배너 등을 `main-merged`에 병합

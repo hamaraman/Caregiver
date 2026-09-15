@@ -79,6 +79,7 @@ function normalizeJob(job) {
     liked: !!job.liked,
     closed: !!job.closed,
     likeCount: job.likeCount || 0,
+    phonePublic: job.phonePublic || null,
     title: job.title || '',
     shift: deriveShift(job.hours),
     type: job.jobType || job.title || '채용공고',

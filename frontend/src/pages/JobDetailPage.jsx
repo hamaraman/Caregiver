@@ -76,7 +76,15 @@ export default function JobDetailPage() {
     }
   }
 
+  const contactVisible = job ? (job.phonePublic !== '로그인 후 확인' || !!user) : true
+
   const handleContact = () => {
+    if (!contactVisible) {
+      if (confirm('로그인 후 확인 가능합니다. 로그인 페이지로 이동할까요?')) {
+        window.location.href = authUrl('/login')
+      }
+      return
+    }
     if (job && job.contact && /\d{2,4}-\d{3,4}-\d{4}/.test(job.contact)) {
       window.location.href = `tel:${job.contact}`
     } else {
@@ -204,7 +212,7 @@ export default function JobDetailPage() {
           <div className="jd-sidebar">
             <div className="jd-apply-card">
               <p className="jd-apply-label">지원 문의</p>
-              <p className="jd-apply-contact">{job.contact}</p>
+              <p className="jd-apply-contact">{contactVisible ? job.contact : '로그인 후 확인 가능합니다.'}</p>
               {job.closed
                 ? <button className="jd-apply-btn" disabled>마감된 공고입니다</button>
                 : <button className="jd-apply-btn" onClick={handleApply} disabled={applying || applied}>

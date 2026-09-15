@@ -89,7 +89,11 @@ export default function SignupPage() {
     setErrors({})
     setSubmitting(true)
     try {
-      await register({ email, password, name, userType })
+      await register({
+        email, password, name, userType, phone,
+        companyName: userType === 'business' ? companyName : undefined,
+        businessNumber: userType === 'business' ? bizNumber : undefined,
+      })
       setDone(true)
     } catch (err) {
       setErrors({ submit: err.message })

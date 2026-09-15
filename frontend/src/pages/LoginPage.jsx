@@ -163,9 +163,9 @@ export default function LoginPage() {
           </form>
 
           <div className="lp-links">
-            <button className="lp-link-btn">아이디 찾기</button>
+            <button className="lp-link-btn" onClick={() => alert('준비 중인 기능입니다. 조금만 기다려주세요!')}>아이디 찾기</button>
             <span className="lp-link-divider">|</span>
-            <button className="lp-link-btn">비밀번호 찾기</button>
+            <button className="lp-link-btn" onClick={() => alert('준비 중인 기능입니다. 조금만 기다려주세요!')}>비밀번호 찾기</button>
           </div>
 
           <div className="lp-signup">

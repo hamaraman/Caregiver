@@ -410,7 +410,7 @@ export default function JobListingsPage() {
                 <div className="jl2-sidebar-fields">
                   <input className="jl2-sidebar-input" placeholder="관심 직종" />
                   <input className="jl2-sidebar-input" placeholder="희망 지역" />
-                  <button className="jl2-sidebar-alert-btn">알림 신청</button>
+                  <button className="jl2-sidebar-alert-btn" onClick={() => alert('준비 중인 기능입니다. 조금만 기다려주세요!')}>알림 신청</button>
                 </div>
               </div>
             </aside>

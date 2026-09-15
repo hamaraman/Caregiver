@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { fetchJobs } from '../api'
+import { fetchJob } from '../api'
 import { getRecentJobs } from '../hooks/useJobStorage'
 import HomeNav from './home/HomeNav'
 import './JobSeekerPage.css'
@@ -12,20 +12,16 @@ const SHIFT_STYLE = {
 }
 
 export default function RecentJobsPage() {
-  const [allJobs, setAllJobs] = useState([])
+  const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchJobs()
-      .then(setAllJobs)
-      .catch(() => setAllJobs([]))
+    // fetchJobs()는 공개 검색 목록이라 마감된 공고를 빼므로, 최근 본 공고는 각각 개별 조회한다.
+    const ids = getRecentJobs().map(e => e.id)
+    Promise.all(ids.map(id => fetchJob(id).catch(() => null)))
+      .then(list => setJobs(list.filter(Boolean)))
       .finally(() => setLoading(false))
   }, [])
-
-  const entries = getRecentJobs()
-  const jobs = entries
-    .map(e => allJobs.find(j => j.id === e.id))
-    .filter(Boolean)
 
   return (
     <div className="jsp-root">
@@ -67,6 +63,9 @@ export default function RecentJobsPage() {
                         <Link to={`/job/${job.id}`} className="jsp-job-type-cell">
                           <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>{job.shift}</span>
                           <span className="jsp-job-type-name">{job.type}</span>
+                          {job.closed && (
+                            <span className="jsp-shift-badge" style={{ background: '#f0f0f0', color: '#999' }}>마감</span>
+                          )}
                         </Link>
                       </td>
                       <td>{job.location}</td>

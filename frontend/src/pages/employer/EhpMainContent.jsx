@@ -100,7 +100,9 @@ export default function EhpMainContent() {
                             </Link>
                           </td>
                           <td>
-                            <span style={{ fontSize: 12, color: '#27AE60', fontWeight: 700 }}>모집중</span>
+                            <span style={{ fontSize: 12, color: job.closed ? '#999' : '#27AE60', fontWeight: 700 }}>
+                              {job.closed ? '마감' : '모집중'}
+                            </span>
                           </td>
                           <td>
                             <Link to={`/job/${job.id}`} className="jsp-more-btn" style={{ fontSize: 12 }}>수정</Link>

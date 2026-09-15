@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { fetchCaregiver } from '../api'
+import { fetchJobSeeker } from '../api'
 import Header from '../components/Header'
 import './TalentDetailPage.css'
 
@@ -13,7 +13,7 @@ export default function TalentDetailPage() {
 
   useEffect(() => {
     setLoading(true)
-    fetchCaregiver(id)
+    fetchJobSeeker(id)
       .then(setTalent)
       .catch(() => setTalent(null))
       .finally(() => setLoading(false))
@@ -73,7 +73,7 @@ export default function TalentDetailPage() {
               </div>
               <div className="td-hero-right">
                 <div className="td-wish-wage">
-                  희망 {talent.wageType} <strong>{talent.wageAmount.toLocaleString()}원</strong>
+                  희망 급여 <strong>{talent.wageLabel}</strong>
                 </div>
                 <div className="td-registered">{talent.date} 등록</div>
               </div>
@@ -126,7 +126,7 @@ export default function TalentDetailPage() {
               <h2 className="td-section-title">희망 근무 조건</h2>
               <div className="td-grid">
                 <div className="td-item"><span className="td-label">근무 형태</span><span className="td-value">{talent.workType}</span></div>
-                <div className="td-item"><span className="td-label">희망 급여</span><span className="td-value td-value--wage">{talent.wageType} {talent.wageAmount.toLocaleString()}원</span></div>
+                <div className="td-item"><span className="td-label">희망 급여</span><span className="td-value td-value--wage">{talent.wageLabel}</span></div>
                 <div className="td-item td-item--full"><span className="td-label">희망 지역</span><span className="td-value">{talent.wishRegion}</span></div>
                 <div className="td-item"><span className="td-label">희망 요일</span><span className="td-value">{talent.wishDays.join(' · ')}</span></div>
                 <div className="td-item"><span className="td-label">희망 시간</span><span className="td-value">{talent.wishHours}</span></div>

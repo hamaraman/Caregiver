@@ -28,10 +28,10 @@ function tryParseJson(text) {
   }
 }
 
-export function register({ email, password, name, userType }) {
+export function register({ email, password, name, userType, phone, companyName, businessNumber }) {
   return request('/api/auth/register', {
     method: 'POST',
-    body: JSON.stringify({ email, password, name, userType }),
+    body: JSON.stringify({ email, password, name, userType, phone, companyName, businessNumber }),
   })
 }
 
@@ -77,6 +77,9 @@ function normalizeJob(job) {
     id: job.id,
     ownerId: job.ownerId,
     liked: !!job.liked,
+    closed: !!job.closed,
+    likeCount: job.likeCount || 0,
+    phonePublic: job.phonePublic || null,
     title: job.title || '',
     shift: deriveShift(job.hours),
     type: job.jobType || job.title || '채용공고',
@@ -117,8 +120,18 @@ export async function fetchJob(id) {
   return job ? normalizeJob(job) : null
 }
 
+export function applyToJob(jobId) {
+  return request(`/api/jobs/${jobId}/applications`, { method: 'POST' })
+}
+
 export async function fetchMyJobs() {
   const jobs = await request('/api/jobs/mine')
+  return (jobs || []).map(normalizeJob)
+}
+
+// 마감 여부와 무관하게 내가 찜한 공고 전체 - fetchJobs()는 공개 검색 목록이라 마감 공고를 뺀다.
+export async function fetchLikedJobs() {
+  const jobs = await request('/api/jobs/liked')
   return (jobs || []).map(normalizeJob)
 }
 
@@ -129,6 +142,16 @@ export async function likeJob(id) {
 
 export async function unlikeJob(id) {
   const job = await request(`/api/jobs/${id}/like`, { method: 'DELETE' })
+  return normalizeJob(job)
+}
+
+export async function closeJob(id) {
+  const job = await request(`/api/jobs/${id}/close`, { method: 'PATCH' })
+  return normalizeJob(job)
+}
+
+export async function reopenJob(id) {
+  const job = await request(`/api/jobs/${id}/reopen`, { method: 'PATCH' })
   return normalizeJob(job)
 }
 
@@ -168,42 +191,47 @@ export function upsertMyResume(payload) {
   })
 }
 
-// Adapts a backend CaregiverResponse into the richer shape the talent listing/detail pages render.
-// Fields the backend doesn't track yet get a safe fallback.
-function normalizeCaregiver(caregiver) {
-  const location = caregiver.regionName || ''
+function deriveAge(birth) {
+  const m = /^(\d{4})/.exec(birth || '')
+  if (!m) return null
+  return new Date().getFullYear() - Number(m[1]) + 1
+}
+
+// Adapts a backend JobSeekerProfileResponse (a self-registered resume) into the shape
+// the talent listing/detail pages render. Fields the resume form doesn't collect
+// (workHistory, wishDays, education...) get a safe fallback.
+function normalizeJobSeeker(profile) {
+  const location = profile.region || ''
   return {
-    id: caregiver.id,
-    name: caregiver.name || '',
-    gender: caregiver.gender || '미상',
-    age: caregiver.age ?? null,
-    region: location ? location.split(' ')[0] : '',
+    id: profile.id,
+    name: profile.name || '',
+    gender: profile.gender || '미상',
+    age: deriveAge(profile.birth),
+    region: location,
     location,
-    jobType: caregiver.jobType || caregiver.specialty || '요양보호사',
-    certs: caregiver.certs && caregiver.certs.length ? caregiver.certs : ['등록된 자격증 정보가 없습니다.'],
-    education: caregiver.education || '정보 없음',
-    experience: caregiver.experience || '신입',
-    workHistory: (caregiver.workHistory || []).map(h => ({ place: h.place, period: h.period, role: h.role })),
-    workType: caregiver.workType || '협의',
-    wageType: caregiver.wageType || '시급',
-    wageAmount: caregiver.wageAmount || 0,
-    wishRegion: caregiver.wishRegion || location || '전국',
-    wishDays: caregiver.wishDays && caregiver.wishDays.length ? caregiver.wishDays : ['협의'],
-    wishHours: caregiver.wishHours || '협의 가능',
-    intro: caregiver.intro || '등록된 자기소개가 없습니다.',
-    status: caregiver.status || '구직중',
-    date: caregiver.date || '',
-    phone: caregiver.phone || null,
+    jobType: profile.cert || '요양보호사',
+    certs: profile.cert ? [profile.cert] : ['등록된 자격증 정보가 없습니다.'],
+    education: '정보 없음',
+    experience: profile.isNew ? '신입' : (profile.expPeriod || '경력'),
+    workHistory: [],
+    workType: (profile.workTypes || []).join(', ') || '협의',
+    wageLabel: profile.salary || '협의',
+    wishRegion: profile.workRegion || location || '전국',
+    wishDays: ['협의'],
+    wishHours: '협의 가능',
+    intro: profile.intro || '등록된 자기소개가 없습니다.',
+    status: '구직중',
+    date: profile.date || '',
+    phone: profile.phone || null,
   }
 }
 
-export async function fetchCaregivers(region) {
-  const query = region ? `?region=${encodeURIComponent(region)}` : ''
-  const caregivers = await request(`/api/caregivers${query}`)
-  return (caregivers || []).map(normalizeCaregiver)
+export async function fetchJobSeekers() {
+  const profiles = await request('/api/resumes')
+  return (profiles || []).map(normalizeJobSeeker)
 }
 
-export async function fetchCaregiver(id) {
-  const caregiver = await request(`/api/caregivers/${id}`)
-  return caregiver ? normalizeCaregiver(caregiver) : null
+export async function fetchJobSeeker(id) {
+  const profile = await request(`/api/resumes/public/${id}`).catch(() => null)
+  return profile ? normalizeJobSeeker(profile) : null
 }

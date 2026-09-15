@@ -1,5 +1,7 @@
 package org.example.caregiver.resume;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import org.example.caregiver.auth.User;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JobSeekerProfileService {
+
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM.dd");
 
     private final JobSeekerProfileRepository jobSeekerProfileRepository;
     private final JobRepository jobRepository;
@@ -38,9 +42,13 @@ public class JobSeekerProfileService {
         JobSeekerProfile profile = jobSeekerProfileRepository.findByUserId(userId)
                 .orElseGet(() -> new JobSeekerProfile(userId, null, null, null, null, null,
                         null, null, null, false, null, null));
+        if (profile.getId() == null) {
+            profile.setDate(LocalDate.now().format(DATE_FORMAT));
+        }
         profile.setName(request.getName());
         profile.setPhone(request.getPhone());
         profile.setBirth(request.getBirth());
+        profile.setGender(request.getGender());
         profile.setRegion(request.getRegion());
         profile.setWorkRegion(request.getWorkRegion());
         profile.setWorkTypes(request.getWorkTypes());
@@ -55,6 +63,16 @@ public class JobSeekerProfileService {
 
     public Optional<JobSeekerProfileResponse> getMine(Long userId) {
         return jobSeekerProfileRepository.findByUserId(userId).map(JobSeekerProfileResponse::new);
+    }
+
+    public List<JobSeekerProfileResponse> getAll() {
+        return jobSeekerProfileRepository.findAllByOrderByIdDesc().stream()
+                .map(JobSeekerProfileResponse::new)
+                .toList();
+    }
+
+    public Optional<JobSeekerProfileResponse> getPublicProfile(Long id) {
+        return jobSeekerProfileRepository.findById(id).map(JobSeekerProfileResponse::new);
     }
 
     public boolean canViewAsEmployer(Long applicantId, User requester) {

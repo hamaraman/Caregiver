@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchJobs, fetchCaregivers } from '../../api'
-import { getWishlist } from '../../hooks/useJobStorage'
+import { fetchJobs, fetchJobSeekers, fetchLikedJobs } from '../../api'
 
 function todayMMdd() {
   const d = new Date()
@@ -20,15 +19,19 @@ export default function HomeTodayStats() {
   const [stats, setStats] = useState(null)
 
   useEffect(() => {
-    Promise.all([fetchJobs(), fetchCaregivers()]).then(([jobs, caregivers]) => {
+    Promise.all([
+      fetchJobs(),
+      fetchJobSeekers(),
+      fetchLikedJobs().catch(() => []), // 비로그인 상태면 401 - 나머지 통계는 그대로 보여준다
+    ]).then(([jobs, caregivers, likedJobs]) => {
       const today = todayMMdd()
       setStats({
         newJobs: jobs.filter(j => j.date === today).length,
         newCaregivers: caregivers.filter(c => c.date === today).length,
         closingToday: jobs.filter(j => j.dday === 0).length,
-        wishCount: getWishlist().length,
+        wishCount: likedJobs.length,
       })
-    }).catch(() => setStats({ newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: getWishlist().length }))
+    }).catch(() => setStats({ newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: 0 }))
   }, [])
 
   const s = stats || { newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: 0 }

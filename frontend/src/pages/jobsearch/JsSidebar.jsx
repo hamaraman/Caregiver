@@ -101,7 +101,7 @@ export default function JsSidebar() {
             </li>
           ))}
         </ul>
-        <a href="#" className="js-sidebar-more">고객센터 바로가기 →</a>
+        <Link to="/support" className="js-sidebar-more">고객센터 바로가기 →</Link>
       </div>
 
     </aside>

@@ -1,43 +1,51 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchJobs } from '../../api'
+import { fetchJobs, fetchJobSeekers } from '../../api'
+import { NOTICES } from '../../data/notices'
 
 const REGION_TABS = ['전체', '서울', '경기', '인천', '대구', '광주', '울산']
 
-const POPULAR_HIRE = [
-  { rank: 1, region: '서울', count: '1,245건' },
-  { rank: 2, region: '경기', count: '892건' },
-  { rank: 3, region: '인천', count: '431건' },
-  { rank: 4, region: '부산', count: '287건' },
-  { rank: 5, region: '대구', count: '201건' },
-]
-
-const POPULAR_JOB = [
-  { rank: 1, region: '서울', count: '1,102건' },
-  { rank: 2, region: '경기', count: '843건' },
-  { rank: 3, region: '인천', count: '402건' },
-  { rank: 4, region: '부산', count: '256건' },
-  { rank: 5, region: '대전', count: '198건' },
-]
-
-const NOTICES = [
-  { type: '공지', title: '요양이지 서비스 점검 안내', date: '2026.09.05' },
-  { type: '공지', title: '포인트 정책 변경 안내', date: '2026.09.04' },
-  { type: '안내', title: '구인공고 등록 방법 안내', date: '2026.09.03' },
-  { type: '안내', title: '인재정보 이용 방법 안내', date: '2026.09.02' },
-  { type: 'FAQ', title: '자주 묻는 질문 모음', date: '2026.09.01' },
-]
+// '전체'면 시/도 단위로, 특정 시/도가 선택되면 그 안의 구/군 단위로 순위를 매긴다.
+function rankByRegion(items, regionTab) {
+  const counts = {}
+  items.forEach(item => {
+    const [sido, sigu] = (item.location || '').split(' ')
+    if (!sido) return
+    if (regionTab === '전체') {
+      counts[sido] = (counts[sido] || 0) + 1
+    } else if (sido === regionTab && sigu) {
+      const label = `${sido} ${sigu}`
+      counts[label] = (counts[label] || 0) + 1
+    }
+  })
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([region, count], i) => ({ rank: i + 1, region, count: `${count.toLocaleString()}건` }))
+}
 
 export default function HomeContentGrid() {
   const [regionTab, setRegionTab] = useState('전체')
   const [listingTab, setListingTab] = useState('구인공고')
-  const [recentJobs, setRecentJobs] = useState([])
+  const [jobs, setJobs] = useState([])
+  const [caregivers, setCaregivers] = useState([])
 
   useEffect(() => {
-    fetchJobs()
-      .then(jobs => setRecentJobs([...jobs].sort((a, b) => b.id - a.id).slice(0, 5)))
-      .catch(() => setRecentJobs([]))
+    fetchJobs().then(setJobs).catch(() => setJobs([]))
+    fetchJobSeekers().then(setCaregivers).catch(() => setCaregivers([]))
   }, [])
+
+  const popularHireRegions = useMemo(() => rankByRegion(jobs, regionTab), [jobs, regionTab])
+  const popularSeekerRegions = useMemo(() => rankByRegion(caregivers, regionTab), [caregivers, regionTab])
+
+  const recentJobs = useMemo(
+    () => [...jobs].sort((a, b) => b.id - a.id).slice(0, 5),
+    [jobs]
+  )
+  const recentCaregivers = useMemo(
+    () => [...caregivers].sort((a, b) => b.id - a.id).slice(0, 5),
+    [caregivers]
+  )
 
   return (
     <div className="hp-content">
@@ -62,13 +70,16 @@ export default function HomeContentGrid() {
               </p>
               <Link to="/listings" className="hp-more-btn">전체보기 ›</Link>
             </div>
-            {POPULAR_HIRE.map(r => (
-              <Link key={r.rank} to={`/listings?region=${r.region}`} className="hp-popular-row hp-popular-row--link">
-                <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
-                <span className="hp-popular-region">{r.region}</span>
-                <span className="hp-popular-count">{r.count}</span>
-              </Link>
-            ))}
+            {popularHireRegions.length === 0
+              ? <p className="hp-listing-empty">등록된 공고가 없습니다.</p>
+              : popularHireRegions.map(r => (
+                <Link key={r.rank} to={`/listings?region=${encodeURIComponent(r.region)}`} className="hp-popular-row hp-popular-row--link">
+                  <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
+                  <span className="hp-popular-region">{r.region}</span>
+                  <span className="hp-popular-count">{r.count}</span>
+                </Link>
+              ))
+            }
           </div>
           <div className="hp-popular-divider" />
           <div className="hp-popular-col">
@@ -77,15 +88,18 @@ export default function HomeContentGrid() {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                 인기 구직 지역
               </p>
-              <Link to="/jobs" className="hp-more-btn">전체보기 ›</Link>
+              <Link to="/talents" className="hp-more-btn">전체보기 ›</Link>
             </div>
-            {POPULAR_JOB.map(r => (
-              <Link key={r.rank} to={`/jobs?region=${r.region}`} className="hp-popular-row hp-popular-row--link">
-                <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
-                <span className="hp-popular-region">{r.region}</span>
-                <span className="hp-popular-count">{r.count}</span>
-              </Link>
-            ))}
+            {popularSeekerRegions.length === 0
+              ? <p className="hp-listing-empty">등록된 인재 정보가 없습니다.</p>
+              : popularSeekerRegions.map(r => (
+                <Link key={r.rank} to={`/talents?region=${encodeURIComponent(r.region)}`} className="hp-popular-row hp-popular-row--link">
+                  <span className={`hp-popular-rank ${r.rank <= 3 ? 'top' : ''}`}>{r.rank}</span>
+                  <span className="hp-popular-region">{r.region}</span>
+                  <span className="hp-popular-count">{r.count}</span>
+                </Link>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -105,20 +119,35 @@ export default function HomeContentGrid() {
           ))}
         </div>
         <ul className="hp-listing-list">
-          {recentJobs.length === 0
-            ? <li className="hp-listing-empty">등록된 공고가 없습니다.</li>
-            : recentJobs.map((job) => (
-              <li key={job.id}>
-                <Link to={`/jobs/${job.id}`} className="hp-listing-item" style={{textDecoration:'none',color:'inherit',display:'block'}}>
-                  <div className="hp-listing-top">
-                    <span className="hp-listing-badge">구인</span>
-                    <span className="hp-listing-title">{job.title}</span>
-                    <span className="hp-listing-ago">{job.date}</span>
-                  </div>
-                  <p className="hp-listing-sub">{job.location} · <span className="hp-listing-pay">{job.pay}</span> · {job.time}</p>
-                </Link>
-              </li>
-            ))
+          {listingTab === '구인공고'
+            ? (recentJobs.length === 0
+              ? <li className="hp-listing-empty">등록된 공고가 없습니다.</li>
+              : recentJobs.map((job) => (
+                <li key={job.id}>
+                  <Link to={`/job/${job.id}`} className="hp-listing-item" style={{textDecoration:'none',color:'inherit',display:'block'}}>
+                    <div className="hp-listing-top">
+                      <span className="hp-listing-badge">구인</span>
+                      <span className="hp-listing-title">{job.title}</span>
+                      <span className="hp-listing-ago">{job.date}</span>
+                    </div>
+                    <p className="hp-listing-sub">{job.location} · <span className="hp-listing-pay">{job.pay}</span> · {job.time}</p>
+                  </Link>
+                </li>
+              )))
+            : (recentCaregivers.length === 0
+              ? <li className="hp-listing-empty">등록된 인재 정보가 없습니다.</li>
+              : recentCaregivers.map((c) => (
+                <li key={c.id}>
+                  <Link to={`/talents/${c.id}`} className="hp-listing-item" style={{textDecoration:'none',color:'inherit',display:'block'}}>
+                    <div className="hp-listing-top">
+                      <span className="hp-listing-badge">인재</span>
+                      <span className="hp-listing-title">{c.jobType} · {c.name}</span>
+                      <span className="hp-listing-ago">{c.date}</span>
+                    </div>
+                    <p className="hp-listing-sub">{c.location} · <span className="hp-listing-pay">{c.wageLabel}</span> · {c.experience}</p>
+                  </Link>
+                </li>
+              )))
           }
         </ul>
       </div>
@@ -127,7 +156,7 @@ export default function HomeContentGrid() {
       <div className="hp-card">
         <div className="hp-card-header">
           <h2 className="hp-card-title">공지사항 &amp; 이용안내</h2>
-          <button className="hp-more-btn">전체보기 ›</button>
+          <Link to="/support?tab=notice" className="hp-more-btn">전체보기 ›</Link>
         </div>
         <ul className="hp-notice-list">
           {NOTICES.map((n, i) => (
@@ -145,7 +174,7 @@ export default function HomeContentGrid() {
             </svg>
           </div>
           <p className="hp-notice-cta-text">함께 만드는 더 좋은 돌봄 사회<br /><span>요양이지가 함께합니다.</span></p>
-          <button className="hp-notice-cta-btn">이용안내 보기 →</button>
+          <Link to="/support" className="hp-notice-cta-btn">이용안내 보기 →</Link>
         </div>
       </div>
 

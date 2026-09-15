@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
+const MORE_REGIONS = ['강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
 
 export default function EhpHero() {
   const [keyword, setKeyword] = useState('')
   const [selectedRegion, setSelectedRegion] = useState('')
+  const [showMore, setShowMore] = useState(false)
   const navigate = useNavigate()
 
   const handleSearch = () => {
@@ -64,7 +66,18 @@ export default function EhpHero() {
                 {r}
               </button>
             ))}
-            <button className="jsp-chip jsp-chip--more">›</button>
+            {showMore && MORE_REGIONS.map(r => (
+              <button
+                key={r}
+                className={`jsp-chip ${selectedRegion === r ? 'active' : ''}`}
+                onClick={() => setSelectedRegion(r === selectedRegion ? '' : r)}
+              >
+                {r}
+              </button>
+            ))}
+            <button className="jsp-chip jsp-chip--more" onClick={() => setShowMore(v => !v)} aria-label={showMore ? '접기' : '더보기'}>
+              {showMore ? '‹' : '›'}
+            </button>
           </div>
         </div>
       </div>

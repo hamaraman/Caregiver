@@ -89,7 +89,11 @@ export default function SignupPage() {
     setErrors({})
     setSubmitting(true)
     try {
-      await register({ email, password, name, userType })
+      await register({
+        email, password, name, userType, phone,
+        companyName: userType === 'business' ? companyName : undefined,
+        businessNumber: userType === 'business' ? bizNumber : undefined,
+      })
       setDone(true)
     } catch (err) {
       setErrors({ submit: err.message })
@@ -298,17 +302,17 @@ export default function SignupPage() {
                       <label className="sp-term-item">
                         <input type="checkbox" checked={terms.service} onChange={() => toggleTerm('service')} />
                         <span><strong className="sp-req">[필수]</strong> 이용약관 동의</span>
-                        <button type="button" className="sp-term-view">보기</button>
+                        <button type="button" className="sp-term-view" onClick={() => alert('준비 중인 페이지입니다.')}>보기</button>
                       </label>
                       <label className="sp-term-item">
                         <input type="checkbox" checked={terms.privacy} onChange={() => toggleTerm('privacy')} />
                         <span><strong className="sp-req">[필수]</strong> 개인정보처리방침 동의</span>
-                        <button type="button" className="sp-term-view">보기</button>
+                        <button type="button" className="sp-term-view" onClick={() => alert('준비 중인 페이지입니다.')}>보기</button>
                       </label>
                       <label className="sp-term-item">
                         <input type="checkbox" checked={terms.marketing} onChange={() => toggleTerm('marketing')} />
                         <span><span className="sp-opt">[선택]</span> 마케팅 정보 수신 동의</span>
-                        <button type="button" className="sp-term-view">보기</button>
+                        <button type="button" className="sp-term-view" onClick={() => alert('준비 중인 페이지입니다.')}>보기</button>
                       </label>
                     </div>
                   </div>

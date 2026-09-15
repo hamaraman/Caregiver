@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchJobs, likeJob, unlikeJob } from '../../api'
+import { fetchJobs, fetchLikedJobs, fetchJob, likeJob, unlikeJob } from '../../api'
 import { getRecentJobs } from '../../hooks/useJobStorage'
 
 const SHIFT_STYLE = {
@@ -28,6 +28,7 @@ function SideJobItem({ job }) {
       <div className="jsp-side-job-top">
         <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>{job.shift}</span>
         <span className="jsp-side-job-type">{job.type}</span>
+        {job.closed && <span className="jsp-shift-badge" style={{ background: '#f0f0f0', color: '#999' }}>마감</span>}
         {job.liked && <HeartFilled />}
       </div>
       <div className="jsp-side-job-info">{job.facility} · {job.location}</div>
@@ -39,27 +40,37 @@ function SideJobItem({ job }) {
 export default function JspJobTable() {
   const [jobList, setJobList] = useState([])
   const [loading, setLoading] = useState(true)
+  const [likedJobs, setLikedJobs] = useState([])
+  const [recentJobs, setRecentJobs] = useState([])
+
+  const refreshLikedJobs = () => fetchLikedJobs().then(setLikedJobs).catch(() => setLikedJobs([]))
 
   useEffect(() => {
     fetchJobs()
       .then(setJobList)
       .catch(() => setJobList([]))
       .finally(() => setLoading(false))
+    refreshLikedJobs()
+  }, [])
+
+  useEffect(() => {
+    // fetchJobs()는 공개 검색 목록이라 마감된 공고를 빼므로, 최근 본 공고는 각각 개별 조회한다.
+    const ids = getRecentJobs().slice(0, 5).map(e => e.id)
+    Promise.all(ids.map(id => fetchJob(id).catch(() => null)))
+      .then(jobs => setRecentJobs(jobs.filter(Boolean)))
   }, [])
 
   const handleToggleLike = async (job) => {
     try {
       const updated = job.liked ? await unlikeJob(job.id) : await likeJob(job.id)
       setJobList(prev => prev.map(j => j.id === job.id ? updated : j))
+      refreshLikedJobs()
     } catch {
       // 로그인이 필요한 경우 등 - 조용히 무시
     }
   }
 
-  const recentJobs = getRecentJobs().slice(0, 5)
-    .map(e => jobList.find(j => j.id === e.id)).filter(Boolean)
-
-  const wishlistJobs = jobList.filter(j => j.liked).slice(0, 3)
+  const wishlistJobs = likedJobs.slice(0, 3)
 
   return (
     <>

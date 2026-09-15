@@ -29,6 +29,11 @@ public class AuthService {
         }
         String userType = normalizeType(request.getUserType());
         User user = new User(null, email, passwordEncoder.encode(request.getPassword()), request.getName(), userType);
+        user.setPhone(request.getPhone());
+        if ("business".equals(userType)) {
+            user.setCompanyName(request.getCompanyName());
+            user.setBusinessNumber(request.getBusinessNumber());
+        }
         try {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException e) {

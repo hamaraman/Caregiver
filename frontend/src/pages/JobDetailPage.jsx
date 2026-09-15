@@ -1,7 +1,8 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { fetchJob } from '../api'
-import { addRecentJob, isWishlisted, toggleWishlist } from '../hooks/useJobStorage'
+import { fetchJob, applyToJob, likeJob, unlikeJob } from '../api'
+import { addRecentJob } from '../hooks/useJobStorage'
+import { useAuth } from '../hooks/useAuth'
 import HomeNav from './home/HomeNav'
 import './JobDetailPage.css'
 
@@ -11,21 +12,85 @@ const SHIFT_STYLE = {
   단기: { bg: '#FFF8EC', color: '#E07800' },
 }
 
+function authUrl(path) {
+  return `${window.location.origin}${path}?redirect=${encodeURIComponent(window.location.href)}`
+}
+
 export default function JobDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [job, setJob] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [liked, setLiked] = useState(() => isWishlisted(Number(id)))
+  const [liking, setLiking] = useState(false)
+  const [applied, setApplied] = useState(false)
+  const [applying, setApplying] = useState(false)
 
   useEffect(() => {
     setLoading(true)
+    setApplied(false)
     fetchJob(Number(id))
       .then(setJob)
       .catch(() => setJob(null))
       .finally(() => setLoading(false))
     addRecentJob(Number(id))
   }, [id])
+
+  const handleApply = async () => {
+    if (!user) {
+      if (confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
+        window.location.href = authUrl('/login')
+      }
+      return
+    }
+    setApplying(true)
+    try {
+      await applyToJob(Number(id))
+      setApplied(true)
+      alert('지원이 완료되었습니다.')
+    } catch (err) {
+      if (err.message && err.message.includes('이미 지원')) {
+        setApplied(true)
+      }
+      alert(err.message || '지원 중 오류가 발생했습니다.')
+    } finally {
+      setApplying(false)
+    }
+  }
+
+  const handleLike = async () => {
+    if (!user) {
+      if (confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
+        window.location.href = authUrl('/login')
+      }
+      return
+    }
+    setLiking(true)
+    try {
+      const updated = job.liked ? await unlikeJob(Number(id)) : await likeJob(Number(id))
+      setJob(updated)
+    } catch (err) {
+      alert(err.message || '찜하기 처리 중 오류가 발생했습니다.')
+    } finally {
+      setLiking(false)
+    }
+  }
+
+  const contactVisible = job ? (job.phonePublic !== '로그인 후 확인' || !!user) : true
+
+  const handleContact = () => {
+    if (!contactVisible) {
+      if (confirm('로그인 후 확인 가능합니다. 로그인 페이지로 이동할까요?')) {
+        window.location.href = authUrl('/login')
+      }
+      return
+    }
+    if (job && job.contact && /\d{2,4}-\d{3,4}-\d{4}/.test(job.contact)) {
+      window.location.href = `tel:${job.contact}`
+    } else {
+      alert(job?.contact || '등록된 연락처가 없습니다.')
+    }
+  }
 
   if (loading) {
     return (
@@ -64,17 +129,21 @@ export default function JobDetailPage() {
 
             <div className="jd-header-card">
               <div className="jd-header-top">
+                {job.closed && (
+                  <span className="jd-shift-badge" style={{ background: '#f0f0f0', color: '#999' }}>마감</span>
+                )}
                 <span className="jd-shift-badge" style={{ background: s.bg, color: s.color }}>
                   {job.shift}
                 </span>
                 <button
                   className="jd-like-btn"
-                  onClick={() => setLiked(toggleWishlist(Number(id)))}
+                  onClick={handleLike}
+                  disabled={liking}
                   aria-label="찜하기"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24"
-                    fill={liked ? '#e04444' : 'none'}
-                    stroke={liked ? '#e04444' : '#ccc'}
+                    fill={job.liked ? '#e04444' : 'none'}
+                    stroke={job.liked ? '#e04444' : '#ccc'}
                     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                   </svg>
@@ -143,9 +212,14 @@ export default function JobDetailPage() {
           <div className="jd-sidebar">
             <div className="jd-apply-card">
               <p className="jd-apply-label">지원 문의</p>
-              <p className="jd-apply-contact">{job.contact}</p>
-              <button className="jd-apply-btn">지원하기</button>
-              <button className="jd-contact-btn">전화 문의</button>
+              <p className="jd-apply-contact">{contactVisible ? job.contact : '로그인 후 확인 가능합니다.'}</p>
+              {job.closed
+                ? <button className="jd-apply-btn" disabled>마감된 공고입니다</button>
+                : <button className="jd-apply-btn" onClick={handleApply} disabled={applying || applied}>
+                    {applied ? '지원 완료' : applying ? '지원 중...' : '지원하기'}
+                  </button>
+              }
+              <button className="jd-contact-btn" onClick={handleContact}>전화 문의</button>
             </div>
 
             <div className="jd-info-card">

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import { fetchCaregivers, fetchMyJobs } from '../api'
+import { fetchJobSeekers, fetchMyJobs } from '../api'
 import { useAuth } from '../hooks/useAuth'
 import './TalentListPage.css'
 
@@ -64,7 +64,7 @@ export default function TalentListPage() {
   const panelRef = useRef(null)
 
   useEffect(() => {
-    fetchCaregivers()
+    fetchJobSeekers()
       .then(setTalentList)
       .catch(() => setTalentList([]))
       .finally(() => setLoading(false))
@@ -365,7 +365,7 @@ export default function TalentListPage() {
                         </div>
                       </div>
                       <div className="tl-talent-row-right">
-                        <span className="tl-talent-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</span>
+                        <span className="tl-talent-wage">{t.wageLabel}</span>
                         <span className="tl-talent-worktype">{t.workType}</span>
                       </div>
                     </Link>
@@ -412,7 +412,7 @@ export default function TalentListPage() {
                         </div>
                         <div className="tl-sidebar-talent-meta">{t.jobType} · {t.experience}</div>
                       </div>
-                      <div className="tl-sidebar-talent-wage">{t.wageAmount.toLocaleString()}원</div>
+                      <div className="tl-sidebar-talent-wage">{t.wageLabel}</div>
                     </Link>
                   ))}
                 </div>

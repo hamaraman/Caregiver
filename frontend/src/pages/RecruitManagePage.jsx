@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
-import { fetchMyJobs, fetchApplicantsForJob } from '../api'
+import { fetchMyJobs, fetchApplicantsForJob, closeJob as closeJobApi, reopenJob as reopenJobApi } from '../api'
 import './RecruitManagePage.css'
 
 export default function RecruitManagePage() {
   const [myJobs, setMyJobs] = useState([])
   const [applicantsByJob, setApplicantsByJob] = useState({})
   const [loading, setLoading] = useState(true)
-  const [closedJobs, setClosedJobs] = useState([])
   const [confirmJobId, setConfirmJobId] = useState(null)
   const [filter, setFilter] = useState('all')
 
@@ -26,15 +25,26 @@ export default function RecruitManagePage() {
       .finally(() => setLoading(false))
   }, [])
 
-  const isClosed = (id) => closedJobs.includes(id)
+  const isClosed = (id) => myJobs.find(j => j.id === id)?.closed ?? false
 
-  const closeJob = (id) => {
-    setClosedJobs((prev) => [...prev, id])
-    setConfirmJobId(null)
+  const closeJob = async (id) => {
+    try {
+      const updated = await closeJobApi(id)
+      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
+    } catch (err) {
+      alert(err.message || '마감 처리에 실패했습니다.')
+    } finally {
+      setConfirmJobId(null)
+    }
   }
 
-  const reopenJob = (id) => {
-    setClosedJobs((prev) => prev.filter((i) => i !== id))
+  const reopenJob = async (id) => {
+    try {
+      const updated = await reopenJobApi(id)
+      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
+    } catch (err) {
+      alert(err.message || '재개 처리에 실패했습니다.')
+    }
   }
 
   const countApplicants = (jobId) => (applicantsByJob[jobId] || []).length
@@ -46,17 +56,19 @@ export default function RecruitManagePage() {
   })
 
   const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
+  const closedCount = myJobs.filter((j) => isClosed(j.id)).length
   const totalApplicants = Object.values(applicantsByJob).flat().length
 
   const filterCards = [
     { key: 'all',    label: '전체',   val: myJobs.length,     unit: '개', mod: '',          valMod: '' },
     { key: 'active', label: '진행중', val: activeCount,       unit: '개', mod: '--active',   valMod: '--active' },
-    { key: 'closed', label: '마감',   val: closedJobs.length, unit: '개', mod: '--closed',   valMod: '' },
+    { key: 'closed', label: '마감',   val: closedCount,       unit: '개', mod: '--closed',   valMod: '' },
   ]
 
   return (
     <>
       <HomeNav />
+      <AuthGuard require="business">
       <div className="rm-page">
         <div className="container">
           <div className="rm-top">
@@ -167,6 +179,7 @@ export default function RecruitManagePage() {
           </div>
         </div>
       </div>
+      </AuthGuard>
     </>
   )
 }

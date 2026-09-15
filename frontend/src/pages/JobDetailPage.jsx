@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { fetchJob, applyToJob } from '../api'
-import { addRecentJob, isWishlisted, toggleWishlist } from '../hooks/useJobStorage'
+import { fetchJob, applyToJob, likeJob, unlikeJob } from '../api'
+import { addRecentJob } from '../hooks/useJobStorage'
 import { useAuth } from '../hooks/useAuth'
 import HomeNav from './home/HomeNav'
 import './JobDetailPage.css'
@@ -22,7 +22,7 @@ export default function JobDetailPage() {
   const { user } = useAuth()
   const [job, setJob] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [liked, setLiked] = useState(() => isWishlisted(Number(id)))
+  const [liking, setLiking] = useState(false)
   const [applied, setApplied] = useState(false)
   const [applying, setApplying] = useState(false)
 
@@ -55,6 +55,24 @@ export default function JobDetailPage() {
       alert(err.message || '지원 중 오류가 발생했습니다.')
     } finally {
       setApplying(false)
+    }
+  }
+
+  const handleLike = async () => {
+    if (!user) {
+      if (confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
+        window.location.href = authUrl('/login')
+      }
+      return
+    }
+    setLiking(true)
+    try {
+      const updated = job.liked ? await unlikeJob(Number(id)) : await likeJob(Number(id))
+      setJob(updated)
+    } catch (err) {
+      alert(err.message || '찜하기 처리 중 오류가 발생했습니다.')
+    } finally {
+      setLiking(false)
     }
   }
 
@@ -108,12 +126,13 @@ export default function JobDetailPage() {
                 </span>
                 <button
                   className="jd-like-btn"
-                  onClick={() => setLiked(toggleWishlist(Number(id)))}
+                  onClick={handleLike}
+                  disabled={liking}
                   aria-label="찜하기"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24"
-                    fill={liked ? '#e04444' : 'none'}
-                    stroke={liked ? '#e04444' : '#ccc'}
+                    fill={job.liked ? '#e04444' : 'none'}
+                    stroke={job.liked ? '#e04444' : '#ccc'}
                     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                   </svg>

@@ -12,20 +12,3 @@ export function addRecentJob(id) {
     .filter(e => e.viewedAt > cutoff && e.id !== id)
   localStorage.setItem('recent_jobs', JSON.stringify([{ id, viewedAt: Date.now() }, ...prev]))
 }
-
-export function getWishlist() {
-  return JSON.parse(localStorage.getItem('wishlist_jobs') || '[]')
-}
-
-export function toggleWishlist(id) {
-  const prev = getWishlist()
-  const liked = !prev.includes(id)
-  localStorage.setItem('wishlist_jobs', JSON.stringify(
-    liked ? [...prev, id] : prev.filter(x => x !== id)
-  ))
-  return liked
-}
-
-export function isWishlisted(id) {
-  return getWishlist().includes(id)
-}

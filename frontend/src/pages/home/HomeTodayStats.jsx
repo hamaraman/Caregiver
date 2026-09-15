@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchJobs, fetchCaregivers } from '../../api'
-import { getWishlist } from '../../hooks/useJobStorage'
 
 function todayMMdd() {
   const d = new Date()
@@ -26,9 +25,9 @@ export default function HomeTodayStats() {
         newJobs: jobs.filter(j => j.date === today).length,
         newCaregivers: caregivers.filter(c => c.date === today).length,
         closingToday: jobs.filter(j => j.dday === 0).length,
-        wishCount: getWishlist().length,
+        wishCount: jobs.filter(j => j.liked).length,
       })
-    }).catch(() => setStats({ newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: getWishlist().length }))
+    }).catch(() => setStats({ newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: 0 }))
   }, [])
 
   const s = stats || { newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: 0 }

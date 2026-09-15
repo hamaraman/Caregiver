@@ -1,16 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
-import { jobs } from '../data/jobs'
-import { applicants, myJobIds } from '../data/applicants'
+import { fetchMyJobs, fetchApplicantsForJob } from '../api'
 import './RecruitManagePage.css'
 
 export default function RecruitManagePage() {
-  const myJobs = jobs.filter((j) => myJobIds.includes(j.id))
+  const [myJobs, setMyJobs] = useState([])
+  const [applicantsByJob, setApplicantsByJob] = useState({})
+  const [loading, setLoading] = useState(true)
   const [closedJobs, setClosedJobs] = useState([])
   const [confirmJobId, setConfirmJobId] = useState(null)
   const [filter, setFilter] = useState('all')
+
+  useEffect(() => {
+    fetchMyJobs()
+      .then(async jobs => {
+        setMyJobs(jobs)
+        const entries = await Promise.all(
+          jobs.map(job => fetchApplicantsForJob(job.id).then(list => [job.id, list]).catch(() => [job.id, []]))
+        )
+        setApplicantsByJob(Object.fromEntries(entries))
+      })
+      .catch(() => setMyJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
 
   const isClosed = (id) => closedJobs.includes(id)
 
@@ -23,7 +37,7 @@ export default function RecruitManagePage() {
     setClosedJobs((prev) => prev.filter((i) => i !== id))
   }
 
-  const countApplicants = (jobId) => applicants.filter((a) => a.jobId === jobId).length
+  const countApplicants = (jobId) => (applicantsByJob[jobId] || []).length
 
   const filteredJobs = myJobs.filter((job) => {
     if (filter === 'active') return !isClosed(job.id)
@@ -32,7 +46,7 @@ export default function RecruitManagePage() {
   })
 
   const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
-  const totalApplicants = applicants.filter((a) => myJobIds.includes(a.jobId)).length
+  const totalApplicants = Object.values(applicantsByJob).flat().length
 
   const filterCards = [
     { key: 'all',    label: '전체',   val: myJobs.length,     unit: '개', mod: '',          valMod: '' },
@@ -83,7 +97,8 @@ export default function RecruitManagePage() {
 
           {/* 공고 목록 */}
           <div className="rm-list">
-            {filteredJobs.length === 0 && (
+            {loading && <div className="rm-empty">불러오는 중입니다...</div>}
+            {!loading && filteredJobs.length === 0 && (
               <div className="rm-empty">
                 {filter === 'closed' ? '마감된 공고가 없습니다.' : '공고가 없습니다.'}
               </div>
@@ -99,24 +114,17 @@ export default function RecruitManagePage() {
                         <span className={`rm-status-badge ${closed ? 'rm-status-badge--closed' : 'rm-status-badge--active'}`}>
                           {closed ? '마감' : '진행중'}
                         </span>
-                        <span className="rm-card-title">{job.postTitle || job.title}</span>
-                        {job.badge && (
-                          <span className={`rm-badge rm-badge--${job.badgeColor ?? 'red'}`}>
-                            {job.badge}
-                          </span>
-                        )}
+                        <span className="rm-card-title">{job.type}</span>
                       </div>
                       <div className="rm-card-meta">
                         <span>{job.location}</span>
                         <span className="rm-meta-dot">·</span>
-                        <span>{job.wage}</span>
+                        <span>{job.pay}</span>
                         <span className="rm-meta-dot">·</span>
-                        <span>{job.hours} / {job.days}</span>
+                        <span>{job.time} / {job.workType}</span>
                       </div>
                       <div className="rm-card-dates">
                         <span className="rm-date-item">등록일 {job.date}</span>
-                        <span className="rm-meta-dot">·</span>
-                        <span className="rm-date-item">마감일 {job.deadline}</span>
                       </div>
                     </div>
 
@@ -132,7 +140,7 @@ export default function RecruitManagePage() {
                   </div>
 
                   <div className="rm-card-footer">
-                    <Link to={`/jobs/${job.id}`} className="rm-btn rm-btn--ghost">
+                    <Link to={`/job/${job.id}`} className="rm-btn rm-btn--ghost">
                       공고 보기
                     </Link>
                     {closed ? (

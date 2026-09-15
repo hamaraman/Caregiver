@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { JOB_LIST } from '../../data/jobs'
-import { getRecentJobs, getWishlist, toggleWishlist } from '../../hooks/useJobStorage'
+import { fetchJobs, likeJob, unlikeJob } from '../../api'
+import { getRecentJobs } from '../../hooks/useJobStorage'
 
 const SHIFT_STYLE = {
   주간: { bg: '#EFF5FF', color: '#4A8FE7' },
@@ -21,15 +21,14 @@ const HeartEmpty = () => (
   </svg>
 )
 
-function SideJobItem({ job, wishlist }) {
+function SideJobItem({ job }) {
   const s = SHIFT_STYLE[job.shift] || {}
-  const liked = wishlist?.includes(job.id)
   return (
     <Link to={`/job/${job.id}`} className="jsp-side-job-item">
       <div className="jsp-side-job-top">
         <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>{job.shift}</span>
         <span className="jsp-side-job-type">{job.type}</span>
-        {liked && <HeartFilled />}
+        {job.liked && <HeartFilled />}
       </div>
       <div className="jsp-side-job-info">{job.facility} · {job.location}</div>
       <div className="jsp-side-job-pay">{job.pay}</div>
@@ -38,17 +37,29 @@ function SideJobItem({ job, wishlist }) {
 }
 
 export default function JspJobTable() {
-  const [wishlist, setWishlist] = useState(() => getWishlist())
+  const [jobList, setJobList] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const handleToggleLike = (id) => {
-    toggleWishlist(id)
-    setWishlist(getWishlist())
+  useEffect(() => {
+    fetchJobs()
+      .then(setJobList)
+      .catch(() => setJobList([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const handleToggleLike = async (job) => {
+    try {
+      const updated = job.liked ? await unlikeJob(job.id) : await likeJob(job.id)
+      setJobList(prev => prev.map(j => j.id === job.id ? updated : j))
+    } catch {
+      // 로그인이 필요한 경우 등 - 조용히 무시
+    }
   }
 
   const recentJobs = getRecentJobs().slice(0, 5)
-    .map(e => JOB_LIST.find(j => j.id === e.id)).filter(Boolean)
+    .map(e => jobList.find(j => j.id === e.id)).filter(Boolean)
 
-  const wishlistJobs = JOB_LIST.filter(j => wishlist.includes(j.id)).slice(0, 3)
+  const wishlistJobs = jobList.filter(j => j.liked).slice(0, 3)
 
   return (
     <>
@@ -77,7 +88,9 @@ export default function JspJobTable() {
                   </tr>
                 </thead>
                 <tbody>
-                  {JOB_LIST.slice(0, 13).map(job => {
+                  {loading ? (
+                    <tr><td colSpan={7}>불러오는 중입니다...</td></tr>
+                  ) : jobList.slice(0, 13).map(job => {
                     const s = SHIFT_STYLE[job.shift] || {}
                     return (
                       <tr key={job.id}>
@@ -95,10 +108,10 @@ export default function JspJobTable() {
                         <td>
                           <button
                             className="jsp-like-btn"
-                            onClick={() => handleToggleLike(job.id)}
+                            onClick={() => handleToggleLike(job)}
                             aria-label="찜하기"
                           >
-                            {wishlist.includes(job.id) ? <HeartFilled /> : <HeartEmpty />}
+                            {job.liked ? <HeartFilled /> : <HeartEmpty />}
                           </button>
                         </td>
                       </tr>
@@ -121,7 +134,7 @@ export default function JspJobTable() {
                   <Link to="/recent-jobs" className="jsp-more-btn" style={{ marginLeft: 'auto', fontSize: '12px' }}>더보기 ›</Link>
                 </div>
                 {recentJobs.length > 0
-                  ? recentJobs.map(job => <SideJobItem key={job.id} job={job} wishlist={wishlist} />)
+                  ? recentJobs.map(job => <SideJobItem key={job.id} job={job} />)
                   : <p className="jsp-side-empty">최근 본 일자리가 없습니다.</p>
                 }
               </div>

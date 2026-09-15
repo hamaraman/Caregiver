@@ -2,9 +2,8 @@ import { useState } from 'react'
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
 
-export default function JsHero() {
+export default function JsHero({ region, onRegionChange }) {
   const [keyword, setKeyword] = useState('')
-  const [selectedRegion, setSelectedRegion] = useState('')
 
   return (
     <section className="js-hero">
@@ -41,8 +40,8 @@ export default function JsHero() {
           {REGIONS.map(r => (
             <button
               key={r}
-              className={`js-region-chip ${selectedRegion === r ? 'active' : ''}`}
-              onClick={() => setSelectedRegion(r)}
+              className={`js-region-chip ${region === r ? 'active' : ''}`}
+              onClick={() => onRegionChange(region === r ? '' : r)}
             >{r}</button>
           ))}
           <button className="js-region-chip js-region-chip--more">›</button>

@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { JOB_LIST } from '../data/jobs'
+import { fetchJob } from '../api'
 import { addRecentJob, isWishlisted, toggleWishlist } from '../hooks/useJobStorage'
 import HomeNav from './home/HomeNav'
 import './JobDetailPage.css'
@@ -14,10 +14,27 @@ const SHIFT_STYLE = {
 export default function JobDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const job = JOB_LIST.find(j => j.id === Number(id))
+  const [job, setJob] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [liked, setLiked] = useState(() => isWishlisted(Number(id)))
 
-  useEffect(() => { addRecentJob(Number(id)) }, [id])
+  useEffect(() => {
+    setLoading(true)
+    fetchJob(Number(id))
+      .then(setJob)
+      .catch(() => setJob(null))
+      .finally(() => setLoading(false))
+    addRecentJob(Number(id))
+  }, [id])
+
+  if (loading) {
+    return (
+      <>
+        <HomeNav />
+        <div className="jd-not-found"><p>불러오는 중입니다...</p></div>
+      </>
+    )
+  }
 
   if (!job) {
     return (
@@ -109,14 +126,16 @@ export default function JobDetailPage() {
               </ul>
             </div>
 
-            <div className="jd-section-card">
-              <h2 className="jd-section-title">복리후생</h2>
-              <div className="jd-benefit-chips">
-                {job.benefits.map((b, i) => (
-                  <span key={i} className="jd-benefit-chip">{b}</span>
-                ))}
+            {job.benefits.length > 0 && (
+              <div className="jd-section-card">
+                <h2 className="jd-section-title">복리후생</h2>
+                <div className="jd-benefit-chips">
+                  {job.benefits.map((b, i) => (
+                    <span key={i} className="jd-benefit-chip">{b}</span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
           </div>
 

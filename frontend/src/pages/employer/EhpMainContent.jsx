@@ -1,32 +1,6 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { JOB_LIST } from '../../data/jobs'
-import { myJobIds, applicants } from '../../data/applicants'
-import { talents } from '../../data/talents'
-
-// 내가 등록한 공고
-const MY_LISTINGS = myJobIds.map(id => JOB_LIST.find(j => j.id === id)).filter(Boolean)
-
-// 공고별 지원자 수
-function applicantCount(jobId) {
-  return applicants.filter(a => a.jobId === jobId).length
-}
-
-// 전체 지원 현황 집계
-const STATS = {
-  검토중: applicants.filter(a => a.status === '검토중').length,
-  합격:   applicants.filter(a => a.status === '합격').length,
-  불합격:  applicants.filter(a => a.status === '불합격').length,
-}
-
-// 최근 지원자 5명 (최신 순)
-const RECENT_APPLICANTS = [...applicants]
-  .reverse()
-  .slice(0, 5)
-  .map(a => ({
-    ...a,
-    talent: talents.find(t => t.id === a.talentId),
-    job: JOB_LIST.find(j => j.id === a.jobId),
-  }))
+import { fetchMyJobs, fetchApplicantsForJob } from '../../api'
 
 const STATUS_COLOR = {
   검토중: { color: '#F39C12', bg: '#FFF8EC' },
@@ -41,6 +15,38 @@ const SHIFT_STYLE = {
 }
 
 export default function EhpMainContent() {
+  const [myJobs, setMyJobs] = useState([])
+  const [applicantsByJob, setApplicantsByJob] = useState({})
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchMyJobs()
+      .then(async jobs => {
+        setMyJobs(jobs)
+        const entries = await Promise.all(
+          jobs.map(job => fetchApplicantsForJob(job.id).then(list => [job.id, list]).catch(() => [job.id, []]))
+        )
+        setApplicantsByJob(Object.fromEntries(entries))
+      })
+      .catch(() => setMyJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const applicantCount = (jobId) => (applicantsByJob[jobId] || []).length
+
+  const allApplicants = Object.values(applicantsByJob).flat()
+  const STATS = {
+    검토중: allApplicants.filter(a => a.status === '검토중').length,
+    합격: allApplicants.filter(a => a.status === '합격').length,
+    불합격: allApplicants.filter(a => a.status === '불합격').length,
+  }
+
+  const jobsById = Object.fromEntries(myJobs.map(j => [j.id, j]))
+  const recentApplicants = [...allApplicants]
+    .sort((a, b) => b.id - a.id)
+    .slice(0, 5)
+    .map(a => ({ ...a, job: jobsById[a.jobId] }))
+
   return (
     <>
       <section className="jsp-section">
@@ -68,7 +74,13 @@ export default function EhpMainContent() {
                     </tr>
                   </thead>
                   <tbody>
-                    {MY_LISTINGS.map(job => {
+                    {loading && (
+                      <tr><td colSpan={7}>불러오는 중입니다...</td></tr>
+                    )}
+                    {!loading && myJobs.length === 0 && (
+                      <tr><td colSpan={7}>등록한 공고가 없습니다.</td></tr>
+                    )}
+                    {myJobs.map(job => {
                       const s = SHIFT_STYLE[job.shift] || {}
                       const count = applicantCount(job.id)
                       return (
@@ -135,16 +147,18 @@ export default function EhpMainContent() {
                   <span>최근 지원자</span>
                   <Link to="/applicants" className="jsp-more-btn" style={{ marginLeft: 'auto', fontSize: '12px' }}>더보기 ›</Link>
                 </div>
-                {RECENT_APPLICANTS.map(a => {
+                {recentApplicants.length === 0 && !loading && (
+                  <p className="jsp-side-empty">아직 지원자가 없습니다.</p>
+                )}
+                {recentApplicants.map(a => {
                   const sc = STATUS_COLOR[a.status] || {}
                   return (
                     <Link key={a.id} to="/applicants" className="jsp-side-job-item">
                       <div className="jsp-side-job-top">
-                        <span style={{ fontSize: 13, fontWeight: 700, color: '#333' }}>{a.talent?.name ?? '지원자'}</span>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: '#333' }}>{a.applicantName ?? '지원자'}</span>
                         <span style={{ fontSize: 11, background: sc.bg, color: sc.color, borderRadius: 6, padding: '2px 6px', marginLeft: 'auto' }}>{a.status}</span>
                       </div>
-                      <div className="jsp-side-job-info">{a.job?.type} · {a.applyDate} 지원</div>
-                      <div style={{ fontSize: 12, color: '#aaa' }}>{a.talent?.experience} · {a.talent?.jobType}</div>
+                      <div className="jsp-side-job-info">{a.job?.type} · {a.appliedAt} 지원</div>
                     </Link>
                   )
                 })}

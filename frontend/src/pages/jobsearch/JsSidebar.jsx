@@ -1,42 +1,61 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { fetchJobs } from '../../api'
 
-const POPULAR_KEYWORDS = [
-  { rank: 1, keyword: '요양보호사', change: 'up' },
-  { rank: 2, keyword: '서울 주간', change: 'same' },
-  { rank: 3, keyword: '간호조무사', change: 'up' },
-  { rank: 4, keyword: '경기 파트타임', change: 'down' },
-  { rank: 5, keyword: '사회복지사', change: 'new' },
-]
-
-function ChangeIcon({ change }) {
-  if (change === 'up') return <span className="js-rank-change js-rank-change--up">▲</span>
-  if (change === 'down') return <span className="js-rank-change js-rank-change--down">▼</span>
-  if (change === 'new') return <span className="js-rank-change js-rank-change--new">NEW</span>
-  return <span className="js-rank-change">-</span>
+function todayLabel() {
+  const d = new Date()
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`
 }
 
+const FAQS = [
+  { q: '구직 등록은 어떻게 하나요?', a: '상단 메뉴의 "구직 등록"에서 기본정보와 희망 근무조건을 입력하면 바로 등록됩니다.' },
+  { q: '급여는 어떻게 결정되나요?', a: '급여는 공고를 등록한 업체가 직접 정하며, 공고 상세 페이지에서 확인하실 수 있습니다.' },
+  { q: '4대보험 가입이 필수인가요?', a: '근무 형태와 업체 정책에 따라 다릅니다. 공고의 "혜택" 항목이나 업체에 직접 문의해주세요.' },
+  { q: '허위 공고 신고 방법이 궁금해요', a: '공고 목록 상단의 신고 연락처(1588-0000)로 전화 주시면 확인 후 조치해드립니다.' },
+]
+
 export default function JsSidebar() {
+  const [popularJobTypes, setPopularJobTypes] = useState([])
+  const [openFaq, setOpenFaq] = useState(null)
+
+  useEffect(() => {
+    fetchJobs().then(jobs => {
+      const counts = {}
+      jobs.forEach(j => { if (j.type) counts[j.type] = (counts[j.type] || 0) + 1 })
+      const ranked = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([keyword, count], i) => ({ rank: i + 1, keyword, count }))
+      setPopularJobTypes(ranked)
+    }).catch(() => setPopularJobTypes([]))
+  }, [])
+
+  const notifyComingSoon = () => alert('준비 중인 기능입니다. 조금만 기다려주세요!')
+
   return (
     <aside className="js-sidebar">
 
-      {/* 인기 검색어 */}
+      {/* 인기 직종 */}
       <div className="js-sidebar-card">
         <div className="js-sidebar-card-title">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
           </svg>
-          인기 검색어 TOP 5
+          인기 직종 TOP 5
         </div>
         <ul className="js-popular-list">
-          {POPULAR_KEYWORDS.map(item => (
-            <li key={item.rank} className="js-popular-item">
-              <span className={`js-rank-num ${item.rank <= 3 ? 'top' : ''}`}>{item.rank}</span>
-              <span className="js-rank-kw">{item.keyword}</span>
-              <ChangeIcon change={item.change} />
-            </li>
-          ))}
+          {popularJobTypes.length === 0
+            ? <li className="js-popular-item">등록된 공고가 없습니다.</li>
+            : popularJobTypes.map(item => (
+              <li key={item.rank} className="js-popular-item">
+                <span className={`js-rank-num ${item.rank <= 3 ? 'top' : ''}`}>{item.rank}</span>
+                <span className="js-rank-kw">{item.keyword}</span>
+                <span className="js-rank-change">{item.count}건</span>
+              </li>
+            ))
+          }
         </ul>
-        <p className="js-popular-updated">2026.09.09 기준</p>
+        <p className="js-popular-updated">{todayLabel()} 기준 · 등록된 공고 수 기준</p>
       </div>
 
       {/* 추천 일자리 알림 */}
@@ -50,7 +69,7 @@ export default function JsSidebar() {
         <p className="js-sidebar-blue-desc">조건에 맞는 새 공고가 등록되면 바로 알려드려요!</p>
         <div className="js-sidebar-blue-fields">
           <input className="js-sidebar-input" placeholder="이메일 주소 입력" />
-          <button className="js-sidebar-alert-btn">알림 신청</button>
+          <button className="js-sidebar-alert-btn" onClick={notifyComingSoon}>알림 신청</button>
         </div>
       </div>
 
@@ -75,18 +94,12 @@ export default function JsSidebar() {
           궁금한 점이 있으신가요?
         </div>
         <ul className="js-faq-list">
-          <li className="js-faq-item">
-            <button className="js-faq-btn">구직 등록은 어떻게 하나요?</button>
-          </li>
-          <li className="js-faq-item">
-            <button className="js-faq-btn">급여는 어떻게 결정되나요?</button>
-          </li>
-          <li className="js-faq-item">
-            <button className="js-faq-btn">4대보험 가입이 필수인가요?</button>
-          </li>
-          <li className="js-faq-item">
-            <button className="js-faq-btn">허위 공고 신고 방법이 궁금해요</button>
-          </li>
+          {FAQS.map((f, i) => (
+            <li className="js-faq-item" key={f.q}>
+              <button className="js-faq-btn" onClick={() => setOpenFaq(openFaq === i ? null : i)}>{f.q}</button>
+              {openFaq === i && <p className="js-faq-answer">{f.a}</p>}
+            </li>
+          ))}
         </ul>
         <a href="#" className="js-sidebar-more">고객센터 바로가기 →</a>
       </div>

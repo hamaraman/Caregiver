@@ -1,28 +1,23 @@
-import { useState } from 'react'
-
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종', '제주']
 const JOBS = ['요양보호사', '간호조무사', '사회복지사', '물리치료사', '작업치료사', '간병인', '돌봄교사']
 const WORK_TYPES = ['전체', '주간', '야간', '교대', '파트타임']
 const SALARIES = ['전체', '시급 10,000원~', '시급 11,000원~', '시급 12,000원~', '월급 1,000,000원~', '월급 1,500,000원~']
 const CAREERS = ['전체 선택', '신입 가능', '1년 미만', '1년 이상', '3년 이상', '5년 이상']
 
-export default function JsFilter({ onSearch }) {
-  const [region, setRegion] = useState('')
-  const [job, setJob] = useState('')
-  const [workTypes, setWorkTypes] = useState(['전체'])
-  const [salary, setSalary] = useState('')
-  const [career, setCareer] = useState('')
-
+export default function JsFilter({
+  region, onRegionChange,
+  jobType, onJobTypeChange,
+  workTypes, onWorkTypesChange,
+  salary, onSalaryChange,
+  career, onCareerChange,
+  onReset,
+}) {
   const toggleWorkType = (t) => {
-    if (t === '전체') { setWorkTypes(['전체']); return }
+    if (t === '전체') { onWorkTypesChange(['전체']); return }
     const next = workTypes.includes(t)
       ? workTypes.filter(x => x !== t)
       : [...workTypes.filter(x => x !== '전체'), t]
-    setWorkTypes(next.length ? next : ['전체'])
-  }
-
-  const reset = () => {
-    setRegion(''); setJob(''); setWorkTypes(['전체']); setSalary(''); setCareer('')
+    onWorkTypesChange(next.length ? next : ['전체'])
   }
 
   return (
@@ -34,7 +29,7 @@ export default function JsFilter({ onSearch }) {
           </svg>
           조건으로 찾기
         </span>
-        <button className="js-filter-reset" onClick={reset}>
+        <button className="js-filter-reset" onClick={onReset}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
           </svg>
@@ -52,7 +47,7 @@ export default function JsFilter({ onSearch }) {
           <svg className="js-filter-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div className="js-filter-select-wrap">
-          <select className="js-filter-select" value={region} onChange={e => setRegion(e.target.value)}>
+          <select className="js-filter-select" value={region} onChange={e => onRegionChange(e.target.value)}>
             <option value="">지역을 선택해주세요</option>
             {REGIONS.map(r => <option key={r} value={r}>{r}</option>)}
           </select>
@@ -69,7 +64,7 @@ export default function JsFilter({ onSearch }) {
           <svg className="js-filter-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div className="js-filter-select-wrap">
-          <select className="js-filter-select" value={job} onChange={e => setJob(e.target.value)}>
+          <select className="js-filter-select" value={jobType} onChange={e => onJobTypeChange(e.target.value)}>
             <option value="">직무를 선택해주세요</option>
             {JOBS.map(j => <option key={j} value={j}>{j}</option>)}
           </select>
@@ -109,7 +104,7 @@ export default function JsFilter({ onSearch }) {
           <svg className="js-filter-caret js-filter-caret--up" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"/></svg>
         </button>
         <div className="js-filter-select-wrap">
-          <select className="js-filter-select" value={salary} onChange={e => setSalary(e.target.value)}>
+          <select className="js-filter-select" value={salary} onChange={e => onSalaryChange(e.target.value)}>
             <option value="">급여를 선택해주세요</option>
             {SALARIES.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
@@ -126,18 +121,13 @@ export default function JsFilter({ onSearch }) {
           <svg className="js-filter-caret js-filter-caret--up" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"/></svg>
         </button>
         <div className="js-filter-select-wrap">
-          <select className="js-filter-select" value={career} onChange={e => setCareer(e.target.value)}>
+          <select className="js-filter-select" value={career} onChange={e => onCareerChange(e.target.value)}>
             {CAREERS.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
       </div>
 
-      <button className="js-filter-search-btn" onClick={onSearch}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-        </svg>
-        검색하기
-      </button>
+      <p className="js-filter-live-note">조건을 선택하면 바로 검색 결과에 반영됩니다.</p>
     </aside>
   )
 }

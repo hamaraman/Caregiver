@@ -1,35 +1,21 @@
-import { useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useRef, useEffect, useMemo } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import { talents } from '../data/talents'
-import { jobs } from '../data/jobs'
-import { myJobIds } from '../data/applicants'
+import { fetchCaregivers, fetchMyJobs } from '../api'
 import { useAuth } from '../hooks/useAuth'
 import './TalentListPage.css'
-
-const myJobs = jobs.filter(j => myJobIds.includes(j.id))
-const myRegions = [...new Set(myJobs.map(j => j.region))]
-const myJobTypes = [...new Set(myJobs.map(j => j.jobType))]
 
 const expOrder = { '신입':0,'1년 이상':1,'2년 이상':2,'3년 이상':3,'4년 이상':4,'5년 이상':5,'7년 이상':7,'8년 이상':8,'10년 이상':10,'12년 이상':12 }
 const expNum = (str) => expOrder[str] ?? 0
 
-const myMinExp = Math.min(...myJobs.map(j => expNum(j.experience)))
-
-function scoreTalent(t) {
+// 지역/직종이 모두 일치하는 인재만 추천 (등록 공고에 필요 경력이 정형화돼 있지 않아 경력 가중치는 제외)
+function scoreTalent(t, myRegions, myJobTypes) {
   let score = 0
   const tags = []
   if (myRegions.includes(t.region)) { score += 2; tags.push('지역 일치') }
   if (myJobTypes.includes(t.jobType)) { score += 2; tags.push('직종 일치') }
-  if (expNum(t.experience) >= myMinExp) { score += 1; tags.push('경력 충족') }
   return { score, tags }
 }
-
-const recommendedTalents = talents
-  .map(t => ({ ...t, ...scoreTalent(t) }))
-  .filter(t => t.score >= 3)
-  .sort((a, b) => b.score - a.score || expNum(b.experience) - expNum(a.experience))
-  .slice(0, 4)
 
 const regionTree = {
   '서울': ['강남구','서초구','송파구','강동구','마포구','영등포구','종로구','중구','용산구','성동구','광진구','노원구','강북구','도봉구','은평구','서대문구','동대문구','중랑구','성북구','강서구','양천구','구로구','금천구','관악구','동작구'],
@@ -60,15 +46,48 @@ function makeKey(do_, si) { return si ? `${do_} ${si}` : do_ }
 
 export default function TalentListPage() {
   const { user } = useAuth()
-  const [selectedRegions, setSelectedRegions] = useState([])
+  const [searchParams] = useSearchParams()
+  const [talentList, setTalentList] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [myJobs, setMyJobs] = useState([])
+  const [selectedRegions, setSelectedRegions] = useState(() => {
+    const region = searchParams.get('region')
+    return region ? [region] : []
+  })
   const [panelOpen, setPanelOpen] = useState(false)
   const [panelDo, setPanelDo] = useState('')
   const [selectedJobType, setSelectedJobType] = useState('전체')
   const [expFilter, setExpFilter] = useState('전체')
-  const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState(() => searchParams.get('q') || '')
   const [sort, setSort] = useState('최신순')
   const [page, setPage] = useState(1)
   const panelRef = useRef(null)
+
+  useEffect(() => {
+    fetchCaregivers()
+      .then(setTalentList)
+      .catch(() => setTalentList([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => {
+    if (user?.userType !== 'business') { setMyJobs([]); return }
+    fetchMyJobs().then(setMyJobs).catch(() => setMyJobs([]))
+  }, [user])
+
+  const myRegions = useMemo(
+    () => [...new Set(myJobs.map(j => j.location ? j.location.split(' ')[0] : '').filter(Boolean))],
+    [myJobs]
+  )
+  const myJobTypes = useMemo(() => [...new Set(myJobs.map(j => j.type).filter(Boolean))], [myJobs])
+
+  const recommendedTalents = useMemo(() => {
+    return talentList
+      .map(t => ({ ...t, ...scoreTalent(t, myRegions, myJobTypes) }))
+      .filter(t => t.score >= 4)
+      .sort((a, b) => b.score - a.score || expNum(b.experience) - expNum(a.experience))
+      .slice(0, 4)
+  }, [talentList, myRegions, myJobTypes])
 
   useEffect(() => {
     if (!panelOpen) return
@@ -102,7 +121,7 @@ export default function TalentListPage() {
 
   const siList = panelDo ? regionTree[panelDo] || [] : []
 
-  const filtered = talents
+  const filtered = talentList
     .filter(t => {
       if (selectedRegions.length === 0) return true
       return selectedRegions.some(r => {
@@ -312,7 +331,9 @@ export default function TalentListPage() {
               </div>
 
               <div className="tl-rows">
-                {paginated.length === 0
+                {loading
+                  ? <div className="tl-empty">인재 정보를 불러오는 중입니다...</div>
+                  : paginated.length === 0
                   ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
                   : paginated.map(t => (
                     <Link to={`/talents/${t.id}`} className="tl-talent-row" key={t.id}>
@@ -408,7 +429,7 @@ export default function TalentListPage() {
                 <div className="tl-sidebar-blue-fields">
                   <input className="tl-sidebar-input" placeholder="관심 직종 입력" />
                   <input className="tl-sidebar-input" placeholder="희망 지역 입력" />
-                  <button className="tl-sidebar-alert-btn">알림 신청하기</button>
+                  <button className="tl-sidebar-alert-btn" onClick={() => alert('준비 중인 기능입니다. 조금만 기다려주세요!')}>알림 신청하기</button>
                 </div>
               </div>
             </aside>

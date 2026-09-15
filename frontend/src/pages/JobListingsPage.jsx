@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import { jobs } from '../data/jobs'
-import { applicants, myJobIds } from '../data/applicants'
+import { fetchJobs } from '../api'
 import { useAuth } from '../hooks/useAuth'
 import './JobListingsPage.css'
 
@@ -37,8 +36,17 @@ function getDo(location) { return location ? location.split(' ')[0] : '' }
 
 export default function JobListingsPage() {
   const { user } = useAuth()
-  const myJobs = jobs.filter(j => myJobIds.includes(j.id))
-  const countApplicants = (jobId) => applicants.filter(a => a.jobId === jobId).length
+  const [jobs, setJobs] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
+  const myJobs = jobs.filter(j => user && j.ownerId === user.id)
+
+  useEffect(() => {
+    fetchJobs()
+      .then(setJobs)
+      .catch(() => setLoadError(true))
+      .finally(() => setLoading(false))
+  }, [])
 
   const [selectedRegions, setSelectedRegions] = useState([])
   const [panelOpen, setPanelOpen] = useState(false)
@@ -294,7 +302,11 @@ export default function JobListingsPage() {
               </div>
 
               <div className="jl2-rows">
-                {paginated.length === 0
+                {loading
+                  ? <div className="jl2-empty">공고를 불러오는 중입니다...</div>
+                  : loadError
+                  ? <div className="jl2-empty">공고를 불러오지 못했습니다.</div>
+                  : paginated.length === 0
                   ? <div className="jl2-empty">조건에 맞는 공고가 없습니다.</div>
                   : paginated.map(job => {
                     const shiftStyle = SHIFT_COLOR[job.shift] || { bg: '#f0f4fa', color: '#6b7a99' }
@@ -327,9 +339,11 @@ export default function JobListingsPage() {
                         <div className="jl2-job-row-right">
                           <div className="jl2-job-row-pay">{job.pay}</div>
                           <div className="jl2-job-row-footer">
-                            <span className={`jl2-dday${job.dday <= 3 ? ' urgent' : ''}`}>
-                              {job.dday === 0 ? 'D-DAY' : `D-${job.dday}`}
-                            </span>
+                            {job.dday != null && (
+                              <span className={`jl2-dday${job.dday <= 3 ? ' urgent' : ''}`}>
+                                {job.dday === 0 ? 'D-DAY' : `D-${job.dday}`}
+                              </span>
+                            )}
                             <span className="jl2-job-date">{job.date}</span>
                           </div>
                         </div>
@@ -367,7 +381,6 @@ export default function JobListingsPage() {
                       <div className="jl2-my-job-meta">{job.location} · {job.pay}</div>
                       <div className="jl2-my-job-footer">
                         <span className="jl2-my-job-status">진행중</span>
-                        <span className="jl2-my-job-cnt">지원자 {countApplicants(job.id)}명</span>
                       </div>
                     </Link>
                   ))}

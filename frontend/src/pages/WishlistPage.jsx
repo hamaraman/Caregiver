@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { JOB_LIST } from '../data/jobs'
-import { getWishlist, toggleWishlist } from '../hooks/useJobStorage'
+import { fetchJobs, unlikeJob } from '../api'
 import AuthGuard from '../components/AuthGuard'
 import HomeNav from './home/HomeNav'
 import './JobSeekerPage.css'
@@ -19,12 +18,24 @@ const HeartFilled = () => (
 )
 
 function WishlistContent() {
-  const [wishlist, setWishlist] = useState(() => getWishlist())
-  const jobs = JOB_LIST.filter(j => wishlist.includes(j.id))
+  const [allJobs, setAllJobs] = useState([])
+  const [loading, setLoading] = useState(true)
+  const jobs = allJobs.filter(j => j.liked)
 
-  const handleRemove = (id) => {
-    toggleWishlist(id)
-    setWishlist(getWishlist())
+  useEffect(() => {
+    fetchJobs()
+      .then(setAllJobs)
+      .catch(() => setAllJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const handleRemove = async (id) => {
+    try {
+      const updated = await unlikeJob(id)
+      setAllJobs(prev => prev.map(j => j.id === id ? updated : j))
+    } catch {
+      // 무시
+    }
   }
 
   return (
@@ -40,7 +51,11 @@ function WishlistContent() {
           <span style={{ fontSize: '13px', color: '#999' }}>총 {jobs.length}개</span>
         </div>
 
-        {jobs.length === 0 ? (
+        {loading ? (
+          <p className="jsp-side-empty" style={{ padding: '48px 0', textAlign: 'center' }}>
+            불러오는 중입니다...
+          </p>
+        ) : jobs.length === 0 ? (
           <p className="jsp-side-empty" style={{ padding: '48px 0', textAlign: 'center' }}>
             찜한 일자리가 없습니다.
           </p>

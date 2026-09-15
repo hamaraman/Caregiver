@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { fetchJobs } from '../../api'
 
 const REGION_TABS = ['전체', '서울', '경기', '인천', '대구', '광주', '울산']
 
@@ -19,14 +20,6 @@ const POPULAR_JOB = [
   { rank: 5, region: '대전', count: '198건' },
 ]
 
-const RECENT_LISTINGS = [
-  { id: 1, title: '요양보호사 구인 (주간)', location: '서울 성남구', pay: '시급 14,000원', hours: '09:00-15:00', timeAgo: '5분 전' },
-  { id: 2, title: '요양보호사 (야간)', location: '경기 성남시', pay: '시급 13,500원', hours: '16:00-22:00', timeAgo: '12분 전' },
-  { id: 5, title: '간병인 (상시)', location: '대구 달서구', pay: '월급 4,500,000원', hours: '08:00-17:00', timeAgo: '28분 전' },
-  { id: 3, title: '요양보호사 (오후)', location: '인천 남동구', pay: '시급 13,000원', hours: '13:00-18:00', timeAgo: '1시간 전' },
-  { id: 4, title: '요양보호사 (주간)', location: '부산 해운대구', pay: '시급 13,500원', hours: '09:00-15:00', timeAgo: '2시간 전' },
-]
-
 const NOTICES = [
   { type: '공지', title: '요양이지 서비스 점검 안내', date: '2026.09.05' },
   { type: '공지', title: '포인트 정책 변경 안내', date: '2026.09.04' },
@@ -38,6 +31,13 @@ const NOTICES = [
 export default function HomeContentGrid() {
   const [regionTab, setRegionTab] = useState('전체')
   const [listingTab, setListingTab] = useState('구인공고')
+  const [recentJobs, setRecentJobs] = useState([])
+
+  useEffect(() => {
+    fetchJobs()
+      .then(jobs => setRecentJobs([...jobs].sort((a, b) => b.id - a.id).slice(0, 5)))
+      .catch(() => setRecentJobs([]))
+  }, [])
 
   return (
     <div className="hp-content">
@@ -105,18 +105,21 @@ export default function HomeContentGrid() {
           ))}
         </div>
         <ul className="hp-listing-list">
-          {RECENT_LISTINGS.map((job) => (
-            <li key={job.id}>
-              <Link to={`/jobs/${job.id}`} className="hp-listing-item" style={{textDecoration:'none',color:'inherit',display:'block'}}>
-                <div className="hp-listing-top">
-                  <span className="hp-listing-badge">구인</span>
-                  <span className="hp-listing-title">{job.title}</span>
-                  <span className="hp-listing-ago">{job.timeAgo}</span>
-                </div>
-                <p className="hp-listing-sub">{job.location} · <span className="hp-listing-pay">{job.pay}</span> · {job.hours}</p>
-              </Link>
-            </li>
-          ))}
+          {recentJobs.length === 0
+            ? <li className="hp-listing-empty">등록된 공고가 없습니다.</li>
+            : recentJobs.map((job) => (
+              <li key={job.id}>
+                <Link to={`/jobs/${job.id}`} className="hp-listing-item" style={{textDecoration:'none',color:'inherit',display:'block'}}>
+                  <div className="hp-listing-top">
+                    <span className="hp-listing-badge">구인</span>
+                    <span className="hp-listing-title">{job.title}</span>
+                    <span className="hp-listing-ago">{job.date}</span>
+                  </div>
+                  <p className="hp-listing-sub">{job.location} · <span className="hp-listing-pay">{job.pay}</span> · {job.time}</p>
+                </Link>
+              </li>
+            ))
+          }
         </ul>
       </div>
 

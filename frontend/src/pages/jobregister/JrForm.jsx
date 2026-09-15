@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { fetchMyResume, upsertMyResume } from '../../api'
 
 const STEPS = ['기본정보', '경력/자격정보', '근무 희망조건', '자기소개']
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종', '제주']
@@ -7,6 +9,7 @@ const CERTS = ['요양보호사', '간호조무사', '사회복지사', '물리�
 const SALARIES = ['협의', '최저시급', '시급 11,000원~', '시급 12,000원~', '시급 13,000원~', '월급 협의']
 
 export default function JrForm() {
+  const navigate = useNavigate()
   const [activeStep] = useState(0)
   const [form, setForm] = useState({
     name: '', phone: '', birth: '', region: '',
@@ -15,6 +18,28 @@ export default function JrForm() {
     intro: '',
   })
   const [fileName, setFileName] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
+  useEffect(() => {
+    fetchMyResume().then(resume => {
+      if (!resume) return
+      setForm(f => ({
+        ...f,
+        name: resume.name || '',
+        phone: resume.phone || '',
+        birth: resume.birth || '',
+        region: resume.region || '',
+        workRegions: resume.workRegion ? resume.workRegion.split(',').map(s => s.trim()).filter(Boolean) : [],
+        workTypes: resume.workTypes || [],
+        salary: resume.salary || '',
+        cert: resume.cert || '',
+        isNew: resume.isNew,
+        expPeriod: resume.expPeriod || '',
+        intro: resume.intro || '',
+      }))
+    })
+  }, [])
 
   const update = (key, val) => setForm(f => ({ ...f, [key]: val }))
 
@@ -34,6 +59,36 @@ export default function JrForm() {
         ? f.workTypes.filter(x => x !== t)
         : [...f.workTypes, t],
     }))
+  }
+
+  const handleSubmit = async () => {
+    if (!form.name.trim() || !form.phone.trim() || !form.birth.trim() || !form.region) {
+      setSubmitError('이름, 연락처, 생년월일, 거주지는 필수 입력 항목입니다.')
+      return
+    }
+    setSubmitError('')
+    setSubmitting(true)
+    try {
+      await upsertMyResume({
+        name: form.name,
+        phone: form.phone,
+        birth: form.birth,
+        region: form.region,
+        workRegion: form.workRegions.join(', '),
+        workTypes: form.workTypes,
+        salary: form.salary,
+        cert: form.cert,
+        isNew: form.isNew,
+        expPeriod: form.isNew ? '' : form.expPeriod,
+        intro: form.intro,
+      })
+      alert('구직 등록이 완료되었습니다.')
+      navigate('/jobseeker')
+    } catch (err) {
+      setSubmitError(err.message || '구직 등록에 실패했습니다.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -241,8 +296,11 @@ export default function JrForm() {
       </div>
 
       {/* 제출 버튼 */}
+      {submitError && <p className="jr-submit-error" style={{ color: '#e74c3c', textAlign: 'right' }}>{submitError}</p>}
       <div className="jr-submit-row">
-        <button className="jr-submit-btn">구직 등록 완료</button>
+        <button className="jr-submit-btn" onClick={handleSubmit} disabled={submitting}>
+          {submitting ? '등록 중...' : '구직 등록 완료'}
+        </button>
       </div>
     </div>
   )

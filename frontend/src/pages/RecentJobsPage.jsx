@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { JOB_LIST } from '../data/jobs'
+import { useState, useEffect } from 'react'
+import { fetchJobs } from '../api'
 import { getRecentJobs } from '../hooks/useJobStorage'
 import HomeNav from './home/HomeNav'
 import './JobSeekerPage.css'
@@ -11,9 +12,19 @@ const SHIFT_STYLE = {
 }
 
 export default function RecentJobsPage() {
+  const [allJobs, setAllJobs] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchJobs()
+      .then(setAllJobs)
+      .catch(() => setAllJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
+
   const entries = getRecentJobs()
   const jobs = entries
-    .map(e => JOB_LIST.find(j => j.id === e.id))
+    .map(e => allJobs.find(j => j.id === e.id))
     .filter(Boolean)
 
   return (
@@ -31,7 +42,11 @@ export default function RecentJobsPage() {
             <span style={{ fontSize: '13px', color: '#999' }}>최근 7일 이내 조회한 공고</span>
           </div>
 
-          {jobs.length === 0 ? (
+          {loading ? (
+            <p className="jsp-side-empty" style={{ padding: '48px 0', textAlign: 'center' }}>
+              불러오는 중입니다...
+            </p>
+          ) : jobs.length === 0 ? (
             <p className="jsp-side-empty" style={{ padding: '48px 0', textAlign: 'center' }}>
               최근 본 일자리가 없습니다.
             </p>

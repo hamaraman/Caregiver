@@ -1,11 +1,17 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
 
 export default function HomeHero() {
   const [keyword, setKeyword] = useState('')
-  const [selectedRegion, setSelectedRegion] = useState('')
+  const navigate = useNavigate()
+
+  const handleSearch = () => {
+    const params = new URLSearchParams()
+    if (keyword.trim()) params.set('q', keyword.trim())
+    navigate(`/jobs${params.toString() ? '?' + params.toString() : ''}`)
+  }
 
   return (
     <section className="hp-hero">
@@ -27,8 +33,9 @@ export default function HomeHero() {
               placeholder="지역, 근무형태, 직종, 키워드로 검색해보세요"
               value={keyword}
               onChange={e => setKeyword(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSearch()}
             />
-            <button className="hp-search-btn">
+            <button className="hp-search-btn" aria-label="검색" onClick={handleSearch}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
               </svg>
@@ -43,8 +50,8 @@ export default function HomeHero() {
             </span>
             {REGIONS.map(r => (
               <button key={r}
-                className={`hp-chip ${selectedRegion === r ? 'active' : ''}`}
-                onClick={() => setSelectedRegion(r)}
+                className="hp-chip"
+                onClick={() => navigate(`/jobs?region=${encodeURIComponent(r)}`)}
               >{r}</button>
             ))}
             <button className="hp-chip hp-chip-more">›</button>

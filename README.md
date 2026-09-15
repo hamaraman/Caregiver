@@ -77,3 +77,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 백엔드에 `GET /api/applications/mine`(`MyApplicationResponse`) 추가
 - 구인공고 목록 상단의 인기지역 칩과 사이드바 지역 필터가 실제로 `/api/jobs?region=` 필터링을 호출하도록 연동
 - 인재 목록/상세 화면도 mock(`data/talents.js`) 대신 `/api/caregivers`로 연동. UI가 필요로 하는 성별/나이/자격증/희망근무조건/근무이력 등 필드가 `Caregiver` 엔티티에 없어서 전부 선택 필드로 추가하고 `GET /api/caregivers/{id}` 단건 조회도 신설
+- `JobPostPage`(구인공고 등록)가 `alert`만 띄우고 아무 데도 저장하지 않던 것을 실제 `POST /api/jobs` 호출로 교체, `AuthGuard`로 사업자 계정만 접근하도록 제한
+- `JobRegisterPage`/`JrForm`(구직 등록)도 실제 `POST /api/resumes/me`로 연동, 기존 이력서가 있으면 불러와서 수정 가능하도록 함
+- 홈/구직자 페이지 히어로 검색창·인기지역 칩이 실제로 `/jobs`, `/talents`로 이동하며 지역/키워드 쿼리파라미터를 검색 결과 페이지가 읽어서 반영하도록 연동
+- `JsFilter`의 직무/근무형태/급여/경력 필터를 전부 실제로 동작하게 구현(클라이언트 사이드 필터링)
+- 홈 화면 "오늘 확인해보세요" 통계와 구인공고 사이드바 "인기 검색어"의 하드코딩된 가짜 숫자를 실제 API 데이터 기반으로 교체, 동작하지 않던 알림 신청/FAQ 버튼에 최소한의 반응 추가

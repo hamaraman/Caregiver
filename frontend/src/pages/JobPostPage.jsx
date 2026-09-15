@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
+import { createJob } from '../api'
 import './JobPostPage.css'
 
 const regionTree = {
@@ -38,6 +39,10 @@ const applyMethods = ['바로지원','방문접수','이메일','전화','팩스
 const SECTIONS = ['근무 조건','케어 대상자 정보','공고 내용','업체 정보','담당자 정보','약관 동의']
 
 export default function JobPostPage() {
+  const navigate = useNavigate()
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
   // 근무 조건
   const [sido, setSido] = useState('')
   const [sigu, setSigu] = useState('')
@@ -192,18 +197,73 @@ export default function JobPostPage() {
     if (checked) setManagerPhone(companyPhone)
   }
 
-  const handleSubmit = (e) => {
+  const buildPayload = () => {
+    const location = sigu ? `${sido} ${sigu}` : sido
+    const wage = wageType && wageAmount ? `${wageType} ${Number(wageAmount).toLocaleString()}원` : ''
+    const today = new Date()
+    const date = `${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`
+    return {
+      title: postTitle,
+      location,
+      wage,
+      hours: `${startTime}~${endTime}`,
+      days: dayNegotiable ? '요일 협의' : `주 ${selectedDays.length}일`,
+      date,
+      postTitle,
+      postDetail,
+      jobType,
+      facility,
+      workForm,
+      employForm,
+      education,
+      experience,
+      deadline: deadlineType === '상시' ? null : deadline,
+      daysNegotiable: dayNegotiable,
+      weekdays: selectedDays,
+      careGender,
+      careAge,
+      careGrade,
+      careCondition,
+      careWork,
+      applyMethod,
+      companyUrl,
+      applyEmail,
+      applyFax,
+      companyName,
+      companyPhone,
+      companyAddr,
+      companyAddrDetail,
+      phonePublic,
+      managerName,
+      managerPhone,
+      managerEmail,
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const fields = { companyName, companyPhone, managerName, managerPhone, managerEmail, applyEmail, applyFax }
     const newErrors = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, validateField(k, v)]))
     setErrors(newErrors)
     if (Object.values(newErrors).some(v => v)) return
-    alert('구인공고가 등록되었습니다.')
+
+    setSubmitError('')
+    setSubmitting(true)
+    try {
+      const created = await createJob(buildPayload())
+      alert('구인공고가 등록되었습니다.')
+      navigate(`/job/${created.id}`)
+    } catch (err) {
+      setSubmitError(err.message || '구인공고 등록에 실패했습니다.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const siList = sido ? regionTree[sido] || [] : []
 
   return (
+    <AuthGuard require="business">
     <div className="app">
       <HomeNav />
       <main className="jp-page">
@@ -701,14 +761,19 @@ export default function JobPostPage() {
               </div>
             </div>
 
+            {submitError && <p className="jp-submit-error" style={{ color: '#e74c3c', marginBottom: 12 }}>{submitError}</p>}
+
             <div className="jp-actions">
               <Link to="/" className="jp-btn jp-btn--cancel">취소</Link>
-              <button type="submit" className="jp-btn jp-btn--submit" disabled={!agreed}>공고 등록하기</button>
+              <button type="submit" className="jp-btn jp-btn--submit" disabled={!agreed || submitting}>
+                {submitting ? '등록 중...' : '공고 등록하기'}
+              </button>
             </div>
 
           </form>
         </div>
       </main>
     </div>
+    </AuthGuard>
   )
 }

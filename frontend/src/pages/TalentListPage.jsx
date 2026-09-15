@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import { fetchCaregivers, fetchMyJobs } from '../api'
 import { useAuth } from '../hooks/useAuth'
@@ -46,15 +46,19 @@ function makeKey(do_, si) { return si ? `${do_} ${si}` : do_ }
 
 export default function TalentListPage() {
   const { user } = useAuth()
+  const [searchParams] = useSearchParams()
   const [talentList, setTalentList] = useState([])
   const [loading, setLoading] = useState(true)
   const [myJobs, setMyJobs] = useState([])
-  const [selectedRegions, setSelectedRegions] = useState([])
+  const [selectedRegions, setSelectedRegions] = useState(() => {
+    const region = searchParams.get('region')
+    return region ? [region] : []
+  })
   const [panelOpen, setPanelOpen] = useState(false)
   const [panelDo, setPanelDo] = useState('')
   const [selectedJobType, setSelectedJobType] = useState('전체')
   const [expFilter, setExpFilter] = useState('전체')
-  const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState(() => searchParams.get('q') || '')
   const [sort, setSort] = useState('최신순')
   const [page, setPage] = useState(1)
   const panelRef = useRef(null)
@@ -425,7 +429,7 @@ export default function TalentListPage() {
                 <div className="tl-sidebar-blue-fields">
                   <input className="tl-sidebar-input" placeholder="관심 직종 입력" />
                   <input className="tl-sidebar-input" placeholder="희망 지역 입력" />
-                  <button className="tl-sidebar-alert-btn">알림 신청하기</button>
+                  <button className="tl-sidebar-alert-btn" onClick={() => alert('준비 중인 기능입니다. 조금만 기다려주세요!')}>알림 신청하기</button>
                 </div>
               </div>
             </aside>

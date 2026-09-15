@@ -88,6 +88,8 @@ function normalizeJob(job) {
     facility: job.facility || job.companyName || job.postTitle || '',
     date: job.date || '',
     dday: deriveDday(job.deadline),
+    experience: job.experience || '',
+    employForm: job.employForm || '',
     tags: [job.employForm, job.workForm, job.education].filter(Boolean),
     desc: job.postDetail || '상세 설명이 아직 등록되지 않았습니다.',
     requirements: requirements.length ? requirements : ['등록된 지원 자격 정보가 없습니다.'],
@@ -100,6 +102,14 @@ export async function fetchJobs(region) {
   const query = region ? `?region=${encodeURIComponent(region)}` : ''
   const jobs = await request(`/api/jobs${query}`)
   return (jobs || []).map(normalizeJob)
+}
+
+export async function createJob(payload) {
+  const job = await request('/api/jobs', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+  return normalizeJob(job)
 }
 
 export async function fetchJob(id) {
@@ -145,6 +155,17 @@ export async function fetchMyApplications() {
 
 export function fetchApplicantResume(userId) {
   return request(`/api/resumes/${userId}`).catch(() => null)
+}
+
+export function fetchMyResume() {
+  return request('/api/resumes/me').catch(() => null)
+}
+
+export function upsertMyResume(payload) {
+  return request('/api/resumes/me', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
 }
 
 // Adapts a backend CaregiverResponse into the richer shape the talent listing/detail pages render.

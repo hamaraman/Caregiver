@@ -93,3 +93,4 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 공고 상세 페이지의 "지원하기"/"전화 문의" 버튼에 onClick이 없어서 아무 동작도 안 하던 것을 실제 `POST /api/jobs/{jobId}/applications` 호출과 `tel:` 링크로 연결
 - 상단 네비게이션 검색 아이콘 버튼이 아무 반응 없던 것을 `/jobs`로 이동하도록 연결
 - `SupportPage`에 `?tab=` 쿼리파라미터 지원 추가, `Footer`/`HomeContentGrid`/`JsSidebar`의 공지사항·FAQ·고객센터 링크(`href="#"` 또는 미연결 버튼)를 전부 `/support`로 연결. `JobListingsPage` 사이드바 "알림 신청" 버튼도 "준비 중" 안내로 연결
+- `HomeContentGrid`의 "지역별 인기 정보"(서울 1,245건 등)와 홈 화면 공지사항 목록이 하드코딩된 가짜 데이터였던 것을 실제 `/api/jobs`·`/api/caregivers` 지역 분포로 교체. "최근 등록된 정보"의 "인재정보" 탭을 눌러도 구인공고만 계속 보이던 버그, `/jobs/{id}`로 링크가 잘못 나가던 버그(정확한 경로는 `/job/{id}`)도 같이 수정. 공지사항 목록은 `SupportPage`와 내용이 서로 다르게 중복 관리되던 것을 `data/notices.js`로 일원화

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchJobs, unlikeJob } from '../api'
+import { fetchLikedJobs, unlikeJob } from '../api'
 import AuthGuard from '../components/AuthGuard'
 import HomeNav from './home/HomeNav'
 import './JobSeekerPage.css'
@@ -18,21 +18,20 @@ const HeartFilled = () => (
 )
 
 function WishlistContent() {
-  const [allJobs, setAllJobs] = useState([])
+  const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
-  const jobs = allJobs.filter(j => j.liked)
 
   useEffect(() => {
-    fetchJobs()
-      .then(setAllJobs)
-      .catch(() => setAllJobs([]))
+    fetchLikedJobs()
+      .then(setJobs)
+      .catch(() => setJobs([]))
       .finally(() => setLoading(false))
   }, [])
 
   const handleRemove = async (id) => {
     try {
-      const updated = await unlikeJob(id)
-      setAllJobs(prev => prev.map(j => j.id === id ? updated : j))
+      await unlikeJob(id)
+      setJobs(prev => prev.filter(j => j.id !== id))
     } catch {
       // 무시
     }
@@ -76,6 +75,9 @@ function WishlistContent() {
                       <Link to={`/job/${job.id}`} className="jsp-job-type-cell">
                         <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>{job.shift}</span>
                         <span className="jsp-job-type-name">{job.type}</span>
+                        {job.closed && (
+                          <span className="jsp-shift-badge" style={{ background: '#f0f0f0', color: '#999' }}>마감</span>
+                        )}
                       </Link>
                     </td>
                     <td>{job.location}</td>

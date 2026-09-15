@@ -1,6 +1,7 @@
 package org.example.caregiver.job;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,6 +41,13 @@ public class JobLikeRepository {
         }
         return jobLikeJpaRepository.countGroupedByJobIds(jobIds).stream()
                 .collect(Collectors.toMap(JobLikeCount::getJobId, JobLikeCount::getCount));
+    }
+
+    /** 마감 여부와 무관하게, 내가 찜한 공고 id 전체를 최근 찜한 순으로 반환한다. */
+    public List<Long> likedJobIdsForUser(Long userId) {
+        return jobLikeJpaRepository.findByUserIdOrderByIdDesc(userId).stream()
+                .map(JobLike::getJobId)
+                .toList();
     }
 
     public void like(Long userId, Long jobId) {

@@ -128,6 +128,12 @@ export async function fetchMyJobs() {
   return (jobs || []).map(normalizeJob)
 }
 
+// 마감 여부와 무관하게 내가 찜한 공고 전체 - fetchJobs()는 공개 검색 목록이라 마감 공고를 뺀다.
+export async function fetchLikedJobs() {
+  const jobs = await request('/api/jobs/liked')
+  return (jobs || []).map(normalizeJob)
+}
+
 export async function likeJob(id) {
   const job = await request(`/api/jobs/${id}/like`, { method: 'POST' })
   return normalizeJob(job)

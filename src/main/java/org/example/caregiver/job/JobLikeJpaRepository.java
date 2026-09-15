@@ -16,6 +16,8 @@ interface JobLikeJpaRepository extends JpaRepository<JobLike, Long> {
 
     List<JobLike> findByUserIdAndJobIdIn(Long userId, Collection<Long> jobIds);
 
+    List<JobLike> findByUserIdOrderByIdDesc(Long userId);
+
     @Query("select new org.example.caregiver.job.JobLikeCount(l.jobId, count(l)) "
             + "from JobLike l where l.jobId in :jobIds group by l.jobId")
     List<JobLikeCount> countGroupedByJobIds(@Param("jobIds") Collection<Long> jobIds);

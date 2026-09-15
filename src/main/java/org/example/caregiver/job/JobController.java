@@ -57,6 +57,12 @@ public class JobController {
         return jobService.getMyJobs(owner.getId());
     }
 
+    @GetMapping("/liked")
+    public List<JobResponse> getLikedJobs(HttpServletRequest httpRequest) {
+        User user = requireLoggedInUser(httpRequest);
+        return jobService.getLikedJobs(user.getId());
+    }
+
     @PostMapping("/{id}/like")
     public ResponseEntity<JobResponse> like(@PathVariable Long id, HttpServletRequest httpRequest) {
         User user = requireLoggedInUser(httpRequest);

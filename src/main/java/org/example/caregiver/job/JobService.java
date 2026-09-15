@@ -2,8 +2,11 @@ package org.example.caregiver.job;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.example.caregiver.auth.User;
 import org.example.caregiver.model.Region;
 import org.example.caregiver.model.RegionQuery;
@@ -82,6 +85,19 @@ public class JobService {
 
     public List<JobResponse> getMyJobs(Long ownerId) {
         return toResponses(jobRepository.findByOwnerIdOrderByIdDesc(ownerId), ownerId);
+    }
+
+    /** 마감 여부와 무관하게 내가 찜한 공고를 전부 반환한다 (찜 목록은 검색 결과가 아니라 저장 목록이므로). */
+    public List<JobResponse> getLikedJobs(Long userId) {
+        List<Long> likedJobIds = jobLikeRepository.likedJobIdsForUser(userId);
+        Map<Long, Job> jobsById = jobRepository.findAllById(likedJobIds).stream()
+                .collect(Collectors.toMap(Job::getId, Function.identity()));
+        Map<Long, Long> likeCounts = jobLikeRepository.likeCounts(likedJobIds);
+        return likedJobIds.stream()
+                .map(jobsById::get)
+                .filter(Objects::nonNull)
+                .map(job -> new JobResponse(job, true, likeCounts.getOrDefault(job.getId(), 0L)))
+                .toList();
     }
 
     public JobResponse closeJob(Long jobId, Long ownerId) {

@@ -316,3 +316,31 @@
     gap: 8px;
   }
 }
+
+/* API 연동: 카드를 세로로 쌓고, 기존 가로 레이아웃은 top-row에 그대로 유지 */
+.ap-card {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ap-card-top-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.ap-resume-panel {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5edfa;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ap-card-intro {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}

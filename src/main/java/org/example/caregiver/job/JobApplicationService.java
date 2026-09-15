@@ -59,6 +59,17 @@ public class JobApplicationService {
                 .toList();
     }
 
+    public List<MyApplicationResponse> getMyApplications(Long applicantId) {
+        List<JobApplication> applications = jobApplicationRepository.findByApplicantIdOrderByIdDesc(applicantId);
+        Map<Long, Job> jobsById = jobRepository.findAllById(
+                        applications.stream().map(JobApplication::getJobId).toList())
+                .stream()
+                .collect(Collectors.toMap(Job::getId, Function.identity()));
+        return applications.stream()
+                .map(application -> new MyApplicationResponse(application, jobsById.get(application.getJobId())))
+                .toList();
+    }
+
     public JobApplicationResponse updateStatus(Long applicationId, Long requesterId, String status) {
         if (status == null || !ALLOWED_STATUSES.contains(status)) {
             throw new JobApplicationException("상태 값이 올바르지 않습니다.");

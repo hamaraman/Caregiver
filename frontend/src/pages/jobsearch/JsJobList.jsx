@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { JOB_LIST } from '../../data/jobs'
+import { fetchJobs } from '../../api'
 
 const SORT_TABS = ['최신순', '마감임박순', '급여높은순', '인기순']
 const PAGE_SIZE = 15
@@ -13,7 +13,7 @@ const SHIFT_STYLE = {
 
 function JobRow({ job }) {
   const s = SHIFT_STYLE[job.shift] || {}
-  const ddayColor = job.dday <= 3 ? '#e74c3c' : job.dday <= 7 ? '#f39c12' : '#8a9ab5'
+  const ddayColor = job.dday == null ? '#8a9ab5' : job.dday <= 3 ? '#e74c3c' : job.dday <= 7 ? '#f39c12' : '#8a9ab5'
 
   return (
     <Link to={`/job/${job.id}`} className="js-job-row">
@@ -42,7 +42,9 @@ function JobRow({ job }) {
       <div className="js-job-row-right">
         <span className="js-job-row-pay">{job.pay}</span>
         <div className="js-job-row-footer">
-          <span className="js-job-row-dday" style={{ color: ddayColor }}>D-{job.dday}</span>
+          {job.dday != null && (
+            <span className="js-job-row-dday" style={{ color: ddayColor }}>D-{job.dday}</span>
+          )}
           <span className="js-job-row-date">{job.date} 등록</span>
         </div>
       </div>
@@ -51,11 +53,20 @@ function JobRow({ job }) {
 }
 
 export default function JsJobList() {
+  const [jobList, setJobList] = useState([])
+  const [loading, setLoading] = useState(true)
   const [sort, setSort] = useState('최신순')
   const [page, setPage] = useState(1)
 
-  const totalPages = Math.ceil(JOB_LIST.length / PAGE_SIZE)
-  const paged = JOB_LIST.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  useEffect(() => {
+    fetchJobs()
+      .then(list => setJobList([...list].sort((a, b) => b.id - a.id)))
+      .catch(() => setJobList([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const totalPages = Math.ceil(jobList.length / PAGE_SIZE)
+  const paged = jobList.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   return (
     <section className="js-joblist">
@@ -67,7 +78,7 @@ export default function JsJobList() {
       </div>
 
       <div className="js-list-header">
-        <span className="js-list-count">총 <strong>{JOB_LIST.length}</strong>개의 일자리</span>
+        <span className="js-list-count">총 <strong>{jobList.length}</strong>개의 일자리</span>
         <div className="js-sort-tabs">
           {SORT_TABS.map(t => (
             <button
@@ -80,7 +91,12 @@ export default function JsJobList() {
       </div>
 
       <div className="js-rows">
-        {paged.map(job => <JobRow key={job.id} job={job} />)}
+        {loading
+          ? <div className="js-empty">일자리를 불러오는 중입니다...</div>
+          : paged.length === 0
+          ? <div className="js-empty">등록된 일자리가 없습니다.</div>
+          : paged.map(job => <JobRow key={job.id} job={job} />)
+        }
       </div>
 
       <div className="js-pagination">

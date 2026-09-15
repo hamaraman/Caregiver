@@ -1,23 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import HomeNav from './home/HomeNav'
-import { JOB_LIST } from '../data/jobs'
+import { fetchMyApplications } from '../api'
 import './MyApplicationsPage.css'
-
-const MY_APPLIED_IDS = [1, 5, 8, 15, 23]
-const STATUS_MAP = {
-  1:  '검토중',
-  5:  '합격',
-  8:  '검토중',
-  15: '불합격',
-  23: '합격',
-}
-const APPLY_DATES = {
-  1:  '09.06',
-  5:  '09.03',
-  8:  '09.01',
-  15: '08.27',
-  23: '08.20',
-}
 
 const STATUS_STYLE = {
   '검토중': { bg: '#fff8e1', color: '#f59f00' },
@@ -27,16 +11,26 @@ const STATUS_STYLE = {
 
 export default function MyApplicationsPage() {
   const [filter, setFilter] = useState('전체')
-  const myJobs = JOB_LIST.filter(j => MY_APPLIED_IDS.includes(j.id))
+  const [applications, setApplications] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchMyApplications()
+      .then(setApplications)
+      .catch(() => setApplications([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const withJob = applications.filter(a => a.job)
 
   const counts = {
-    전체: myJobs.length,
-    검토중: myJobs.filter(j => STATUS_MAP[j.id] === '검토중').length,
-    합격: myJobs.filter(j => STATUS_MAP[j.id] === '합격').length,
-    불합격: myJobs.filter(j => STATUS_MAP[j.id] === '불합격').length,
+    전체: withJob.length,
+    검토중: withJob.filter(a => a.status === '검토중').length,
+    합격: withJob.filter(a => a.status === '합격').length,
+    불합격: withJob.filter(a => a.status === '불합격').length,
   }
 
-  const filtered = filter === '전체' ? myJobs : myJobs.filter(j => STATUS_MAP[j.id] === filter)
+  const filtered = filter === '전체' ? withJob : withJob.filter(a => a.status === filter)
 
   return (
     <div className="ma-root">
@@ -67,15 +61,16 @@ export default function MyApplicationsPage() {
           </div>
 
           <div className="ma-list">
-            {filtered.length === 0 && (
+            {loading && <div className="ma-empty">불러오는 중입니다...</div>}
+            {!loading && filtered.length === 0 && (
               <div className="ma-empty">해당 상태의 지원 내역이 없습니다.</div>
             )}
-            {filtered.map(job => {
-              const status = STATUS_MAP[job.id]
-              const style = STATUS_STYLE[status]
+            {filtered.map(app => {
+              const job = app.job
+              const style = STATUS_STYLE[app.status] || {}
               return (
-                <div key={job.id} className="ma-row">
-                  <div className="ma-row-logo">{job.facility.charAt(0)}</div>
+                <div key={app.id} className="ma-row">
+                  <div className="ma-row-logo">{(job.facility || job.type).charAt(0)}</div>
                   <div className="ma-row-info">
                     <div className="ma-row-type">{job.type}</div>
                     <div className="ma-row-facility">{job.facility}</div>
@@ -92,9 +87,9 @@ export default function MyApplicationsPage() {
                       className="ma-status-badge"
                       style={{ background: style.bg, color: style.color }}
                     >
-                      {status}
+                      {app.status}
                     </span>
-                    <span className="ma-apply-date">지원일 {APPLY_DATES[job.id]}</span>
+                    <span className="ma-apply-date">지원일 {app.appliedAt}</span>
                   </div>
                 </div>
               )

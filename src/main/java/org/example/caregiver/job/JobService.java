@@ -1,6 +1,7 @@
 package org.example.caregiver.job;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.example.caregiver.auth.User;
@@ -103,9 +104,12 @@ public class JobService {
     }
 
     private List<JobResponse> toResponses(List<Job> jobs, Long viewerUserId) {
-        Set<Long> likedJobIds = jobLikeRepository.likedJobIds(viewerUserId, jobs.stream().map(Job::getId).toList());
+        List<Long> jobIds = jobs.stream().map(Job::getId).toList();
+        Set<Long> likedJobIds = jobLikeRepository.likedJobIds(viewerUserId, jobIds);
+        Map<Long, Long> likeCounts = jobLikeRepository.likeCounts(jobIds);
         return jobs.stream()
-                .map(job -> new JobResponse(job, likedJobIds.contains(job.getId())))
+                .map(job -> new JobResponse(job, likedJobIds.contains(job.getId()),
+                        likeCounts.getOrDefault(job.getId(), 0L)))
                 .toList();
     }
 
@@ -126,7 +130,8 @@ public class JobService {
     }
 
     private JobResponse toResponse(Job job, Long viewerUserId) {
-        return new JobResponse(job, jobLikeRepository.isLiked(viewerUserId, job.getId()));
+        long likeCount = jobLikeRepository.likeCounts(List.of(job.getId())).getOrDefault(job.getId(), 0L);
+        return new JobResponse(job, jobLikeRepository.isLiked(viewerUserId, job.getId()), likeCount);
     }
 
     private void validate(JobCreateRequest request) {

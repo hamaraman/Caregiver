@@ -78,6 +78,7 @@ function normalizeJob(job) {
     ownerId: job.ownerId,
     liked: !!job.liked,
     closed: !!job.closed,
+    likeCount: job.likeCount || 0,
     title: job.title || '',
     shift: deriveShift(job.hours),
     type: job.jobType || job.title || '채용공고',

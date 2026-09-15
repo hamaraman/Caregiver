@@ -1,6 +1,7 @@
 package org.example.caregiver.job;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,6 +31,15 @@ public class JobLikeRepository {
         return jobLikeJpaRepository.findByUserIdAndJobIdIn(userId, jobIds).stream()
                 .map(JobLike::getJobId)
                 .collect(Collectors.toSet());
+    }
+
+    /** 목록 조회 시 공고마다 좋아요 수를 따로 쿼리하지 않도록 한 번에 조회한다. */
+    public Map<Long, Long> likeCounts(Collection<Long> jobIds) {
+        if (jobIds.isEmpty()) {
+            return Map.of();
+        }
+        return jobLikeJpaRepository.countGroupedByJobIds(jobIds).stream()
+                .collect(Collectors.toMap(JobLikeCount::getJobId, JobLikeCount::getCount));
     }
 
     public void like(Long userId, Long jobId) {

@@ -46,6 +46,20 @@ function matchesCareer(job, career) {
   return max == null || expNum(job.experience) <= max
 }
 
+function sortJobs(jobs, sort) {
+  const arr = [...jobs]
+  if (sort === '마감임박순') {
+    return arr.sort((a, b) => (a.dday ?? Infinity) - (b.dday ?? Infinity))
+  }
+  if (sort === '급여높은순') {
+    return arr.sort((a, b) => (parsePay(b.pay)?.amount ?? -1) - (parsePay(a.pay)?.amount ?? -1))
+  }
+  if (sort === '인기순') {
+    return arr.sort((a, b) => b.likeCount - a.likeCount || b.id - a.id)
+  }
+  return arr.sort((a, b) => b.id - a.id)
+}
+
 function matchesWorkType(job, workTypes) {
   if (!workTypes || workTypes.includes('전체')) return true
   return workTypes.some(t => {
@@ -120,9 +134,10 @@ export default function JsJobList({ region, keyword = '', jobType = '', workType
     .filter(j => matchesWorkType(j, workTypes))
     .filter(j => matchesSalary(j, salary))
     .filter(j => matchesCareer(j, career))
+  const sorted = sortJobs(filtered, sort)
 
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
-  const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const totalPages = Math.ceil(sorted.length / PAGE_SIZE)
+  const paged = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   return (
     <section className="js-joblist">

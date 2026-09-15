@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import HomeNav from './home/HomeNav'
+import AuthGuard from '../components/AuthGuard'
 import { fetchMyApplications } from '../api'
 import './MyApplicationsPage.css'
 
@@ -35,6 +36,7 @@ export default function MyApplicationsPage() {
   return (
     <div className="ma-root">
       <HomeNav />
+      <AuthGuard>
 
       <div className="ma-hero">
         <div className="ma-hero-inner">
@@ -98,6 +100,7 @@ export default function MyApplicationsPage() {
 
         </div>
       </div>
+      </AuthGuard>
     </div>
   )
 }

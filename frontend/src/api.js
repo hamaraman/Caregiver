@@ -96,8 +96,9 @@ function normalizeJob(job) {
   }
 }
 
-export async function fetchJobs() {
-  const jobs = await request('/api/jobs')
+export async function fetchJobs(region) {
+  const query = region ? `?region=${encodeURIComponent(region)}` : ''
+  const jobs = await request(`/api/jobs${query}`)
   return (jobs || []).map(normalizeJob)
 }
 
@@ -144,4 +145,44 @@ export async function fetchMyApplications() {
 
 export function fetchApplicantResume(userId) {
   return request(`/api/resumes/${userId}`).catch(() => null)
+}
+
+// Adapts a backend CaregiverResponse into the richer shape the talent listing/detail pages render.
+// Fields the backend doesn't track yet get a safe fallback.
+function normalizeCaregiver(caregiver) {
+  const location = caregiver.regionName || ''
+  return {
+    id: caregiver.id,
+    name: caregiver.name || '',
+    gender: caregiver.gender || '미상',
+    age: caregiver.age ?? null,
+    region: location ? location.split(' ')[0] : '',
+    location,
+    jobType: caregiver.jobType || caregiver.specialty || '요양보호사',
+    certs: caregiver.certs && caregiver.certs.length ? caregiver.certs : ['등록된 자격증 정보가 없습니다.'],
+    education: caregiver.education || '정보 없음',
+    experience: caregiver.experience || '신입',
+    workHistory: (caregiver.workHistory || []).map(h => ({ place: h.place, period: h.period, role: h.role })),
+    workType: caregiver.workType || '협의',
+    wageType: caregiver.wageType || '시급',
+    wageAmount: caregiver.wageAmount || 0,
+    wishRegion: caregiver.wishRegion || location || '전국',
+    wishDays: caregiver.wishDays && caregiver.wishDays.length ? caregiver.wishDays : ['협의'],
+    wishHours: caregiver.wishHours || '협의 가능',
+    intro: caregiver.intro || '등록된 자기소개가 없습니다.',
+    status: caregiver.status || '구직중',
+    date: caregiver.date || '',
+    phone: caregiver.phone || null,
+  }
+}
+
+export async function fetchCaregivers(region) {
+  const query = region ? `?region=${encodeURIComponent(region)}` : ''
+  const caregivers = await request(`/api/caregivers${query}`)
+  return (caregivers || []).map(normalizeCaregiver)
+}
+
+export async function fetchCaregiver(id) {
+  const caregiver = await request(`/api/caregivers/${id}`)
+  return caregiver ? normalizeCaregiver(caregiver) : null
 }

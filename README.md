@@ -75,3 +75,5 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - `api.js`에 `normalizeJob` 어댑터를 추가해 `JobResponse` 필드를 프론트 UI가 기대하던 형태(shift/dday/tags 등)로 변환
 - 지원자 관리, 내 지원 내역, 공고 관리, 최근 본/찜한 일자리 페이지도 실제 API 응답 기반으로 전환
 - 백엔드에 `GET /api/applications/mine`(`MyApplicationResponse`) 추가
+- 구인공고 목록 상단의 인기지역 칩과 사이드바 지역 필터가 실제로 `/api/jobs?region=` 필터링을 호출하도록 연동
+- 인재 목록/상세 화면도 mock(`data/talents.js`) 대신 `/api/caregivers`로 연동. UI가 필요로 하는 성별/나이/자격증/희망근무조건/근무이력 등 필드가 `Caregiver` 엔티티에 없어서 전부 선택 필드로 추가하고 `GET /api/caregivers/{id}` 단건 조회도 신설

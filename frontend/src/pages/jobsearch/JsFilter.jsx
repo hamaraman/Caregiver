@@ -6,8 +6,7 @@ const WORK_TYPES = ['전체', '주간', '야간', '교대', '파트타임']
 const SALARIES = ['전체', '시급 10,000원~', '시급 11,000원~', '시급 12,000원~', '월급 1,000,000원~', '월급 1,500,000원~']
 const CAREERS = ['전체 선택', '신입 가능', '1년 미만', '1년 이상', '3년 이상', '5년 이상']
 
-export default function JsFilter({ onSearch }) {
-  const [region, setRegion] = useState('')
+export default function JsFilter({ region, onRegionChange }) {
   const [job, setJob] = useState('')
   const [workTypes, setWorkTypes] = useState(['전체'])
   const [salary, setSalary] = useState('')
@@ -22,7 +21,7 @@ export default function JsFilter({ onSearch }) {
   }
 
   const reset = () => {
-    setRegion(''); setJob(''); setWorkTypes(['전체']); setSalary(''); setCareer('')
+    onRegionChange(''); setJob(''); setWorkTypes(['전체']); setSalary(''); setCareer('')
   }
 
   return (
@@ -52,7 +51,7 @@ export default function JsFilter({ onSearch }) {
           <svg className="js-filter-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div className="js-filter-select-wrap">
-          <select className="js-filter-select" value={region} onChange={e => setRegion(e.target.value)}>
+          <select className="js-filter-select" value={region} onChange={e => onRegionChange(e.target.value)}>
             <option value="">지역을 선택해주세요</option>
             {REGIONS.map(r => <option key={r} value={r}>{r}</option>)}
           </select>
@@ -132,7 +131,7 @@ export default function JsFilter({ onSearch }) {
         </div>
       </div>
 
-      <button className="js-filter-search-btn" onClick={onSearch}>
+      <button className="js-filter-search-btn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
         </svg>

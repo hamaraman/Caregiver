@@ -3,7 +3,9 @@ package org.example.caregiver.controller;
 import org.example.caregiver.model.Caregiver;
 import org.example.caregiver.model.RegionQuery;
 import org.example.caregiver.repository.CaregiverRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,5 +28,13 @@ public class CaregiverController {
                 ? caregiverRepository.findAllByOrderByIdDesc()
                 : caregiverRepository.findByRegion_NameStartingWithOrderByIdDesc(normalizedRegion);
         return caregivers.stream().map(CaregiverResponse::new).toList();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CaregiverResponse> getCaregiver(@PathVariable Long id) {
+        return caregiverRepository.findById(id)
+                .map(CaregiverResponse::new)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

@@ -52,18 +52,20 @@ function JobRow({ job }) {
   )
 }
 
-export default function JsJobList() {
+export default function JsJobList({ region }) {
   const [jobList, setJobList] = useState([])
   const [loading, setLoading] = useState(true)
   const [sort, setSort] = useState('최신순')
   const [page, setPage] = useState(1)
 
   useEffect(() => {
-    fetchJobs()
+    setLoading(true)
+    setPage(1)
+    fetchJobs(region)
       .then(list => setJobList([...list].sort((a, b) => b.id - a.id)))
       .catch(() => setJobList([]))
       .finally(() => setLoading(false))
-  }, [])
+  }, [region])
 
   const totalPages = Math.ceil(jobList.length / PAGE_SIZE)
   const paged = jobList.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)

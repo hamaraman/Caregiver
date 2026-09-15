@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './JobSearchPage.css'
 import HomeNav from './home/HomeNav'
 import JsHero from './jobsearch/JsHero'
@@ -6,16 +7,16 @@ import JsJobList from './jobsearch/JsJobList'
 import JsSidebar from './jobsearch/JsSidebar'
 
 export default function JobSearchPage() {
-  const handleSearch = () => {}
+  const [region, setRegion] = useState('')
 
   return (
     <div className="js-root">
       <HomeNav />
-      <JsHero />
+      <JsHero region={region} onRegionChange={setRegion} />
       <div className="js-body">
         <div className="js-body-inner">
-          <JsFilter onSearch={handleSearch} />
-          <JsJobList />
+          <JsFilter region={region} onRegionChange={setRegion} />
+          <JsJobList region={region} />
           <JsSidebar />
         </div>
       </div>

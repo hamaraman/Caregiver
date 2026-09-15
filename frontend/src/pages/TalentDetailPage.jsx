@@ -1,14 +1,32 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { talents } from '../data/talents'
+import { useState, useEffect } from 'react'
+import { fetchCaregiver } from '../api'
 import Header from '../components/Header'
 import './TalentDetailPage.css'
 
 export default function TalentDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const talent = talents.find(t => t.id === Number(id))
+  const [talent, setTalent] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [contactVisible, setContactVisible] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    fetchCaregiver(id)
+      .then(setTalent)
+      .catch(() => setTalent(null))
+      .finally(() => setLoading(false))
+  }, [id])
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="td-not-found">인재 정보를 불러오는 중입니다...</div>
+      </>
+    )
+  }
 
   if (!talent) {
     return (
@@ -127,7 +145,7 @@ export default function TalentDetailPage() {
               {contactVisible
                 ? <div className="td-contact-info">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.17-1.17a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    로그인 후 확인 가능합니다.
+                    {talent.phone || '연락처가 등록되지 않았습니다.'}
                   </div>
                 : <button className="td-contact-btn" onClick={() => setContactVisible(true)}>
                     연락처 확인하기

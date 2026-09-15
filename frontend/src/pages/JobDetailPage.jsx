@@ -1,7 +1,8 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { fetchJob } from '../api'
 import { addRecentJob, isWishlisted, toggleWishlist } from '../hooks/useJobStorage'
+import HomeNav from './home/HomeNav'
 import './JobDetailPage.css'
 
 const SHIFT_STYLE = {
@@ -12,8 +13,13 @@ const SHIFT_STYLE = {
 
 export default function JobDetailPage() {
   const { id } = useParams()
+main-merged
   const [job, setJob] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  const navigate = useNavigate()
+  const job = JOB_LIST.find(j => j.id === Number(id))
+main
   const [liked, setLiked] = useState(() => isWishlisted(Number(id)))
 
   useEffect(() => {
@@ -31,10 +37,13 @@ export default function JobDetailPage() {
 
   if (!job) {
     return (
-      <div className="jd-not-found">
-        <p>존재하지 않는 공고입니다.</p>
-        <Link to="/jobseeker" className="jd-back-link">← 목록으로 돌아가기</Link>
-      </div>
+      <>
+        <HomeNav />
+        <div className="jd-not-found">
+          <p>존재하지 않는 공고입니다.</p>
+          <button className="jd-back-link" onClick={() => navigate(-1)}>← 목록으로 돌아가기</button>
+        </div>
+      </>
     )
   }
 
@@ -42,9 +51,10 @@ export default function JobDetailPage() {
 
   return (
     <div className="jd-page">
+      <HomeNav />
       <div className="jd-inner">
 
-        <Link to="/jobseeker" className="jd-back-link">← 목록으로 돌아가기</Link>
+        <button className="jd-back-link" onClick={() => navigate(-1)}>← 목록으로 돌아가기</button>
 
         <div className="jd-layout">
 

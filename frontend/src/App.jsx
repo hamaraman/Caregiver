@@ -17,6 +17,7 @@ import EmployerHomePage from './pages/EmployerHomePage'
 import MyApplicationsPage from './pages/MyApplicationsPage'
 import RecentJobsPage from './pages/RecentJobsPage'
 import WishlistPage from './pages/WishlistPage'
+import SupportPage from './pages/SupportPage'
 import ScrollToTop from './components/ScrollToTop'
 import Footer from './components/Footer'
 import './App.css'
@@ -43,6 +44,7 @@ function App() {
         <Route path="/my-applications" element={<MyApplicationsPage />} />
         <Route path="/recent-jobs" element={<RecentJobsPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/support" element={<SupportPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />

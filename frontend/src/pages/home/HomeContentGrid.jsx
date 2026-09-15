@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchJobs, fetchCaregivers } from '../../api'
+import { fetchJobs, fetchJobSeekers } from '../../api'
 import { NOTICES } from '../../data/notices'
 
 const REGION_TABS = ['전체', '서울', '경기', '인천', '대구', '광주', '울산']
@@ -32,7 +32,7 @@ export default function HomeContentGrid() {
 
   useEffect(() => {
     fetchJobs().then(setJobs).catch(() => setJobs([]))
-    fetchCaregivers().then(setCaregivers).catch(() => setCaregivers([]))
+    fetchJobSeekers().then(setCaregivers).catch(() => setCaregivers([]))
   }, [])
 
   const popularHireRegions = useMemo(() => rankByRegion(jobs, regionTab), [jobs, regionTab])
@@ -144,7 +144,7 @@ export default function HomeContentGrid() {
                       <span className="hp-listing-title">{c.jobType} · {c.name}</span>
                       <span className="hp-listing-ago">{c.date}</span>
                     </div>
-                    <p className="hp-listing-sub">{c.location} · <span className="hp-listing-pay">{c.wageType} {c.wageAmount.toLocaleString()}원</span> · {c.experience}</p>
+                    <p className="hp-listing-sub">{c.location} · <span className="hp-listing-pay">{c.wageLabel}</span> · {c.experience}</p>
                   </Link>
                 </li>
               )))

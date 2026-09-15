@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchJobs, fetchCaregivers } from '../../api'
+import { fetchJobs, fetchJobSeekers } from '../../api'
 
 function todayMMdd() {
   const d = new Date()
@@ -19,7 +19,7 @@ export default function HomeTodayStats() {
   const [stats, setStats] = useState(null)
 
   useEffect(() => {
-    Promise.all([fetchJobs(), fetchCaregivers()]).then(([jobs, caregivers]) => {
+    Promise.all([fetchJobs(), fetchJobSeekers()]).then(([jobs, caregivers]) => {
       const today = todayMMdd()
       setStats({
         newJobs: jobs.filter(j => j.date === today).length,

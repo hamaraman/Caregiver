@@ -12,7 +12,7 @@ export default function JrForm() {
   const navigate = useNavigate()
   const [activeStep] = useState(0)
   const [form, setForm] = useState({
-    name: '', phone: '', birth: '', region: '',
+    name: '', phone: '', birth: '', gender: '여', region: '',
     workRegions: [], workTypes: [], salary: '',
     cert: '', isNew: true, expPeriod: '',
     intro: '',
@@ -29,6 +29,7 @@ export default function JrForm() {
         name: resume.name || '',
         phone: resume.phone || '',
         birth: resume.birth || '',
+        gender: resume.gender || '여',
         region: resume.region || '',
         workRegions: resume.workRegion ? resume.workRegion.split(',').map(s => s.trim()).filter(Boolean) : [],
         workTypes: resume.workTypes || [],
@@ -73,6 +74,7 @@ export default function JrForm() {
         name: form.name,
         phone: form.phone,
         birth: form.birth,
+        gender: form.gender,
         region: form.region,
         workRegion: form.workRegions.join(', '),
         workTypes: form.workTypes,
@@ -135,7 +137,20 @@ export default function JrForm() {
             </div>
           </div>
         </div>
-        <div className="jr-row-1">
+        <div className="jr-row-3">
+          <div className="jr-field">
+            <label className="jr-label">성별 <span className="jr-req">*</span></label>
+            <div className="jr-radio-group">
+              <label className={`jr-radio ${form.gender === '여' ? 'active' : ''}`}>
+                <input type="radio" name="gender" checked={form.gender === '여'} onChange={() => update('gender', '여')} />
+                <span>여성</span>
+              </label>
+              <label className={`jr-radio ${form.gender === '남' ? 'active' : ''}`}>
+                <input type="radio" name="gender" checked={form.gender === '남'} onChange={() => update('gender', '남')} />
+                <span>남성</span>
+              </label>
+            </div>
+          </div>
           <div className="jr-field">
             <label className="jr-label">거주지 <span className="jr-req">*</span></label>
             <div className="jr-select-wrap">

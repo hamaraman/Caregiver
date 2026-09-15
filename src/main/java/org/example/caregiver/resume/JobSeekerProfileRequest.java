@@ -8,6 +8,7 @@ public class JobSeekerProfileRequest {
     private String name;
     private String phone;
     private String birth;
+    private String gender;
     private String region;
     private String workRegion;
     private List<String> workTypes;
@@ -39,6 +40,14 @@ public class JobSeekerProfileRequest {
 
     public void setBirth(String birth) {
         this.birth = birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getRegion() {

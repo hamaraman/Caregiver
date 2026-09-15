@@ -1,6 +1,7 @@
 package org.example.caregiver.resume;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
 import org.example.caregiver.auth.AuthService;
 import org.example.caregiver.auth.User;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,18 @@ public class JobSeekerProfileController {
     public ResponseEntity<JobSeekerProfileResponse> getMine(HttpServletRequest httpRequest) {
         User user = requireLoggedInUser(httpRequest);
         return jobSeekerProfileService.getMine(user.getId())
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping
+    public List<JobSeekerProfileResponse> listAll() {
+        return jobSeekerProfileService.getAll();
+    }
+
+    @GetMapping("/public/{id}")
+    public ResponseEntity<JobSeekerProfileResponse> getPublicProfile(@PathVariable Long id) {
+        return jobSeekerProfileService.getPublicProfile(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

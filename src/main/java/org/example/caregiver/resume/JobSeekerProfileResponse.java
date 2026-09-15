@@ -9,7 +9,9 @@ public class JobSeekerProfileResponse {
     private final String name;
     private final String phone;
     private final String birth;
+    private final String gender;
     private final String region;
+    private final String date;
     private final String workRegion;
     private final List<String> workTypes;
     private final String salary;
@@ -23,7 +25,9 @@ public class JobSeekerProfileResponse {
         this.name = profile.getName();
         this.phone = profile.getPhone();
         this.birth = profile.getBirth();
+        this.gender = profile.getGender();
         this.region = profile.getRegion();
+        this.date = profile.getDate();
         this.workRegion = profile.getWorkRegion();
         this.workTypes = profile.getWorkTypes();
         this.salary = profile.getSalary();
@@ -49,8 +53,16 @@ public class JobSeekerProfileResponse {
         return birth;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
     public String getRegion() {
         return region;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public String getWorkRegion() {

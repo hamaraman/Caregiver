@@ -1,3 +1,5 @@
+import { Link, useNavigate } from 'react-router-dom'
+
 const FAQ_ITEMS = [
   '구직 등록은 어떻게 하나요?',
   '등록한 정보는 언제까지 유지되나요?',
@@ -6,6 +8,7 @@ const FAQ_ITEMS = [
 ]
 
 export default function JrSidebar() {
+  const navigate = useNavigate()
   return (
     <aside className="jr-sidebar">
       {/* 구직 등록 안내 */}
@@ -39,7 +42,7 @@ export default function JrSidebar() {
             <p className="jr-banner-sub">다양한 요양시설의 채용 정보를<br />한눈에 확인할 수 있습니다.</p>
           </div>
         </div>
-        <button className="jr-banner-btn">
+        <button className="jr-banner-btn" onClick={() => navigate('/jobs')}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </div>
@@ -51,7 +54,7 @@ export default function JrSidebar() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             자주 묻는 질문
           </h4>
-          <button className="jr-more-link">더보기 ›</button>
+          <Link to="/support?tab=faq" className="jr-more-link">더보기 ›</Link>
         </div>
         <ul className="jr-faq-list">
           {FAQ_ITEMS.map(q => (

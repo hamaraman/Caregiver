@@ -10,7 +10,7 @@ import JsSidebar from './jobsearch/JsSidebar'
 export default function JobSearchPage() {
   const [searchParams] = useSearchParams()
   const [region, setRegion] = useState(searchParams.get('region') || '')
-  const keyword = searchParams.get('q') || ''
+  const [keyword, setKeyword] = useState(searchParams.get('q') || '')
   const [jobType, setJobType] = useState('')
   const [workTypes, setWorkTypes] = useState(['전체'])
   const [salary, setSalary] = useState('')
@@ -23,7 +23,7 @@ export default function JobSearchPage() {
   return (
     <div className="js-root">
       <HomeNav />
-      <JsHero region={region} onRegionChange={setRegion} />
+      <JsHero region={region} onRegionChange={setRegion} keyword={keyword} onKeywordChange={setKeyword} />
       <div className="js-body">
         <div className="js-body-inner">
           <JsFilter

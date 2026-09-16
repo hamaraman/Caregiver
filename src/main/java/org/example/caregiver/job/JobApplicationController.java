@@ -41,6 +41,12 @@ public class JobApplicationController {
         return jobApplicationService.getApplicantsForJob(jobId, user.getId());
     }
 
+    @GetMapping("/applications/mine")
+    public List<MyApplicationResponse> getMyApplications(HttpServletRequest httpRequest) {
+        User user = requireLoggedInUser(httpRequest);
+        return jobApplicationService.getMyApplications(user.getId());
+    }
+
     @PatchMapping("/applications/{id}/status")
     public JobApplicationResponse updateStatus(@PathVariable Long id, @RequestBody StatusUpdateRequest request,
                                                 HttpServletRequest httpRequest) {

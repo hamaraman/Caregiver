@@ -1,0 +1,34 @@
+.footer {
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 20px 0 18px;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: #666;
+  text-decoration: none;
+}
+.footer-links a:hover { color: #4A8FE7; }
+
+.footer-links span {
+  color: #ccc;
+  font-size: 12px;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}

@@ -1,0 +1,176 @@
+import { useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import '../HomePage.css'
+import { fetchCurrentUser, logout } from '../../api'
+
+const NAV_ITEMS = [
+  { label: '홈', path: '/',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
+    sub: [] },
+  { label: '구직', path: '/jobseeker',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>,
+    sub: [
+      { label: '일자리 찾기', path: '/jobs' },
+      { label: '구직 등록', path: '/job-register' },
+      { label: '지원 현황', path: '/my-applications' },
+    ] },
+  { label: '구인', path: '/employer',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    sub: [
+      { label: '구인공고 목록', path: '/listings' },
+      { label: '구인 공고 등록', path: '/jobs/post' },
+      { label: '지원자 확인', path: '/applicants' },
+      { label: '채용 관리', path: '/manage' },
+      { label: '맞춤 인재 추천', path: '/talents' },
+    ] },
+  // { label: '커뮤니티', path: '/community',
+  //   icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
+  //   sub: [
+  //     { label: '자유게시판', path: null },
+  //     { label: '취업 후기', path: null },
+  //     { label: '자격증 정보', path: null },
+  //     { label: 'Q&A', path: null },
+  //   ] },
+  { label: '고객센터', path: '/support',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.5a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
+    sub: [
+      { label: '공지사항', path: '/support' },
+      { label: 'FAQ', path: '/support' },
+      { label: '1:1 문의', path: '/support' },
+    ] },
+]
+
+export default function HomeNav() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [activeNav, setActiveNav] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    fetchCurrentUser().then(setUser).catch(() => setUser(null))
+  }, [])
+
+  const handleLogout = async () => {
+    await logout().catch(() => {})
+    setUser(null)
+  }
+
+  const isActive = (path) =>
+    path === '/' ? location.pathname === '/' : location.pathname === path
+
+  return (
+    <nav className="hp-nav">
+      <div className="hp-nav-inner">
+        <Link to="/" className="hp-logo" style={{ textDecoration: 'none' }}>
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+            <rect width="38" height="38" rx="10" fill="#4A8FE7"/>
+            <text x="19" y="25" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" fontFamily="sans-serif">YE</text>
+          </svg>
+          <div className="hp-logo-text">
+            <span className="hp-logo-tagline">전국 요양·돌봄 일자리 플랫폼</span>
+            <span className="hp-logo-name">요양이지</span>
+          </div>
+        </Link>
+
+        <ul className="hp-nav-list">
+          {NAV_ITEMS.map(item => (
+            <li key={item.label} className="hp-nav-group"
+              onMouseEnter={() => setActiveNav(item.label)}
+              onMouseLeave={() => setActiveNav(null)}
+            >
+              <button className={`hp-nav-btn ${isActive(item.path) ? 'active' : ''}`} onClick={() => navigate(item.path)}>
+                <span className="hp-nav-icon">{item.icon}</span>
+                <span className="hp-nav-label" data-text={item.label}>{item.label}</span>
+                {item.sub.length > 0 && <span className="hp-nav-caret">▾</span>}
+              </button>
+              {item.sub.length > 0 && activeNav === item.label && (
+                <div className="hp-dropdown">
+                  {item.sub.map(s => (
+                    s.path
+                      ? <Link key={s.label} to={s.path} className="hp-dropdown-item">{s.label}</Link>
+                      : <button key={s.label} className="hp-dropdown-item">{s.label}</button>
+                  ))}
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <div className="hp-nav-actions">
+          <button className="hp-btn-search" aria-label="검색" onClick={() => navigate('/jobs')}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+          <span className="hp-nav-desktop-only">
+            {user ? (
+              <>
+                <span className="hp-user-greeting">{user.name || user.email}님</span>
+                <button className="hp-btn-login" onClick={handleLogout}>로그아웃</button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="hp-btn-login">로그인</Link>
+                <Link to="/signup" className="hp-btn-signup">회원가입</Link>
+              </>
+            )}
+          </span>
+          <button className="hp-hamburger" onClick={() => setMenuOpen(true)} aria-label="메뉴 열기">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {menuOpen && (
+        <div className="hp-mobile-overlay" onClick={() => setMenuOpen(false)}>
+          <div className="hp-mobile-menu" onClick={e => e.stopPropagation()}>
+            <div className="hp-mobile-menu-header">
+              <Link to="/" className="hp-logo" style={{ textDecoration: 'none' }} onClick={() => setMenuOpen(false)}>
+                <svg width="28" height="28" viewBox="0 0 38 38" fill="none"><rect width="38" height="38" rx="10" fill="#4A8FE7"/><text x="19" y="25" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" fontFamily="sans-serif">YE</text></svg>
+                <span className="hp-logo-name" style={{ fontSize: '15px' }}>요양이지</span>
+              </Link>
+              <button className="hp-mobile-close" onClick={() => setMenuOpen(false)} aria-label="메뉴 닫기">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+
+            <nav className="hp-mobile-nav">
+              {NAV_ITEMS.map(item => (
+                <div key={item.label} className="hp-mobile-nav-group">
+                  <button className="hp-mobile-nav-item" onClick={() => { navigate(item.path); setMenuOpen(false) }}>
+                    <span className="hp-mobile-nav-icon">{item.icon}</span>
+                    {item.label}
+                  </button>
+                  {item.sub.map(s => (
+                    <Link key={s.label} to={s.path} className="hp-mobile-sub-item" onClick={() => setMenuOpen(false)}>
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </nav>
+
+            <div className="hp-mobile-menu-footer">
+              {user ? (
+                <>
+                  <span className="hp-mobile-user">{user.name || user.email}님</span>
+                  <button className="hp-mobile-logout" onClick={() => { handleLogout(); setMenuOpen(false) }}>로그아웃</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="hp-mobile-login-btn" onClick={() => setMenuOpen(false)}>로그인</Link>
+                  <Link to="/signup" className="hp-mobile-signup-btn" onClick={() => setMenuOpen(false)}>회원가입</Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  )
+}

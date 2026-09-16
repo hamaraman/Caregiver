@@ -31,6 +31,9 @@ public class JobApplicationService {
     public JobApplicationResponse apply(Long jobId, Long applicantId) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new JobApplicationException("존재하지 않는 공고입니다."));
+        if (job.isClosed()) {
+            throw new JobApplicationException("마감된 공고입니다.");
+        }
         if (jobApplicationRepository.existsByJobIdAndApplicantId(jobId, applicantId)) {
             throw new JobApplicationException("이미 지원한 공고입니다.");
         }
@@ -56,6 +59,17 @@ public class JobApplicationService {
                 .collect(Collectors.toMap(User::getId, Function.identity()));
         return applications.stream()
                 .map(application -> new JobApplicationResponse(application, applicantsById.get(application.getApplicantId())))
+                .toList();
+    }
+
+    public List<MyApplicationResponse> getMyApplications(Long applicantId) {
+        List<JobApplication> applications = jobApplicationRepository.findByApplicantIdOrderByIdDesc(applicantId);
+        Map<Long, Job> jobsById = jobRepository.findAllById(
+                        applications.stream().map(JobApplication::getJobId).toList())
+                .stream()
+                .collect(Collectors.toMap(Job::getId, Function.identity()));
+        return applications.stream()
+                .map(application -> new MyApplicationResponse(application, jobsById.get(application.getJobId())))
                 .toList();
     }
 

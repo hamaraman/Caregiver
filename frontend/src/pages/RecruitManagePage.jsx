@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
 import { fetchMyJobs, fetchApplicantsForJob, closeJob as closeJobApi, reopenJob as reopenJobApi } from '../api'
 import './RecruitManagePage.css'
 
 export default function RecruitManagePage() {
+  const navigate = useNavigate()
   const [myJobs, setMyJobs] = useState([])
   const [applicantsByJob, setApplicantsByJob] = useState({})
   const [loading, setLoading] = useState(true)
@@ -119,7 +120,7 @@ export default function RecruitManagePage() {
               const closed = isClosed(job.id)
               const appCnt = countApplicants(job.id)
               return (
-                <div key={job.id} className={`rm-card${closed ? ' rm-card--closed' : ''}`}>
+                <div key={job.id} className={`rm-card${closed ? ' rm-card--closed' : ''}`} onClick={() => navigate(`/manage/${job.id}`)} style={{ cursor: 'pointer' }}>
                   <div className="rm-card-top">
                     <div className="rm-card-info">
                       <div className="rm-card-title-row">
@@ -151,7 +152,7 @@ export default function RecruitManagePage() {
                     </div>
                   </div>
 
-                  <div className="rm-card-footer">
+                  <div className="rm-card-footer" onClick={e => e.stopPropagation()}>
                     <Link to={`/job/${job.id}`} className="rm-btn rm-btn--ghost">
                       공고 보기
                     </Link>

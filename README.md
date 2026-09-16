@@ -81,6 +81,13 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - `/listings` 공고 링크 경로 오류 수정 (`/jobs/:id` → `/job/:id`)
 - 구인공고 등록 페이지(`/jobs/post`) 히어로 배너 추가, 레이아웃 개선
 
+### 2026-09-16
+- 채용관리 상세 페이지(/manage/:id) 추가: 공고 요약 + 합격자 카드 목록 + HiredWorkerModal
+- 지원자확인 상세 페이지(/applicants/:id) 추가: 공고 요약 + 전체 지원자 카드 + 상태 변경
+- ApplicantModal 공유 컴포넌트 추가 (지원자 이력서 팝업)
+- HiredWorkerModal 공유 컴포넌트 추가 (합격자 고용 관리 모달)
+- 채용관리 카드 클릭 시 상세 페이지(/manage/:id)로 이동하도록 연결
+
 ### 2026-09-15
 - 프론트엔드 구인공고 목록/상세 화면이 mock 데이터(`data/jobs.js` 등) 대신 실제 백엔드 API(`/api/jobs`)를 사용하도록 연동
 - `api.js`에 `normalizeJob` 어댑터를 추가해 `JobResponse` 필드를 프론트 UI가 기대하던 형태(shift/dday/tags 등)로 변환

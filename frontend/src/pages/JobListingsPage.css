@@ -608,7 +608,7 @@
 .jl2-filter-header { display: none; }         /* 데스크탑: 헤더 숨김 */
 
 /* 데스크탑 초기화 버튼 (필터 수 > 0 일 때만 표시) */
-.jl2-filter-desktop-reset {
+.jl2-filter-reset-btn {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -624,7 +624,7 @@
   border-bottom: 1px solid #e8eff8;
   transition: color 0.15s;
 }
-.jl2-filter-desktop-reset:hover { color: #4A8FE7; }
+.jl2-filter-reset-btn:hover { color: #4A8FE7; }
 
 /* ===================== 모바일 필터 토글 (기본: 숨김) ===================== */
 .jl2-filter-mobile-toggle { display: none; }
@@ -670,8 +670,6 @@
   /* 모바일: 필터 바디 기본 숨김, 열렸을 때만 표시 */
   .jl2-filter-body { display: none; }
   .jl2-filter--open .jl2-filter-body { display: block; margin-top: 14px; }
-  /* 데스크탑 초기화 버튼 모바일에서 숨김 */
-  .jl2-filter-desktop-reset { display: none; }
 
   .jl2-region-panel { width: calc(100vw - 40px); max-width: 360px; }
   .jl2-job-row-tags { display: none; }

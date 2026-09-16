@@ -3,9 +3,14 @@ package org.example.caregiver;
 import org.example.caregiver.auth.User;
 import org.example.caregiver.auth.UserRepository;
 import org.example.caregiver.job.Job;
+import org.example.caregiver.job.JobApplication;
+import org.example.caregiver.job.JobApplicationRepository;
 import org.example.caregiver.job.JobRepository;
+import java.util.List;
 import org.example.caregiver.model.Region;
 import org.example.caregiver.repository.RegionRepository;
+import org.example.caregiver.resume.JobSeekerProfile;
+import org.example.caregiver.resume.JobSeekerProfileRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -16,13 +21,18 @@ public class DataInitializer implements CommandLineRunner {
     private final RegionRepository regionRepository;
     private final UserRepository userRepository;
     private final JobRepository jobRepository;
+    private final JobApplicationRepository jobApplicationRepository;
+    private final JobSeekerProfileRepository jobSeekerProfileRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public DataInitializer(RegionRepository regionRepository, UserRepository userRepository,
-                            JobRepository jobRepository) {
+                            JobRepository jobRepository, JobApplicationRepository jobApplicationRepository,
+                            JobSeekerProfileRepository jobSeekerProfileRepository) {
         this.regionRepository = regionRepository;
         this.userRepository = userRepository;
         this.jobRepository = jobRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
+        this.jobSeekerProfileRepository = jobSeekerProfileRepository;
     }
 
     @Override
@@ -44,6 +54,33 @@ public class DataInitializer implements CommandLineRunner {
             jobRepository.save(new Job(null, "요양보호사 (오후)", null, null, "인천 남동구",
                     "시급 13,000원", "13:00~18:00", "주 5일", "09.05",
                     owner1, "강남재가복지센터", "인천 남동구 요양보호사 모집 (오후)", incheon));
+        }
+
+        if (jobApplicationRepository.count() == 0) {
+            List<Job> ownerJobs = jobRepository.findByOwnerIdOrderByIdDesc(owner1.getId());
+            if (!ownerJobs.isEmpty()) {
+                User seeker1 = getOrCreatePersonalUser("miyoung@example.com", "김미영");
+                User seeker2 = getOrCreatePersonalUser("soonja@example.com", "최순자");
+                User seeker3 = getOrCreatePersonalUser("myunghee@example.com", "장명희");
+                User seeker4 = getOrCreatePersonalUser("kyungsook@example.com", "이경숙");
+
+                getOrCreateResume(seeker1, "여", "1976-03-12", "경기 성남시", "서울 강남·서초",
+                        List.of("출·퇴근형"), "시급 13,500원", "요양보호사 1급", false, "3년 이상",
+                        "성실하고 책임감 있는 요양보호사입니다.");
+                getOrCreateResume(seeker2, "여", "1964-07-22", "서울 송파구", "서울 강남·서초·송파",
+                        List.of("출·퇴근형", "입주형"), "시급 15,000원", "요양보호사 1급", false, "10년 이상",
+                        "오랜 경력을 바탕으로 어르신을 정성껏 돌봅니다.");
+                getOrCreateResume(seeker3, "여", "1974-11-05", "서울 마포구", "서울 전체",
+                        List.of("출·퇴근형"), "시급 13,500원", "요양보호사 1급", false, "4년 이상", "");
+                getOrCreateResume(seeker4, "여", "1969-01-30", "서울 강동구", "서울 동부",
+                        List.of("출·퇴근형"), "시급 12,000원", "요양보호사 1급", true, null, "");
+
+                Job job = ownerJobs.get(ownerJobs.size() - 1);
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker1.getId(), "검토중", "09.06"));
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker2.getId(), "검토중", "09.06"));
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker3.getId(), "합격", "09.05"));
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker4.getId(), "불합격", "09.04"));
+            }
         }
 
         if (jobRepository.count() > 0 && jobRepository.count() < 10) {
@@ -152,5 +189,22 @@ public class DataInitializer implements CommandLineRunner {
     private User getOrCreateBusinessUser(String email, String name) {
         return userRepository.findByEmail(email).orElseGet(() ->
                 userRepository.save(new User(null, email, passwordEncoder.encode("password123"), name, "business")));
+    }
+
+    private User getOrCreatePersonalUser(String email, String name) {
+        return userRepository.findByEmail(email).orElseGet(() ->
+                userRepository.save(new User(null, email, passwordEncoder.encode("password123"), name, "personal")));
+    }
+
+    private void getOrCreateResume(User user, String gender, String birth, String region, String workRegion,
+                                    List<String> workTypes, String salary, String cert, boolean isNew,
+                                    String expPeriod, String intro) {
+        if (jobSeekerProfileRepository.findByUserId(user.getId()).isPresent()) {
+            return;
+        }
+        JobSeekerProfile profile = new JobSeekerProfile(user.getId(), user.getName(), null, birth, region,
+                workRegion, workTypes, salary, cert, isNew, expPeriod, intro);
+        profile.setGender(gender);
+        jobSeekerProfileRepository.save(profile);
     }
 }

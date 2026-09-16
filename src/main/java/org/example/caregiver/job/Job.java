@@ -36,7 +36,7 @@ public class Job {
     private String deadline;
     private Boolean daysNegotiable;
 
-    @ElementCollection
+    @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
     @CollectionTable(name = "job_weekdays", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "weekday")
     private List<String> weekdays = new ArrayList<>();
@@ -46,12 +46,12 @@ public class Job {
     private String careAge;
     private String careGrade;
 
-    @ElementCollection
+    @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
     @CollectionTable(name = "job_care_conditions", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "care_condition_item")
     private List<String> careCondition = new ArrayList<>();
 
-    @ElementCollection
+    @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
     @CollectionTable(name = "job_care_works", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "care_work_item")
     private List<String> careWork = new ArrayList<>();
@@ -60,7 +60,7 @@ public class Job {
     @Column(length = 2000)
     private String postDetail;
 
-    @ElementCollection
+    @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
     @CollectionTable(name = "job_apply_methods", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "apply_method_item")
     private List<String> applyMethod = new ArrayList<>();

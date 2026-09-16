@@ -71,6 +71,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-16
+- 지원자확인 페이지(`/applicants`)를 임시로 넣어뒀던 mock 데이터(`MOCK_JOBS`/`MOCK_APPLICANTS`/`MOCK_RESUMES`)에서 실제 API(`fetchMyJobs`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 다시 되돌림, `AuthGuard`(사업자 전용)도 복원. 카드에 표시하던 나이/직종 등 mock 전용 필드는 실제 이력서 스키마(성별/생년월일/근무형태/경력/희망급여)로 대체
+- `DataInitializer`에 샘플 지원자 4명(이력서 포함) + 지원 내역 시드 추가 — `job_applications` 테이블이 비어있을 때만 실행되어, 실제 API로 되돌린 지원자확인 페이지에서 바로 확인할 수 있는 예시 데이터 제공
 - 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지가 mock 데이터(`data/jobs.js`/`data/applicants.js`/`data/talents.js`)를 쓰던 것을 실제 API(`fetchJobRaw`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 교체. 실제 DB ID와 mock ID가 달라 상세 페이지 진입 시 거의 항상 "공고를 찾을 수 없습니다"가 뜨던 문제, 지원 상태 변경이 저장 안 되던 문제 수정. `HiredWorkerModal`/`ApplicantModal`의 mock 연락처·시작일도 실제 이력서 스키마 필드로 정리. 공고 상세 링크 오탈자(`/jobs/:id` → `/job/:id`)도 같이 수정
 - 배포 서버 백엔드가 포트 충돌(구 프로세스가 8081을 계속 점유)로 재시작 실패하던 문제 수정: 구 프로세스 강제 종료, `jobs` 테이블에 `closed` 컬럼이 없어서(기존 30개 행 때문에 NOT NULL 컬럼 추가가 매번 실패) Hibernate 스키마 갱신이 실패하던 문제도 `DEFAULT false`로 컬럼 직접 추가해 해결
 - `.github/workflows/deploy.yml` 재시작 로직을 pidfile 기준 kill → 포트(8081) 기준 kill로 변경. pidfile이 실제 프로세스와 어긋나면(수동 재시작 등으로) 옛 프로세스가 안 죽고 새 프로세스가 포트 충돌로 계속 실패하던 근본 원인 수정. 재시작 후 실제로 포트가 열렸는지 확인해서, 백엔드가 못 뜨면 배포 자체를 실패 처리하도록 헬스체크도 추가 (전엔 백엔드가 죽어도 워크플로우는 항상 "성공"으로 찍혔음)
@@ -80,6 +82,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - HomeQuickMenu 구인 섹션 색상 복원: 파란색 → 핑크(#e91e8c), 구직 섹션 배경 흰색으로 통일
 - HomeQuickMenu 그라디언트 제거, 아이콘 배경 흰색으로 대비 개선
 - 홈 nav 로그인/회원가입 버튼 간격 개선
+- Job @ElementCollection(weekdays/careCondition/careWork/applyMethod) FetchType.EAGER 변경 → /api/jobs 500 오류 수정
 - 공고 상세 페이지에 카카오 지도 추가: 근무지 주소를 지오코딩해 마커 표시 (Kakao Maps JS SDK)
 - 공고 상세 페이지 섹션 추가: 근무 조건 상세, 케어 대상자 정보, 지원 방법, 근무지 위치(지도), 업체 정보
 - api.js normalizeJob에 상세 페이지용 원본 필드 노출 (weekdays, careCondition, careWork, applyMethod 등)

@@ -157,14 +157,26 @@ export default function JsJobList({ region, keyword = '', jobType = '', workType
         </div>
       </div>
 
-      <div className="js-rows">
-        {loading
-          ? <div className="js-empty">일자리를 불러오는 중입니다...</div>
-          : paged.length === 0
-          ? <div className="js-empty">등록된 일자리가 없습니다.</div>
-          : paged.map(job => <JobRow key={job.id} job={job} />)
-        }
-      </div>
+      {loading && (
+        <div className="js-empty-state">
+          <div className="js-empty-spinner" />
+          <p className="js-empty-title">일자리를 불러오는 중입니다</p>
+        </div>
+      )}
+      {!loading && paged.length === 0 && (
+        <div className="js-empty-state">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c8d4e8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <p className="js-empty-title">조건에 맞는 일자리가 없습니다</p>
+          <p className="js-empty-desc">필터를 변경하거나 다른 지역을 선택해보세요.</p>
+        </div>
+      )}
+      {!loading && paged.length > 0 && (
+        <div className="js-rows">
+          {paged.map(job => <JobRow key={job.id} job={job} />)}
+        </div>
+      )}
 
       <div className="js-pagination">
         <button className="js-page-btn" disabled={page === 1} onClick={() => setPage(p => p - 1)}>

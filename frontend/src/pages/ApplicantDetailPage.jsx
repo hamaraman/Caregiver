@@ -1,40 +1,57 @@
 ﻿import { useParams, Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import ApplicantModal, { StatusDropdown } from '../components/ApplicantModal'
-import { jobs } from '../data/jobs'
-import { applicants } from '../data/applicants'
-import { talents } from '../data/talents'
+import { fetchJobRaw, fetchApplicantsForJob, fetchApplicantResume, updateApplicationStatus } from '../api'
 import './RecruitDetailPage.css'
-
-const STATUS_CLS = {
-  '검토중': 'rd-status--review',
-  '합격':   'rd-status--pass',
-  '불합격': 'rd-status--fail',
-}
 
 export default function ApplicantDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const job = jobs.find(j => j.id === Number(id))
-
-  const jobApplicants = job
-    ? applicants
-        .filter(a => a.jobId === job.id)
-        .map(a => ({ ...a, talent: talents.find(t => t.id === a.talentId) }))
-        .filter(a => a.talent)
-    : []
-
-  const [statuses, setStatuses] = useState(() =>
-    Object.fromEntries(jobApplicants.map(a => [a.id, a.status]))
-  )
+  const [job, setJob] = useState(undefined)
+  const [applications, setApplications] = useState([])
+  const [resumesByApplicant, setResumesByApplicant] = useState({})
   const [selectedAppId, setSelectedAppId] = useState(null)
 
+  useEffect(() => {
+    fetchJobRaw(Number(id)).then(setJob).catch(() => setJob(null))
+    fetchApplicantsForJob(Number(id)).then(setApplications).catch(() => setApplications([]))
+  }, [id])
+
+  useEffect(() => {
+    applications.forEach(a => {
+      if (resumesByApplicant[a.applicantId] !== undefined) return
+      fetchApplicantResume(a.applicantId).then(resume =>
+        setResumesByApplicant(prev => ({ ...prev, [a.applicantId]: resume }))
+      )
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [applications])
+
+  const jobApplicants = applications
+    .map(a => ({ ...a, talent: resumesByApplicant[a.applicantId] }))
+    .filter(a => a.talent)
+
   const updateStatus = (appId, newStatus) => {
-    setStatuses(prev => ({ ...prev, [appId]: newStatus }))
+    updateApplicationStatus(appId, newStatus)
+      .then(() => setApplications(prev => prev.map(a => a.id === appId ? { ...a, status: newStatus } : a)))
+      .catch(() => {})
   }
 
   const selectedApp = jobApplicants.find(a => a.id === selectedAppId) ?? null
+
+  if (job === undefined) {
+    return (
+      <>
+        <Header />
+        <div className="rd-page">
+          <div className="container">
+            <p className="rd-not-found">불러오는 중입니다...</p>
+          </div>
+        </div>
+      </>
+    )
+  }
 
   if (!job) {
     return (
@@ -67,13 +84,13 @@ export default function ApplicantDetailPage() {
             <div className="rd-job-card">
               <div className="rd-job-header">
                 <div className="rd-job-title-row">
-                  <span className="rd-status-badge rd-status-badge--active">진행중</span>
+                  <span className={`rd-status-badge ${job.closed ? 'rd-status-badge--closed' : 'rd-status-badge--active'}`}>{job.closed ? '마감' : '진행중'}</span>
                   <span className="rd-job-title">{job.postTitle || job.title}</span>
                   {job.badge && (
                     <span className={`rd-badge rd-badge--${job.badgeColor ?? 'red'}`}>{job.badge}</span>
                   )}
                 </div>
-                <Link to={`/jobs/${job.id}`} className="rd-view-btn">공고 보기</Link>
+                <Link to={`/job/${job.id}`} className="rd-view-btn">공고 보기</Link>
               </div>
 
               <div className="rd-job-meta">
@@ -146,7 +163,6 @@ export default function ApplicantDetailPage() {
               <div className="rd-applicant-grid">
                 {jobApplicants.map(a => {
                   const t = a.talent
-                  const currentStatus = statuses[a.id] ?? a.status
                   return (
                     <div
                       key={a.id}
@@ -155,41 +171,40 @@ export default function ApplicantDetailPage() {
                     >
                       <div className="rd-app-header">
                         <div className="rd-app-name-row">
-                          <span className="rd-app-name">{t.name}</span>
-                          <span className={`rd-gender-badge rd-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
-                          <span className="rd-age">{t.age}세</span>
+                          <span className="rd-app-name">{a.applicantName}</span>
+                          {t.gender && (
+                            <span className={`rd-gender-badge rd-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+                          )}
                         </div>
                         <StatusDropdown
-                          status={currentStatus}
+                          status={a.status}
                           onChange={newStatus => updateStatus(a.id, newStatus)}
                         />
                       </div>
 
                       <div className="rd-app-info">
                         <div className="rd-app-row">
-                          <span className="rd-app-label">직종</span>
-                          <span className="rd-app-value">{t.jobType}</span>
-                        </div>
-                        <div className="rd-app-row">
                           <span className="rd-app-label">경력</span>
-                          <span className="rd-app-value">{t.experience}</span>
+                          <span className="rd-app-value">{t.isNew ? '신입' : (t.expPeriod || '-')}</span>
                         </div>
                         <div className="rd-app-row">
                           <span className="rd-app-label">근무형태</span>
-                          <span className="rd-app-value">{t.workType}</span>
+                          <span className="rd-app-value">{(t.workTypes || []).join(', ') || '-'}</span>
                         </div>
                         <div className="rd-app-row">
                           <span className="rd-app-label">희망임금</span>
-                          <span className="rd-app-value rd-app-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</span>
+                          <span className="rd-app-value rd-app-wage">{t.salary || '협의'}</span>
                         </div>
                       </div>
 
-                      <div className="rd-app-certs">
-                        {t.certs?.map(c => <span key={c} className="rd-cert-tag">{c}</span>)}
-                      </div>
+                      {t.cert && (
+                        <div className="rd-app-certs">
+                          <span className="rd-cert-tag">{t.cert}</span>
+                        </div>
+                      )}
 
                       <div className="rd-app-footer">
-                        <span className="rd-apply-date">지원일 {a.applyDate}</span>
+                        <span className="rd-apply-date">지원일 {a.appliedAt}</span>
                         <span className="rd-card-hint">클릭하여 상세 보기</span>
                       </div>
                     </div>
@@ -204,7 +219,7 @@ export default function ApplicantDetailPage() {
       {selectedApp && (
         <ApplicantModal
           app={selectedApp}
-          status={statuses[selectedApp.id] ?? selectedApp.status}
+          status={selectedApp.status}
           onStatusChange={newStatus => updateStatus(selectedApp.id, newStatus)}
           onClose={() => setSelectedAppId(null)}
         />

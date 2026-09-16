@@ -73,7 +73,11 @@
   align-items: center;
   gap: 6px;
   flex-wrap: nowrap;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+.jl2-type-row::-webkit-scrollbar { display: none; }
 .jl2-type-label {
   display: flex;
   align-items: center;
@@ -124,14 +128,6 @@
   position: sticky;
   top: 80px;
 }
-.jl2-filter-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #f0f4fb;
-}
 .jl2-filter-title {
   display: flex;
   align-items: center;
@@ -154,9 +150,9 @@
 .jl2-filter-reset:hover { color: #4A8FE7; }
 
 .jl2-filter-section {
-  margin-bottom: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #f0f4fb;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e8eff8;
 }
 .jl2-filter-section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
@@ -164,40 +160,44 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 700;
-  color: #3a4a6b;
-  padding: 0 0 10px;
+  color: #5a6a8a;
+  padding: 0 0 8px;
+  letter-spacing: 0.2px;
 }
 
 .jl2-filter-select-wrap { position: relative; }
 .jl2-filter-select {
   width: 100%;
-  padding: 7px 10px;
-  border: 1.5px solid #e8eef8;
+  padding: 8px 12px;
+  border: 1.5px solid #dce8f5;
   border-radius: 8px;
   font-size: 12.5px;
   color: #1a2640;
-  background: #f8fbff;
+  background: #f6f9ff;
   outline: none;
   appearance: none;
   cursor: pointer;
+  transition: border-color 0.15s;
 }
-.jl2-filter-select:focus { border-color: #4A8FE7; }
+.jl2-filter-select:hover { border-color: #b8d0f0; }
+.jl2-filter-select:focus { border-color: #4A8FE7; background: #fff; }
 
-.jl2-shift-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.jl2-shift-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .jl2-shift-chip {
-  padding: 5px 12px;
+  padding: 5px 13px;
   border-radius: 20px;
-  border: 1.5px solid #e8eef8;
-  background: #f8fbff;
+  border: 1.5px solid #dce8f5;
+  background: #f6f9ff;
   font-size: 12px;
   color: #6b7a99;
   cursor: pointer;
   transition: all 0.15s;
+  font-weight: 500;
 }
-.jl2-shift-chip:hover { border-color: #4A8FE7; color: #4A8FE7; }
-.jl2-shift-chip.active { background: #e8f0fd; border-color: #4A8FE7; color: #3A7FD7; font-weight: 700; }
+.jl2-shift-chip:hover { border-color: #4A8FE7; color: #4A8FE7; background: #eef4ff; }
+.jl2-shift-chip.active { background: #e0ecfd; border-color: #4A8FE7; color: #3A7FD7; font-weight: 700; }
 
 .jl2-filter-search-btn {
   width: 100%;
@@ -213,7 +213,7 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  margin-top: 4px;
+  margin-top: 16px;
   transition: background 0.15s;
 }
 .jl2-filter-search-btn:hover { background: #3a7fd4; }
@@ -224,16 +224,16 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 10px;
-  border: 1.5px solid #e8eef8;
+  padding: 8px 12px;
+  border: 1.5px solid #dce8f5;
   border-radius: 8px;
-  background: #f8fbff;
+  background: #f6f9ff;
   cursor: pointer;
   font-size: 12.5px;
   color: #444;
   transition: border-color 0.15s;
 }
-.jl2-region-trigger:hover { border-color: #4A8FE7; }
+.jl2-region-trigger:hover { border-color: #b8d0f0; }
 .jl2-region-placeholder { color: #aaa; }
 .jl2-region-chips { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
 .jl2-region-chip {
@@ -410,6 +410,14 @@
   border-radius: 20px;
   flex-shrink: 0;
 }
+.jl2-job-row-badge--closed {
+  background: #f0f0f0;
+  color: #999;
+}
+.jl2-job-row--closed { opacity: 0.65; }
+.jl2-job-row--closed .jl2-job-row-type { color: #888; }
+.jl2-job-row--closed:hover { background: #fafafa; }
+.jl2-job-row--closed:hover .jl2-job-row-type { color: #888; }
 .jl2-job-row-type {
   font-size: 14.5px;
   font-weight: 700;
@@ -595,6 +603,32 @@
 .jl2-footer-links span { color: #d0d8e8; font-size: 12px; }
 .jl2-footer-copy { font-size: 11.5px; color: #b0bdd4; margin: 0; }
 
+/* ===================== 필터 바디: 데스크탑 항상 표시, 모바일 기본 접힘 ===================== */
+.jl2-filter-body { display: block; }          /* 데스크탑: 항상 펼침 */
+.jl2-filter-header { display: none; }         /* 데스크탑: 헤더 숨김 */
+
+/* 데스크탑 초기화 버튼 (필터 수 > 0 일 때만 표시) */
+.jl2-filter-reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  width: 100%;
+  font-size: 11.5px;
+  color: #b0b8cc;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 12px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid #e8eff8;
+  transition: color 0.15s;
+}
+.jl2-filter-reset-btn:hover { color: #4A8FE7; }
+
+/* ===================== 모바일 필터 토글 (기본: 숨김) ===================== */
+.jl2-filter-mobile-toggle { display: none; }
+
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 960px) {
   .jl2-body-inner { grid-template-columns: 190px 1fr; }
@@ -602,7 +636,41 @@
 }
 @media (max-width: 680px) {
   .jl2-body-inner { grid-template-columns: 1fr; }
-  .jl2-filter { position: static; }
+  .jl2-filter { position: static; padding: 12px 14px; }
+
+  /* 모바일 필터 토글 버튼 표시 */
+  .jl2-filter-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 11px 14px;
+    background: #f0f5ff;
+    border: 1.5px solid #d0e0f8;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a2640;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  .jl2-filter-mobile-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #4A8FE7;
+  }
+  .jl2-filter-mobile-chevron {
+    transition: transform 0.2s;
+    color: #aaa;
+    flex-shrink: 0;
+  }
+  .jl2-filter-mobile-chevron.open { transform: rotate(180deg); }
+
+  /* 모바일: 필터 바디 기본 숨김, 열렸을 때만 표시 */
+  .jl2-filter-body { display: none; }
+  .jl2-filter--open .jl2-filter-body { display: block; margin-top: 14px; }
+
   .jl2-region-panel { width: calc(100vw - 40px); max-width: 360px; }
   .jl2-job-row-tags { display: none; }
 }

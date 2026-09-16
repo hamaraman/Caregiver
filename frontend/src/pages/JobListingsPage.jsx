@@ -56,6 +56,7 @@ export default function JobListingsPage() {
   const [keyword, setKeyword] = useState('')
   const [sort, setSort] = useState('최신순')
   const [page, setPage] = useState(1)
+  const [filterOpen, setFilterOpen] = useState(false)
   const panelRef = useRef(null)
 
   useEffect(() => {
@@ -114,6 +115,8 @@ export default function JobListingsPage() {
 
   const SHIFT_COLOR = { '주간': { bg: '#e8f4ff', color: '#4A8FE7' }, '야간': { bg: '#1a2640', color: '#a0c0f0' }, '단기': { bg: '#e8fff0', color: '#2a9a5a' } }
 
+  const activeFilterCount = selectedRegions.length + (selectedJobType !== '전체' ? 1 : 0) + (selectedShift !== '전체' ? 1 : 0)
+
   return (
     <>
       <HomeNav />
@@ -165,22 +168,36 @@ export default function JobListingsPage() {
           <div className="jl2-body-inner">
 
             {/* 왼쪽 필터 사이드바 */}
-            <aside className="jl2-filter">
-              <div className="jl2-filter-header">
-                <span className="jl2-filter-title">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <aside className={`jl2-filter${filterOpen ? ' jl2-filter--open' : ''}`}>
+              <button
+                className="jl2-filter-mobile-toggle"
+                onClick={() => setFilterOpen(v => !v)}
+                aria-expanded={filterOpen}
+              >
+                <span className="jl2-filter-mobile-toggle-label">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
                   </svg>
-                  필터
+                  필터{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
                 </span>
-                <button className="jl2-filter-reset" onClick={clearAll}>
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className={`jl2-filter-mobile-chevron${filterOpen ? ' open' : ''}`}
+                  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  strokeLinecap="round" strokeLinejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+
+              <div className="jl2-filter-body">
+              {activeFilterCount > 0 && (
+                <button className="jl2-filter-reset-btn" onClick={clearAll}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.99"/>
                   </svg>
                   초기화
                 </button>
-              </div>
-
+              )}
               {/* 지역 */}
               <div className="jl2-filter-section">
                 <div className="jl2-filter-sec-title">
@@ -282,12 +299,13 @@ export default function JobListingsPage() {
                 </div>
               </div>
 
-              <button className="jl2-filter-search-btn" onClick={() => setPage(1)}>
+              <button className="jl2-filter-search-btn" onClick={() => { setPage(1); setFilterOpen(false) }}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
                 </svg>
                 공고 검색
               </button>
+              </div>
             </aside>
 
             {/* 중앙: 공고 목록 */}
@@ -311,9 +329,12 @@ export default function JobListingsPage() {
                   : paginated.map(job => {
                     const shiftStyle = SHIFT_COLOR[job.shift] || { bg: '#f0f4fa', color: '#6b7a99' }
                     return (
-                      <Link to={`/job/${job.id}`} className="jl2-job-row" key={job.id}>
+                      <Link to={`/job/${job.id}`} className={`jl2-job-row${job.closed ? ' jl2-job-row--closed' : ''}`} key={job.id}>
                         <div className="jl2-job-row-main">
                           <div className="jl2-job-row-top">
+                            {job.closed && (
+                              <span className="jl2-job-row-badge jl2-job-row-badge--closed">마감</span>
+                            )}
                             <span className="jl2-job-row-badge" style={{ background: shiftStyle.bg, color: shiftStyle.color }}>
                               {job.shift}
                             </span>

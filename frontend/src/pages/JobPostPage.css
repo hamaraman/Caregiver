@@ -54,8 +54,13 @@
 }
 
 @media (max-width: 768px) {
+  .jpp-hero { padding: 24px 0 0; }
   .jpp-hero-photo { display: none; }
-  .jpp-hero-title { font-size: 32px; }
+  .jpp-hero-inner { min-height: 120px; padding: 0 20px; }
+  .jpp-hero-text { padding-bottom: 24px; }
+  .jpp-hero-eyebrow { font-size: 12px; margin-bottom: 6px; }
+  .jpp-hero-title { font-size: 24px; letter-spacing: -0.5px; }
+  .jpp-hero-desc { font-size: 12px; line-height: 1.6; }
 }
 
 .jp-page {
@@ -81,54 +86,99 @@
   color: #222;
 }
 
-/* 진행 단계 */
+/* 진행 단계 (Numbered Circle Steps) */
 .jp-steps {
   display: flex;
   align-items: center;
   background: #fff;
   border-radius: 14px;
   border: 1.5px solid #b8d0f5;
-  padding: 18px 28px;
+  padding: 20px 20px 16px;
   margin-bottom: 28px;
-  gap: 0;
-  overflow-x: auto;
   box-shadow: 0 2px 10px rgba(74,143,231,0.06);
 }
 
-.jp-step {
+.jp-step-item {
   display: flex;
   align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.jp-step-item:last-child {
+  flex: 0 0 auto;
+}
+
+.jp-step-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
   flex-shrink: 0;
 }
 
-.jp-step-num {
-  width: 26px;
-  height: 26px;
+.jp-step-n {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #4A8FE7;
-  color: #fff;
-  font-size: 12px;
+  border: 2px solid #d8e6f8;
+  background: #f5f7fc;
+  color: #c0cfe0;
+  font-size: 14px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.jp-step-circle--active .jp-step-n {
+  background: #4A8FE7;
+  border-color: #4A8FE7;
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(74,143,231,0.15);
+}
+
+.jp-step-circle--done .jp-step-n {
+  background: #3ab07a;
+  border-color: #3ab07a;
+  color: #fff;
 }
 
 .jp-step-label {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
-  color: #555;
+  color: #c0cfe0;
   white-space: nowrap;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.jp-step-circle--active .jp-step-label {
+  color: #4A8FE7;
+  font-weight: 700;
+}
+
+.jp-step-circle--done .jp-step-label {
+  color: #3ab07a;
 }
 
 .jp-step-line {
-  width: 32px;
-  height: 1px;
-  background: #b8d0f5;
-  margin: 0 8px;
-  flex-shrink: 0;
+  flex: 1;
+  height: 2px;
+  background: #e0eaf5;
+  border-radius: 2px;
+  margin: 0 6px;
+  margin-bottom: 28px;
+  transition: background 0.2s;
+}
+
+.jp-step-line--done {
+  background: #3ab07a;
 }
 
 /* 섹션 */
@@ -595,20 +645,53 @@
   border: 1.5px solid #ccdaf8;
 }
 
+/* 토스트 알림 */
+.jp-toast {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a2d4d;
+  color: #fff;
+  padding: 13px 22px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  z-index: 2000;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+  white-space: nowrap;
+  animation: jp-toast-in 0.2s ease;
+}
+
+@keyframes jp-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 @media (max-width: 768px) {
   .jp-steps {
-    padding: 12px 16px;
-    gap: 0;
+    position: sticky;
+    top: 64px;
+    z-index: 10;
+    border-radius: 0;
+    border: none;
+    margin: 0 -16px 16px;
+    padding: 12px 16px 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
   }
 
-  .jp-step-label {
-    font-size: 11px;
+  .jp-step-n {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
   }
 
-  .jp-step-line {
-    width: 16px;
-    margin: 0 4px;
-  }
+  .jp-step-label { display: none; }
+
+  .jp-step-line { margin-bottom: 0; }
 
   .jp-section-body {
     padding: 16px;
@@ -628,15 +711,22 @@
 
   .jp-input--full,
   .jp-input--md,
-  .jp-input--wage,
   .jp-input--date {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
   }
 
+  .jp-input--wage {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
   .jp-select--md {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
   }
 
   .jp-textarea {
@@ -697,10 +787,23 @@
 
   .jp-select--mobile-only {
     display: block;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    min-width: 140px;
   }
 
-  .jp-steps {
-    display: none;
-  }
+  /* jp-steps는 모바일에서 sticky로 표시 */
+
+  .jp-page { padding: 16px 0 60px; }
+
+  .jp-section-header { padding: 12px 16px; }
+
+  /* 필드그룹 안의 select는 모바일에서 전체 너비로 */
+  .jp-field-group > .jp-select { width: 100%; }
+
+  /* 근무시간 입력 균등 분할 */
+  .jp-time-group { width: 100%; }
+  .jp-time-group .jp-input--time { flex: 1; width: auto; }
+
+  .jp-actions { padding-top: 4px; gap: 8px; }
 }

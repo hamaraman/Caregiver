@@ -71,6 +71,40 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-16
+- 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지가 mock 데이터(`data/jobs.js`/`data/applicants.js`/`data/talents.js`)를 쓰던 것을 실제 API(`fetchJobRaw`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 교체. 실제 DB ID와 mock ID가 달라 상세 페이지 진입 시 거의 항상 "공고를 찾을 수 없습니다"가 뜨던 문제, 지원 상태 변경이 저장 안 되던 문제 수정. `HiredWorkerModal`/`ApplicantModal`의 mock 연락처·시작일도 실제 이력서 스키마 필드로 정리. 공고 상세 링크 오탈자(`/jobs/:id` → `/job/:id`)도 같이 수정
+- 배포 서버 백엔드가 포트 충돌(구 프로세스가 8081을 계속 점유)로 재시작 실패하던 문제 수정: 구 프로세스 강제 종료, `jobs` 테이블에 `closed` 컬럼이 없어서(기존 30개 행 때문에 NOT NULL 컬럼 추가가 매번 실패) Hibernate 스키마 갱신이 실패하던 문제도 `DEFAULT false`로 컬럼 직접 추가해 해결
+- `.github/workflows/deploy.yml` 재시작 로직을 pidfile 기준 kill → 포트(8081) 기준 kill로 변경. pidfile이 실제 프로세스와 어긋나면(수동 재시작 등으로) 옛 프로세스가 안 죽고 새 프로세스가 포트 충돌로 계속 실패하던 근본 원인 수정. 재시작 후 실제로 포트가 열렸는지 확인해서, 백엔드가 못 뜨면 배포 자체를 실패 처리하도록 헬스체크도 추가 (전엔 백엔드가 죽어도 워크플로우는 항상 "성공"으로 찍혔음)
+- 로그인 후 세션 미반영 버그 수정: navigate('/') → window.location.href='/' (풀 리로드로 AuthContext 재초기화)
+- Vite 프록시에 /oauth2/, /login/oauth2/ 추가 → 로컬에서 소셜 로그인 창 정상 오픈
+- HomeTodayStats 상단 알림 영역(벨 아이콘 + 오늘 확인해보세요) 제거
+- HomeQuickMenu 구인 섹션 색상 복원: 파란색 → 핑크(#e91e8c), 구직 섹션 배경 흰색으로 통일
+- HomeQuickMenu 그라디언트 제거, 아이콘 배경 흰색으로 대비 개선
+- 홈 nav 로그인/회원가입 버튼 간격 개선
+- 공고 상세 페이지에 카카오 지도 추가: 근무지 주소를 지오코딩해 마커 표시 (Kakao Maps JS SDK)
+- 공고 상세 페이지 섹션 추가: 근무 조건 상세, 케어 대상자 정보, 지원 방법, 근무지 위치(지도), 업체 정보
+- api.js normalizeJob에 상세 페이지용 원본 필드 노출 (weekdays, careCondition, careWork, applyMethod 등)
+- DataInitializer에 샘플 구인공고 30개 추가: 서울·경기·인천·부산·대구·대전·광주·울산 지역 다양화, 기업 5개 확장, 야간·입주·오전·오후 등 근무형태 다양화 (배포 서버 재시작 시 자동 반영)
+- LoginPage 소셜 로그인 버튼 버그 수정: `API_BASE` 문자열이 홑따옴표로 감싸져 있어 `${API_BASE}`가 실제로 치환되지 않고 깨진 URL로 이동하던 문제 (백틱으로 수정)
+- 구인공고 목록 필터 데스크탑에서 "필터" 헤더 제거, 필터 섹션 항상 표시, 활성 필터 있을 때만 초기화 버튼 노출
+- 구인공고 목록 필터 모바일 접기/펼치기 토글 추가
+- 필터 근무시간대와 공고검색 버튼 사이 여백 증가 (margin-top 4px → 16px)
+- 필터 패널 디자인 개선: 섹션 간격·구분선 정비, 셀렉트·지역·근무시간대 칩 hover/스타일 개선
+- 구인공고 상세 페이지(`/job/:id`) 모바일 반응형 CSS 추가: 720px 이하에서 1열 레이아웃 전환, 지원하기 카드 상단 배치
+- 구인공고 상세 페이지 상단 여백 축소: 데스크탑 32px → 12px, 모바일 24px → 8px
+- 공고 등록 페이지(`/jobs/post`) AuthGuard 임시 제거 후 복원
+- 지원자확인 페이지(`/applicants`) AuthGuard 임시 제거 + 예시 데이터 주입 (디자인 확인용)
+- 공고 등록 페이지 모바일 디자인 개선: 히어로 여백·폰트 축소, 섹션 헤더 패딩 조정, 지역 선택 select 전체 너비, 근무시간 입력 균등 분할
+- 공고 등록 페이지 모바일 select 너비 수정: 직종·시설·학력 등 단일 select가 전체 너비로 늘어나던 문제 → width: auto로 변경
+- 급여 입력 모바일 레이아웃 수정: 금액 input이 전체 너비로 늘어나 "원" 텍스트가 다음 줄로 밀리던 문제 → flex: 1로 같은 줄 유지
+- 공고 등록 페이지 진행 단계 표시 추가: 원형 숫자 스타일, 스크롤에 따라 현재 단계 파랑 하이라이트·완료 단계 초록 체크, 모바일 상단 sticky 고정
+- 모바일 진행 단계 바 하단 테두리 선 제거
+- 공고 등록 필수값 미입력 시 브라우저 기본 알럿 → 커스텀 토스트로 교체, 첫 번째 미입력 항목 섹션으로 자동 스크롤
+- 구인공고 목록(`/listings`) 모바일 필터 토글 추가: 680px 이하에서 필터 접기/펼치기 버튼 표시, 활성 필터 수 뱃지 표시
+- 구인공고 목록 마감된 공고에 "마감" 배지 및 opacity 표시
+- 인기직종 칩 가로 스크롤 처리(`overflow-x: auto`)로 소형 화면 overflow 방지
+- CI/CD 워크플로우 수정: `git pull origin main` → `git fetch origin && git checkout main && git reset --hard origin/main` (서버가 android-app 브랜치에 고정되어 배포가 반영되지 않던 문제 해결)
+- 일자리 목록 빈 상태 UI 개선: 박스 제거, 아이콘+안내 문구로 교체, 로딩 스피너 추가
+- JrForm 성별 필드 JSX 구조 오류 수정 (jr-section 밖에 있던 div 위치 교정)
 - AuthGuard 로그인 필요 화면 핑크 → 블루 전환 (버튼·아이콘·테두리·배경 전체)
 - TalentDetailPage(인재 상세) 핑크 → 블루 전환 (카드 테두리·섹션바·경력·급여 강조색·SVG 아이콘 전체)
 - 프론트엔드 UI 전반 개선: JrForm 스텝퍼 UX 수정, JobDetailPage 지원하기 버튼 연결, HomeHero·JspHero 검색바 개선, MyApplicationsPage UI 리팩토링

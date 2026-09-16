@@ -7,7 +7,9 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/api': 'http://localhost:8081'
+      '/api': 'http://localhost:8081',
+      '/oauth2': 'http://localhost:8081',
+      '/login/oauth2': 'http://localhost:8081'
     }
   }
 })

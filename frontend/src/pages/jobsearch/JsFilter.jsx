@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종', '제주']
 const JOBS = ['요양보호사', '간호조무사', '사회복지사', '물리치료사', '작업치료사', '간병인', '돌봄교사']
 const WORK_TYPES = ['전체', '주간', '야간', '교대', '파트타임']
@@ -12,6 +14,8 @@ export default function JsFilter({
   career, onCareerChange,
   onReset,
 }) {
+  const [filterOpen, setFilterOpen] = useState(false)
+
   const toggleWorkType = (t) => {
     if (t === '전체') { onWorkTypesChange(['전체']); return }
     const next = workTypes.includes(t)
@@ -21,7 +25,15 @@ export default function JsFilter({
   }
 
   return (
-    <aside className="js-filter">
+    <aside className={`js-filter${filterOpen ? ' js-filter--open' : ''}`}>
+      <button className="js-filter-mobile-toggle" onClick={() => setFilterOpen(o => !o)} aria-expanded={filterOpen}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        조건 필터
+        <svg className={`js-filter-toggle-caret${filterOpen ? ' open' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div className="js-filter-body">
       <div className="js-filter-header">
         <span className="js-filter-title">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -128,6 +140,7 @@ export default function JsFilter({
       </div>
 
       <p className="js-filter-live-note">조건을 선택하면 바로 검색 결과에 반영됩니다.</p>
+      </div>
     </aside>
   )
 }

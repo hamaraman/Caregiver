@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useSearchParams, Link } from 'react-router-dom'
+
+const API_BASE = import.meta.env.VITE_API_BASE || '${API_BASE}'
 import './LoginPage.css'
 import { login } from '../api'
 import AuthLeftPanel from './auth/AuthLeftPanel'
@@ -96,15 +98,15 @@ export default function LoginPage() {
             <>
               <p className="lp-section-label">간편 로그인</p>
               <div className="lp-social-btns">
-                <button className="lp-social-btn lp-social-naver" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/naver'}>
+                <button className="lp-social-btn lp-social-naver" onClick={() => window.location.href = '${API_BASE}/oauth2/authorization/naver'}>
                   <span className="lp-social-logo">N</span>
                   네이버 로그인
                 </button>
-                <button className="lp-social-btn lp-social-kakao" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/kakao'}>
+                <button className="lp-social-btn lp-social-kakao" onClick={() => window.location.href = '${API_BASE}/oauth2/authorization/kakao'}>
                   <span className="lp-social-logo">K</span>
                   카카오 로그인
                 </button>
-                <button className="lp-social-btn lp-social-google" onClick={() => window.location.href = 'http://localhost:8081/oauth2/authorization/google'}>
+                <button className="lp-social-btn lp-social-google" onClick={() => window.location.href = '${API_BASE}/oauth2/authorization/google'}>
                   <span className="lp-social-logo lp-social-logo--g">G</span>
                   구글 로그인
                 </button>
@@ -163,9 +165,9 @@ export default function LoginPage() {
           </form>
 
           <div className="lp-links">
-            <button className="lp-link-btn" onClick={() => alert('준비 중인 기능입니다. 조금만 기다려주세요!')}>아이디 찾기</button>
+            <Link to="/support" className="lp-link-btn">아이디 찾기</Link>
             <span className="lp-link-divider">|</span>
-            <button className="lp-link-btn" onClick={() => alert('준비 중인 기능입니다. 조금만 기다려주세요!')}>비밀번호 찾기</button>
+            <Link to="/support" className="lp-link-btn">비밀번호 찾기</Link>
           </div>
 
           <div className="lp-signup">

@@ -44,6 +44,7 @@ export default function HomeNav() {
   const location = useLocation()
   const navigate = useNavigate()
   const [activeNav, setActiveNav] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -102,19 +103,74 @@ export default function HomeNav() {
               <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
             </svg>
           </button>
-          {user ? (
-            <>
-              <span className="hp-user-greeting">{user.name || user.email}님</span>
-              <button className="hp-btn-login" onClick={handleLogout}>로그아웃</button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="hp-btn-login">로그인</Link>
-              <Link to="/signup" className="hp-btn-signup">회원가입</Link>
-            </>
-          )}
+          <span className="hp-nav-desktop-only">
+            {user ? (
+              <>
+                <span className="hp-user-greeting">{user.name || user.email}님</span>
+                <button className="hp-btn-login" onClick={handleLogout}>로그아웃</button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="hp-btn-login">로그인</Link>
+                <Link to="/signup" className="hp-btn-signup">회원가입</Link>
+              </>
+            )}
+          </span>
+          <button className="hp-hamburger" onClick={() => setMenuOpen(true)} aria-label="메뉴 열기">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <div className="hp-mobile-overlay" onClick={() => setMenuOpen(false)}>
+          <div className="hp-mobile-menu" onClick={e => e.stopPropagation()}>
+            <div className="hp-mobile-menu-header">
+              <Link to="/" className="hp-logo" style={{ textDecoration: 'none' }} onClick={() => setMenuOpen(false)}>
+                <svg width="28" height="28" viewBox="0 0 38 38" fill="none"><rect width="38" height="38" rx="10" fill="#4A8FE7"/><text x="19" y="25" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" fontFamily="sans-serif">YE</text></svg>
+                <span className="hp-logo-name" style={{ fontSize: '15px' }}>요양이지</span>
+              </Link>
+              <button className="hp-mobile-close" onClick={() => setMenuOpen(false)} aria-label="메뉴 닫기">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+
+            <nav className="hp-mobile-nav">
+              {NAV_ITEMS.map(item => (
+                <div key={item.label} className="hp-mobile-nav-group">
+                  <button className="hp-mobile-nav-item" onClick={() => { navigate(item.path); setMenuOpen(false) }}>
+                    <span className="hp-mobile-nav-icon">{item.icon}</span>
+                    {item.label}
+                  </button>
+                  {item.sub.map(s => (
+                    <Link key={s.label} to={s.path} className="hp-mobile-sub-item" onClick={() => setMenuOpen(false)}>
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </nav>
+
+            <div className="hp-mobile-menu-footer">
+              {user ? (
+                <>
+                  <span className="hp-mobile-user">{user.name || user.email}님</span>
+                  <button className="hp-mobile-logout" onClick={() => { handleLogout(); setMenuOpen(false) }}>로그아웃</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="hp-mobile-login-btn" onClick={() => setMenuOpen(false)}>로그인</Link>
+                  <Link to="/signup" className="hp-mobile-signup-btn" onClick={() => setMenuOpen(false)}>회원가입</Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }

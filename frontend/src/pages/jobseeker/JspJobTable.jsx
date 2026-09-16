@@ -2,12 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchJobs, fetchLikedJobs, fetchJob, likeJob, unlikeJob } from '../../api'
 import { getRecentJobs } from '../../hooks/useJobStorage'
-
-const SHIFT_STYLE = {
-  주간: { bg: '#EFF5FF', color: '#4A8FE7' },
-  야간: { bg: '#F3F0FF', color: '#7C5CBF' },
-  단기: { bg: '#FFF8EC', color: '#E07800' },
-}
+import { useAuth } from '../../hooks/useAuth'
+import { SHIFT_STYLE } from '../../data/shiftStyles'
 
 const HeartFilled = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="#e04444" stroke="#e04444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -38,6 +34,7 @@ function SideJobItem({ job }) {
 }
 
 export default function JspJobTable() {
+  const { user } = useAuth()
   const [jobList, setJobList] = useState([])
   const [loading, setLoading] = useState(true)
   const [likedJobs, setLikedJobs] = useState([])
@@ -105,17 +102,17 @@ export default function JspJobTable() {
                     const s = SHIFT_STYLE[job.shift] || {}
                     return (
                       <tr key={job.id}>
-                        <td>
+                        <td data-label="직종">
                           <Link to={`/job/${job.id}`} className="jsp-job-type-cell">
                             <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>{job.shift}</span>
                             <span className="jsp-job-type-name">{job.type}</span>
                           </Link>
                         </td>
-                        <td>{job.location}</td>
-                        <td>{job.workType}</td>
-                        <td className="jsp-pay">{job.pay}</td>
-                        <td>{job.time}</td>
-                        <td className="jsp-date">{job.date}</td>
+                        <td data-label="근무지">{job.location}</td>
+                        <td data-label="근무형태">{job.workType}</td>
+                        <td data-label="급여" className="jsp-pay">{job.pay}</td>
+                        <td data-label="근무시간">{job.time}</td>
+                        <td data-label="등록일" className="jsp-date">{job.date}</td>
                         <td>
                           <button
                             className="jsp-like-btn"
@@ -150,19 +147,21 @@ export default function JspJobTable() {
                 }
               </div>
 
-              <div className="jsp-side-card">
-                <div className="jsp-side-card-header">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#e04444" stroke="#e04444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                  </svg>
-                  <span>찜한 일자리</span>
-                  <Link to="/wishlist" className="jsp-more-btn" style={{ marginLeft: 'auto', fontSize: '12px' }}>더보기 ›</Link>
+              {user && (
+                <div className="jsp-side-card">
+                  <div className="jsp-side-card-header">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#e04444" stroke="#e04444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span>찜한 일자리</span>
+                    <Link to="/wishlist" className="jsp-more-btn" style={{ marginLeft: 'auto', fontSize: '12px' }}>더보기 ›</Link>
+                  </div>
+                  {wishlistJobs.length > 0
+                    ? wishlistJobs.map(job => <SideJobItem key={job.id} job={job} />)
+                    : <p className="jsp-side-empty">찜한 일자리가 없습니다.</p>
+                  }
                 </div>
-                {wishlistJobs.length > 0
-                  ? wishlistJobs.map(job => <SideJobItem key={job.id} job={job} />)
-                  : <p className="jsp-side-empty">찜한 일자리가 없습니다.</p>
-                }
-              </div>
+              )}
 
             </div>
 

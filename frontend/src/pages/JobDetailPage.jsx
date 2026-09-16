@@ -4,13 +4,8 @@ import { fetchJob, applyToJob, likeJob, unlikeJob } from '../api'
 import { addRecentJob } from '../hooks/useJobStorage'
 import { useAuth } from '../hooks/useAuth'
 import HomeNav from './home/HomeNav'
+import { SHIFT_STYLE } from '../data/shiftStyles'
 import './JobDetailPage.css'
-
-const SHIFT_STYLE = {
-  주간: { bg: '#EFF5FF', color: '#4A8FE7' },
-  야간: { bg: '#F3F0FF', color: '#7C5CBF' },
-  단기: { bg: '#FFF8EC', color: '#E07800' },
-}
 
 function authUrl(path) {
   return `${window.location.origin}${path}?redirect=${encodeURIComponent(window.location.href)}`

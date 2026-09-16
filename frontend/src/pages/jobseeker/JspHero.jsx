@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDragScroll } from '../../hooks/useDragScroll'
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
 const MORE_REGIONS = ['강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
 
 export default function JspHero() {
+  const navigate = useNavigate()
   const [keyword, setKeyword] = useState('')
   const [showMore, setShowMore] = useState(false)
-  const navigate = useNavigate()
+  const [selectedRegion, setSelectedRegion] = useState('')
+  const dragScroll = useDragScroll()
 
   const handleSearch = () => {
     const params = new URLSearchParams()
     if (keyword.trim()) params.set('q', keyword.trim())
+    if (selectedRegion) params.set('region', selectedRegion)
     navigate(`/jobs${params.toString() ? '?' + params.toString() : ''}`)
   }
 
@@ -48,7 +52,7 @@ export default function JspHero() {
             </button>
           </div>
 
-          <div className="jsp-region-chips">
+          <div className="jsp-region-chips" {...dragScroll}>
             <span className="jsp-region-label">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
@@ -58,8 +62,8 @@ export default function JspHero() {
             {REGIONS.map(r => (
               <button
                 key={r}
-                className="jsp-chip"
-                onClick={() => navigate(`/jobs?region=${encodeURIComponent(r)}`)}
+                className={`jsp-chip ${selectedRegion === r ? 'active' : ''}`}
+                onClick={() => { setSelectedRegion(r); navigate(`/jobs?region=${encodeURIComponent(r)}`) }}
               >
                 {r}
               </button>

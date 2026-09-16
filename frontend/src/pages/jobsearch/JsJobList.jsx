@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchJobs } from '../../api'
+import { SHIFT_STYLE } from '../../data/shiftStyles'
 
 const SORT_TABS = ['최신순', '마감임박순', '급여높은순', '인기순']
 const PAGE_SIZE = 15
-
-const SHIFT_STYLE = {
-  주간: { bg: '#EFF5FF', color: '#4A8FE7' },
-  야간: { bg: '#F3F0FF', color: '#7C5CBF' },
-  단기: { bg: '#FFF8EC', color: '#E07800' },
-}
 
 function parsePay(pay) {
   const m = /^(시급|일급|월급)\s*([\d,]+)/.exec(pay || '')
@@ -69,6 +64,7 @@ function matchesWorkType(job, workTypes) {
     return false
   })
 }
+
 
 function JobRow({ job }) {
   const s = SHIFT_STYLE[job.shift] || {}

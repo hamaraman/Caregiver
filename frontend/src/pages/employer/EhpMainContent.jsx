@@ -1,17 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchMyJobs, fetchApplicantsForJob } from '../../api'
+import { SHIFT_STYLE } from '../../data/shiftStyles'
 
 const STATUS_COLOR = {
   검토중: { color: '#F39C12', bg: '#FFF8EC' },
   합격:   { color: '#27AE60', bg: '#EDFBF3' },
   불합격:  { color: '#E74C3C', bg: '#FEF0EF' },
-}
-
-const SHIFT_STYLE = {
-  주간: { bg: '#EFF5FF', color: '#4A8FE7' },
-  야간: { bg: '#F3F0FF', color: '#7C5CBF' },
-  단기: { bg: '#FFF8EC', color: '#E07800' },
 }
 
 export default function EhpMainContent() {

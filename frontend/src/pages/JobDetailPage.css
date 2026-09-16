@@ -192,7 +192,9 @@ button.jd-back-link { background: none; border: none; cursor: pointer; padding: 
   cursor: pointer;
   transition: background 0.15s;
 }
-.jd-apply-btn:hover { background: #3A7FD7; }
+.jd-apply-btn:hover:not(:disabled) { background: #3A7FD7; }
+.jd-apply-btn.applied { background: #2a9a5a; cursor: default; }
+.jd-apply-btn:disabled { opacity: 0.85; }
 
 .jd-contact-btn {
   width: 100%;

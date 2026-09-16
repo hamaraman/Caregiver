@@ -73,6 +73,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ### 2026-09-16
 - AuthGuard 로그인 필요 화면 핑크 → 블루 전환 (버튼·아이콘·테두리·배경 전체)
 - TalentDetailPage(인재 상세) 핑크 → 블루 전환 (카드 테두리·섹션바·경력·급여 강조색·SVG 아이콘 전체)
+- 프론트엔드 UI 전반 개선: JrForm 스텝퍼 UX 수정, JobDetailPage 지원하기 버튼 연결, HomeHero·JspHero 검색바 개선, MyApplicationsPage UI 리팩토링
+- 로그인 페이지·구직자 페이지·공고 목록 등 다수 페이지 스타일 정비
+- 네비게이션 버튼 간격 개선 (로그인·회원가입 버튼 spacing 추가)
+- shiftStyles.js, useDragScroll.js 신규 추가
 
 ### 2026-09-14
 - 고객센터 페이지(`/support`) 신규 생성: 공지사항·FAQ·1:1 문의 탭 구성

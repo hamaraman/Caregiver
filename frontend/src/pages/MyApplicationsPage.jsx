@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
 import { fetchMyApplications } from '../api'
@@ -65,7 +66,14 @@ export default function MyApplicationsPage() {
           <div className="ma-list">
             {loading && <div className="ma-empty">불러오는 중입니다...</div>}
             {!loading && filtered.length === 0 && (
-              <div className="ma-empty">해당 상태의 지원 내역이 없습니다.</div>
+              <div className="ma-empty">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                <p className="ma-empty-title">아직 지원한 공고가 없습니다.</p>
+                <p className="ma-empty-desc">마음에 드는 일자리에 지원해보세요.</p>
+                <Link to="/jobs" className="ma-empty-btn">일자리 찾아보기 →</Link>
+              </div>
             )}
             {filtered.map(app => {
               const job = app.job
@@ -74,21 +82,18 @@ export default function MyApplicationsPage() {
                 <div key={app.id} className="ma-row">
                   <div className="ma-row-logo">{(job.facility || job.type).charAt(0)}</div>
                   <div className="ma-row-info">
-                    <div className="ma-row-type">{job.type}</div>
-                    <div className="ma-row-facility">{job.facility}</div>
+                    <div className="ma-row-type">{app.jobType}</div>
+                    <div className="ma-row-facility">{app.facilityName}</div>
                     <div className="ma-row-meta">
-                      <span>{job.location}</span>
+                      <span>{app.location}</span>
                       <span>·</span>
-                      <span>{job.workType}</span>
+                      <span>{app.workType}</span>
                       <span>·</span>
-                      <span>{job.pay}</span>
+                      <span>{app.pay}</span>
                     </div>
                   </div>
                   <div className="ma-row-right">
-                    <span
-                      className="ma-status-badge"
-                      style={{ background: style.bg, color: style.color }}
-                    >
+                    <span className="ma-status-badge" style={{ background: style.bg, color: style.color }}>
                       {app.status}
                     </span>
                     <span className="ma-apply-date">지원일 {app.appliedAt}</span>

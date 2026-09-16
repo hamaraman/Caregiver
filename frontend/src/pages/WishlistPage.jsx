@@ -3,13 +3,8 @@ import { Link } from 'react-router-dom'
 import { fetchLikedJobs, unlikeJob } from '../api'
 import AuthGuard from '../components/AuthGuard'
 import HomeNav from './home/HomeNav'
+import { SHIFT_STYLE } from '../data/shiftStyles'
 import './JobSeekerPage.css'
-
-const SHIFT_STYLE = {
-  주간: { bg: '#EFF5FF', color: '#4A8FE7' },
-  야간: { bg: '#F3F0FF', color: '#7C5CBF' },
-  단기: { bg: '#FFF8EC', color: '#E07800' },
-}
 
 const HeartFilled = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="#e04444" stroke="#e04444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

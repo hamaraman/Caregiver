@@ -42,7 +42,6 @@ export default function TalentListPage() {
   const [selectedJobType, setSelectedJobType] = useState('전체')
   const [expFilter, setExpFilter] = useState('전체')
   const [sort, setSort] = useState('최신순')
-  const [viewMode, setViewMode] = useState(() => localStorage.getItem('tl-viewMode') || 'list')
   const [page, setPage] = useState(1)
   const [alertJob, setAlertJob] = useState('')
   const [alertRegion, setAlertRegion] = useState('')
@@ -213,100 +212,49 @@ export default function TalentListPage() {
 
               {/* 결과 바 */}
               <div className="tl-result-bar">
-                <div className="tl-result-bar-left">
-                  <span className="tl-result-count">총 <strong>{filtered.length}</strong>명의 인재</span>
-                </div>
-                <div className="tl-result-bar-right">
-                  <div className="tl-sort-group">
-                    {['최신순','경력순'].map(s => (
-                      <button key={s} className={`tl-sort-btn${sort === s ? ' tl-sort-btn--active' : ''}`} onClick={() => setSort(s)}>{s}</button>
-                    ))}
-                  </div>
-                  <div className="tl-view-toggle">
-                    <button className={`tl-view-btn ${viewMode === 'list' ? 'tl-view-btn--active' : ''}`} onClick={() => { setViewMode('list'); localStorage.setItem('tl-viewMode', 'list') }} title="리스트">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-                      </svg>
-                    </button>
-                    <button className={`tl-view-btn ${viewMode === 'card' ? 'tl-view-btn--active' : ''}`} onClick={() => { setViewMode('card'); localStorage.setItem('tl-viewMode', 'card') }} title="카드">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                        <rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/>
-                        <rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>
-                      </svg>
-                    </button>
-                  </div>
+                <span className="tl-result-count">총 <strong>{filtered.length}</strong>명의 인재</span>
+                <div className="tl-sort-group">
+                  {['최신순','경력순'].map(s => (
+                    <button key={s} className={`tl-sort-btn${sort === s ? ' tl-sort-btn--active' : ''}`} onClick={() => setSort(s)}>{s}</button>
+                  ))}
                 </div>
               </div>
 
               {/* 목록 */}
-              {viewMode === 'list' ? (
-                <div className="tl-card-list">
-                  {paginated.length === 0
-                    ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
-                    : paginated.map(t => (
-                      <Link to={`/talents/${t.id}`} className="tl-talent-card" key={t.id}>
-                        <div className="tl-talent-avatar">
-                          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#4A8FE7' : '#5b8def'} strokeWidth="1.8">
-                            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-                          </svg>
+              <div className="tl-card-list">
+                {paginated.length === 0
+                  ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
+                  : paginated.map(t => (
+                    <Link to={`/talents/${t.id}`} className="tl-talent-card" key={t.id}>
+                      <div className="tl-talent-avatar">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#4A8FE7' : '#5b8def'} strokeWidth="1.8">
+                          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                        </svg>
+                      </div>
+                      <div className="tl-talent-body">
+                        <div className="tl-talent-name-row">
+                          <span className="tl-talent-name">{t.name}</span>
+                          <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+                          <span className="tl-age">{t.age}세</span>
+                          <span className="tl-status-badge">구직중</span>
                         </div>
-                        <div className="tl-talent-body">
-                          <div className="tl-talent-name-row">
-                            <span className="tl-talent-name">{t.name}</span>
-                            <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
-                            <span className="tl-age">{t.age}세</span>
-                            <span className="tl-status-badge">구직중</span>
+                        <div className="tl-talent-meta">
+                          {t.jobType} · {t.experience} · {t.wishRegion}
+                        </div>
+                        {t.certs && t.certs.length > 0 && (
+                          <div className="tl-talent-tags">
+                            {t.certs.map(c => <span key={c} className="tl-cert-tag">{c}</span>)}
                           </div>
-                          <div className="tl-talent-meta">
-                            {t.jobType} · {t.experience} · {t.wishRegion}
-                          </div>
-                          {t.certs && t.certs.length > 0 && (
-                            <div className="tl-talent-tags">
-                              {t.certs.map(c => <span key={c} className="tl-cert-tag">{c}</span>)}
-                            </div>
-                          )}
-                        </div>
-                        <div className="tl-talent-right">
-                          <div className="tl-talent-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</div>
-                          <div className="tl-talent-worktype">{t.workType}</div>
-                        </div>
-                      </Link>
-                    ))
-                  }
-                </div>
-              ) : (
-                <div className="tl-grid">
-                  {paginated.length === 0
-                    ? <div className="tl-empty">조건에 맞는 인재가 없습니다.</div>
-                    : paginated.map(t => (
-                      <Link to={`/talents/${t.id}`} className="tl-grid-card" key={t.id}>
-                        <div className="tl-grid-card-top">
-                          <div className={`tl-grid-avatar tl-grid-avatar--${t.gender === '여' ? 'f' : 'm'}`}>
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#4A8FE7' : '#5b8def'} strokeWidth="1.8">
-                              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-                            </svg>
-                          </div>
-                          <div>
-                            <div className="tl-grid-name">
-                              {t.name}
-                              <span className={`tl-gender-badge tl-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
-                              <span className="tl-age">{t.age}세</span>
-                            </div>
-                            <span className="tl-status-badge">구직중</span>
-                          </div>
-                        </div>
-                        <div className="tl-grid-info">
-                          <div className="tl-grid-row"><span className="tl-grid-label">직종</span><span>{t.jobType}</span></div>
-                          <div className="tl-grid-row"><span className="tl-grid-label">경력</span><span>{t.experience}</span></div>
-                          <div className="tl-grid-row"><span className="tl-grid-label">지역</span><span>{t.wishRegion}</span></div>
-                          <div className="tl-grid-row"><span className="tl-grid-label">형태</span><span>{t.workType}</span></div>
-                        </div>
-                        <div className="tl-grid-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</div>
-                      </Link>
-                    ))
-                  }
-                </div>
-              )}
+                        )}
+                      </div>
+                      <div className="tl-talent-right">
+                        <div className="tl-talent-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</div>
+                        <div className="tl-talent-worktype">{t.workType}</div>
+                      </div>
+                    </Link>
+                  ))
+                }
+              </div>
 
               {/* 페이지네이션 */}
               {totalPages > 1 && (

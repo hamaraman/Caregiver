@@ -1024,6 +1024,10 @@
   padding: 48px 0 40px;
 }
 
+.jlp-hero .container {
+  padding-left: 250px;
+}
+
 .jlp-hero-eyebrow {
   font-size: 13px;
   color: #4A8FE7;
@@ -1202,20 +1206,21 @@
 }
 
 .jlp-time-chip {
-  padding: 6px 12px;
-  border-radius: 20px;
-  border: 1.5px solid #e0ecfb;
-  background: #f8fbff;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1.5px solid #dce8f8;
+  background: #fff;
   font-size: 12px;
   font-weight: 600;
-  color: #666;
+  color: #778a9a;
   cursor: pointer;
   transition: all 0.15s;
   font-family: inherit;
+  letter-spacing: 0.01em;
 }
 
-.jlp-time-chip:hover { border-color: #4A8FE7; color: #4A8FE7; }
-.jlp-time-chip--active { background: #e8f1ff; border-color: #4A8FE7; color: #4A8FE7; }
+.jlp-time-chip:hover { border-color: #4A8FE7; color: #4A8FE7; background: #f0f6ff; }
+.jlp-time-chip--active { background: #4A8FE7; border-color: #4A8FE7; color: #fff; }
 
 .jlp-sidebar-btn {
   width: 100%;
@@ -1251,8 +1256,6 @@
 
 .jlp-result-count { font-size: 14px; color: #666; }
 .jlp-result-count strong { color: #4A8FE7; }
-
-.jlp-result-right { display: flex; align-items: center; gap: 10px; }
 
 .jlp-sort-group { display: flex; gap: 4px; }
 
@@ -1300,37 +1303,105 @@
 }
 
 .jlp-row {
-  display: grid;
-  grid-template-columns: 2fr 1.2fr 1.3fr 1.1fr 0.8fr 0.6fr 40px;
-  align-items: center;
-  padding: 14px 20px;
-  border-bottom: 1px solid #f0f5ff;
-  gap: 8px;
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-bottom: 1px solid #eef3ff;
+  gap: 14px;
   cursor: pointer;
   transition: background 0.15s;
+  text-decoration: none;
+  color: inherit;
 }
 
 .jlp-row:last-child { border-bottom: none; }
 .jlp-row:hover { background: #f7faff; }
 
-.jlp-title-cell {
+.jlp-row-body { flex: 1; min-width: 0; }
+
+.jlp-row-top {
   display: flex;
   align-items: center;
   gap: 7px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .jlp-job-title {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: #222;
-  text-decoration: none;
   transition: color 0.15s;
 }
 
 .jlp-row:hover .jlp-job-title { color: #4A8FE7; }
 
-.jlp-location, .jlp-hours, .jlp-days { font-size: 13px; color: #555; }
-.jlp-wage { font-size: 13px; font-weight: 700; color: #4A8FE7; }
+.jlp-company {
+  font-size: 13px;
+  color: #999;
+}
+
+.jlp-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.jlp-meta-dot { color: #ccc; font-size: 12px; }
+
+.jlp-row-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.jlp-tag {
+  font-size: 11px;
+  padding: 2px 9px;
+  background: #f0f6ff;
+  color: #5590e8;
+  border-radius: 20px;
+  border: 1px solid #d0e4fb;
+  white-space: nowrap;
+}
+
+.jlp-row-right {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  min-width: 110px;
+}
+
+.jlp-wage { font-size: 14px; font-weight: 700; color: #4A8FE7; }
+
+.jlp-row-date-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jlp-shift-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  letter-spacing: 0.2px;
+}
+
+.jlp-dday {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+}
+
+.jlp-dday--urgent { color: #e53e3e; }
+
 .jlp-date { font-size: 12px; color: #aaa; }
 
 .jlp-like {
@@ -1524,16 +1595,12 @@
 
 @media (max-width: 768px) {
   .jlp-hero { padding: 36px 0 28px; }
+  .jlp-hero .container { padding-left: 20px; }
   .jlp-hero-title { font-size: 24px; }
   .jlp-body { flex-direction: column; padding: 16px 0 40px; }
   .jlp-sidebar { width: 100%; position: static; }
-  .jlp-card-grid { grid-template-columns: 1fr; }
-  .jlp-row {
-    display: block;
-    padding: 12px 16px;
-  }
-  .jlp-wage { display: block; font-size: 14px; margin: 4px 0; }
-  .jlp-location, .jlp-hours, .jlp-days, .jlp-date { display: inline; font-size: 12px; }
-  .jlp-location::after, .jlp-hours::after, .jlp-days::after { content: ' · '; color: #ddd; }
-}
+  .jlp-row { padding: 14px 16px; gap: 10px; }
+  .jlp-row-right { min-width: 90px; }
+  .jlp-wage { font-size: 13px; }
+  .jlp-row-tags { gap: 4px; }
 }

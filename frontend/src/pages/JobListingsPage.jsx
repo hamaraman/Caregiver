@@ -29,7 +29,6 @@ export default function JobListingsPage() {
   const [likedJobs, setLikedJobs] = useState({})
   const [alertJob, setAlertJob] = useState('')
   const [alertRegion, setAlertRegion] = useState('')
-  const [viewMode, setViewMode] = useState(() => localStorage.getItem('jl-viewMode') || 'list')
 
   const resetFilters = () => {
     setSidebarRegion('')
@@ -42,7 +41,7 @@ export default function JobListingsPage() {
   const filtered = jobs.filter((job) => {
     const matchRegion = !sidebarRegion || job.region === sidebarRegion || job.location.includes(sidebarRegion)
     const matchType = selectedJobType === '전체' || job.jobType === selectedJobType
-    const matchTime = workTime === '전체' || job.badge === workTime || (workTime === '주간' && job.badge === '주간') || (workTime === '야간' && job.badge === '야간') || (workTime === '단기' && job.badge === '단기')
+    const matchTime = workTime === '전체' || job.shift === workTime
     const matchQuery = !query || job.title.includes(query) || job.location.includes(query)
     return matchRegion && matchType && matchTime && matchQuery
   })
@@ -55,6 +54,15 @@ export default function JobListingsPage() {
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE)
   const paginated = sorted.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
   const toggleLike = (id) => setLikedJobs((prev) => ({ ...prev, [id]: !prev[id] }))
+
+  const calcDDay = (deadline) => {
+    if (!deadline || deadline === '상시') return null
+    const today = new Date(); today.setHours(0, 0, 0, 0)
+    const diff = Math.ceil((new Date(deadline) - today) / 86400000)
+    if (diff < 0) return '마감'
+    if (diff === 0) return 'D-Day'
+    return `D-${diff}`
+  }
 
   return (
     <div className="app">
@@ -156,69 +164,61 @@ export default function JobListingsPage() {
             <div className="jlp-main">
               <div className="jlp-result-bar">
                 <span className="jlp-result-count">총 <strong>{sorted.length}</strong>개의 공고</span>
-                <div className="jlp-result-right">
-                  <div className="jlp-sort-group">
-                    {['최신순','임금높은순'].map(s => (
-                      <button key={s} className={`jlp-sort-btn${sortOrder === s ? ' jlp-sort-btn--active' : ''}`} onClick={() => { setSortOrder(s); setPage(1) }}>{s}</button>
-                    ))}
-                  </div>
-                  <div className="jlp-view-toggle">
-                    <button className={`jlp-view-btn ${viewMode === 'list' ? 'jlp-view-btn--active' : ''}`} onClick={() => { setViewMode('list'); localStorage.setItem('jl-viewMode', 'list') }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                    </button>
-                    <button className={`jlp-view-btn ${viewMode === 'card' ? 'jlp-view-btn--active' : ''}`} onClick={() => { setViewMode('card'); localStorage.setItem('jl-viewMode', 'card') }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
-                    </button>
-                  </div>
+                <div className="jlp-sort-group">
+                  {['최신순','임금높은순'].map(s => (
+                    <button key={s} className={`jlp-sort-btn${sortOrder === s ? ' jlp-sort-btn--active' : ''}`} onClick={() => { setSortOrder(s); setPage(1) }}>{s}</button>
+                  ))}
                 </div>
               </div>
 
-              {viewMode === 'list' ? (
-                <div className="jlp-table">
-                  {paginated.length === 0 ? (
-                    <div className="jlp-empty">조건에 맞는 공고가 없습니다.</div>
-                  ) : paginated.map((job) => (
-                    <div className="jlp-row" key={job.id} onClick={e => { if (!e.target.closest('.jlp-like')) navigate(`/jobs/${job.id}`) }}>
-                      <div className="jlp-title-cell">
-                        {job.badge && <span className={`job-badge job-badge--${job.badgeColor}`}>{job.badge}</span>}
-                        <Link to={`/jobs/${job.id}`} className="jlp-job-title">{job.title}</Link>
+              <div className="jlp-table">
+                {paginated.length === 0 ? (
+                  <div className="jlp-empty">조건에 맞는 공고가 없습니다.</div>
+                ) : paginated.map((job) => {
+                  const dday = calcDDay(job.deadline)
+                  const isUrgent = dday && dday !== '마감' && parseInt(dday.replace('D-','')) <= 3
+                  const shiftStyle =
+                    job.shift === '야간' ? { background: '#1a2640', color: '#a0c0f0' } :
+                    job.shift === '단기' ? { background: '#e8fff0', color: '#2a9a5a' } :
+                    { background: '#e8f4ff', color: '#4A8FE7' }
+                  return (
+                    <Link to={`/jobs/${job.id}`} className="jlp-row" key={job.id} onClick={e => e.target.closest('.jlp-like') && e.preventDefault()}>
+                      <div className="jlp-row-body">
+                        <div className="jlp-row-top">
+                          {job.shift && <span className="jlp-shift-badge" style={shiftStyle}>{job.shift}</span>}
+                          <span className="jlp-job-title">{job.title}</span>
+                          {job.companyName && <span className="jlp-company">{job.companyName}</span>}
+                        </div>
+                        <div className="jlp-row-meta">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#bbd4f0" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                          <span>{job.location}</span>
+                          <span className="jlp-meta-dot">·</span>
+                          <span>{job.days}</span>
+                          <span className="jlp-meta-dot">·</span>
+                          <span>{job.hours}</span>
+                        </div>
+                        <div className="jlp-row-tags">
+                          {(job.displayTags || []).map(tag => (
+                            <span key={tag} className="jlp-tag">{tag}</span>
+                          ))}
+                        </div>
                       </div>
-                      <div className="jlp-location">{job.location}</div>
-                      <div className="jlp-wage">{job.wage}</div>
-                      <div className="jlp-hours">{job.hours}</div>
-                      <div className="jlp-days">{job.days}</div>
-                      <div className="jlp-date">{job.date}</div>
-                      <button className={`jlp-like ${likedJobs[job.id] ? 'jlp-like--active' : ''}`} onClick={() => toggleLike(job.id)}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#4A8FE7' : 'none'} stroke={likedJobs[job.id] ? '#4A8FE7' : '#ccc'} strokeWidth="2">
-                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="jlp-card-grid">
-                  {paginated.length === 0 ? (
-                    <div className="jlp-empty">조건에 맞는 공고가 없습니다.</div>
-                  ) : paginated.map((job) => (
-                    <Link to={`/jobs/${job.id}`} key={job.id} className="jlp-card">
-                      <div className="jlp-card-top">
-                        <span className="jlp-card-title">{job.title}</span>
-                        {job.badge && <span className={`job-badge job-badge--${job.badgeColor}`}>{job.badge}</span>}
-                        <button className="jlp-card-like" onClick={e => { e.preventDefault(); toggleLike(job.id) }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#4A8FE7' : 'none'} stroke={likedJobs[job.id] ? '#4A8FE7' : '#ccc'} strokeWidth="2">
+                      <div className="jlp-row-right">
+                        <span className="jlp-wage">{job.wage}</span>
+                        <div className="jlp-row-date-wrap">
+                          {dday && <span className={`jlp-dday${isUrgent ? ' jlp-dday--urgent' : ''}`}>{dday}</span>}
+                          <span className="jlp-date">{job.date}</span>
+                        </div>
+                        <button className={`jlp-like${likedJobs[job.id] ? ' jlp-like--active' : ''}`} onClick={e => { e.preventDefault(); toggleLike(job.id) }}>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill={likedJobs[job.id] ? '#4A8FE7' : 'none'} stroke={likedJobs[job.id] ? '#4A8FE7' : '#ccc'} strokeWidth="2">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                           </svg>
                         </button>
                       </div>
-                      <div className="jlp-card-location">{job.location}</div>
-                      <div className="jlp-card-wage">{job.wage}</div>
-                      <div className="jlp-card-meta">{job.hours} · {job.days}</div>
-                      <div className="jlp-card-date">{job.date}</div>
                     </Link>
-                  ))}
-                </div>
-              )}
+                  )
+                })}
+              </div>
 
               {totalPages > 1 && (
                 <div className="jlp-pagination">

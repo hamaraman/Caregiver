@@ -1,6 +1,7 @@
 export const jobs = [
   {
     id: 1, title: '요양보호사 (주간)', badge: '급구', badgeColor: 'red',
+    shift: '주간', displayTags: ['경력무관', '계약직', '4대보험'],
     location: '서울 강남구', wage: '시급 14,000원', hours: '09:00~15:00', days: '주 5일',
     date: '09.06', type: '시급', region: '서울', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '1년 이상',
@@ -14,6 +15,7 @@ export const jobs = [
   },
   {
     id: 2, title: '요양보호사 (야간)', badge: null,
+    shift: '야간', displayTags: ['야간수당', '계약직', '4대보험'],
     location: '경기 성남시', wage: '시급 13,500원', hours: '16:00~22:00', days: '주 5일',
     date: '09.05', type: '시급', region: '경기', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '신입',
@@ -27,6 +29,7 @@ export const jobs = [
   },
   {
     id: 3, title: '요양보호사 (오후)', badge: null,
+    shift: '주간', displayTags: ['오후근무', '아르바이트', '신입가능'],
     location: '인천 남동구', wage: '시급 13,000원', hours: '13:00~18:00', days: '주 5일',
     date: '09.05', type: '시급', region: '인천', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '아르바이트', education: '학력무관', experience: '신입',
@@ -40,6 +43,7 @@ export const jobs = [
   },
   {
     id: 4, title: '요양보호사 (주간)', badge: null,
+    shift: '주간', displayTags: ['정규직', '경력우대', '4대보험'],
     location: '부산 해운대구', wage: '시급 14,500원', hours: '09:00~15:00', days: '주 5일',
     date: '09.04', type: '시급', region: '부산', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '정규직', education: '학력무관', experience: '2년 이상',
@@ -53,6 +57,7 @@ export const jobs = [
   },
   {
     id: 5, title: '간병인 (상시)', badge: null,
+    shift: '주간', displayTags: ['상시모집', '숙식제공', '4대보험'],
     location: '대구 달서구', wage: '월급 4,500,000원', hours: '08:00~17:00', days: '주 5일',
     date: '09.03', type: '월급', region: '대구', jobType: '간병인', workType: '입주형',
     facility: '요양병원', employForm: '정규직', education: '고졸', experience: '3년 이상',
@@ -66,6 +71,7 @@ export const jobs = [
   },
   {
     id: 6, title: '요양보호사 (교대)', badge: null,
+    shift: '주간', displayTags: ['교대근무', '신입가능', '4대보험'],
     location: '광주 북구', wage: '시급 13,000원', hours: '07:00~13:00', days: '주 5일',
     date: '09.02', type: '시급', region: '광주', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '주야간보호', employForm: '계약직', education: '학력무관', experience: '신입',
@@ -79,6 +85,7 @@ export const jobs = [
   },
   {
     id: 7, title: '요양보호사 (주간)', badge: '추천', badgeColor: 'purple',
+    shift: '주간', displayTags: ['경력우대', '계약직', '4대보험'],
     location: '대전 서구', wage: '시급 13,500원', hours: '09:00~15:00', days: '주 5일',
     date: '09.01', type: '시급', region: '대전', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '1년 이상',
@@ -92,6 +99,7 @@ export const jobs = [
   },
   {
     id: 8, title: '간병인 (야간)', badge: null,
+    shift: '야간', displayTags: ['입주형', '숙식제공', '월급제'],
     location: '울산 남구', wage: '월급 4,200,000원', hours: '17:00~09:00', days: '주 5일',
     date: '08.31', type: '월급', region: '울산', jobType: '간병인', workType: '입주형',
     facility: '요양원', employForm: '정규직', education: '고졸', experience: '2년 이상',
@@ -105,6 +113,7 @@ export const jobs = [
   },
   {
     id: 9, title: '요양보호사 (주간)', badge: '급구', badgeColor: 'red',
+    shift: '주간', displayTags: ['신입가능', '계약직', '4대보험'],
     location: '서울 서초구', wage: '시급 14,000원', hours: '09:00~15:00', days: '주 5일',
     date: '08.30', type: '시급', region: '서울', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '신입',
@@ -118,6 +127,7 @@ export const jobs = [
   },
   {
     id: 10, title: '요양보호사 (야간)', badge: null,
+    shift: '야간', displayTags: ['야간수당', '신입가능', '4대보험'],
     location: '경기 수원시', wage: '시급 13,500원', hours: '22:00~06:00', days: '주 5일',
     date: '08.29', type: '시급', region: '경기', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '신입',
@@ -131,6 +141,7 @@ export const jobs = [
   },
   {
     id: 11, title: '간병인 (상시)', badge: null,
+    shift: '주간', displayTags: ['상시모집', '경력자우대', '4대보험'],
     location: '서울 송파구', wage: '월급 4,800,000원', hours: '08:00~17:00', days: '주 5일',
     date: '08.28', type: '월급', region: '서울', jobType: '간병인', workType: '입주형',
     facility: '요양병원', employForm: '정규직', education: '대졸', experience: '5년 이상',
@@ -144,6 +155,7 @@ export const jobs = [
   },
   {
     id: 12, title: '요양보호사 (오후)', badge: '추천', badgeColor: 'purple',
+    shift: '주간', displayTags: ['오후근무', '경력우대', '4대보험'],
     location: '경기 용인시', wage: '시급 13,200원', hours: '13:00~18:00', days: '주 5일',
     date: '08.27', type: '시급', region: '경기', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '1년 이상',
@@ -157,6 +169,7 @@ export const jobs = [
   },
   {
     id: 13, title: '요양보호사 (교대)', badge: null,
+    shift: '주간', displayTags: ['교대근무', '신입가능', '4대보험'],
     location: '인천 부평구', wage: '시급 13,000원', hours: '06:00~14:00', days: '주 5일',
     date: '08.26', type: '시급', region: '인천', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '주야간보호', employForm: '계약직', education: '학력무관', experience: '신입',
@@ -170,6 +183,7 @@ export const jobs = [
   },
   {
     id: 14, title: '요양보호사 (주간)', badge: null,
+    shift: '주간', displayTags: ['경력우대', '계약직', '4대보험'],
     location: '부산 북구', wage: '시급 13,800원', hours: '09:00~15:00', days: '주 5일',
     date: '08.25', type: '시급', region: '부산', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '1년 이상',
@@ -183,6 +197,7 @@ export const jobs = [
   },
   {
     id: 15, title: '간병인 (야간)', badge: null,
+    shift: '야간', displayTags: ['입주형', '협의가능', '월급제'],
     location: '대구 수성구', wage: '월급 4,300,000원', hours: '20:00~08:00', days: '주 5일',
     date: '08.24', type: '월급', region: '대구', jobType: '간병인', workType: '협의후결정',
     facility: '요양원', employForm: '정규직', education: '고졸', experience: '2년 이상',
@@ -196,6 +211,7 @@ export const jobs = [
   },
   {
     id: 16, title: '요양보호사 (주간)', badge: '급구', badgeColor: 'red',
+    shift: '주간', displayTags: ['신입가능', '계약직', '4대보험'],
     location: '광주 남구', wage: '시급 13,500원', hours: '09:00~15:00', days: '주 5일',
     date: '08.23', type: '시급', region: '광주', jobType: '요양보호사', workType: '출·퇴근형',
     facility: '재가요양', employForm: '계약직', education: '학력무관', experience: '신입',

@@ -71,8 +71,14 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-16
-- 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지가 mock 데이터(`data/jobs.js`/`data/applicants.js`/`data/talents.js`)를 쓰던 것을 실제 API(`fetchJobRaw`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 교체. 실제 DB ID와 mock ID가 달라 상세 페이지 진입 시 거의 항상 "공고를 찾을 수 없습니다"가 뜨던 문제, 지원 상태 변경이 저장 안 되던 문제 수정. `HiredWorkerModal`/`ApplicantModal`의 mock 연락처·시작일도 실제 이력서 스키마 필드로 정리. 공고 상세 링크 오탈자(`/jobs/:id` → `/job/:id`)도 같이 수정
-- 배포 서버 백엔드가 포트 충돌(구 프로세스가 8081을 계속 점유)로 재시작 실패하던 문제 수정: 구 프로세스 강제 종료. `jobs.closed` 컬럼에 남아있던 NULL 값 때문에 Hibernate 스키마 갱신이 실패하던 문제도 확인됨 (별도 데이터 보정 필요)
+- 로그인 후 세션 미반영 버그 수정: navigate('/') → window.location.href='/' (풀 리로드로 AuthContext 재초기화)
+- Vite 프록시에 /oauth2/, /login/oauth2/ 추가 → 로컬에서 소셜 로그인 창 정상 오픈
+- HomeTodayStats 상단 알림 영역(벨 아이콘 + 오늘 확인해보세요) 제거
+- HomeQuickMenu 구인 섹션 색상 복원: 파란색 → 핑크(#e91e8c), 구직 섹션 배경 흰색으로 통일
+- HomeQuickMenu 그라디언트 제거, 아이콘 배경 흰색으로 대비 개선
+- 홈 nav 로그인/회원가입 버튼 간격 개선
+- 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지 실제 API 연동
+- 배포 서버 백엔드 포트 충돌 수정
 - 공고 상세 페이지에 카카오 지도 추가: 근무지 주소를 지오코딩해 마커 표시 (Kakao Maps JS SDK)
 - 공고 상세 페이지 섹션 추가: 근무 조건 상세, 케어 대상자 정보, 지원 방법, 근무지 위치(지도), 업체 정보
 - api.js normalizeJob에 상세 페이지용 원본 필드 노출 (weekdays, careCondition, careWork, applyMethod 등)

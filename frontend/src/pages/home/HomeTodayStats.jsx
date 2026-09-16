@@ -38,7 +38,7 @@ export default function HomeTodayStats() {
 
   const items = [
     { label: '새로운 구인공고', value: s.newJobs, color: '#4A8FE7', bg: '#eff4ff', icon: ICONS.job, path: '/jobs' },
-    { label: '새로운 인재정보', value: s.newCaregivers, color: '#4A8FE7', bg: '#f0f6ff', icon: ICONS.talent, path: '/talents' },
+    { label: '새로운 인재정보', value: s.newCaregivers, color: '#e91e8c', bg: '#fdeef8', icon: ICONS.talent, path: '/talents' },
     { label: '오늘 마감되는 공고', value: s.closingToday, color: '#0bc5a8', bg: '#e8faf7', icon: ICONS.deadline, path: '/jobs' },
     { label: '찜한 일자리', value: s.wishCount, color: '#9b59b6', bg: '#f5eeff', icon: ICONS.wish, path: '/wishlist' },
   ]
@@ -46,17 +46,6 @@ export default function HomeTodayStats() {
   return (
     <section className="hp-today">
       <div className="hp-today-inner">
-        <div className="hp-today-lead">
-          <div className="hp-today-bell">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-            </svg>
-          </div>
-          <div>
-            <p className="hp-today-title">오늘 확인해보세요</p>
-            <p className="hp-today-sub">지금 바로 확인해야 할 중요한 정보를 모아드려요.</p>
-          </div>
-        </div>
         <div className="hp-today-stats">
           {items.map(s => (
             <button key={s.label} className="hp-today-stat" onClick={() => navigate(s.path)}>

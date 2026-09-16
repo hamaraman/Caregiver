@@ -308,12 +308,29 @@
     grid-template-columns: 1fr;
   }
 
+  .ap-card-top-row {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .ap-card-left {
+    width: 100%;
+  }
+
+  .ap-card-mid {
+    width: 100%;
+    flex: none;
+    grid-template-columns: 1fr 1fr;
+  }
+
   .ap-card-right {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px;
+    width: 100%;
   }
 }
 

@@ -37,11 +37,7 @@ export default function LoginPage() {
     setSubmitting(true)
     try {
       await login({ email: id, password, userType })
-      if (redirectTo) {
-        window.location.href = redirectTo
-      } else {
-        navigate('/')
-      }
+      window.location.href = redirectTo || '/'
     } catch (err) {
       setErrors({ password: err.message })
     } finally {

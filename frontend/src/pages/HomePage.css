@@ -618,8 +618,8 @@
   flex-direction: column;
   gap: 14px;
 }
-.hp-quick-card--js { background: linear-gradient(135deg, #e8f2ff 0%, #f0f7ff 100%); }
-.hp-quick-card--em { background: linear-gradient(135deg, #f0f6ff 0%, #fdf4fa 100%); }
+.hp-quick-card--js { background: #eef4ff; }
+.hp-quick-card--em { background: #fdeef8; }
 
 .hp-quick-card-head {
   display: flex;
@@ -633,7 +633,7 @@
   border-radius: 20px;
 }
 .hp-quick-card-badge--js { background: #4A8FE7; color: #fff; }
-.hp-quick-card-badge--em { background: #4A8FE7; color: #fff; }
+.hp-quick-card-badge--em { background: #e91e8c; color: #fff; }
 .hp-quick-card-desc {
   font-size: 12px;
   color: #8a9ab0;
@@ -657,8 +657,8 @@
   color: inherit;
   flex: 1;
 }
-.hp-quick-card--js .hp-quick-item:hover { background: rgba(74,143,231,0.08); transform: translateY(-2px); }
-.hp-quick-card--em .hp-quick-item:hover { background: rgba(233,30,140,0.07); transform: translateY(-2px); }
+.hp-quick-item:hover { transform: translateY(-3px); }
+.hp-quick-item:hover .hp-quick-icon { box-shadow: 0 4px 12px rgba(0,0,0,0.10); }
 
 .hp-quick-icon {
   width: 46px;

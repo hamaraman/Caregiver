@@ -46,7 +46,9 @@ jobs:
           script_stop: true
           script: |
             cd /home/ubuntu/Caregiver
-            git pull origin main
+            git fetch origin
+            git checkout main
+            git reset --hard origin/main
 
             # Build frontend
             cd frontend

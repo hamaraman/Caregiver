@@ -152,7 +152,7 @@
 
 .rd-divider {
   border: none;
-  border-top: 1px solid #f0e8f4;
+  border-top: 1px solid #d0e4fb;
   margin-bottom: 20px;
 }
 
@@ -206,7 +206,7 @@
   align-items: center;
   gap: 12px;
   padding-top: 16px;
-  border-top: 1px solid #f0e8f4;
+  border-top: 1px solid #d0e4fb;
   flex-wrap: wrap;
 }
 
@@ -442,7 +442,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 22px 24px 18px;
-  border-bottom: 1px solid #f0e8f4;
+  border-bottom: 1px solid #d0e4fb;
   flex-shrink: 0;
 }
 
@@ -530,7 +530,7 @@
   padding: 10px 14px;
   background: #faf8fc;
   border-radius: 10px;
-  border: 1px solid #f0e8f4;
+  border: 1px solid #d0e4fb;
   flex-wrap: wrap;
 }
 
@@ -563,7 +563,7 @@
   background: #faf8fc;
   border-radius: 10px;
   padding: 14px 16px;
-  border: 1px solid #f0e8f4;
+  border: 1px solid #d0e4fb;
   margin: 0;
 }
 
@@ -573,7 +573,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  border-top: 1px solid #f0e8f4;
+  border-top: 1px solid #d0e4fb;
   flex-shrink: 0;
 }
 

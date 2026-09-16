@@ -91,6 +91,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - ApplicantModal 공유 컴포넌트 추가 (지원자 이력서 팝업)
 - HiredWorkerModal 공유 컴포넌트 추가 (합격자 고용 관리 모달)
 - 채용관리 카드 클릭 시 상세 페이지(/manage/:id)로 이동하도록 연결
+- 전체 앱 핑크(#e91e8c) → 블루(#4A8FE7) 전면 교체: Header, HeroBanner, CTABanner, FeatureCards, JobListings, ApplicantsPage, TalentListPage, HomePage, 홈 섹션 컴포넌트 등
 
 ### 2026-09-15
 - 프론트엔드 구인공고 목록/상세 화면이 mock 데이터(`data/jobs.js` 등) 대신 실제 백엔드 API(`/api/jobs`)를 사용하도록 연동

@@ -1,4 +1,4 @@
-.hp-root {
+﻿.hp-root {
   min-height: 100vh;
   background: #f5f7fc;
   font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
@@ -440,7 +440,7 @@
   flex-shrink: 0;
 }
 .hp-hcard-icon--blue { background: #4A8FE7; }
-.hp-hcard-icon--pink { background: #e91e8c; }
+.hp-hcard-icon--pink { background: #4A8FE7; }
 
 .hp-hcard-title {
   font-size: 17px;
@@ -476,7 +476,7 @@
   flex-shrink: 0;
 }
 .hp-hcard-arrow--blue { background: #4A8FE7; }
-.hp-hcard-arrow--pink { background: #e91e8c; }
+.hp-hcard-arrow--pink { background: #4A8FE7; }
 
 /* ════════════════════════════════
    TODAY STATS
@@ -619,7 +619,7 @@
   gap: 14px;
 }
 .hp-quick-card--js { background: linear-gradient(135deg, #e8f2ff 0%, #f0f7ff 100%); }
-.hp-quick-card--em { background: linear-gradient(135deg, #fff0f7 0%, #fdf4fa 100%); }
+.hp-quick-card--em { background: linear-gradient(135deg, #f0f6ff 0%, #fdf4fa 100%); }
 
 .hp-quick-card-head {
   display: flex;
@@ -633,7 +633,7 @@
   border-radius: 20px;
 }
 .hp-quick-card-badge--js { background: #4A8FE7; color: #fff; }
-.hp-quick-card-badge--em { background: #e91e8c; color: #fff; }
+.hp-quick-card-badge--em { background: #4A8FE7; color: #fff; }
 .hp-quick-card-desc {
   font-size: 12px;
   color: #8a9ab0;
@@ -855,8 +855,8 @@
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 4px;
-  background: #fff0f7;
-  color: #e91e8c;
+  background: #f0f6ff;
+  color: #4A8FE7;
   flex-shrink: 0;
 }
 

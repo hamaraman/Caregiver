@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
+﻿import { useState, useRef, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import { fetchJobSeekers, fetchMyJobs } from '../api'
@@ -339,7 +339,7 @@ export default function TalentListPage() {
                     <Link to={`/talents/${t.id}`} className="tl-talent-row" key={t.id}>
                       <div className="tl-talent-row-left">
                         <div className={`tl-talent-avatar tl-talent-avatar--${t.gender === '여' ? 'f' : 'm'}`}>
-                          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8">
+                          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#4A8FE7' : '#5b8def'} strokeWidth="1.8">
                             <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
                           </svg>
                         </div>
@@ -401,7 +401,7 @@ export default function TalentListPage() {
                   {recommendedTalents.map(t => (
                     <Link to={`/talents/${t.id}`} key={t.id} className="tl-sidebar-talent">
                       <div className={`tl-rec-avatar tl-rec-avatar--${t.gender === '여' ? 'f' : 'm'}`}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#e91e8c' : '#5b8def'} strokeWidth="1.8">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={t.gender === '여' ? '#4A8FE7' : '#5b8def'} strokeWidth="1.8">
                           <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
                         </svg>
                       </div>

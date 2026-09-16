@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './HeroBanner.css'
 
@@ -81,10 +81,10 @@ export default function HeroBanner() {
                 <ellipse cx="100" cy="78" rx="30" ry="35" fill="#f2ccc0" />
                 <path d="M70 110 Q100 140 130 110" stroke="#e8c0d0" strokeWidth="3" fill="none" />
                 <text x="100" y="95" textAnchor="middle" fontSize="12" fill="#c96" fontWeight="bold">😊</text>
-                <rect x="40" y="155" width="120" height="10" rx="5" fill="#e91e8c" opacity="0.2" />
+                <rect x="40" y="155" width="120" height="10" rx="5" fill="#4A8FE7" opacity="0.2" />
                 <rect x="55" y="165" width="90" height="100" rx="15" fill="#fff5fa" />
-                <rect x="65" y="175" width="70" height="8" rx="4" fill="#e91e8c" opacity="0.3" />
-                <rect x="65" y="190" width="50" height="8" rx="4" fill="#e91e8c" opacity="0.2" />
+                <rect x="65" y="175" width="70" height="8" rx="4" fill="#4A8FE7" opacity="0.3" />
+                <rect x="65" y="190" width="50" height="8" rx="4" fill="#4A8FE7" opacity="0.2" />
               </svg>
             </div>
           </div>

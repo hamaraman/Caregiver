@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchJobs, fetchJobSeekers, fetchLikedJobs } from '../../api'
 
@@ -38,7 +38,7 @@ export default function HomeTodayStats() {
 
   const items = [
     { label: '새로운 구인공고', value: s.newJobs, color: '#4A8FE7', bg: '#eff4ff', icon: ICONS.job, path: '/jobs' },
-    { label: '새로운 인재정보', value: s.newCaregivers, color: '#e91e8c', bg: '#fff0f7', icon: ICONS.talent, path: '/talents' },
+    { label: '새로운 인재정보', value: s.newCaregivers, color: '#4A8FE7', bg: '#f0f6ff', icon: ICONS.talent, path: '/talents' },
     { label: '오늘 마감되는 공고', value: s.closingToday, color: '#0bc5a8', bg: '#e8faf7', icon: ICONS.deadline, path: '/jobs' },
     { label: '찜한 일자리', value: s.wishCount, color: '#9b59b6', bg: '#f5eeff', icon: ICONS.wish, path: '/wishlist' },
   ]

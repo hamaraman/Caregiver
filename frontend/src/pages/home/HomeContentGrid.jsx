@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+﻿import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchJobs, fetchJobSeekers } from '../../api'
 import { NOTICES } from '../../data/notices'
@@ -65,7 +65,7 @@ export default function HomeContentGrid() {
           <div className="hp-popular-col">
             <div className="hp-popular-col-header">
               <p className="hp-popular-col-title">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.5" strokeLinecap="round"><path d="M21 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5" strokeLinecap="round"><path d="M21 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 인기 구인 지역
               </p>
               <Link to="/listings" className="hp-more-btn">전체보기 ›</Link>
@@ -170,7 +170,7 @@ export default function HomeContentGrid() {
         <div className="hp-notice-cta">
           <div className="hp-notice-cta-icon">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#e91e8c" opacity="0.85"/>
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#4A8FE7" opacity="0.85"/>
             </svg>
           </div>
           <p className="hp-notice-cta-text">함께 만드는 더 좋은 돌봄 사회<br /><span>요양이지가 함께합니다.</span></p>

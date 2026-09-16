@@ -1,4 +1,4 @@
-.ap-page {
+﻿.ap-page {
   padding: 32px 0 80px;
   min-height: calc(100vh - 64px);
   background: #f5f7fc;
@@ -151,7 +151,7 @@
   justify-content: center;
   flex-shrink: 0;
 }
-.ap-avatar--f { background: #fff0f7; }
+.ap-avatar--f { background: #f0f6ff; }
 .ap-avatar--m { background: #eff5ff; }
 
 .ap-card-name {
@@ -175,7 +175,7 @@
   border-radius: 10px;
 }
 
-.ap-gender-badge--f { background: #fff0f7; color: #e91e8c; }
+.ap-gender-badge--f { background: #f0f6ff; color: #4A8FE7; }
 .ap-gender-badge--m { background: #eff4ff; color: #5b8def; }
 
 .ap-card-age { font-size: 12px; color: #aaa; margin-bottom: 6px; }

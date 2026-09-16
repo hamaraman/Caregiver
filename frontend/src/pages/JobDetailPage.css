@@ -262,18 +262,13 @@
 
 /* ── 모바일 반응형 ── */
 @media (max-width: 720px) {
-  .jd-page { padding: 44px 0 40px; }
+  .jd-page { padding: 60px 0 40px; }
   .jd-inner { padding: 0 14px; }
 
   .jd-back-link {
-    padding: 8px 16px;
-    background: #f0f5ff;
-    border: 1.5px solid #d0e4f8;
-    border-radius: 20px;
     font-size: 13px;
     margin-bottom: 16px;
   }
-  .jd-back-link:hover { background: #e4efff; color: #2a6fcc; }
 
   .jd-layout {
     grid-template-columns: 1fr;

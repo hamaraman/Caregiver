@@ -11,15 +11,21 @@
 }
 
 .jd-back-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 13px;
   color: #4A8FE7;
   text-decoration: none;
   margin-bottom: 20px;
-  font-weight: 500;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
 }
-.jd-back-link:hover { text-decoration: underline; }
-button.jd-back-link { background: none; border: none; cursor: pointer; padding: 0; }
+.jd-back-link:hover { color: #2a6fcc; }
 
 .jd-layout {
   display: grid;
@@ -256,8 +262,18 @@ button.jd-back-link { background: none; border: none; cursor: pointer; padding: 
 
 /* ── 모바일 반응형 ── */
 @media (max-width: 720px) {
-  .jd-page { padding: 16px 0 40px; }
+  .jd-page { padding: 28px 0 40px; }
   .jd-inner { padding: 0 14px; }
+
+  .jd-back-link {
+    padding: 8px 16px;
+    background: #f0f5ff;
+    border: 1.5px solid #d0e4f8;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .jd-back-link:hover { background: #e4efff; color: #2a6fcc; }
 
   .jd-layout {
     grid-template-columns: 1fr;

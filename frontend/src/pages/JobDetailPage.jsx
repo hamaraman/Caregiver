@@ -102,7 +102,12 @@ export default function JobDetailPage() {
         <HomeNav />
         <div className="jd-not-found">
           <p>존재하지 않는 공고입니다.</p>
-          <button className="jd-back-link" onClick={() => navigate(-1)}>← 목록으로 돌아가기</button>
+          <button className="jd-back-link" onClick={() => navigate(-1)}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            목록으로 돌아가기
+          </button>
         </div>
       </>
     )
@@ -115,7 +120,12 @@ export default function JobDetailPage() {
       <HomeNav />
       <div className="jd-inner">
 
-        <button className="jd-back-link" onClick={() => navigate(-1)}>← 목록으로 돌아가기</button>
+        <button className="jd-back-link" onClick={() => navigate(-1)}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          목록으로 돌아가기
+        </button>
 
         <div className="jd-layout">
 

@@ -98,6 +98,26 @@ function normalizeJob(job) {
     requirements: requirements.length ? requirements : ['등록된 지원 자격 정보가 없습니다.'],
     benefits: [],
     contact: job.managerPhone || job.companyPhone || '문의처가 등록되지 않았습니다.',
+    // 상세 페이지용 원본 필드
+    workForm: job.workForm || null,
+    deadline: job.deadline || null,
+    weekdays: job.weekdays || [],
+    daysNegotiable: job.daysNegotiable || false,
+    careGender: job.careGender || null,
+    careAge: job.careAge || null,
+    careGrade: job.careGrade || null,
+    careCondition: job.careCondition || [],
+    careWork: job.careWork || [],
+    applyMethod: job.applyMethod || [],
+    applyEmail: job.applyEmail || null,
+    applyFax: job.applyFax || null,
+    companyUrl: job.companyUrl || null,
+    companyPhone: job.companyPhone || null,
+    companyAddr: job.companyAddr || null,
+    companyAddrDetail: job.companyAddrDetail || null,
+    managerName: job.managerName || null,
+    managerPhone: job.managerPhone || null,
+    managerEmail: job.managerEmail || null,
   }
 }
 

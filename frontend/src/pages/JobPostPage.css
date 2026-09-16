@@ -633,10 +633,16 @@
 
   .jp-input--full,
   .jp-input--md,
-  .jp-input--wage,
   .jp-input--date {
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .jp-input--wage {
+    flex: 1;
+    width: auto;
+    min-width: 0;
     box-sizing: border-box;
   }
 

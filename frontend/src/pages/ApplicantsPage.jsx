@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
 import { fetchMyJobs, fetchApplicantsForJob, fetchApplicantResume, updateApplicationStatus } from '../api'
@@ -60,6 +60,7 @@ export default function ApplicantsPage() {
   const [loading, setLoading] = useState(true)
   const [selectedJobId, setSelectedJobId] = useState(null)
   const [expandedAppId, setExpandedAppId] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchMyJobs()
@@ -163,7 +164,12 @@ export default function ApplicantsPage() {
                     const stStyle = STATUS_STYLE[app.status] || {}
                     const expanded = expandedAppId === app.id
                     return (
-                      <div key={app.id} className="ap-card">
+                      <div
+                        key={app.id}
+                        className="ap-card"
+                        onClick={() => navigate(`/applicants/${app.jobId ?? selectedJobId}`)}
+                        style={{ cursor: 'pointer' }}
+                      >
                         <div className="ap-card-top-row">
 
                           {/* 아바타 */}
@@ -177,7 +183,7 @@ export default function ApplicantsPage() {
                           {/* 프로필 */}
                           <div className="ap-card-profile">
                             <div className="ap-card-name-row">
-                              <button className="ap-card-name" onClick={() => setExpandedAppId(expanded ? null : app.id)}>
+                              <button className="ap-card-name" onClick={(e) => { e.stopPropagation(); setExpandedAppId(expanded ? null : app.id) }}>
                                 {maskName(app.applicantName)}
                               </button>
                               {resume?.gender && (
@@ -214,18 +220,22 @@ export default function ApplicantsPage() {
                             </div>
                             <div className="ap-status-btns">
                               {STATUS_LIST.filter((s) => s !== app.status).map((s) => (
-                                <button key={s} className="ap-status-change-btn" onClick={() => changeStatus(app.id, s)}>
+                                <button key={s} className="ap-status-change-btn" onClick={(e) => { e.stopPropagation(); changeStatus(app.id, s) }}>
                                   {s}
                                 </button>
                               ))}
                             </div>
-                            <button className="ap-resume-btn" onClick={() => setExpandedAppId(expanded ? null : app.id)}>
+                            <button className="ap-resume-btn" onClick={(e) => { e.stopPropagation(); setExpandedAppId(expanded ? null : app.id) }}>
                               {expanded ? '이력서 닫기' : '이력서 보기'}
                             </button>
                           </div>
                         </div>
 
-                        {expanded && <ResumePanel applicantId={app.applicantId} resume={resume} />}
+                        {expanded && (
+                          <div onClick={(e) => e.stopPropagation()}>
+                            <ResumePanel applicantId={app.applicantId} resume={resume} />
+                          </div>
+                        )}
                       </div>
                     )
                   })}

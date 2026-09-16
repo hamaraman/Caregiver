@@ -71,6 +71,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-16
+- 지원자확인 페이지(`/applicants`) 카드 클릭 시 상세 페이지(`/applicants/:id`)로 이동하도록 연결 (이전엔 아무 곳에서도 안 걸려있던 고아 라우트였음). 이름/상태 변경/이력서 토글 버튼은 `stopPropagation`으로 카드 클릭과 분리
 - 지원자확인 페이지(`/applicants`)를 임시로 넣어뒀던 mock 데이터(`MOCK_JOBS`/`MOCK_APPLICANTS`/`MOCK_RESUMES`)에서 실제 API(`fetchMyJobs`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 다시 되돌림, `AuthGuard`(사업자 전용)도 복원. 카드에 표시하던 나이/직종 등 mock 전용 필드는 실제 이력서 스키마(성별/생년월일/근무형태/경력/희망급여)로 대체
 - `DataInitializer`에 샘플 지원자 4명(이력서 포함) + 지원 내역 시드 추가 — `job_applications` 테이블이 비어있을 때만 실행되어, 실제 API로 되돌린 지원자확인 페이지에서 바로 확인할 수 있는 예시 데이터 제공
 - 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지가 mock 데이터(`data/jobs.js`/`data/applicants.js`/`data/talents.js`)를 쓰던 것을 실제 API(`fetchJobRaw`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 교체. 실제 DB ID와 mock ID가 달라 상세 페이지 진입 시 거의 항상 "공고를 찾을 수 없습니다"가 뜨던 문제, 지원 상태 변경이 저장 안 되던 문제 수정. `HiredWorkerModal`/`ApplicantModal`의 mock 연락처·시작일도 실제 이력서 스키마 필드로 정리. 공고 상세 링크 오탈자(`/jobs/:id` → `/job/:id`)도 같이 수정

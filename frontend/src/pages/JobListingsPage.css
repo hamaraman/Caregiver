@@ -128,19 +128,6 @@
   position: sticky;
   top: 80px;
 }
-.jl2-filter-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  padding-bottom: 12px;
-  border-bottom: 1.5px solid #d4e4f7;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.1s;
-  border-radius: 6px 6px 0 0;
-}
-.jl2-filter-header:hover { background: #f7fbff; }
 .jl2-filter-title {
   display: flex;
   align-items: center;
@@ -149,12 +136,6 @@
   font-weight: 800;
   color: #1a2640;
 }
-.jl2-filter-desktop-chevron {
-  transition: transform 0.2s;
-  color: #aab;
-  margin-left: 2px;
-}
-.jl2-filter-desktop-chevron.open { transform: rotate(180deg); }
 .jl2-filter-reset {
   display: flex;
   align-items: center;
@@ -622,19 +603,28 @@
 .jl2-footer-links span { color: #d0d8e8; font-size: 12px; }
 .jl2-footer-copy { font-size: 11.5px; color: #b0bdd4; margin: 0; }
 
-/* ===================== 필터 바디 기본값: 접힘 (데스크탑·모바일 공통) ===================== */
-.jl2-filter-body { display: none; }
-.jl2-filter--open .jl2-filter-body {
-  display: block;
-  padding-top: 2px;
-}
+/* ===================== 필터 바디: 데스크탑 항상 표시, 모바일 기본 접힘 ===================== */
+.jl2-filter-body { display: block; }          /* 데스크탑: 항상 펼침 */
+.jl2-filter-header { display: none; }         /* 데스크탑: 헤더 숨김 */
 
-/* 필터 헤더: 접혔을 때 border-bottom 제거 */
-.jl2-filter:not(.jl2-filter--open) .jl2-filter-header {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
+/* 데스크탑 초기화 버튼 (필터 수 > 0 일 때만 표시) */
+.jl2-filter-desktop-reset {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  width: 100%;
+  font-size: 11.5px;
+  color: #b0b8cc;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 12px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid #e8eff8;
+  transition: color 0.15s;
 }
+.jl2-filter-desktop-reset:hover { color: #4A8FE7; }
 
 /* ===================== 모바일 필터 토글 (기본: 숨김) ===================== */
 .jl2-filter-mobile-toggle { display: none; }
@@ -677,17 +667,11 @@
   }
   .jl2-filter-mobile-chevron.open { transform: rotate(180deg); }
 
-  /* 필터 헤더: 모바일에서는 토글 버튼이 대체하므로 숨김 */
-  .jl2-filter-header { display: none; }
-  .jl2-filter--open .jl2-filter-header {
-    display: flex;
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid #f0f4fb;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
+  /* 모바일: 필터 바디 기본 숨김, 열렸을 때만 표시 */
+  .jl2-filter-body { display: none; }
+  .jl2-filter--open .jl2-filter-body { display: block; }
+  /* 데스크탑 초기화 버튼 모바일에서 숨김 */
+  .jl2-filter-desktop-reset { display: none; }
 
   .jl2-region-panel { width: calc(100vw - 40px); max-width: 360px; }
   .jl2-job-row-tags { display: none; }

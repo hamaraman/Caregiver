@@ -645,6 +645,32 @@
   border: 1.5px solid #ccdaf8;
 }
 
+/* 토스트 알림 */
+.jp-toast {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a2d4d;
+  color: #fff;
+  padding: 13px 22px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  z-index: 2000;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+  white-space: nowrap;
+  animation: jp-toast-in 0.2s ease;
+}
+
+@keyframes jp-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 @media (max-width: 768px) {
   .jp-steps {
     position: sticky;

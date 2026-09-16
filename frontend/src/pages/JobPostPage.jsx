@@ -42,6 +42,19 @@ export default function JobPostPage() {
   const navigate = useNavigate()
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const [toast, setToast] = useState('')
+
+  const showToast = (msg) => {
+    setToast(msg)
+    setTimeout(() => setToast(''), 3000)
+  }
+
+  const scrollToSection = (idx) => {
+    const el = document.getElementById(`jp-section-${idx}`)
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - 140
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
 
   // 근무 조건
   const [sido, setSido] = useState('')
@@ -242,7 +255,33 @@ export default function JobPostPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const fields = { companyName, companyPhone, managerName, managerPhone, managerEmail, applyEmail, applyFax }
+
+    const requiredChecks = [
+      { section: 0, ok: !!sido,                                          msg: '근무 지역을 선택해주세요.' },
+      { section: 0, ok: !!jobType,                                       msg: '직종을 선택해주세요.' },
+      { section: 0, ok: !!facility,                                      msg: '시설종류를 선택해주세요.' },
+      { section: 0, ok: !!workForm,                                      msg: '근무형태를 선택해주세요.' },
+      { section: 0, ok: !!employForm,                                    msg: '고용형태를 선택해주세요.' },
+      { section: 0, ok: !!education,                                     msg: '희망학력을 선택해주세요.' },
+      { section: 0, ok: !!experience,                                    msg: '희망경력을 선택해주세요.' },
+      { section: 0, ok: selectedDays.length > 0 || dayNegotiable,       msg: '근무요일을 선택해주세요.' },
+      { section: 0, ok: !!wageType,                                      msg: '급여 유형을 선택해주세요.' },
+      { section: 0, ok: !!(deadline || deadlineType === '상시'),         msg: '모집 마감일을 입력해주세요.' },
+      { section: 2, ok: !!postTitle.trim(),                              msg: '채용 제목을 입력해주세요.' },
+      { section: 3, ok: !!companyName.trim(),                            msg: '업체명을 입력해주세요.' },
+      { section: 3, ok: !!companyPhone && phoneRegex.test(companyPhone), msg: '올바른 업체 전화번호를 입력해주세요.' },
+      { section: 4, ok: !!managerName.trim(),                            msg: '담당자명을 입력해주세요.' },
+      { section: 5, ok: agreed,                                          msg: '이용약관에 동의해주세요.' },
+    ]
+
+    const firstFail = requiredChecks.find(c => !c.ok)
+    if (firstFail) {
+      showToast(firstFail.msg)
+      scrollToSection(firstFail.section)
+      return
+    }
+
+    const fields = { managerPhone, managerEmail, applyEmail, applyFax }
     const newErrors = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, validateField(k, v)]))
     setErrors(newErrors)
     if (Object.values(newErrors).some(v => v)) return
@@ -285,6 +324,15 @@ export default function JobPostPage() {
     <div className="app">
       <HomeNav />
 
+      {toast && (
+        <div className="jp-toast">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          {toast}
+        </div>
+      )}
+
       <section className="jpp-hero">
         <img src="/employer-hero.png" className="jpp-hero-photo" alt="" aria-hidden="true" />
         <div className="jpp-hero-inner">
@@ -326,7 +374,7 @@ export default function JobPostPage() {
             ))}
           </div>
 
-          <form className="jp-form" onSubmit={handleSubmit}>
+          <form className="jp-form" onSubmit={handleSubmit} noValidate>
 
             {/* ① 근무 조건 */}
             <div id="jp-section-0" className="jp-section">

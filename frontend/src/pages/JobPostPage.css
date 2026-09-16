@@ -86,78 +86,99 @@
   color: #222;
 }
 
-/* 진행 단계 (Chevron Steps) */
+/* 진행 단계 (Numbered Circle Steps) */
 .jp-steps {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   background: #fff;
   border-radius: 14px;
   border: 1.5px solid #b8d0f5;
+  padding: 20px 20px 16px;
   margin-bottom: 28px;
-  overflow: hidden;
   box-shadow: 0 2px 10px rgba(74,143,231,0.06);
 }
 
-.jp-step-arrow {
+.jp-step-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 7px;
   flex: 1;
-  padding: 13px 6px 13px 20px;
-  background: #f5f7fc;
-  color: #bbb;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%, 13px 50%);
-  transition: background 0.2s, color 0.2s;
-  white-space: nowrap;
+  min-width: 0;
+}
+
+.jp-step-item:last-child {
+  flex: 0 0 auto;
+}
+
+.jp-step-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
   border: none;
-  outline: none;
-  background-clip: padding-box;
-}
-
-.jp-step-arrow:first-child {
-  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
-  padding-left: 16px;
-}
-
-.jp-step-arrow--active {
-  background: #4A8FE7;
-  color: #fff;
-}
-
-.jp-step-arrow--done {
-  background: #3ab07a;
-  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
 }
 
 .jp-step-n {
-  width: 20px;
-  height: 20px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1.5px solid currentColor;
+  border: 2px solid #d8e6f8;
+  background: #f5f7fc;
+  color: #c0cfe0;
+  font-size: 14px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  flex-shrink: 0;
-  opacity: 0.8;
+  transition: all 0.2s;
 }
 
-.jp-step-arrow--active .jp-step-n,
-.jp-step-arrow--done .jp-step-n {
-  opacity: 1;
-  border-color: rgba(255,255,255,0.7);
+.jp-step-circle--active .jp-step-n {
+  background: #4A8FE7;
+  border-color: #4A8FE7;
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(74,143,231,0.15);
+}
+
+.jp-step-circle--done .jp-step-n {
+  background: #3ab07a;
+  border-color: #3ab07a;
+  color: #fff;
 }
 
 .jp-step-label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: inherit;
+  color: #c0cfe0;
   white-space: nowrap;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.jp-step-circle--active .jp-step-label {
+  color: #4A8FE7;
+  font-weight: 700;
+}
+
+.jp-step-circle--done .jp-step-label {
+  color: #3ab07a;
+}
+
+.jp-step-line {
+  flex: 1;
+  height: 2px;
+  background: #e0eaf5;
+  border-radius: 2px;
+  margin: 0 6px;
+  margin-bottom: 28px;
+  transition: background 0.2s;
+}
+
+.jp-step-line--done {
+  background: #3ab07a;
 }
 
 /* 섹션 */
@@ -634,25 +655,19 @@
     border-right: none;
     border-top: none;
     margin: 0 -16px 16px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    padding: 12px 16px 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
   }
 
-  .jp-step-arrow {
-    padding: 10px 4px 10px 14px;
-    gap: 0;
-  }
-
-  .jp-step-arrow:first-child {
-    padding-left: 10px;
+  .jp-step-n {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
   }
 
   .jp-step-label { display: none; }
 
-  .jp-step-n {
-    width: 24px;
-    height: 24px;
-    font-size: 11px;
-  }
+  .jp-step-line { margin-bottom: 0; }
 
   .jp-section-body {
     padding: 16px;

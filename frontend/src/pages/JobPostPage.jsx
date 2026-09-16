@@ -303,20 +303,24 @@ export default function JobPostPage() {
           {/* 진행 단계 */}
           <div className="jp-steps">
             {SECTIONS.map((s, i) => (
-              <button
-                key={s}
-                type="button"
-                className={`jp-step-arrow${i < currentStep ? ' jp-step-arrow--done' : i === currentStep ? ' jp-step-arrow--active' : ''}`}
-                onClick={() => document.getElementById(`jp-section-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              >
-                <span className="jp-step-n">
-                  {i < currentStep
-                    ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    : i + 1
-                  }
-                </span>
-                <span className="jp-step-label">{s}</span>
-              </button>
+              <div key={s} className="jp-step-item">
+                <button
+                  type="button"
+                  className={`jp-step-circle${i < currentStep ? ' jp-step-circle--done' : i === currentStep ? ' jp-step-circle--active' : ''}`}
+                  onClick={() => document.getElementById(`jp-section-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                >
+                  <span className="jp-step-n">
+                    {i < currentStep
+                      ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      : i + 1
+                    }
+                  </span>
+                  <span className="jp-step-label">{s}</span>
+                </button>
+                {i < SECTIONS.length - 1 && (
+                  <div className={`jp-step-line${i < currentStep ? ' jp-step-line--done' : ''}`} />
+                )}
+              </div>
             ))}
           </div>
 

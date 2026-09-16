@@ -271,6 +271,8 @@ export default function JobPostPage() {
         if (!el) return
         if (el.getBoundingClientRect().top <= navH + 20) best = i
       })
+      const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
+      if (nearBottom) best = SECTIONS.length - 1
       setCurrentStep(best)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })

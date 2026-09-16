@@ -1,13 +1,13 @@
 .jd-page {
   background: #f4f6fb;
   min-height: 100vh;
-  padding: 32px 0 60px;
+  padding: 0 0 60px;
 }
 
 .jd-inner {
   max-width: 960px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 32px 20px 0;
 }
 
 .jd-back-link {
@@ -263,7 +263,7 @@
 /* ── 모바일 반응형 ── */
 @media (max-width: 720px) {
   .jd-page { padding: 0 0 40px; }
-  .jd-inner { padding: 28px 14px 0; }
+  .jd-inner { padding: 24px 14px 0; }
 
   .jd-back-link {
     font-size: 13px;

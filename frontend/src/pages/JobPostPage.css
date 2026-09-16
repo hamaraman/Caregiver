@@ -54,8 +54,13 @@
 }
 
 @media (max-width: 768px) {
+  .jpp-hero { padding: 24px 0 0; }
   .jpp-hero-photo { display: none; }
-  .jpp-hero-title { font-size: 32px; }
+  .jpp-hero-inner { min-height: 120px; padding: 0 20px; }
+  .jpp-hero-text { padding-bottom: 24px; }
+  .jpp-hero-eyebrow { font-size: 12px; margin-bottom: 6px; }
+  .jpp-hero-title { font-size: 24px; letter-spacing: -0.5px; }
+  .jpp-hero-desc { font-size: 12px; line-height: 1.6; }
 }
 
 .jp-page {
@@ -628,15 +633,22 @@
 
   .jp-input--full,
   .jp-input--md,
-  .jp-input--wage,
   .jp-input--date {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
   }
 
+  .jp-input--wage {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
   .jp-select--md {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
   }
 
   .jp-textarea {
@@ -697,10 +709,25 @@
 
   .jp-select--mobile-only {
     display: block;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    min-width: 140px;
   }
 
   .jp-steps {
     display: none;
   }
+
+  .jp-page { padding: 16px 0 60px; }
+
+  .jp-section-header { padding: 12px 16px; }
+
+  /* 필드그룹 안의 select는 모바일에서 전체 너비로 */
+  .jp-field-group > .jp-select { width: 100%; }
+
+  /* 근무시간 입력 균등 분할 */
+  .jp-time-group { width: 100%; }
+  .jp-time-group .jp-input--time { flex: 1; width: auto; }
+
+  .jp-actions { padding-top: 4px; gap: 8px; }
 }

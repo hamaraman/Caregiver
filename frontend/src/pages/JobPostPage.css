@@ -641,7 +641,8 @@
   }
 
   .jp-select--md {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
   }
 
   .jp-textarea {
@@ -702,7 +703,9 @@
 
   .jp-select--mobile-only {
     display: block;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    min-width: 140px;
   }
 
   .jp-steps {

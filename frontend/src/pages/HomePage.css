@@ -984,25 +984,129 @@
 }
 
 @media (max-width: 768px) {
+  /* ── NAV (모바일) ── */
+  .hp-nav { height: 52px; }
   .hp-nav-list { display: none; }
   .hp-nav-inner { padding: 0 16px; gap: 8px; justify-content: space-between; }
   .hp-nav-actions { gap: 4px; }
-  .hp-btn-login, .hp-btn-signup { padding: 6px 10px; font-size: 12px; }
+  .hp-btn-login, .hp-btn-signup { padding: 6px 12px; font-size: 12px; }
   .hp-logo-tagline { display: none; }
-  .hp-logo-name { font-size: 16px; }
-  .hp-hero { padding: 36px 0 32px; }
-  .hp-hero-inner { flex-direction: column; align-items: flex-start; gap: 24px; padding: 0 16px; }
+  .hp-logo-name { font-size: 17px; }
+  .hp-logo svg { width: 32px; height: 32px; }
+
+  /* ── HERO (모바일) ── */
+  .hp-hero { padding: 28px 0 24px; }
+  .hp-hero-inner { flex-direction: column; align-items: stretch; gap: 18px; padding: 0 16px; }
   .hp-hero-content { max-width: 100%; }
-  .hp-hero-title { font-size: 26px; letter-spacing: -1px; }
-  .hp-hero-desc { font-size: 13px; }
-  .hp-hero-cards { width: 100%; }
-  .hp-hero-card { flex: 1; width: auto; }
-  .hp-hero-photo { opacity: 0.25; }
-  .hp-today-stats { flex-wrap: wrap; }
-  .hp-today-stat { min-width: 45%; border-right: none; }
-  .hp-quick-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hp-quick-lead { border-right: none; padding-right: 0; }
-  .hp-quick-items { width: 100%; flex-wrap: wrap; justify-content: flex-start; }
-  .hp-content { grid-template-columns: 1fr; padding: 0 16px; min-width: 0; }
-  .hp-region-row { flex-wrap: wrap; }
+  .hp-hero-sub { font-size: 12px; margin-bottom: 6px; }
+  .hp-hero-title { font-size: 24px; letter-spacing: -0.8px; margin-bottom: 8px; line-height: 1.3; }
+  .hp-hero-desc { font-size: 13px; margin-bottom: 14px; line-height: 1.6; }
+  .hp-hero-photo { opacity: 0.15; }
+
+  /* 검색바 모바일 최적화 */
+  .hp-search-wrap { padding: 3px 3px 3px 14px; margin-bottom: 10px; }
+  .hp-search-input { font-size: 13px; padding: 8px 0; }
+  .hp-search-btn { width: 36px; height: 36px; }
+
+  /* 지역 칩 모바일 */
+  .hp-region-row { flex-wrap: wrap; gap: 5px; }
+  .hp-region-label { font-size: 11px; }
+  .hp-chip { padding: 4px 10px; font-size: 11px; }
+
+  /* 히어로 카드 가로 배치 */
+  .hp-hero-cards { width: 100%; gap: 10px; }
+  .hp-hero-card { flex: 1; width: auto; padding: 14px 12px; border-radius: 14px; }
+  .hp-hcard-label { font-size: 10px; }
+  .hp-hcard-title { font-size: 14px; }
+  .hp-hcard-desc { font-size: 10.5px; }
+  .hp-hcard-icon { width: 34px; height: 34px; border-radius: 9px; }
+  .hp-hcard-arrow { width: 26px; height: 26px; }
+
+  /* ── TODAY STATS (모바일 2x2 그리드) ── */
+  .hp-today-inner { flex-direction: column; padding: 14px 16px; gap: 12px; }
+  .hp-today-lead { border-right: none; padding-right: 0; gap: 8px; }
+  .hp-today-bell { width: 36px; height: 36px; }
+  .hp-today-title { font-size: 14px; }
+  .hp-today-sub { font-size: 11px; }
+  .hp-today-stats { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 8px; 
+    width: 100%; 
+  }
+  .hp-today-stat { 
+    border-right: none; 
+    padding: 10px; 
+    border-radius: 10px; 
+    background: #f9fafb; 
+    min-width: 0;
+  }
+  .hp-today-stat-icon { width: 32px; height: 32px; border-radius: 8px; }
+  .hp-today-stat-label { font-size: 11px; }
+  .hp-today-stat-value { font-size: 18px; }
+
+  /* ── QUICK MENU (모바일 4열 그리드) ── */
+  .hp-quick-inner { 
+    flex-direction: column; 
+    align-items: stretch; 
+    gap: 12px; 
+    padding: 14px 16px; 
+  }
+  .hp-quick-lead { 
+    border-right: none; 
+    padding-right: 0; 
+    flex-direction: row; 
+    align-items: center;
+    gap: 8px;
+  }
+  .hp-quick-lead-title { font-size: 14px; margin: 0; }
+  .hp-quick-lead-sub { display: none; }
+  .hp-quick-items { 
+    width: 100%; 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 4px; 
+    justify-items: center;
+  }
+  .hp-quick-item { min-width: 0; padding: 8px 4px; gap: 6px; }
+  .hp-quick-icon { width: 42px; height: 42px; border-radius: 12px; }
+  .hp-quick-label { font-size: 10px; }
+
+  /* ── CONTENT GRID (모바일 1열) ── */
+  .hp-content { 
+    grid-template-columns: 1fr; 
+    padding: 0 16px; 
+    gap: 14px; 
+    margin: 16px auto;
+    min-width: 0; 
+  }
+  .hp-card { padding: 16px; border-radius: 14px; }
+  .hp-card-title { font-size: 14px; }
+  .hp-more-btn { font-size: 11px; }
+
+  /* 인기 지역 */
+  .hp-rtabs { gap: 3px; margin-bottom: 12px; }
+  .hp-rtab { padding: 3px 8px; font-size: 11px; }
+  .hp-popular-row { padding: 6px 0; font-size: 12px; }
+  .hp-popular-region { font-size: 12px; }
+
+  /* 채용/인재 리스트 */
+  .hp-listing-item { padding: 8px 0; }
+  .hp-listing-title { font-size: 12px; }
+  .hp-listing-sub { font-size: 11px; }
+  .hp-listing-badge { font-size: 9px; padding: 2px 5px; }
+
+  /* 공지사항 */
+  .hp-notice-item { padding: 7px 0; }
+  .hp-notice-title { font-size: 12px; }
+  .hp-notice-cta { padding: 12px; border-radius: 10px; }
+  .hp-notice-cta-icon { width: 36px; height: 36px; }
+  .hp-notice-cta-text { font-size: 11px; }
+  .hp-notice-cta-btn { padding: 7px 11px; font-size: 11px; }
+
+  /* ── FOOTER (모바일) ── */
+  .hp-footer { padding: 20px 16px; }
+  .hp-footer-links { gap: 8px; }
+  .hp-footer-links a { font-size: 12px; }
+  .hp-footer-copy { font-size: 11px; }
 }

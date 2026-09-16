@@ -72,6 +72,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ### 2026-09-16
 - CI/CD 워크플로우 수정: `git pull origin main` → `git fetch origin && git checkout main && git reset --hard origin/main` (서버가 android-app 브랜치에 고정되어 배포가 반영되지 않던 문제 해결)
+- 일자리 목록 빈 상태 UI 개선: 박스 제거, 아이콘+안내 문구로 교체, 로딩 스피너 추가
+- JrForm 성별 필드 JSX 구조 오류 수정 (jr-section 밖에 있던 div 위치 교정)
 - AuthGuard 로그인 필요 화면 핑크 → 블루 전환 (버튼·아이콘·테두리·배경 전체)
 - TalentDetailPage(인재 상세) 핑크 → 블루 전환 (카드 테두리·섹션바·경력·급여 강조색·SVG 아이콘 전체)
 - 프론트엔드 UI 전반 개선: JrForm 스텝퍼 UX 수정, JobDetailPage 지원하기 버튼 연결, HomeHero·JspHero 검색바 개선, MyApplicationsPage UI 리팩토링

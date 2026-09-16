@@ -71,6 +71,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-16
+- DataInitializer에 샘플 구인공고 30개 추가: 서울·경기·인천·부산·대구·대전·광주·울산 지역 다양화, 기업 5개 확장, 야간·입주·오전·오후 등 근무형태 다양화 (배포 서버 재시작 시 자동 반영)
 - CI/CD 워크플로우 수정: `git pull origin main` → `git fetch origin && git checkout main && git reset --hard origin/main` (서버가 android-app 브랜치에 고정되어 배포가 반영되지 않던 문제 해결)
 - 일자리 목록 빈 상태 UI 개선: 박스 제거, 아이콘+안내 문구로 교체, 로딩 스피너 추가
 - JrForm 성별 필드 JSX 구조 오류 수정 (jr-section 밖에 있던 div 위치 교정)

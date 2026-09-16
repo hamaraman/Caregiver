@@ -135,6 +135,8 @@
   margin-bottom: 16px;
   padding-bottom: 14px;
   border-bottom: 1px solid #f0f4fb;
+  cursor: pointer;
+  user-select: none;
 }
 .jl2-filter-title {
   display: flex;
@@ -144,6 +146,12 @@
   font-weight: 800;
   color: #1a2640;
 }
+.jl2-filter-desktop-chevron {
+  transition: transform 0.2s;
+  color: #aab;
+  margin-left: 2px;
+}
+.jl2-filter-desktop-chevron.open { transform: rotate(180deg); }
 .jl2-filter-reset {
   display: flex;
   align-items: center;
@@ -217,7 +225,7 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  margin-top: 4px;
+  margin-top: 16px;
   transition: background 0.15s;
 }
 .jl2-filter-search-btn:hover { background: #3a7fd4; }
@@ -607,6 +615,17 @@
 .jl2-footer-links span { color: #d0d8e8; font-size: 12px; }
 .jl2-footer-copy { font-size: 11.5px; color: #b0bdd4; margin: 0; }
 
+/* ===================== 필터 바디 기본값: 접힘 (데스크탑·모바일 공통) ===================== */
+.jl2-filter-body { display: none; }
+.jl2-filter--open .jl2-filter-body { display: block; }
+
+/* 필터 헤더: 접혔을 때 border-bottom 제거 */
+.jl2-filter:not(.jl2-filter--open) .jl2-filter-header {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
 /* ===================== 모바일 필터 토글 (기본: 숨김) ===================== */
 .jl2-filter-mobile-toggle { display: none; }
 
@@ -648,16 +667,17 @@
   }
   .jl2-filter-mobile-chevron.open { transform: rotate(180deg); }
 
-  /* 필터 헤더·바디 접기/펼치기 */
+  /* 필터 헤더: 모바일에서는 토글 버튼이 대체하므로 숨김 */
   .jl2-filter-header { display: none; }
-  .jl2-filter-body { display: none; }
   .jl2-filter--open .jl2-filter-header {
     display: flex;
     margin-top: 14px;
     padding-top: 14px;
     border-top: 1px solid #f0f4fb;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
   }
-  .jl2-filter--open .jl2-filter-body { display: block; }
 
   .jl2-region-panel { width: calc(100vw - 40px); max-width: 360px; }
   .jl2-job-row-tags { display: none; }

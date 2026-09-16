@@ -76,13 +76,18 @@ jobs:
               > backend.log 2>&1 &
             echo $! > /tmp/caregiver.pid
             disown
-            sleep 5
 
             # Fail the deploy loudly if the new process didn't actually come up,
             # instead of reporting success while an old/dead build keeps serving.
-            if ! ss -ltn | grep -q ':8081 '; then
-              echo "ERROR: backend failed to bind port 8081 after restart" >&2
-              tail -n 50 backend.log
-              exit 1
-            fi
-            echo "Deployment completed!"
+            # Spring Boot takes 50s+ to start on this box, so poll instead of a
+            # fixed short sleep.
+            for i in $(seq 1 30); do
+              if ss -ltn | grep -q ':8081 '; then
+                echo "Deployment completed!"
+                exit 0
+              fi
+              sleep 3
+            done
+            echo "ERROR: backend failed to bind port 8081 after restart" >&2
+            tail -n 50 backend.log
+            exit 1

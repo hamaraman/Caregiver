@@ -262,8 +262,8 @@
 
 /* ── 모바일 반응형 ── */
 @media (max-width: 720px) {
-  .jd-page { padding: 60px 0 40px; }
-  .jd-inner { padding: 0 14px; }
+  .jd-page { padding: 0 0 40px; }
+  .jd-inner { padding: 28px 14px 0; }
 
   .jd-back-link {
     font-size: 13px;

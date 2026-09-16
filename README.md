@@ -71,6 +71,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-16
+- 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지가 mock 데이터(`data/jobs.js`/`data/applicants.js`/`data/talents.js`)를 쓰던 것을 실제 API(`fetchJobRaw`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 교체. 실제 DB ID와 mock ID가 달라 상세 페이지 진입 시 거의 항상 "공고를 찾을 수 없습니다"가 뜨던 문제, 지원 상태 변경이 저장 안 되던 문제 수정. `HiredWorkerModal`/`ApplicantModal`의 mock 연락처·시작일도 실제 이력서 스키마 필드로 정리. 공고 상세 링크 오탈자(`/jobs/:id` → `/job/:id`)도 같이 수정
 - LoginPage 소셜 로그인 버튼 버그 수정: `API_BASE` 문자열이 홑따옴표로 감싸져 있어 `${API_BASE}`가 실제로 치환되지 않고 깨진 URL로 이동하던 문제 (백틱으로 수정)
 - 구인공고 목록 필터 데스크탑에서 "필터" 헤더 제거, 필터 섹션 항상 표시, 활성 필터 있을 때만 초기화 버튼 노출
 - 구인공고 목록 필터 모바일 접기/펼치기 토글 추가

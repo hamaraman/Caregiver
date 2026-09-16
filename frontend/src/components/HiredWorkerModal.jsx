@@ -1,21 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import './HiredWorkerModal.css'
-
-// 실제 서비스에서는 API로 받을 데이터 — 여기서는 mock
-const MOCK_CONTACT = {
-  9:  { phone: '010-3824-5917', emergency: '010-7712-3344 (배우자)' },
-  11: { phone: '010-5503-8826', emergency: '010-9901-2255 (자녀)' },
-}
-const MOCK_START = {
-  3: '2026.09.20',
-  7: '2026.09.18',
-}
-const DEFAULT_CONTACT = { phone: '010-0000-0000', emergency: '미등록' }
 
 export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose }) {
   const t = app.talent
-  const contact = MOCK_CONTACT[t.id] ?? DEFAULT_CONTACT
-  const startDate = MOCK_START[app.id] ?? '협의 예정'
+  const startDate = '협의 예정'
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -42,11 +30,12 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
             </div>
             <div>
               <div className="hwm-name-row">
-                <span className="hwm-name">{t.name}</span>
-                <span className={`hwm-gender hwm-gender--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
-                <span className="hwm-age">{t.age}세</span>
+                <span className="hwm-name">{app.applicantName}</span>
+                {t.gender && (
+                  <span className={`hwm-gender hwm-gender--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+                )}
               </div>
-              <div className="hwm-sub">{t.jobType} · {t.location}</div>
+              <div className="hwm-sub">{t.cert || '요양보호사'} · {t.region || '-'}</div>
             </div>
           </div>
           <div className="hwm-header-right">
@@ -76,7 +65,7 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">근무 형태</span>
-                <span className="hwm-value">{t.workType}</span>
+                <span className="hwm-value">{(t.workTypes || []).join(', ') || '-'}</span>
               </div>
             </div>
           </section>
@@ -87,15 +76,11 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
             <div className="hwm-grid">
               <div className="hwm-item">
                 <span className="hwm-label">전화번호</span>
-                <span className="hwm-value hwm-phone">{contact.phone}</span>
-              </div>
-              <div className="hwm-item">
-                <span className="hwm-label">비상연락처</span>
-                <span className="hwm-value">{contact.emergency}</span>
+                <span className="hwm-value hwm-phone">{t.phone || '미등록'}</span>
               </div>
               <div className="hwm-item hwm-item--full">
                 <span className="hwm-label">거주 지역</span>
-                <span className="hwm-value">{t.location}</span>
+                <span className="hwm-value">{t.region || '-'}</span>
               </div>
             </div>
           </section>
@@ -114,11 +99,11 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">지원일</span>
-                <span className="hwm-value">{app.applyDate}</span>
+                <span className="hwm-value">{app.appliedAt}</span>
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">경력</span>
-                <span className="hwm-value">{t.experience}</span>
+                <span className="hwm-value">{t.isNew ? '신입' : (t.expPeriod || '-')}</span>
               </div>
             </div>
           </section>

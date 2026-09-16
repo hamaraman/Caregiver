@@ -120,6 +120,12 @@ export async function fetchJob(id) {
   return job ? normalizeJob(job) : null
 }
 
+// 관리 화면(채용관리/지원자확인 상세)에서 badge/careGender/companyPhone 등
+// normalizeJob()이 걸러내는 원본 필드가 필요할 때 쓴다.
+export function fetchJobRaw(id) {
+  return request(`/api/jobs/${id}`)
+}
+
 export function applyToJob(jobId) {
   return request(`/api/jobs/${jobId}/applications`, { method: 'POST' })
 }

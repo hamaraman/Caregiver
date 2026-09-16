@@ -75,9 +75,10 @@ export default function ApplicantModal({ app, status, onStatusChange, onClose })
       <div className="apm-modal" onClick={e => e.stopPropagation()}>
         <div className="apm-header">
           <div className="apm-name-row">
-            <span className="apm-name">{t.name}</span>
-            <span className={`apm-gender-badge apm-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
-            <span className="apm-age">{t.age}세</span>
+            <span className="apm-name">{app.applicantName}</span>
+            {t.gender && (
+              <span className={`apm-gender-badge apm-gender-badge--${t.gender === '여' ? 'f' : 'm'}`}>{t.gender}</span>
+            )}
           </div>
           <div className="apm-header-right">
             <StatusDropdown status={status} onChange={onStatusChange} />
@@ -93,19 +94,18 @@ export default function ApplicantModal({ app, status, onStatusChange, onClose })
           <div className="apm-section">
             <span className="apm-section-label">기본 정보</span>
             <div className="apm-grid">
-              <div className="apm-row"><span className="apm-label">직종</span><span className="apm-value">{t.jobType}</span></div>
-              <div className="apm-row"><span className="apm-label">경력</span><span className="apm-value">{t.experience}</span></div>
-              <div className="apm-row"><span className="apm-label">근무형태</span><span className="apm-value">{t.workType}</span></div>
-              <div className="apm-row"><span className="apm-label">학력</span><span className="apm-value">{t.education}</span></div>
-              <div className="apm-row"><span className="apm-label">거주지</span><span className="apm-value">{t.location}</span></div>
+              <div className="apm-row"><span className="apm-label">경력</span><span className="apm-value">{t.isNew ? '신입' : (t.expPeriod || '-')}</span></div>
+              <div className="apm-row"><span className="apm-label">근무형태</span><span className="apm-value">{(t.workTypes || []).join(', ') || '-'}</span></div>
+              <div className="apm-row"><span className="apm-label">연락처</span><span className="apm-value">{t.phone || '-'}</span></div>
+              <div className="apm-row"><span className="apm-label">거주지</span><span className="apm-value">{t.region || '-'}</span></div>
             </div>
           </div>
 
-          {t.certs?.length > 0 && (
+          {t.cert && (
             <div className="apm-section">
               <span className="apm-section-label">자격증</span>
               <div className="apm-tag-group">
-                {t.certs.map(c => <span key={c} className="apm-cert-tag">{c}</span>)}
+                <span className="apm-cert-tag">{t.cert}</span>
               </div>
             </div>
           )}
@@ -113,27 +113,10 @@ export default function ApplicantModal({ app, status, onStatusChange, onClose })
           <div className="apm-section">
             <span className="apm-section-label">희망 조건</span>
             <div className="apm-grid">
-              <div className="apm-row"><span className="apm-label">희망임금</span><span className="apm-value apm-wage">{t.wageType} {t.wageAmount.toLocaleString()}원</span></div>
-              <div className="apm-row"><span className="apm-label">희망지역</span><span className="apm-value">{t.wishRegion}</span></div>
-              <div className="apm-row"><span className="apm-label">희망요일</span><span className="apm-value">{t.wishDays?.join(', ')}</span></div>
-              <div className="apm-row"><span className="apm-label">희망시간</span><span className="apm-value">{t.wishHours}</span></div>
+              <div className="apm-row"><span className="apm-label">희망임금</span><span className="apm-value apm-wage">{t.salary || '협의'}</span></div>
+              <div className="apm-row"><span className="apm-label">희망지역</span><span className="apm-value">{t.workRegion || '-'}</span></div>
             </div>
           </div>
-
-          {t.workHistory?.length > 0 && (
-            <div className="apm-section">
-              <span className="apm-section-label">경력사항</span>
-              <div className="apm-history">
-                {t.workHistory.map((h, i) => (
-                  <div key={i} className="apm-history-item">
-                    <span className="apm-history-place">{h.place}</span>
-                    <span className="apm-history-role">{h.role}</span>
-                    <span className="apm-history-period">{h.period}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {t.intro && (
             <div className="apm-section">
@@ -144,7 +127,7 @@ export default function ApplicantModal({ app, status, onStatusChange, onClose })
         </div>
 
         <div className="apm-footer">
-          <span className="apm-apply-date">지원일 {app.applyDate}</span>
+          <span className="apm-apply-date">지원일 {app.appliedAt}</span>
           <Link to={`/talents/${t.id}`} className="apm-profile-btn" onClick={onClose}>
             이력서 전체 보기
           </Link>

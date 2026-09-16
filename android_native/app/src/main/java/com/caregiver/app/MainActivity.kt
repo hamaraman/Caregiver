@@ -24,16 +24,12 @@ class MainActivity : AppCompatActivity() {
         webSettings.javaScriptEnabled = true
         webSettings.domStorageEnabled = true
         webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-        webSettings.useWideViewPort = true
-        webSettings.loadWithOverviewMode = true
+        // 모바일 전용: 기기 실제 너비를 viewport로 사용 (CSS @media 모바일 쿼리 활성화)
+        webSettings.useWideViewPort = false
+        webSettings.loadWithOverviewMode = false
         
         // 간편로그인(OAuth) 시 구글/카카오 등이 웹뷰를 차단하는 것을 방지하기 위해 User-Agent에서 'wv' 제거
         webSettings.userAgentString = webSettings.userAgentString.replace("; wv", "")
-        
-        // 화면 배율 자동 조정 (반응형 웹 지원)
-        webSettings.setSupportZoom(true)
-        webSettings.builtInZoomControls = true
-        webSettings.displayZoomControls = false
         
         // 쿠키 허용 (소셜 로그인 등에서 필요)
         val cookieManager = android.webkit.CookieManager.getInstance()

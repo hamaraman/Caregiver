@@ -64,13 +64,25 @@ jobs:
             # Stop Gradle daemon (ignore exit code)
             ./gradlew --stop > /dev/null 2>&1; true
 
-            # Restart Spring Boot
-            bash -c 'kill $(cat /tmp/caregiver.pid 2>/dev/null) 2>/dev/null; true'
+            # Restart Spring Boot. Kill by port, not by pidfile: the pidfile can drift
+            # from the actual running process (e.g. a manual restart outside this
+            # workflow), and killing the wrong PID leaves the old process holding 8081
+            # forever while every new deploy's process crashes with
+            # "Port 8081 was already in use" and silently piles up as a zombie.
+            sudo fuser -k 8081/tcp 2>/dev/null; true
             sleep 2
             nohup java -jar build/libs/Caregiver-0.0.1-SNAPSHOT.jar \
               --spring.config.additional-location=file:./application-secret.properties \
               > backend.log 2>&1 &
             echo $! > /tmp/caregiver.pid
             disown
-            sleep 3
+            sleep 5
+
+            # Fail the deploy loudly if the new process didn't actually come up,
+            # instead of reporting success while an old/dead build keeps serving.
+            if ! ss -ltn | grep -q ':8081 '; then
+              echo "ERROR: backend failed to bind port 8081 after restart" >&2
+              tail -n 50 backend.log
+              exit 1
+            fi
             echo "Deployment completed!"

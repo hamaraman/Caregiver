@@ -72,6 +72,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ### 2026-09-16
 - AuthGuard 로그인 필요 화면 핑크 → 블루 전환 (버튼·아이콘·테두리·배경 전체)
+- TalentDetailPage(인재 상세) 핑크 → 블루 전환 (카드 테두리·섹션바·경력·급여 강조색·SVG 아이콘 전체)
 
 ### 2026-09-14
 - 고객센터 페이지(`/support`) 신규 생성: 공지사항·FAQ·1:1 문의 탭 구성

@@ -253,3 +253,48 @@ button.jd-back-link { background: none; border: none; cursor: pointer; padding: 
   color: #888;
   font-size: 15px;
 }
+
+/* ── 모바일 반응형 ── */
+@media (max-width: 720px) {
+  .jd-page { padding: 16px 0 40px; }
+  .jd-inner { padding: 0 14px; }
+
+  .jd-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* 사이드바(지원하기 카드)를 메인 콘텐츠 위로 */
+  .jd-sidebar { order: -1; margin-bottom: 10px; }
+
+  .jd-header-card,
+  .jd-section-card {
+    padding: 18px 16px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .jd-title { font-size: 18px; }
+
+  .jd-meta-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .jd-apply-card {
+    border-radius: 12px;
+    padding: 18px 16px;
+    margin-bottom: 10px;
+  }
+
+  .jd-apply-contact { font-size: 15px; }
+
+  .jd-apply-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .jd-contact-btn { padding: 12px; }
+
+  .jd-info-card { border-radius: 12px; }
+}

@@ -71,6 +71,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-16
+- 구인공고 상세 페이지(`/job/:id`) 모바일 반응형 CSS 추가: 720px 이하에서 1열 레이아웃 전환, 지원하기 카드 상단 배치
+- 구인공고 목록(`/listings`) 모바일 필터 토글 추가: 680px 이하에서 필터 접기/펼치기 버튼 표시, 활성 필터 수 뱃지 표시
+- 구인공고 목록 마감된 공고에 "마감" 배지 및 opacity 표시
+- 인기직종 칩 가로 스크롤 처리(`overflow-x: auto`)로 소형 화면 overflow 방지
 - CI/CD 워크플로우 수정: `git pull origin main` → `git fetch origin && git checkout main && git reset --hard origin/main` (서버가 android-app 브랜치에 고정되어 배포가 반영되지 않던 문제 해결)
 - 일자리 목록 빈 상태 UI 개선: 박스 제거, 아이콘+안내 문구로 교체, 로딩 스피너 추가
 - JrForm 성별 필드 JSX 구조 오류 수정 (jr-section 밖에 있던 div 위치 교정)

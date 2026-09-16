@@ -73,7 +73,11 @@
   align-items: center;
   gap: 6px;
   flex-wrap: nowrap;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+.jl2-type-row::-webkit-scrollbar { display: none; }
 .jl2-type-label {
   display: flex;
   align-items: center;
@@ -410,6 +414,14 @@
   border-radius: 20px;
   flex-shrink: 0;
 }
+.jl2-job-row-badge--closed {
+  background: #f0f0f0;
+  color: #999;
+}
+.jl2-job-row--closed { opacity: 0.65; }
+.jl2-job-row--closed .jl2-job-row-type { color: #888; }
+.jl2-job-row--closed:hover { background: #fafafa; }
+.jl2-job-row--closed:hover .jl2-job-row-type { color: #888; }
 .jl2-job-row-type {
   font-size: 14.5px;
   font-weight: 700;
@@ -595,6 +607,9 @@
 .jl2-footer-links span { color: #d0d8e8; font-size: 12px; }
 .jl2-footer-copy { font-size: 11.5px; color: #b0bdd4; margin: 0; }
 
+/* ===================== 모바일 필터 토글 (기본: 숨김) ===================== */
+.jl2-filter-mobile-toggle { display: none; }
+
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 960px) {
   .jl2-body-inner { grid-template-columns: 190px 1fr; }
@@ -602,7 +617,48 @@
 }
 @media (max-width: 680px) {
   .jl2-body-inner { grid-template-columns: 1fr; }
-  .jl2-filter { position: static; }
+  .jl2-filter { position: static; padding: 12px 14px; }
+
+  /* 모바일 필터 토글 버튼 표시 */
+  .jl2-filter-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 11px 14px;
+    background: #f0f5ff;
+    border: 1.5px solid #d0e0f8;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a2640;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  .jl2-filter-mobile-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #4A8FE7;
+  }
+  .jl2-filter-mobile-chevron {
+    transition: transform 0.2s;
+    color: #aaa;
+    flex-shrink: 0;
+  }
+  .jl2-filter-mobile-chevron.open { transform: rotate(180deg); }
+
+  /* 필터 헤더·바디 접기/펼치기 */
+  .jl2-filter-header { display: none; }
+  .jl2-filter-body { display: none; }
+  .jl2-filter--open .jl2-filter-header {
+    display: flex;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #f0f4fb;
+  }
+  .jl2-filter--open .jl2-filter-body { display: block; }
+
   .jl2-region-panel { width: calc(100vw - 40px); max-width: 360px; }
   .jl2-job-row-tags { display: none; }
 }

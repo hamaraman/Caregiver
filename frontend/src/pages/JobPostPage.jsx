@@ -263,7 +263,6 @@ export default function JobPostPage() {
   const siList = sido ? regionTree[sido] || [] : []
 
   return (
-    <AuthGuard require="business">
     <div className="app">
       <HomeNav />
 
@@ -781,6 +780,5 @@ export default function JobPostPage() {
         </div>
       </main>
     </div>
-    </AuthGuard>
   )
 }

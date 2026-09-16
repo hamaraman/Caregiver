@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
@@ -260,6 +260,23 @@ export default function JobPostPage() {
     }
   }
 
+  const [currentStep, setCurrentStep] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const navH = 80
+      let best = 0
+      SECTIONS.forEach((_, i) => {
+        const el = document.getElementById(`jp-section-${i}`)
+        if (!el) return
+        if (el.getBoundingClientRect().top <= navH + 20) best = i
+      })
+      setCurrentStep(best)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const siList = sido ? regionTree[sido] || [] : []
 
   return (
@@ -286,18 +303,27 @@ export default function JobPostPage() {
           {/* 진행 단계 */}
           <div className="jp-steps">
             {SECTIONS.map((s, i) => (
-              <div key={s} className="jp-step">
-                <div className="jp-step-num">{i + 1}</div>
+              <button
+                key={s}
+                type="button"
+                className={`jp-step-arrow${i < currentStep ? ' jp-step-arrow--done' : i === currentStep ? ' jp-step-arrow--active' : ''}`}
+                onClick={() => document.getElementById(`jp-section-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                <span className="jp-step-n">
+                  {i < currentStep
+                    ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    : i + 1
+                  }
+                </span>
                 <span className="jp-step-label">{s}</span>
-                {i < SECTIONS.length - 1 && <div className="jp-step-line" />}
-              </div>
+              </button>
             ))}
           </div>
 
           <form className="jp-form" onSubmit={handleSubmit}>
 
             {/* ① 근무 조건 */}
-            <div className="jp-section">
+            <div id="jp-section-0" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">1</span>
                 <h3 className="jp-section-title">근무 조건</h3>
@@ -460,7 +486,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ② 케어 대상자 정보 */}
-            <div className="jp-section">
+            <div id="jp-section-1" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">2</span>
                 <h3 className="jp-section-title">케어 대상자 정보 <span className="jp-optional">선택</span></h3>
@@ -542,7 +568,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ③ 공고 내용 */}
-            <div className="jp-section">
+            <div id="jp-section-2" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">3</span>
                 <h3 className="jp-section-title">공고 내용</h3>
@@ -638,7 +664,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ④ 업체 정보 */}
-            <div className="jp-section">
+            <div id="jp-section-3" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">4</span>
                 <h3 className="jp-section-title">업체 정보</h3>
@@ -703,7 +729,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ⑤ 담당자 정보 */}
-            <div className="jp-section">
+            <div id="jp-section-4" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">5</span>
                 <h3 className="jp-section-title">담당자 정보</h3>
@@ -751,7 +777,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ⑥ 약관 동의 */}
-            <div className="jp-section">
+            <div id="jp-section-5" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">6</span>
                 <h3 className="jp-section-title">약관 동의</h3>

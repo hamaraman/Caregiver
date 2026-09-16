@@ -72,6 +72,11 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ### 2026-09-16
 - 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지가 mock 데이터(`data/jobs.js`/`data/applicants.js`/`data/talents.js`)를 쓰던 것을 실제 API(`fetchJobRaw`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 교체. 실제 DB ID와 mock ID가 달라 상세 페이지 진입 시 거의 항상 "공고를 찾을 수 없습니다"가 뜨던 문제, 지원 상태 변경이 저장 안 되던 문제 수정. `HiredWorkerModal`/`ApplicantModal`의 mock 연락처·시작일도 실제 이력서 스키마 필드로 정리. 공고 상세 링크 오탈자(`/jobs/:id` → `/job/:id`)도 같이 수정
+- 배포 서버 백엔드가 포트 충돌(구 프로세스가 8081을 계속 점유)로 재시작 실패하던 문제 수정: 구 프로세스 강제 종료. `jobs.closed` 컬럼에 남아있던 NULL 값 때문에 Hibernate 스키마 갱신이 실패하던 문제도 확인됨 (별도 데이터 보정 필요)
+- 공고 상세 페이지에 카카오 지도 추가: 근무지 주소를 지오코딩해 마커 표시 (Kakao Maps JS SDK)
+- 공고 상세 페이지 섹션 추가: 근무 조건 상세, 케어 대상자 정보, 지원 방법, 근무지 위치(지도), 업체 정보
+- api.js normalizeJob에 상세 페이지용 원본 필드 노출 (weekdays, careCondition, careWork, applyMethod 등)
+- DataInitializer에 샘플 구인공고 30개 추가: 서울·경기·인천·부산·대구·대전·광주·울산 지역 다양화, 기업 5개 확장, 야간·입주·오전·오후 등 근무형태 다양화 (배포 서버 재시작 시 자동 반영)
 - LoginPage 소셜 로그인 버튼 버그 수정: `API_BASE` 문자열이 홑따옴표로 감싸져 있어 `${API_BASE}`가 실제로 치환되지 않고 깨진 URL로 이동하던 문제 (백틱으로 수정)
 - 구인공고 목록 필터 데스크탑에서 "필터" 헤더 제거, 필터 섹션 항상 표시, 활성 필터 있을 때만 초기화 버튼 노출
 - 구인공고 목록 필터 모바일 접기/펼치기 토글 추가
@@ -83,6 +88,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 공고 등록 페이지 모바일 디자인 개선: 히어로 여백·폰트 축소, 섹션 헤더 패딩 조정, 지역 선택 select 전체 너비, 근무시간 입력 균등 분할
 - 공고 등록 페이지 모바일 select 너비 수정: 직종·시설·학력 등 단일 select가 전체 너비로 늘어나던 문제 → width: auto로 변경
 - 급여 입력 모바일 레이아웃 수정: 금액 input이 전체 너비로 늘어나 "원" 텍스트가 다음 줄로 밀리던 문제 → flex: 1로 같은 줄 유지
+- 공고 등록 페이지 진행 단계 표시 추가: 원형 숫자 스타일, 스크롤에 따라 현재 단계 파랑 하이라이트·완료 단계 초록 체크, 모바일 상단 sticky 고정
+- 모바일 진행 단계 바 하단 테두리 선 제거
+- 공고 등록 필수값 미입력 시 브라우저 기본 알럿 → 커스텀 토스트로 교체, 첫 번째 미입력 항목 섹션으로 자동 스크롤
 - 구인공고 목록(`/listings`) 모바일 필터 토글 추가: 680px 이하에서 필터 접기/펼치기 버튼 표시, 활성 필터 수 뱃지 표시
 - 구인공고 목록 마감된 공고에 "마감" 배지 및 opacity 표시
 - 인기직종 칩 가로 스크롤 처리(`overflow-x: auto`)로 소형 화면 overflow 방지

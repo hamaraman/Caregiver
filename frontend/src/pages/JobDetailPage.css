@@ -88,12 +88,6 @@
   padding-top: 20px;
 }
 
-.jd-meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .jd-meta-label {
   font-size: 11px;
   color: #aaa;
@@ -247,6 +241,76 @@
   text-decoration: none;
 }
 .jd-resume-link:hover { text-decoration: underline; }
+
+/* ── 근무 조건 상세 그리드 ── */
+.jd-cond-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.jd-cond-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── 서브 라벨 (케어 대상자 소제목) ── */
+.jd-sub-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #888;
+  margin: 16px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── 케어 업무 칩 ── */
+.jd-care-chip {
+  background: #f0faf5;
+  color: #2a9a5a;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* ── 지원 방법 칩 ── */
+.jd-apply-method-chip {
+  background: #fff8e6;
+  color: #c47d00;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* ── 링크 ── */
+.jd-meta-link {
+  font-size: 13px;
+  color: #4A8FE7;
+  font-weight: 500;
+  text-decoration: none;
+  word-break: break-all;
+}
+.jd-meta-link:hover { text-decoration: underline; }
+
+/* ── 카카오 지도 ── */
+.jd-map-addr {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 12px;
+}
+
+.jd-map-container {
+  width: 100%;
+  height: 280px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
 
 /* ── 없는 공고 ── */
 .jd-not-found {

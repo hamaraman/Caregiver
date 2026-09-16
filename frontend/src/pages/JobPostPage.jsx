@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
@@ -42,6 +42,19 @@ export default function JobPostPage() {
   const navigate = useNavigate()
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const [toast, setToast] = useState('')
+
+  const showToast = (msg) => {
+    setToast(msg)
+    setTimeout(() => setToast(''), 3000)
+  }
+
+  const scrollToSection = (idx) => {
+    const el = document.getElementById(`jp-section-${idx}`)
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - 140
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
 
   // 근무 조건
   const [sido, setSido] = useState('')
@@ -242,7 +255,33 @@ export default function JobPostPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const fields = { companyName, companyPhone, managerName, managerPhone, managerEmail, applyEmail, applyFax }
+
+    const requiredChecks = [
+      { section: 0, ok: !!sido,                                          msg: '근무 지역을 선택해주세요.' },
+      { section: 0, ok: !!jobType,                                       msg: '직종을 선택해주세요.' },
+      { section: 0, ok: !!facility,                                      msg: '시설종류를 선택해주세요.' },
+      { section: 0, ok: !!workForm,                                      msg: '근무형태를 선택해주세요.' },
+      { section: 0, ok: !!employForm,                                    msg: '고용형태를 선택해주세요.' },
+      { section: 0, ok: !!education,                                     msg: '희망학력을 선택해주세요.' },
+      { section: 0, ok: !!experience,                                    msg: '희망경력을 선택해주세요.' },
+      { section: 0, ok: selectedDays.length > 0 || dayNegotiable,       msg: '근무요일을 선택해주세요.' },
+      { section: 0, ok: !!wageType,                                      msg: '급여 유형을 선택해주세요.' },
+      { section: 0, ok: !!(deadline || deadlineType === '상시'),         msg: '모집 마감일을 입력해주세요.' },
+      { section: 2, ok: !!postTitle.trim(),                              msg: '채용 제목을 입력해주세요.' },
+      { section: 3, ok: !!companyName.trim(),                            msg: '업체명을 입력해주세요.' },
+      { section: 3, ok: !!companyPhone && phoneRegex.test(companyPhone), msg: '올바른 업체 전화번호를 입력해주세요.' },
+      { section: 4, ok: !!managerName.trim(),                            msg: '담당자명을 입력해주세요.' },
+      { section: 5, ok: agreed,                                          msg: '이용약관에 동의해주세요.' },
+    ]
+
+    const firstFail = requiredChecks.find(c => !c.ok)
+    if (firstFail) {
+      showToast(firstFail.msg)
+      scrollToSection(firstFail.section)
+      return
+    }
+
+    const fields = { managerPhone, managerEmail, applyEmail, applyFax }
     const newErrors = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, validateField(k, v)]))
     setErrors(newErrors)
     if (Object.values(newErrors).some(v => v)) return
@@ -260,11 +299,39 @@ export default function JobPostPage() {
     }
   }
 
+  const [currentStep, setCurrentStep] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const navH = 80
+      let best = 0
+      SECTIONS.forEach((_, i) => {
+        const el = document.getElementById(`jp-section-${i}`)
+        if (!el) return
+        if (el.getBoundingClientRect().top <= navH + 20) best = i
+      })
+      const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
+      if (nearBottom) best = SECTIONS.length - 1
+      setCurrentStep(best)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const siList = sido ? regionTree[sido] || [] : []
 
   return (
     <div className="app">
       <HomeNav />
+
+      {toast && (
+        <div className="jp-toast">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          {toast}
+        </div>
+      )}
 
       <section className="jpp-hero">
         <img src="/employer-hero.png" className="jpp-hero-photo" alt="" aria-hidden="true" />
@@ -286,18 +353,31 @@ export default function JobPostPage() {
           {/* 진행 단계 */}
           <div className="jp-steps">
             {SECTIONS.map((s, i) => (
-              <div key={s} className="jp-step">
-                <div className="jp-step-num">{i + 1}</div>
-                <span className="jp-step-label">{s}</span>
-                {i < SECTIONS.length - 1 && <div className="jp-step-line" />}
+              <div key={s} className="jp-step-item">
+                <button
+                  type="button"
+                  className={`jp-step-circle${(i < currentStep || (i === SECTIONS.length - 1 && agreed)) ? ' jp-step-circle--done' : i === currentStep ? ' jp-step-circle--active' : ''}`}
+                  onClick={() => document.getElementById(`jp-section-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                >
+                  <span className="jp-step-n">
+                    {i < currentStep
+                      ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      : i + 1
+                    }
+                  </span>
+                  <span className="jp-step-label">{s}</span>
+                </button>
+                {i < SECTIONS.length - 1 && (
+                  <div className={`jp-step-line${i < currentStep ? ' jp-step-line--done' : ''}`} />
+                )}
               </div>
             ))}
           </div>
 
-          <form className="jp-form" onSubmit={handleSubmit}>
+          <form className="jp-form" onSubmit={handleSubmit} noValidate>
 
             {/* ① 근무 조건 */}
-            <div className="jp-section">
+            <div id="jp-section-0" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">1</span>
                 <h3 className="jp-section-title">근무 조건</h3>
@@ -460,7 +540,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ② 케어 대상자 정보 */}
-            <div className="jp-section">
+            <div id="jp-section-1" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">2</span>
                 <h3 className="jp-section-title">케어 대상자 정보 <span className="jp-optional">선택</span></h3>
@@ -542,7 +622,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ③ 공고 내용 */}
-            <div className="jp-section">
+            <div id="jp-section-2" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">3</span>
                 <h3 className="jp-section-title">공고 내용</h3>
@@ -638,7 +718,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ④ 업체 정보 */}
-            <div className="jp-section">
+            <div id="jp-section-3" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">4</span>
                 <h3 className="jp-section-title">업체 정보</h3>
@@ -703,7 +783,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ⑤ 담당자 정보 */}
-            <div className="jp-section">
+            <div id="jp-section-4" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">5</span>
                 <h3 className="jp-section-title">담당자 정보</h3>
@@ -751,7 +831,7 @@ export default function JobPostPage() {
             </div>
 
             {/* ⑥ 약관 동의 */}
-            <div className="jp-section">
+            <div id="jp-section-5" className="jp-section">
               <div className="jp-section-header">
                 <span className="jp-section-num">6</span>
                 <h3 className="jp-section-title">약관 동의</h3>

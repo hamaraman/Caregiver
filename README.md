@@ -80,6 +80,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - HomeQuickMenu 구인 섹션 색상 복원: 파란색 → 핑크(#e91e8c), 구직 섹션 배경 흰색으로 통일
 - HomeQuickMenu 그라디언트 제거, 아이콘 배경 흰색으로 대비 개선
 - 홈 nav 로그인/회원가입 버튼 간격 개선
+- Job @ElementCollection(weekdays/careCondition/careWork/applyMethod) FetchType.EAGER 변경 → /api/jobs 500 오류 수정
 - 공고 상세 페이지에 카카오 지도 추가: 근무지 주소를 지오코딩해 마커 표시 (Kakao Maps JS SDK)
 - 공고 상세 페이지 섹션 추가: 근무 조건 상세, 케어 대상자 정보, 지원 방법, 근무지 위치(지도), 업체 정보
 - api.js normalizeJob에 상세 페이지용 원본 필드 노출 (weekdays, careCondition, careWork, applyMethod 등)

@@ -318,6 +318,37 @@
 .js-sort-tab.active { background: #4A8FE7; color: #fff; border-color: #4A8FE7; font-weight: 700; }
 .js-sort-tab:hover:not(.active) { border-color: #4A8FE7; color: #4A8FE7; }
 
+/* ===================== EMPTY STATE ===================== */
+.js-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  gap: 12px;
+  text-align: center;
+}
+.js-empty-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #8a9ab5;
+  margin: 0;
+}
+.js-empty-desc {
+  font-size: 13px;
+  color: #b0bccf;
+  margin: 0;
+}
+.js-empty-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e8eef6;
+  border-top-color: #4A8FE7;
+  border-radius: 50%;
+  animation: js-spin 0.7s linear infinite;
+}
+@keyframes js-spin { to { transform: rotate(360deg); } }
+
 /* ===================== JOB ROW ===================== */
 .js-rows {
   display: flex;

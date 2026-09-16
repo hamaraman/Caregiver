@@ -189,23 +189,22 @@ export default function JrForm() {
               {errors.region && <span className="jr-error-msg">{errors.region}</span>}
             </div>
           </div>
-        </div>
-        <div className="jr-row-1">
-          <div className="jr-field">
-            <label className="jr-label">성별 <span className="jr-req">*</span></label>
-            <div className="jr-radio-group">
-              <label className={`jr-radio ${form.gender === '여' ? 'active' : ''}`}>
-                <input type="radio" name="gender" checked={form.gender === '여'} onChange={() => update('gender', '여')} />
-                <span>여성</span>
-              </label>
-              <label className={`jr-radio ${form.gender === '남' ? 'active' : ''}`}>
-                <input type="radio" name="gender" checked={form.gender === '남'} onChange={() => update('gender', '남')} />
-                <span>남성</span>
-              </label>
+          <div className="jr-row-1">
+            <div className="jr-field">
+              <label className="jr-label">성별 <span className="jr-req">*</span></label>
+              <div className="jr-radio-group">
+                <label className={`jr-radio ${form.gender === '여' ? 'active' : ''}`}>
+                  <input type="radio" name="gender" checked={form.gender === '여'} onChange={() => update('gender', '여')} />
+                  <span>여성</span>
+                </label>
+                <label className={`jr-radio ${form.gender === '남' ? 'active' : ''}`}>
+                  <input type="radio" name="gender" checked={form.gender === '남'} onChange={() => update('gender', '남')} />
+                  <span>남성</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
 
       {/* Step 1: 자격 및 경력 */}

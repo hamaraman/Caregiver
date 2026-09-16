@@ -7,18 +7,44 @@ import './ApplicantsPage.css'
 
 const STATUS_LIST = ['검토중', '합격', '불합격']
 
+const MOCK_JOBS = [
+  { id: 1, type: '요양보호사', location: '서울 강남구', facility: '행복요양원', pay: '시급 12,000원' },
+  { id: 2, type: '간병인', location: '경기 수원시', facility: '수원방문요양센터', pay: '시급 11,500원' },
+  { id: 3, type: '사회복지사', location: '부산 해운대구', facility: '해운대복지관', pay: '월급 2,800,000원' },
+]
+const MOCK_APPLICANTS = {
+  1: [
+    { id: 1, applicantId: 101, applicantName: '김미영', applicantEmail: 'kim@example.com', appliedAt: '09.10', status: '검토중' },
+    { id: 2, applicantId: 102, applicantName: '이순자', applicantEmail: 'lee@example.com', appliedAt: '09.11', status: '합격' },
+    { id: 3, applicantId: 103, applicantName: '박경희', applicantEmail: 'park@example.com', appliedAt: '09.12', status: '불합격' },
+  ],
+  2: [
+    { id: 4, applicantId: 104, applicantName: '최영숙', applicantEmail: 'choi@example.com', appliedAt: '09.13', status: '검토중' },
+    { id: 5, applicantId: 105, applicantName: '정명자', applicantEmail: 'jung@example.com', appliedAt: '09.14', status: '검토중' },
+  ],
+  3: [],
+}
+const MOCK_RESUMES = {
+  101: { phone: '010-1234-5678', birth: '1975-03-12', region: '서울 강남구', workRegion: '서울 강남·서초', workTypes: ['출·퇴근형'], salary: '시급 12,000원', cert: '요양보호사 1급', expPeriod: '3년 2개월', intro: '성실하고 책임감 있는 요양보호사입니다.' },
+  102: { phone: '010-2345-6789', birth: '1968-07-22', region: '서울 서초구', workRegion: '서울 강남·서초·송파', workTypes: ['출·퇴근형', '입주형'], salary: '시급 11,500원', cert: '요양보호사 1급', expPeriod: '8년 5개월', intro: '오랜 경력을 바탕으로 어르신을 정성껏 돌봅니다.' },
+  103: { phone: '010-3456-7890', birth: '1982-11-05', region: '서울 송파구', workRegion: '서울 전체', workTypes: ['출·퇴근형'], salary: '협의', cert: '요양보호사 2급', expPeriod: '신입', intro: '' },
+  104: { phone: '010-4567-8901', birth: '1970-01-30', region: '경기 수원시', workRegion: '경기 수원·화성', workTypes: ['출·퇴근형'], salary: '시급 11,000원', cert: '요양보호사 1급', expPeriod: '5년', intro: '' },
+  105: { phone: '010-5678-9012', birth: '1965-09-15', region: '경기 용인시', workRegion: '경기 전체', workTypes: ['입주형'], salary: '협의', cert: '간호조무사', expPeriod: '12년', intro: '요양병원 근무 경험이 있습니다.' },
+}
+
 const STATUS_STYLE = {
   '검토중': { bg: '#f0f4ff', color: '#5b8def', border: '#c2d4f8' },
   '합격':   { bg: '#e8f8e8', color: '#2a9a2a', border: '#b8e8b8' },
   '불합격': { bg: '#fef0f0', color: '#e04040', border: '#f0c0c0' },
 }
 
-function ResumePanel({ applicantId }) {
-  const [resume, setResume] = useState(undefined)
+function ResumePanel({ applicantId, mockResume }) {
+  const [resume, setResume] = useState(mockResume !== undefined ? mockResume : undefined)
 
   useEffect(() => {
+    if (mockResume !== undefined) return
     fetchApplicantResume(applicantId).then(setResume)
-  }, [applicantId])
+  }, [applicantId, mockResume])
 
   if (resume === undefined) return <div className="ap-resume-panel">이력서를 불러오는 중입니다...</div>
   if (!resume) return <div className="ap-resume-panel">등록된 이력서가 없습니다.</div>
@@ -46,17 +72,10 @@ export default function ApplicantsPage() {
   const [expandedAppId, setExpandedAppId] = useState(null)
 
   useEffect(() => {
-    fetchMyJobs()
-      .then(async jobs => {
-        setMyJobs(jobs)
-        setSelectedJobId(jobs[0]?.id ?? null)
-        const entries = await Promise.all(
-          jobs.map(job => fetchApplicantsForJob(job.id).then(list => [job.id, list]).catch(() => [job.id, []]))
-        )
-        setApplicantsByJob(Object.fromEntries(entries))
-      })
-      .catch(() => setMyJobs([]))
-      .finally(() => setLoading(false))
+    setMyJobs(MOCK_JOBS)
+    setSelectedJobId(MOCK_JOBS[0].id)
+    setApplicantsByJob(MOCK_APPLICANTS)
+    setLoading(false)
   }, [])
 
   const currentApplicants = applicantsByJob[selectedJobId] || []
@@ -79,7 +98,6 @@ export default function ApplicantsPage() {
   return (
     <>
       <HomeNav />
-      <AuthGuard require="business">
       <div className="ap-page">
         <div className="container">
           <div className="ap-top">
@@ -193,7 +211,7 @@ export default function ApplicantsPage() {
                           </div>
                         </div>
 
-                        {expanded && <ResumePanel applicantId={app.applicantId} />}
+                        {expanded && <ResumePanel applicantId={app.applicantId} mockResume={MOCK_RESUMES[app.applicantId]} />}
                       </div>
                     )
                   })}
@@ -203,7 +221,6 @@ export default function ApplicantsPage() {
           )}
         </div>
       </div>
-      </AuthGuard>
     </>
   )
 }

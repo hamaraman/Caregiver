@@ -308,7 +308,7 @@ export default function JobPostPage() {
               <div key={s} className="jp-step-item">
                 <button
                   type="button"
-                  className={`jp-step-circle${i < currentStep ? ' jp-step-circle--done' : i === currentStep ? ' jp-step-circle--active' : ''}`}
+                  className={`jp-step-circle${(i < currentStep || (i === SECTIONS.length - 1 && agreed)) ? ' jp-step-circle--done' : i === currentStep ? ' jp-step-circle--active' : ''}`}
                   onClick={() => document.getElementById(`jp-section-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                 >
                   <span className="jp-step-n">

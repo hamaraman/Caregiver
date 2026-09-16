@@ -669,7 +669,7 @@
 
   /* 모바일: 필터 바디 기본 숨김, 열렸을 때만 표시 */
   .jl2-filter-body { display: none; }
-  .jl2-filter--open .jl2-filter-body { display: block; }
+  .jl2-filter--open .jl2-filter-body { display: block; margin-top: 14px; }
   /* 데스크탑 초기화 버튼 모바일에서 숨김 */
   .jl2-filter-desktop-reset { display: none; }
 

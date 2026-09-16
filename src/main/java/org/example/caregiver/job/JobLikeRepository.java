@@ -1,5 +1,10 @@
 package org.example.caregiver.job;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +22,32 @@ public class JobLikeRepository {
             return false;
         }
         return jobLikeJpaRepository.existsByJobIdAndUserId(jobId, userId);
+    }
+
+    /** 목록 조회 시 공고마다 찜 여부를 따로 쿼리하지 않도록 한 번에 조회한다. */
+    public Set<Long> likedJobIds(Long userId, Collection<Long> jobIds) {
+        if (userId == null || jobIds.isEmpty()) {
+            return Set.of();
+        }
+        return jobLikeJpaRepository.findByUserIdAndJobIdIn(userId, jobIds).stream()
+                .map(JobLike::getJobId)
+                .collect(Collectors.toSet());
+    }
+
+    /** 목록 조회 시 공고마다 좋아요 수를 따로 쿼리하지 않도록 한 번에 조회한다. */
+    public Map<Long, Long> likeCounts(Collection<Long> jobIds) {
+        if (jobIds.isEmpty()) {
+            return Map.of();
+        }
+        return jobLikeJpaRepository.countGroupedByJobIds(jobIds).stream()
+                .collect(Collectors.toMap(JobLikeCount::getJobId, JobLikeCount::getCount));
+    }
+
+    /** 마감 여부와 무관하게, 내가 찜한 공고 id 전체를 최근 찜한 순으로 반환한다. */
+    public List<Long> likedJobIdsForUser(Long userId) {
+        return jobLikeJpaRepository.findByUserIdOrderByIdDesc(userId).stream()
+                .map(JobLike::getJobId)
+                .toList();
     }
 
     public void like(Long userId, Long jobId) {

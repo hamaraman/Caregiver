@@ -1,4 +1,4 @@
-.ap-page {
+﻿.ap-page {
   padding: 32px 0 80px;
   min-height: calc(100vh - 64px);
   background: #f5f7fc;
@@ -151,7 +151,7 @@
   justify-content: center;
   flex-shrink: 0;
 }
-.ap-avatar--f { background: #fff0f7; }
+.ap-avatar--f { background: #f0f6ff; }
 .ap-avatar--m { background: #eff5ff; }
 
 .ap-card-name {
@@ -175,7 +175,7 @@
   border-radius: 10px;
 }
 
-.ap-gender-badge--f { background: #fff0f7; color: #e91e8c; }
+.ap-gender-badge--f { background: #f0f6ff; color: #4A8FE7; }
 .ap-gender-badge--m { background: #eff4ff; color: #5b8def; }
 
 .ap-card-age { font-size: 12px; color: #aaa; margin-bottom: 6px; }
@@ -315,4 +315,32 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+}
+
+/* API 연동: 카드를 세로로 쌓고, 기존 가로 레이아웃은 top-row에 그대로 유지 */
+.ap-card {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ap-card-top-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.ap-resume-panel {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5edfa;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ap-card-intro {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
 }

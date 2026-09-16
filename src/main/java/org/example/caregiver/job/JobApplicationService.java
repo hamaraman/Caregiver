@@ -3,8 +3,12 @@ package org.example.caregiver.job;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.example.caregiver.auth.User;
 import org.example.caregiver.auth.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,11 +31,20 @@ public class JobApplicationService {
     public JobApplicationResponse apply(Long jobId, Long applicantId) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new JobApplicationException("존재하지 않는 공고입니다."));
+        if (job.isClosed()) {
+            throw new JobApplicationException("마감된 공고입니다.");
+        }
         if (jobApplicationRepository.existsByJobIdAndApplicantId(jobId, applicantId)) {
             throw new JobApplicationException("이미 지원한 공고입니다.");
         }
-        JobApplication application = jobApplicationRepository.save(
-                new JobApplication(job.getId(), applicantId, "검토중", LocalDate.now().format(APPLIED_AT_FORMAT)));
+        JobApplication application;
+        try {
+            application = jobApplicationRepository.save(
+                    new JobApplication(job.getId(), applicantId, "검토중", LocalDate.now().format(APPLIED_AT_FORMAT)));
+        } catch (DataIntegrityViolationException e) {
+            // exists 체크와 save 사이의 경쟁 상태(동시 지원 요청)로 unique 제약이 걸린 경우
+            throw new JobApplicationException("이미 지원한 공고입니다.");
+        }
         return toResponse(application);
     }
 
@@ -39,13 +52,29 @@ public class JobApplicationService {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new JobApplicationException("존재하지 않는 공고입니다."));
         requireOwner(job, requesterId);
-        return jobApplicationRepository.findByJobIdOrderByIdDesc(jobId).stream()
-                .map(this::toResponse)
+        List<JobApplication> applications = jobApplicationRepository.findByJobIdOrderByIdDesc(jobId);
+        Map<Long, User> applicantsById = userRepository.findAllById(
+                        applications.stream().map(JobApplication::getApplicantId).toList())
+                .stream()
+                .collect(Collectors.toMap(User::getId, Function.identity()));
+        return applications.stream()
+                .map(application -> new JobApplicationResponse(application, applicantsById.get(application.getApplicantId())))
+                .toList();
+    }
+
+    public List<MyApplicationResponse> getMyApplications(Long applicantId) {
+        List<JobApplication> applications = jobApplicationRepository.findByApplicantIdOrderByIdDesc(applicantId);
+        Map<Long, Job> jobsById = jobRepository.findAllById(
+                        applications.stream().map(JobApplication::getJobId).toList())
+                .stream()
+                .collect(Collectors.toMap(Job::getId, Function.identity()));
+        return applications.stream()
+                .map(application -> new MyApplicationResponse(application, jobsById.get(application.getJobId())))
                 .toList();
     }
 
     public JobApplicationResponse updateStatus(Long applicationId, Long requesterId, String status) {
-        if (!ALLOWED_STATUSES.contains(status)) {
+        if (status == null || !ALLOWED_STATUSES.contains(status)) {
             throw new JobApplicationException("상태 값이 올바르지 않습니다.");
         }
         JobApplication application = jobApplicationRepository.findById(applicationId)

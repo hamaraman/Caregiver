@@ -1,0 +1,76 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Build Backend
+        run: |
+          chmod +x gradlew
+          ./gradlew build -x test
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true
+          script: |
+            cd /home/ubuntu/Caregiver
+            git fetch origin
+            git checkout main
+            git reset --hard origin/main
+
+            # Build frontend
+            cd frontend
+            npm install
+            npm run build
+            sudo cp -r dist/* /var/www/caregiver/
+            cd ..
+
+            # Build backend
+            chmod +x gradlew
+            ./gradlew build -x test
+
+            # Stop Gradle daemon (ignore exit code)
+            ./gradlew --stop > /dev/null 2>&1; true
+
+            # Restart Spring Boot
+            bash -c 'kill $(cat /tmp/caregiver.pid 2>/dev/null) 2>/dev/null; true'
+            sleep 2
+            nohup java -jar build/libs/Caregiver-0.0.1-SNAPSHOT.jar \
+              --spring.config.additional-location=file:./application-secret.properties \
+              > backend.log 2>&1 &
+            echo $! > /tmp/caregiver.pid
+            disown
+            sleep 3
+            echo "Deployment completed!"

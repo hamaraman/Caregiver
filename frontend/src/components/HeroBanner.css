@@ -1,5 +1,5 @@
-.hero {
-  background: linear-gradient(135deg, #fff5f9 0%, #fce4f0 50%, #f0e8ff 100%);
+﻿.hero {
+  background: linear-gradient(135deg, #fff5f9 0%, #d0e4fb 50%, #f0e8ff 100%);
   padding: 40px 0 0;
   overflow: hidden;
 }
@@ -28,7 +28,7 @@
 }
 
 .hero-highlight {
-  color: #e91e8c;
+  color: #4A8FE7;
 }
 
 .hero-desc {
@@ -65,7 +65,7 @@
 .search-btn {
   width: 44px;
   height: 44px;
-  background: #e91e8c;
+  background: #4A8FE7;
   border: none;
   border-radius: 50%;
   display: flex;
@@ -101,7 +101,7 @@
 
 .region-tab:hover {
   background: #fff;
-  color: #e91e8c;
+  color: #4A8FE7;
 }
 
 .region-tab:active {
@@ -115,9 +115,9 @@
 }
 
 .region-tab--active {
-  background: #e91e8c;
+  background: #4A8FE7;
   color: #fff;
-  border-color: #e91e8c;
+  border-color: #4A8FE7;
 }
 
 .region-tab--more {
@@ -146,12 +146,12 @@
   top: 20px;
   right: 0;
   background: #fff;
-  border: 2px solid #e91e8c;
+  border: 2px solid #4A8FE7;
   border-radius: 16px 16px 4px 16px;
   padding: 10px 14px;
   font-size: 12px;
   font-weight: 600;
-  color: #e91e8c;
+  color: #4A8FE7;
   line-height: 1.5;
   box-shadow: 0 4px 12px rgba(233, 30, 140, 0.15);
   z-index: 2;

@@ -1,29 +1,54 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
-import { jobs } from '../data/jobs'
-import { applicants, myJobIds } from '../data/applicants'
+import { fetchMyJobs, fetchApplicantsForJob, closeJob as closeJobApi, reopenJob as reopenJobApi } from '../api'
 import './RecruitManagePage.css'
 
 export default function RecruitManagePage() {
-  const myJobs = jobs.filter((j) => myJobIds.includes(j.id))
-  const [closedJobs, setClosedJobs] = useState([])
+  const navigate = useNavigate()
+  const [myJobs, setMyJobs] = useState([])
+  const [applicantsByJob, setApplicantsByJob] = useState({})
+  const [loading, setLoading] = useState(true)
   const [confirmJobId, setConfirmJobId] = useState(null)
   const [filter, setFilter] = useState('all')
 
-  const isClosed = (id) => closedJobs.includes(id)
+  useEffect(() => {
+    fetchMyJobs()
+      .then(async jobs => {
+        setMyJobs(jobs)
+        const entries = await Promise.all(
+          jobs.map(job => fetchApplicantsForJob(job.id).then(list => [job.id, list]).catch(() => [job.id, []]))
+        )
+        setApplicantsByJob(Object.fromEntries(entries))
+      })
+      .catch(() => setMyJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
 
-  const closeJob = (id) => {
-    setClosedJobs((prev) => [...prev, id])
-    setConfirmJobId(null)
+  const isClosed = (id) => myJobs.find(j => j.id === id)?.closed ?? false
+
+  const closeJob = async (id) => {
+    try {
+      const updated = await closeJobApi(id)
+      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
+    } catch (err) {
+      alert(err.message || '마감 처리에 실패했습니다.')
+    } finally {
+      setConfirmJobId(null)
+    }
   }
 
-  const reopenJob = (id) => {
-    setClosedJobs((prev) => prev.filter((i) => i !== id))
+  const reopenJob = async (id) => {
+    try {
+      const updated = await reopenJobApi(id)
+      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
+    } catch (err) {
+      alert(err.message || '재개 처리에 실패했습니다.')
+    }
   }
 
-  const countApplicants = (jobId) => applicants.filter((a) => a.jobId === jobId).length
+  const countApplicants = (jobId) => (applicantsByJob[jobId] || []).length
 
   const filteredJobs = myJobs.filter((job) => {
     if (filter === 'active') return !isClosed(job.id)
@@ -32,17 +57,19 @@ export default function RecruitManagePage() {
   })
 
   const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
-  const totalApplicants = applicants.filter((a) => myJobIds.includes(a.jobId)).length
+  const closedCount = myJobs.filter((j) => isClosed(j.id)).length
+  const totalApplicants = Object.values(applicantsByJob).flat().length
 
   const filterCards = [
     { key: 'all',    label: '전체',   val: myJobs.length,     unit: '개', mod: '',          valMod: '' },
     { key: 'active', label: '진행중', val: activeCount,       unit: '개', mod: '--active',   valMod: '--active' },
-    { key: 'closed', label: '마감',   val: closedJobs.length, unit: '개', mod: '--closed',   valMod: '' },
+    { key: 'closed', label: '마감',   val: closedCount,       unit: '개', mod: '--closed',   valMod: '' },
   ]
 
   return (
     <>
       <HomeNav />
+      <AuthGuard require="business">
       <div className="rm-page">
         <div className="container">
           <div className="rm-top">
@@ -83,7 +110,8 @@ export default function RecruitManagePage() {
 
           {/* 공고 목록 */}
           <div className="rm-list">
-            {filteredJobs.length === 0 && (
+            {loading && <div className="rm-empty">불러오는 중입니다...</div>}
+            {!loading && filteredJobs.length === 0 && (
               <div className="rm-empty">
                 {filter === 'closed' ? '마감된 공고가 없습니다.' : '공고가 없습니다.'}
               </div>
@@ -92,31 +120,24 @@ export default function RecruitManagePage() {
               const closed = isClosed(job.id)
               const appCnt = countApplicants(job.id)
               return (
-                <div key={job.id} className={`rm-card${closed ? ' rm-card--closed' : ''}`}>
+                <div key={job.id} className={`rm-card${closed ? ' rm-card--closed' : ''}`} onClick={() => navigate(`/manage/${job.id}`)} style={{ cursor: 'pointer' }}>
                   <div className="rm-card-top">
                     <div className="rm-card-info">
                       <div className="rm-card-title-row">
                         <span className={`rm-status-badge ${closed ? 'rm-status-badge--closed' : 'rm-status-badge--active'}`}>
                           {closed ? '마감' : '진행중'}
                         </span>
-                        <span className="rm-card-title">{job.postTitle || job.title}</span>
-                        {job.badge && (
-                          <span className={`rm-badge rm-badge--${job.badgeColor ?? 'red'}`}>
-                            {job.badge}
-                          </span>
-                        )}
+                        <span className="rm-card-title">{job.type}</span>
                       </div>
                       <div className="rm-card-meta">
                         <span>{job.location}</span>
                         <span className="rm-meta-dot">·</span>
-                        <span>{job.wage}</span>
+                        <span>{job.pay}</span>
                         <span className="rm-meta-dot">·</span>
-                        <span>{job.hours} / {job.days}</span>
+                        <span>{job.time} / {job.workType}</span>
                       </div>
                       <div className="rm-card-dates">
                         <span className="rm-date-item">등록일 {job.date}</span>
-                        <span className="rm-meta-dot">·</span>
-                        <span className="rm-date-item">마감일 {job.deadline}</span>
                       </div>
                     </div>
 
@@ -131,8 +152,8 @@ export default function RecruitManagePage() {
                     </div>
                   </div>
 
-                  <div className="rm-card-footer">
-                    <Link to={`/jobs/${job.id}`} className="rm-btn rm-btn--ghost">
+                  <div className="rm-card-footer" onClick={e => e.stopPropagation()}>
+                    <Link to={`/job/${job.id}`} className="rm-btn rm-btn--ghost">
                       공고 보기
                     </Link>
                     {closed ? (
@@ -159,6 +180,7 @@ export default function RecruitManagePage() {
           </div>
         </div>
       </div>
+      </AuthGuard>
     </>
   )
 }

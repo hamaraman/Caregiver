@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
 import { logout } from '../api'
@@ -34,8 +34,8 @@ const guinSubMenu = [
         <line x1="7" y1="16" x2="13" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
       </svg>
     ),
-    color: '#e91e8c',
-    bg: '#fff0f7',
+    color: '#4A8FE7',
+    bg: '#f0f6ff',
   },
   {
     label: '지원자 확인',
@@ -82,7 +82,7 @@ const navItems = [
   { label: '구직', href: '/jobseeker' },
   { label: '구인', href: '/employer', hasDropdown: true },
   // { label: '커뮤니티', href: '#' },
-  { label: '고객센터', href: '#' },
+  { label: '고객센터', href: '/support' },
 ]
 
 const subLinkMap = {

@@ -231,6 +231,48 @@
 }
 .js-filter-search-btn:hover { background: #3a7fd4; }
 
+/* ── 모바일 필터 토글 ── */
+.js-filter-mobile-toggle {
+  display: none;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1.5px solid #e0e8f4;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.js-filter-toggle-caret { margin-left: auto; transition: transform 0.2s; }
+.js-filter-toggle-caret.open { transform: rotate(180deg); }
+
+@media (max-width: 768px) {
+  .js-body-inner {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+  .js-filter {
+    position: static;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .js-filter-mobile-toggle { display: flex; }
+  .js-filter-body {
+    display: none;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 16px;
+  }
+  .js-filter--open .js-filter-body { display: block; }
+}
+
 /* ===================== JOB LIST ===================== */
 .js-joblist {
   display: flex;
@@ -275,6 +317,37 @@
 }
 .js-sort-tab.active { background: #4A8FE7; color: #fff; border-color: #4A8FE7; font-weight: 700; }
 .js-sort-tab:hover:not(.active) { border-color: #4A8FE7; color: #4A8FE7; }
+
+/* ===================== EMPTY STATE ===================== */
+.js-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  gap: 12px;
+  text-align: center;
+}
+.js-empty-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #8a9ab5;
+  margin: 0;
+}
+.js-empty-desc {
+  font-size: 13px;
+  color: #b0bccf;
+  margin: 0;
+}
+.js-empty-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e8eef6;
+  border-top-color: #4A8FE7;
+  border-radius: 50%;
+  animation: js-spin 0.7s linear infinite;
+}
+@keyframes js-spin { to { transform: rotate(360deg); } }
 
 /* ===================== JOB ROW ===================== */
 .js-rows {

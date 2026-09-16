@@ -542,6 +542,64 @@
 
 .jr-submit-btn:hover { background: #3A7FD7; transform: translateY(-1px); }
 
+.jr-prev-btn {
+  padding: 14px 28px;
+  background: #fff;
+  border: 1.5px solid #d0d9e8;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  margin-right: auto;
+}
+.jr-prev-btn:hover { border-color: #4A8FE7; color: #4A8FE7; }
+
+.jr-next-btn {
+  padding: 14px 40px;
+  background: #4A8FE7;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  letter-spacing: 0.3px;
+}
+.jr-next-btn:hover { background: #3A7FD7; transform: translateY(-1px); }
+
+.jr-error-msg {
+  display: block;
+  font-size: 12px;
+  color: #e74c3c;
+  margin-top: 4px;
+}
+
+.jr-input.error,
+.jr-select.error { border-color: #e74c3c; }
+
+.jr-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 64px 24px;
+  text-align: center;
+}
+.jr-success-icon {
+  width: 80px;
+  height: 80px;
+  background: #eff5ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jr-success-title { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+.jr-success-desc { font-size: 15px; color: #666; }
+
 /* ════════════════════════════════
    SIDEBAR
 ════════════════════════════════ */

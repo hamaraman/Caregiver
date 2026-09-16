@@ -223,7 +223,6 @@
   position: relative;
   background: linear-gradient(135deg, #c5e0f8 0%, #d8ecff 45%, #eaf4ff 100%);
   padding: 56px 0 0;
-  overflow: hidden;
 }
 
 .jsp-hero-photo {
@@ -325,8 +324,14 @@
   align-items: center;
   gap: 8px;
   margin-top: 16px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  width: 100%;
+  cursor: grab;
 }
+.jsp-region-chips::-webkit-scrollbar { display: none; }
 
 .jsp-region-label {
   display: flex;
@@ -348,6 +353,8 @@
   color: #555;
   cursor: pointer;
   transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
   backdrop-filter: blur(4px);
 }
 
@@ -965,4 +972,39 @@
 @media (max-width: 960px) {
   .jsp-content-grid { grid-template-columns: 1fr; }
   .jsp-cat-grid { flex-wrap: wrap; }
+}
+
+@media (max-width: 768px) {
+  .jsp-hero-photo { display: none; }
+  .jsp-region-chips { padding-bottom: 2px; }
+  .jsp-chip { white-space: nowrap; flex-shrink: 0; }
+  .jsp-table thead { display: none; }
+  .jsp-table, .jsp-table tbody, .jsp-table tr { display: block; }
+  .jsp-table tr {
+    border-bottom: 1px solid #eef0f5;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .jsp-table td {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    padding: 0;
+    white-space: normal;
+    font-size: 13px;
+  }
+  .jsp-table td::before {
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 700;
+    color: #aab0c0;
+    min-width: 52px;
+    flex-shrink: 0;
+  }
+  .jsp-table td:last-child { justify-content: flex-end; }
+  .jsp-table td:last-child::before { display: none; }
+  .jsp-pay { color: #4A8FE7 !important; font-weight: 700; }
 }

@@ -88,14 +88,31 @@
 .ma-apply-date { font-size: 11px; color: #aab0c0; }
 
 .ma-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   text-align: center;
-  padding: 48px;
-  color: #aab0c0;
-  font-size: 14px;
+  padding: 64px 48px;
   background: #fff;
   border-radius: 12px;
   border: 1px solid #e8eef6;
 }
+.ma-empty-title { font-size: 16px; font-weight: 600; color: #555; margin-top: 8px; }
+.ma-empty-desc { font-size: 14px; color: #aab0c0; }
+.ma-empty-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 24px;
+  background: #4A8FE7;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.ma-empty-btn:hover { background: #3A7FD7; }
 
 @media (max-width: 600px) {
   .ma-row { flex-direction: column; align-items: flex-start; }

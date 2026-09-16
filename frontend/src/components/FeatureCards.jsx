@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import './FeatureCards.css'
 
 const features = [
@@ -11,10 +11,10 @@ const features = [
         <line x1="7" y1="16" x2="13" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
       </svg>
     ),
-    color: '#e91e8c',
-    iconBg: '#fff0f7',
+    color: '#4A8FE7',
+    iconBg: '#f0f6ff',
     shadow: 'rgba(233,30,140,0.18)',
-    topBar: 'linear-gradient(90deg, #e91e8c, #ff6eb4)',
+    topBar: 'linear-gradient(90deg, #4A8FE7, #74b1f0)',
     title: '구인 등록하기',
     desc: '간편하게 구인공고를\n등록해보세요',
   },

@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
+import { createJob } from '../api'
 import './JobPostPage.css'
 
 const regionTree = {
@@ -38,6 +39,10 @@ const applyMethods = ['바로지원','방문접수','이메일','전화','팩스
 const SECTIONS = ['근무 조건','케어 대상자 정보','공고 내용','업체 정보','담당자 정보','약관 동의']
 
 export default function JobPostPage() {
+  const navigate = useNavigate()
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
   // 근무 조건
   const [sido, setSido] = useState('')
   const [sigu, setSigu] = useState('')
@@ -192,26 +197,92 @@ export default function JobPostPage() {
     if (checked) setManagerPhone(companyPhone)
   }
 
-  const handleSubmit = (e) => {
+  const buildPayload = () => {
+    const location = sigu ? `${sido} ${sigu}` : sido
+    const wage = wageType && wageAmount ? `${wageType} ${Number(wageAmount).toLocaleString()}원` : ''
+    const today = new Date()
+    const date = `${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`
+    return {
+      title: postTitle,
+      location,
+      wage,
+      hours: `${startTime}~${endTime}`,
+      days: dayNegotiable ? '요일 협의' : `주 ${selectedDays.length}일`,
+      date,
+      postTitle,
+      postDetail,
+      jobType,
+      facility,
+      workForm,
+      employForm,
+      education,
+      experience,
+      deadline: deadlineType === '상시' ? null : deadline,
+      daysNegotiable: dayNegotiable,
+      weekdays: selectedDays,
+      careGender,
+      careAge,
+      careGrade,
+      careCondition,
+      careWork,
+      applyMethod,
+      companyUrl,
+      applyEmail,
+      applyFax,
+      companyName,
+      companyPhone,
+      companyAddr,
+      companyAddrDetail,
+      phonePublic,
+      managerName,
+      managerPhone,
+      managerEmail,
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const fields = { companyName, companyPhone, managerName, managerPhone, managerEmail, applyEmail, applyFax }
     const newErrors = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, validateField(k, v)]))
     setErrors(newErrors)
     if (Object.values(newErrors).some(v => v)) return
-    alert('구인공고가 등록되었습니다.')
+
+    setSubmitError('')
+    setSubmitting(true)
+    try {
+      const created = await createJob(buildPayload())
+      alert('구인공고가 등록되었습니다.')
+      navigate(`/job/${created.id}`)
+    } catch (err) {
+      setSubmitError(err.message || '구인공고 등록에 실패했습니다.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const siList = sido ? regionTree[sido] || [] : []
 
   return (
+    <AuthGuard require="business">
     <div className="app">
       <HomeNav />
+
+      <section className="jpp-hero">
+        <img src="/employer-hero.png" className="jpp-hero-photo" alt="" aria-hidden="true" />
+        <div className="jpp-hero-inner">
+          <div className="jpp-hero-text">
+            <p className="jpp-hero-eyebrow">믿을 수 있는 인재를 찾는 첫걸음, 요양이지와 함께합니다.</p>
+            <h1 className="jpp-hero-title">구인공고 등록하기</h1>
+            <p className="jpp-hero-desc">
+              공고를 등록하면 자격을 갖춘 요양 전문 인재를<br />
+              빠르게 만나볼 수 있습니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <main className="jp-page">
         <div className="container">
-          <div className="jp-top">
-            <div className="jp-breadcrumb"><Link to="/">홈</Link> › 구인공고 등록</div>
-            <h2 className="jp-title">구인공고 등록</h2>
-          </div>
 
           {/* 진행 단계 */}
           <div className="jp-steps">
@@ -686,29 +757,30 @@ export default function JobPostPage() {
                 <span className="jp-section-num">6</span>
                 <h3 className="jp-section-title">약관 동의</h3>
               </div>
-              <div className="jp-section-body">
-                <div className="jp-agree-box">
-                  <p className="jp-agree-text">
-                    수집된 개인정보는 구인공고 서비스 제공 목적으로만 사용되며,
-                    관련 법령에 따라 안전하게 보호됩니다.
-                    구인공고 등록 시 입력하신 업체·담당자 정보는 구직자에게 공개될 수 있습니다.
-                  </p>
-                  <label className="jp-check jp-check--agree" style={{ alignSelf: 'flex-end' }}>
-                    <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} required />
-                    개인정보 수집·이용에 동의합니다 <span className="jp-label--required-star">*</span>
-                  </label>
-                </div>
-              </div>
+              <p className="jp-agree-text">
+                수집된 개인정보는 구인공고 서비스 제공 목적으로만 사용되며,
+                관련 법령에 따라 안전하게 보호됩니다.
+                구인공고 등록 시 입력하신 업체·담당자 정보는 구직자에게 공개될 수 있습니다.
+              </p>
+              <label className="jp-agree-check">
+                <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} required />
+                개인정보 수집·이용에 동의합니다 <span className="jp-label--required-star">*</span>
+              </label>
             </div>
+
+            {submitError && <p className="jp-submit-error" style={{ color: '#e74c3c', marginBottom: 12 }}>{submitError}</p>}
 
             <div className="jp-actions">
               <Link to="/" className="jp-btn jp-btn--cancel">취소</Link>
-              <button type="submit" className="jp-btn jp-btn--submit" disabled={!agreed}>공고 등록하기</button>
+              <button type="submit" className="jp-btn jp-btn--submit" disabled={!agreed || submitting}>
+                {submitting ? '등록 중...' : '공고 등록하기'}
+              </button>
             </div>
 
           </form>
         </div>
       </main>
     </div>
+    </AuthGuard>
   )
 }

@@ -1,14 +1,32 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { talents } from '../data/talents'
+import { useState, useEffect } from 'react'
+import { fetchJobSeeker } from '../api'
 import Header from '../components/Header'
 import './TalentDetailPage.css'
 
 export default function TalentDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const talent = talents.find(t => t.id === Number(id))
+  const [talent, setTalent] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [contactVisible, setContactVisible] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    fetchJobSeeker(id)
+      .then(setTalent)
+      .catch(() => setTalent(null))
+      .finally(() => setLoading(false))
+  }, [id])
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="td-not-found">인재 정보를 불러오는 중입니다...</div>
+      </>
+    )
+  }
 
   if (!talent) {
     return (
@@ -38,7 +56,7 @@ export default function TalentDetailPage() {
             <div className="td-profile">
               <div className="td-avatar">
                 {talent.gender === '여'
-                  ? <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  ? <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
                   : <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5b8def" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
                 }
               </div>
@@ -55,7 +73,7 @@ export default function TalentDetailPage() {
               </div>
               <div className="td-hero-right">
                 <div className="td-wish-wage">
-                  희망 {talent.wageType} <strong>{talent.wageAmount.toLocaleString()}원</strong>
+                  희망 급여 <strong>{talent.wageLabel}</strong>
                 </div>
                 <div className="td-registered">{talent.date} 등록</div>
               </div>
@@ -82,7 +100,7 @@ export default function TalentDetailPage() {
               <div className="td-certs-list">
                 {talent.certs.map(c => (
                   <div key={c} className="td-cert-item">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                     {c}
                   </div>
                 ))}
@@ -108,7 +126,7 @@ export default function TalentDetailPage() {
               <h2 className="td-section-title">희망 근무 조건</h2>
               <div className="td-grid">
                 <div className="td-item"><span className="td-label">근무 형태</span><span className="td-value">{talent.workType}</span></div>
-                <div className="td-item"><span className="td-label">희망 급여</span><span className="td-value td-value--wage">{talent.wageType} {talent.wageAmount.toLocaleString()}원</span></div>
+                <div className="td-item"><span className="td-label">희망 급여</span><span className="td-value td-value--wage">{talent.wageLabel}</span></div>
                 <div className="td-item td-item--full"><span className="td-label">희망 지역</span><span className="td-value">{talent.wishRegion}</span></div>
                 <div className="td-item"><span className="td-label">희망 요일</span><span className="td-value">{talent.wishDays.join(' · ')}</span></div>
                 <div className="td-item"><span className="td-label">희망 시간</span><span className="td-value">{talent.wishHours}</span></div>
@@ -126,8 +144,8 @@ export default function TalentDetailPage() {
               <h2 className="td-section-title">연락처</h2>
               {contactVisible
                 ? <div className="td-contact-info">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e91e8c" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.17-1.17a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    로그인 후 확인 가능합니다.
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.17-1.17a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    {talent.phone || '연락처가 등록되지 않았습니다.'}
                   </div>
                 : <button className="td-contact-btn" onClick={() => setContactVisible(true)}>
                     연락처 확인하기

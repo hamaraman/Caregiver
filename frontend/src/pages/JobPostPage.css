@@ -1,3 +1,63 @@
+/* ════════════════════════════════
+   HERO
+════════════════════════════════ */
+.jpp-hero {
+  position: relative;
+  background: linear-gradient(135deg, #c5e0f8 0%, #d8ecff 45%, #eaf4ff 100%);
+  padding: 48px 0 0;
+  overflow: hidden;
+}
+
+.jpp-hero-photo {
+  position: absolute;
+  right: clamp(0px, calc(100vw - 1520px), 385px);
+  top: 0;
+  height: 140%;
+  width: auto;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  mask-image: linear-gradient(to right, transparent 0%, black 20%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 75%, transparent 100%);
+}
+
+.jpp-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  min-height: 200px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.jpp-hero-text { padding-bottom: 40px; }
+
+.jpp-hero-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  color: #5a7fa8;
+  margin-bottom: 10px;
+}
+
+.jpp-hero-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #1a2d4d;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+
+.jpp-hero-desc {
+  font-size: 14px;
+  color: #557a9e;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .jpp-hero-photo { display: none; }
+  .jpp-hero-title { font-size: 32px; }
+}
+
 .jp-page {
   padding: 32px 0 80px;
   min-height: calc(100vh - 64px);
@@ -319,17 +379,18 @@
   border-color: #c0d4f5;
 }
 
-.jp-check--agree {
+.jp-check input { display: none; }
+
+.jp-agree-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 16px;
-  background: #f0f5ff;
-  border-color: #b8d0f5;
+  color: #333;
+  cursor: pointer;
 }
-
-.jp-check input { display: none; }
-.jp-check--agree input { display: none; }
-.jp-check--agree:has(input:checked) { background: #e8f0fd; border-color: #4A8FE7; color: #3A7FD7; }
 
 .jp-time-group {
   display: flex;
@@ -396,6 +457,7 @@
   font-size: 13px;
   color: #777;
   line-height: 1.7;
+  padding: 16px 24px 0;
 }
 
 /* 하단 버튼 */

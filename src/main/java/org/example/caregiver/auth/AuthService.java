@@ -29,6 +29,11 @@ public class AuthService {
         }
         String userType = normalizeType(request.getUserType());
         User user = new User(null, email, passwordEncoder.encode(request.getPassword()), request.getName(), userType);
+        user.setPhone(request.getPhone());
+        if ("business".equals(userType)) {
+            user.setCompanyName(request.getCompanyName());
+            user.setBusinessNumber(request.getBusinessNumber());
+        }
         try {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
@@ -64,7 +69,10 @@ public class AuthService {
     }
 
     private String normalizeType(String userType) {
-        return "business".equals(userType) ? "business" : "personal";
+        if ("personal".equals(userType) || "business".equals(userType)) {
+            return userType;
+        }
+        throw new AuthException("계정 유형은 personal 또는 business여야 합니다.");
     }
 
     private String typeLabel(String userType) {

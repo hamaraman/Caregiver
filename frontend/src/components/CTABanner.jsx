@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import './CTABanner.css'
 
 export default function CTABanner() {
@@ -31,10 +31,10 @@ export default function CTABanner() {
       <div className="cta-person-icon">
         <svg width="72" height="72" viewBox="0 0 56 56" fill="none">
           <circle cx="28" cy="18" r="10" fill="#f8a5c2"/>
-          <ellipse cx="28" cy="42" rx="16" ry="14" fill="#e91e8c" opacity="0.15"/>
-          <ellipse cx="28" cy="42" rx="12" ry="10" fill="#e91e8c" opacity="0.25"/>
+          <ellipse cx="28" cy="42" rx="16" ry="14" fill="#4A8FE7" opacity="0.15"/>
+          <ellipse cx="28" cy="42" rx="12" ry="10" fill="#4A8FE7" opacity="0.25"/>
           <circle cx="28" cy="18" r="7" fill="#f2ccc0"/>
-          <path d="M18 48c0-8 4.5-13 10-13s10 5 10 13" fill="#e91e8c" opacity="0.4"/>
+          <path d="M18 48c0-8 4.5-13 10-13s10 5 10 13" fill="#4A8FE7" opacity="0.4"/>
         </svg>
       </div>
     </div>

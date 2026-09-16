@@ -1,0 +1,1244 @@
+Starting a Gradle Daemon, 1 busy and 1 incompatible and 1 stopped Daemons could not be reused, use --status for details
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :resolveMainClassName
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-15T09:01:16.270+09:00  INFO 3148 --- [Caregiver] [           main] o.e.caregiver.CaregiverApplication       : Starting CaregiverApplication using Java 21.0.11 with PID 3148 (C:\work\team_project\Caregiver\build\classes\java\main started by SBS in C:\work\team_project\Caregiver)
+2026-09-15T09:01:16.273+09:00  INFO 3148 --- [Caregiver] [           main] o.e.caregiver.CaregiverApplication       : The following 1 profile is active: "secret"
+2026-09-15T09:01:16.873+09:00  INFO 3148 --- [Caregiver] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-15T09:01:16.946+09:00  INFO 3148 --- [Caregiver] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 7 JPA repository interfaces.
+2026-09-15T09:01:17.414+09:00  INFO 3148 --- [Caregiver] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8081 (http)
+2026-09-15T09:01:17.427+09:00  INFO 3148 --- [Caregiver] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-15T09:01:17.428+09:00  INFO 3148 --- [Caregiver] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-15T09:01:17.485+09:00  INFO 3148 --- [Caregiver] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1155 ms
+2026-09-15T09:01:17.644+09:00  INFO 3148 --- [Caregiver] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-15T09:01:17.704+09:00  INFO 3148 --- [Caregiver] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-09-15T09:01:18.105+09:00  INFO 3148 --- [Caregiver] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-15T09:01:18.134+09:00  INFO 3148 --- [Caregiver] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-15T09:01:18.337+09:00  INFO 3148 --- [Caregiver] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6aaa678d
+2026-09-15T09:01:18.338+09:00  INFO 3148 --- [Caregiver] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-15T09:01:18.401+09:00  WARN 3148 --- [Caregiver] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-15T09:01:18.431+09:00  INFO 3148 --- [Caregiver] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/caregiver_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: caregiver_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-15T09:01:19.358+09:00  INFO 3148 --- [Caregiver] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    alter table if exists caregivers 
+       add column owner_id bigint
+Hibernate: 
+    alter table if exists caregivers 
+       add constraint FK7lcc68b2arkqgs8qylrtugm2b 
+       foreign key (owner_id) 
+       references users
+2026-09-15T09:01:19.557+09:00  INFO 3148 --- [Caregiver] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-15T09:01:19.628+09:00  INFO 3148 --- [Caregiver] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-15T09:01:20.116+09:00  WARN 3148 --- [Caregiver] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-15T09:01:20.176+09:00 DEBUG 3148 --- [Caregiver] [           main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-09-15T09:01:20.352+09:00 DEBUG 3148 --- [Caregiver] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, DefaultResourcesFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-09-15T09:01:20.597+09:00  INFO 3148 --- [Caregiver] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8081 (http) with context path '/'
+2026-09-15T09:01:20.602+09:00  INFO 3148 --- [Caregiver] [           main] o.e.caregiver.CaregiverApplication       : Started CaregiverApplication in 4.754 seconds (process running for 5.083)
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        regions r1_0 
+    where
+        r1_0.name=?
+Hibernate: 
+    insert 
+    into
+        regions
+        (name) 
+    values
+        (?)
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        regions r1_0 
+    where
+        r1_0.name=?
+Hibernate: 
+    insert 
+    into
+        regions
+        (name) 
+    values
+        (?)
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        regions r1_0 
+    where
+        r1_0.name=?
+Hibernate: 
+    insert 
+    into
+        regions
+        (name) 
+    values
+        (?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.user_type 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    insert 
+    into
+        users
+        (email, name, password_hash, user_type) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.user_type 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    insert 
+    into
+        users
+        (email, name, password_hash, user_type) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    select
+        count(*) 
+    from
+        caregivers c1_0
+Hibernate: 
+    insert 
+    into
+        caregivers
+        (experience_years, name, owner_id, phone, rating, region_id, specialty) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        caregivers
+        (experience_years, name, owner_id, phone, rating, region_id, specialty) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        caregivers
+        (experience_years, name, owner_id, phone, rating, region_id, specialty) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        count(*) 
+    from
+        jobs j1_0
+Hibernate: 
+    insert 
+    into
+        jobs
+        (apply_email, apply_fax, badge, badge_color, care_age, care_gender, care_grade, company_addr, company_addr_detail, company_name, company_phone, company_url, date, days, days_negotiable, deadline, education, employ_form, experience, facility, hours, job_type, location, manager_email, manager_name, manager_phone, owner_id, phone_public, post_detail, post_title, region_id, title, wage, work_form) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        jobs
+        (apply_email, apply_fax, badge, badge_color, care_age, care_gender, care_grade, company_addr, company_addr_detail, company_name, company_phone, company_url, date, days, days_negotiable, deadline, education, employ_form, experience, facility, hours, job_type, location, manager_email, manager_name, manager_phone, owner_id, phone_public, post_detail, post_title, region_id, title, wage, work_form) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        jobs
+        (apply_email, apply_fax, badge, badge_color, care_age, care_gender, care_grade, company_addr, company_addr_detail, company_name, company_phone, company_url, date, days, days_negotiable, deadline, education, employ_form, experience, facility, hours, job_type, location, manager_email, manager_name, manager_phone, owner_id, phone_public, post_detail, post_title, region_id, title, wage, work_form) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-09-15T09:01:43.410+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-15T09:01:43.410+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-15T09:01:43.412+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-09-15T09:01:43.415+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /actuator/health
+2026-09-15T09:01:43.421+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /actuator/health
+2026-09-15T09:01:43.440+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:01:43.454+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.s.HttpSessionRequestCache        : Saved request http://localhost:8081/actuator/health?continue to session
+2026-09-15T09:01:43.455+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.web.DefaultRedirectStrategy        : Redirecting to /login
+2026-09-15T09:01:55.453+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:01:55.455+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:01:55.457+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:01:55.481+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:01:55.486+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:01:55.486+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:01:55.487+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:01:55.487+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:01:55.491+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:01:55.491+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:01:55.492+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:01:55.492+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:01:55.496+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:01:55.497+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:01:55.497+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:01:55.498+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:02.304+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:02.305+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:02.305+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:02.307+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:02.313+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:02.313+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:02.313+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:02.314+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:10.647+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:10.648+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:10.648+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:10.649+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:10.654+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:10.654+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:10.655+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:10.656+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:12.110+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:12.111+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:12.112+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:12.113+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:12.118+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:12.119+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:12.120+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:12.121+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:12.986+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:12.987+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:12.987+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:12.988+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:12.993+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:12.994+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:12.994+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:12.995+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:13.619+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:13.620+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:13.620+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:13.620+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:13.625+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:13.625+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:13.626+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:13.626+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:14.186+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:14.186+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:14.187+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:14.187+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:14.191+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:14.192+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:14.192+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:14.193+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:14.686+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:14.686+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:14.687+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:14.688+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:14.692+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:14.693+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:14.693+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:14.694+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:15.469+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:15.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:15.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:15.471+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:15.476+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:15.476+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:15.477+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:15.478+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:15.706+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:15.706+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:15.707+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:15.708+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:15.713+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:15.713+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:15.714+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:15.714+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:15.901+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:15.902+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:15.902+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:15.904+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:15.908+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:15.908+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:15.908+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:15.909+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.086+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.086+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.087+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.087+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.092+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.092+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.093+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.094+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.284+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.285+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.285+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.286+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.291+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.291+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.292+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.292+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.503+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.503+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.503+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.504+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.508+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.509+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.509+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.510+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.718+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.719+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.719+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.720+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:16.725+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:16.725+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:16.726+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:16.727+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:17.005+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:17.005+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:17.006+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:17.007+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:17.011+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:17.012+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:17.012+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:17.013+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:17.533+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:17.534+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:17.534+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:17.534+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:17.539+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:17.539+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:17.539+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:17.540+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:17.938+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:17.939+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:17.939+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:17.940+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:02:17.945+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:02:17.945+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:02:17.946+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:02:17.947+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:07:48.529+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:07:48.529+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:07:48.530+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:07:48.531+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:07:48.534+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:07:48.535+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:07:48.535+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:07:48.535+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:07:48.539+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:07:48.539+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:07:48.540+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:07:48.540+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:07:48.544+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:07:48.544+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:07:48.544+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:07:48.545+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:08:39.834+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /oauth2/authorization/google
+2026-09-15T09:08:39.835+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2026-09-15T09:08:39.844+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=429585853502-fs9gjom912m4p52i879h1uejnfparpeh.apps.googleusercontent.com&scope=profile%20email&state=KaKGREEyBU0rxXFwD2kwepIib1gpZfOrcFyxQh_AT3E%3D&redirect_uri=http://localhost:8081/login/oauth2/code/google&code_challenge=5d7lFf6KB1KeepMDFLbs6MIU9OxLkvWYmXgI1tnQz2A&code_challenge_method=S256
+2026-09-15T09:11:52.199+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /oauth2/authorization/naver
+2026-09-15T09:11:52.199+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/naver
+2026-09-15T09:11:52.200+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=pcg1Ko8oJaweliNCYkpe&scope=name%20email&state=LF9sjpGyqmA4e-qbuf0ewZRy2N2AwZ8v5oCOdKETI6M%3D&redirect_uri=http://localhost:8081/login/oauth2/code/naver&code_challenge=DT64anXUkq_CqJUFtuNrK-n-5CxwdHloIeY0oHUbtT4&code_challenge_method=S256
+2026-09-15T09:11:55.314+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:11:55.314+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:11:55.315+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:11:55.316+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:11:55.321+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:11:55.322+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:11:55.322+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:11:55.324+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:11:57.021+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /oauth2/authorization/naver
+2026-09-15T09:11:57.022+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/naver
+2026-09-15T09:11:57.022+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=pcg1Ko8oJaweliNCYkpe&scope=name%20email&state=KCbPkHXU6RO5bGAVjW8KterbY_E4ZDBUagcOK-5T4Ck%3D&redirect_uri=http://localhost:8081/login/oauth2/code/naver&code_challenge=Abj4Ywfm-_GCpn4Axsx3RpCOo4ZzS2RK6B36PS2sn6w&code_challenge_method=S256
+2026-09-15T09:11:59.973+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /oauth2/authorization/google
+2026-09-15T09:11:59.974+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2026-09-15T09:11:59.975+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=429585853502-fs9gjom912m4p52i879h1uejnfparpeh.apps.googleusercontent.com&scope=profile%20email&state=qz0tQySuRfjbqXsvbmHIJ3pJJJMCJKVyY28ax3O4dDc%3D&redirect_uri=http://localhost:8081/login/oauth2/code/google&code_challenge=venoVpaeSFU73twBjpRN6BMNRg3eHlKZm__yhCOgIYk&code_challenge_method=S256
+2026-09-15T09:14:01.100+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:01.101+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:01.101+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:01.102+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:01.107+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:01.108+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:01.108+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:01.109+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:01.113+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:01.113+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:01.113+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:01.114+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:01.118+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:01.119+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:01.119+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:01.120+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:02.726+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /oauth2/authorization/google
+2026-09-15T09:14:02.726+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2026-09-15T09:14:02.727+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=429585853502-fs9gjom912m4p52i879h1uejnfparpeh.apps.googleusercontent.com&scope=profile%20email&state=KcDHz3PaQOQ3SLAIyl7q_GSFLP1wj-GI2C3D3Rbebes%3D&redirect_uri=http://localhost:8081/login/oauth2/code/google&code_challenge=SznLMwUK6HxVD9Yqyfd-596bfeD7blkkwOTcHlB6QSU&code_challenge_method=S256
+2026-09-15T09:14:04.207+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:04.207+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:04.208+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:04.208+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:04.212+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:04.212+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:04.212+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:04.213+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:05.239+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:05.239+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:05.240+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:05.241+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:05.246+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:05.246+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:05.247+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:05.247+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:05.251+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:05.252+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:05.252+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:05.253+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:05.258+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:05.258+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:05.259+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:05.260+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:11.732+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:11.733+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:11.733+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:11.734+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:11.738+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:11.739+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:11.739+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:11.740+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:12.175+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:12.176+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:12.176+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:12.177+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:12.181+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:12.181+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:12.182+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:12.183+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:12.986+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:12.986+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:12.987+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:12.988+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:12.992+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:12.992+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:12.993+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:12.994+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:12.998+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:12.998+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:12.999+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:13.000+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:13.004+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:13.005+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:13.005+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:13.005+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:14.632+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:14.632+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:14.633+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:14.634+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:14.637+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:14.638+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:14.638+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:14.639+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:14.643+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:14.643+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:14.644+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:14.645+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:14.649+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:14.649+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:14.649+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:14.650+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:23.446+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:23.446+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:23.447+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:23.447+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:23.451+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:23.452+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:23.452+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:23.453+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:24.534+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:24.534+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:24.534+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:24.536+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:24.541+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:24.541+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:24.542+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:24.543+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:29.920+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:29.920+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:29.920+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:29.922+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:29.927+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:29.927+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:29.927+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:29.929+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:30.531+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:30.531+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:30.531+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:30.531+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:14:30.536+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:14:30.536+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:14:30.537+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:14:30.538+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:19:11.702+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:19:11.703+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:19:11.703+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:19:11.704+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:19:11.708+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:19:11.709+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:19:11.709+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:19:11.710+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:19:42.066+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:19:42.066+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:19:42.066+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:19:42.067+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:19:42.072+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:19:42.072+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:19:42.072+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:19:42.074+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:39:54.896+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:39:54.896+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:39:54.897+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:39:54.898+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:39:54.903+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:39:54.903+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:39:54.904+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:39:54.905+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:57:56.675+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:57:56.676+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:57:56.677+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:57:56.679+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T09:57:56.684+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T09:57:56.685+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T09:57:56.685+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T09:57:56.686+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:00:43.332+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:00:43.332+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:00:43.333+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:00:43.333+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:02:53.962+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:02:53.963+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:02:53.963+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:02:53.965+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:02:53.970+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:02:53.971+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:02:53.971+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:02:53.972+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:02:56.117+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:02:56.118+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:02:56.118+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:02:56.120+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:02:56.127+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:02:56.127+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:02:56.127+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:02:56.129+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:02:56.132+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:02:56.132+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:02:56.132+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:02:56.133+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:02:56.137+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:02:56.138+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:02:56.138+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:02:56.139+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:22:49.652+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:22:49.652+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:22:49.652+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:22:49.653+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:22:49.659+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:22:49.659+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:22:49.659+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:22:49.661+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:23:57.167+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:23:57.167+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:23:57.167+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:23:57.168+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:23:57.172+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:23:57.172+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:23:57.173+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:23:57.175+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:14.283+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:14.283+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:14.284+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:14.285+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:14.290+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:14.291+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:14.291+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:14.291+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:20.048+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:20.048+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:20.049+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:20.050+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:20.054+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:20.055+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:20.055+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:20.055+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:25.994+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:25.994+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:25.994+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:25.995+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:26.000+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:26.000+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:26.001+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:26.001+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:28.564+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:28.564+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:28.564+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:28.565+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:28.569+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:28.569+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:28.570+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:28.571+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:28.575+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:28.575+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:28.576+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:28.577+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:28.582+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:28.582+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:28.582+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:28.583+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:59.164+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:59.164+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:59.164+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:59.166+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:28:59.171+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:28:59.171+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:28:59.172+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:28:59.173+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:29:14.296+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:29:14.296+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:29:14.296+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:29:14.298+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:29:14.302+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:29:14.303+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:29:14.303+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:29:14.304+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:29:32.595+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:29:32.595+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:29:32.595+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:29:32.597+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:29:32.602+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:29:32.602+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:29:32.603+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:29:32.604+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:36:14.914+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:36:14.914+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:36:14.915+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:36:14.917+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:36:14.921+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:36:14.921+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:36:14.922+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:36:14.922+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:45.095+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:45.095+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:45.096+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:45.096+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:45.101+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:45.102+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:45.102+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:45.103+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:48.287+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:48.287+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:48.288+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:48.289+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:48.293+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:48.294+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:48.294+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:48.295+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:48.298+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:48.299+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:48.299+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:48.300+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:48.304+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:48.304+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:48.304+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:48.306+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:50.649+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:50.649+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:50.650+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:50.651+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:50.655+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:50.655+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:50.656+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:50.657+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:51.620+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:51.621+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:51.621+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:51.622+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:51.627+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:51.627+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:51.627+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:51.629+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:52.542+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:52.543+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:52.544+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:52.545+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:52.551+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:52.551+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:52.551+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:52.552+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:55.448+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:55.448+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:55.449+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:55.449+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:55.455+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:55.455+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:55.456+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:55.456+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:57.409+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:57.409+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:57.410+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:57.411+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:57.416+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:57.416+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:57.417+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:57.418+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:59.854+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:59.855+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:59.855+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:59.858+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:44:59.863+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:44:59.863+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:44:59.863+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:44:59.864+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:00.527+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:00.527+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:00.528+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:00.529+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:00.534+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:00.534+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:00.535+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:00.536+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:01.863+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:01.863+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:01.863+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:01.864+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:01.869+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:01.869+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:01.870+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:01.871+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:10.542+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:10.543+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:10.543+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:10.545+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:10.549+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:10.549+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:10.549+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:10.550+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:32.792+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:32.793+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:32.793+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:32.794+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T10:45:32.798+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T10:45:32.798+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T10:45:32.798+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T10:45:32.799+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:04:14.443+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:04:14.443+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:04:14.443+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:04:14.445+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:04:14.449+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:04:14.449+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:04:14.449+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:04:14.450+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:04:14.454+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:04:14.454+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:04:14.455+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:04:14.456+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:04:14.460+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:04:14.460+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:04:14.460+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:04:14.461+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:47.748+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:47.750+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:47.750+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:47.752+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:47.756+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:47.756+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:47.756+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:47.757+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:47.760+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:47.760+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:47.761+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:47.761+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:47.764+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:47.764+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:47.765+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:47.766+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.409+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.409+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.409+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.410+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.415+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.415+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.416+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.417+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.420+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.421+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.421+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.421+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.425+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.425+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.425+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.426+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.596+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.596+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.597+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.598+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.602+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.602+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.602+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.603+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.607+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.608+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.608+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.609+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:12:48.612+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:12:48.613+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:12:48.613+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:12:48.614+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:13:01.347+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:13:01.347+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:13:01.347+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:13:01.350+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:13:01.354+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:13:01.354+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:13:01.354+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:13:01.355+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:13:02.373+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:13:02.373+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:13:02.374+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:13:02.374+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:13:02.379+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:13:02.379+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:13:02.379+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:13:02.380+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:13:02.384+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:13:02.384+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:13:02.384+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:13:02.385+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:13:02.390+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:13:02.390+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:13:02.390+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:13:02.391+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:01.301+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:01.302+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:01.302+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:01.303+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:01.307+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:01.307+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:01.308+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:01.308+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:01.312+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:01.312+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:01.312+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:01.313+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:01.317+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:01.317+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:01.317+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:01.318+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:04.792+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:04.792+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:04.792+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:04.793+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:04.797+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:04.797+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:04.797+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:04.798+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:04.802+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:04.803+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:04.803+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:04.804+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:04.808+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:04.808+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:04.808+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:04.809+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:09.873+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:09.873+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:09.873+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:09.874+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:09.878+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:09.878+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:09.878+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:09.879+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:09.883+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:09.883+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:09.883+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:09.884+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:15:09.887+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:15:09.888+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:15:09.888+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:15:09.889+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:19.637+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:19.637+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:19.637+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:19.638+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:19.642+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:19.642+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:19.643+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:19.643+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:19.646+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:19.646+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:19.647+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:19.648+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:19.651+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:19.652+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:19.652+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:19.653+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:21.982+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:21.982+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:21.983+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:21.984+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:21.988+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:21.988+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:21.988+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:21.989+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:21.992+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:21.993+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:21.993+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:21.994+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:21.997+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:21.998+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:21.998+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:21.999+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.144+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.144+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.145+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.146+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.151+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.151+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.151+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.152+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.156+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.156+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.157+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.158+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.161+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.161+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.162+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.163+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.316+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.316+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.316+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.317+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.320+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.321+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.321+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.322+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.325+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.325+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.326+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.326+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.331+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.331+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.331+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.332+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.482+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.482+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.482+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.483+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.488+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.488+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.488+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.489+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.493+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.494+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.494+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.495+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:22.499+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:22.500+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:22.500+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:22.501+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:25.809+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:25.809+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:25.810+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:25.811+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:25.816+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:25.816+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:25.817+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:25.818+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:25.821+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:25.821+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:25.822+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:25.823+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:25.827+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:25.827+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:25.828+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:25.828+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:44.652+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:44.653+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:44.653+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:44.654+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:44.658+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:44.659+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:44.659+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:44.660+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:50.279+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:50.279+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:50.279+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:50.280+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:50.284+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:50.284+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:50.285+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:50.286+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:50.290+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:50.290+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:50.290+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:50.291+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:50.294+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:50.295+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:50.295+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:50.296+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:51.925+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:51.926+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:51.926+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:51.927+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:51.931+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:51.931+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:51.932+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:51.933+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:51.937+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:51.937+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:51.937+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:51.938+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:51.942+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:51.942+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:51.942+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:51.944+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:53.485+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:53.485+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:53.485+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:53.487+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:53.490+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:53.490+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:53.490+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:53.492+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:54.499+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:54.499+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:54.499+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:54.501+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:18:54.505+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:18:54.505+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:18:54.505+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:18:54.506+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:24.335+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:24.335+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:24.335+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:24.336+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:24.340+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:24.340+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:24.341+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:24.342+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:24.345+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:24.346+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:24.346+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:24.347+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:24.351+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:24.352+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:24.352+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:24.353+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:37.588+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:37.588+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:37.589+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:37.590+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:37.590+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:37.590+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:37.590+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:37.590+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:37.590+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:37.590+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:37.591+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:37.591+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:37.591+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:37.591+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:37.591+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:37.592+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:51.150+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:51.150+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:51.150+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:51.152+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:51.157+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:51.157+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:51.158+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:51.159+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:52.337+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:52.338+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:52.338+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:52.339+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:52.344+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:52.344+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:52.344+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:52.346+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:56.123+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:56.123+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:56.123+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:56.124+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:56.129+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:56.129+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:56.130+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:56.131+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:56.803+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:56.803+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:56.804+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:56.804+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T11:21:56.809+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T11:21:56.810+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T11:21:56.810+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T11:21:56.810+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:43:54.567+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:43:54.573+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:43:54.577+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:43:54.591+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:43:54.597+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:43:54.597+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:43:54.598+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:43:54.598+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:43:54.602+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:43:54.603+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:43:54.603+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:43:54.604+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:43:54.608+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:43:54.608+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:43:54.610+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:43:54.610+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:44:59.126+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:44:59.127+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:44:59.127+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:44:59.128+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:44:59.131+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:44:59.131+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:44:59.131+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:44:59.132+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:44:59.135+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:44:59.136+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:44:59.136+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:44:59.137+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:44:59.141+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:44:59.141+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:44:59.141+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:44:59.142+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:45:01.271+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:45:01.271+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:45:01.272+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:45:01.273+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:45:01.278+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:45:01.278+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:45:01.279+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:45:01.280+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:45:01.284+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:45:01.285+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:45:01.285+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:45:01.286+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:45:01.290+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:45:01.290+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:45:01.290+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:45:01.291+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:31.599+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:31.600+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:31.600+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:31.602+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:31.606+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:31.607+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:31.607+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:31.608+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:31.612+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:31.612+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:31.613+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:31.614+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:31.617+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:31.618+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:31.618+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:31.619+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:32.464+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:32.464+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:32.464+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:32.465+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:32.470+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:32.470+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:32.470+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:32.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:32.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:32.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:32.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:32.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:32.470+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:32.471+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:32.471+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:32.471+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:34.556+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:34.556+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:34.556+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:34.557+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:34.563+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:34.563+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:34.563+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:34.564+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:34.571+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-9] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:34.572+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:34.572+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:34.572+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:34.576+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-1] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:34.576+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:34.577+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:34.578+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:36.791+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-2] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:36.791+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:36.791+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:36.792+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:36.796+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-3] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:36.797+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:36.797+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:36.798+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:36.802+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-4] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:36.802+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:36.803+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:36.804+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:46:36.808+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-5] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:46:36.809+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:46:36.809+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:46:36.810+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:47:24.473+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-6] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:47:24.474+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:47:24.474+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:47:24.475+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:47:24.480+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-7] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:47:24.480+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:47:24.481+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:47:24.482+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:47:24.487+09:00  INFO 3148 --- [Caregiver] [nio-8081-exec-8] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:47:24.487+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:47:24.488+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:47:24.489+09:00 DEBUG 3148 --- [Caregiver] [nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-09-15T13:47:24.493+09:00  INFO 3148 --- [Caregiver] [io-8081-exec-10] o.e.c.config.RequestLoggingFilter        : Incoming request: GET /api/auth/me
+2026-09-15T13:47:24.493+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/me
+2026-09-15T13:47:24.494+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/me
+2026-09-15T13:47:24.496+09:00 DEBUG 3148 --- [Caregiver] [io-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext

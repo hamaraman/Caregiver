@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종']
+const MORE_REGIONS = ['강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
 
-export default function JsHero() {
-  const [keyword, setKeyword] = useState('')
-  const [selectedRegion, setSelectedRegion] = useState('')
+export default function JsHero({ region, onRegionChange, keyword, onKeywordChange }) {
+  const [showMore, setShowMore] = useState(false)
 
   return (
     <section className="js-hero">
@@ -22,9 +22,9 @@ export default function JsHero() {
             className="js-search-input"
             placeholder="지역, 근무형태, 직종, 키워드로 검색해보세요"
             value={keyword}
-            onChange={e => setKeyword(e.target.value)}
+            onChange={e => onKeywordChange(e.target.value)}
           />
-          <button className="js-search-btn">
+          <button className="js-search-btn" aria-label="검색" onClick={() => onKeywordChange(keyword)}>
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
             </svg>
@@ -41,11 +41,20 @@ export default function JsHero() {
           {REGIONS.map(r => (
             <button
               key={r}
-              className={`js-region-chip ${selectedRegion === r ? 'active' : ''}`}
-              onClick={() => setSelectedRegion(r)}
+              className={`js-region-chip ${region === r ? 'active' : ''}`}
+              onClick={() => onRegionChange(region === r ? '' : r)}
             >{r}</button>
           ))}
-          <button className="js-region-chip js-region-chip--more">›</button>
+          {showMore && MORE_REGIONS.map(r => (
+            <button
+              key={r}
+              className={`js-region-chip ${region === r ? 'active' : ''}`}
+              onClick={() => onRegionChange(region === r ? '' : r)}
+            >{r}</button>
+          ))}
+          <button className="js-region-chip js-region-chip--more" onClick={() => setShowMore(v => !v)} aria-label={showMore ? '접기' : '더보기'}>
+            {showMore ? '‹' : '›'}
+          </button>
         </div>
       </div>
     </section>

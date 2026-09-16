@@ -18,8 +18,10 @@ public class JobSeekerProfile {
     private String name;
     private String phone;
     private String birth;
+    private String gender;
     private String region;
     private String workRegion;
+    private String date;
 
     @ElementCollection
     @CollectionTable(name = "job_seeker_profile_work_types", joinColumns = @JoinColumn(name = "profile_id"))
@@ -84,6 +86,22 @@ public class JobSeekerProfile {
 
     public void setBirth(String birth) {
         this.birth = birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getRegion() {

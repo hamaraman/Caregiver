@@ -1,16 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { JOB_LIST } from '../data/jobs'
-import { getWishlist, toggleWishlist } from '../hooks/useJobStorage'
+import { fetchLikedJobs, unlikeJob } from '../api'
 import AuthGuard from '../components/AuthGuard'
 import HomeNav from './home/HomeNav'
+import { SHIFT_STYLE } from '../data/shiftStyles'
 import './JobSeekerPage.css'
-
-const SHIFT_STYLE = {
-  주간: { bg: '#EFF5FF', color: '#4A8FE7' },
-  야간: { bg: '#F3F0FF', color: '#7C5CBF' },
-  단기: { bg: '#FFF8EC', color: '#E07800' },
-}
 
 const HeartFilled = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="#e04444" stroke="#e04444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -19,12 +13,23 @@ const HeartFilled = () => (
 )
 
 function WishlistContent() {
-  const [wishlist, setWishlist] = useState(() => getWishlist())
-  const jobs = JOB_LIST.filter(j => wishlist.includes(j.id))
+  const [jobs, setJobs] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const handleRemove = (id) => {
-    toggleWishlist(id)
-    setWishlist(getWishlist())
+  useEffect(() => {
+    fetchLikedJobs()
+      .then(setJobs)
+      .catch(() => setJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const handleRemove = async (id) => {
+    try {
+      await unlikeJob(id)
+      setJobs(prev => prev.filter(j => j.id !== id))
+    } catch {
+      // 무시
+    }
   }
 
   return (
@@ -40,7 +45,11 @@ function WishlistContent() {
           <span style={{ fontSize: '13px', color: '#999' }}>총 {jobs.length}개</span>
         </div>
 
-        {jobs.length === 0 ? (
+        {loading ? (
+          <p className="jsp-side-empty" style={{ padding: '48px 0', textAlign: 'center' }}>
+            불러오는 중입니다...
+          </p>
+        ) : jobs.length === 0 ? (
           <p className="jsp-side-empty" style={{ padding: '48px 0', textAlign: 'center' }}>
             찜한 일자리가 없습니다.
           </p>
@@ -61,6 +70,9 @@ function WishlistContent() {
                       <Link to={`/job/${job.id}`} className="jsp-job-type-cell">
                         <span className="jsp-shift-badge" style={{ background: s.bg, color: s.color }}>{job.shift}</span>
                         <span className="jsp-job-type-name">{job.type}</span>
+                        {job.closed && (
+                          <span className="jsp-shift-badge" style={{ background: '#f0f0f0', color: '#999' }}>마감</span>
+                        )}
                       </Link>
                     </td>
                     <td>{job.location}</td>

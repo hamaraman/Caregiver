@@ -22,8 +22,8 @@ export default function AuthGuard({ require: requiredType, children }) {
         <div className="ag-card">
           <div className="ag-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-              <rect x="5" y="11" width="14" height="10" rx="2" stroke="#e91e8c" strokeWidth="2"/>
-              <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#e91e8c" strokeWidth="2" strokeLinecap="round"/>
+              <rect x="5" y="11" width="14" height="10" rx="2" stroke="#4A8FE7" strokeWidth="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
           <h2 className="ag-title">로그인이 필요한 서비스입니다</h2>

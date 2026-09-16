@@ -9,8 +9,8 @@
 .ag-spinner {
   width: 36px;
   height: 36px;
-  border: 3px solid #f0b8d8;
-  border-top-color: #e91e8c;
+  border: 3px solid #c5d8f8;
+  border-top-color: #4A8FE7;
   border-radius: 50%;
   animation: ag-spin 0.7s linear infinite;
 }
@@ -31,24 +31,24 @@
 .ag-card {
   background: #fff;
   border-radius: 20px;
-  border: 1.5px solid #f0e0ee;
+  border: 1.5px solid #d0e4fb;
   padding: 48px 40px;
   max-width: 400px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 4px 24px rgba(233, 30, 140, 0.08);
+  box-shadow: 0 4px 24px rgba(74, 143, 231, 0.08);
 }
 
 .ag-icon {
   width: 72px;
   height: 72px;
-  background: #fff0f7;
+  background: #f0f6ff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
-  border: 1.5px solid #f0b8d8;
+  border: 1.5px solid #c5d8f8;
 }
 
 .ag-icon--warn {
@@ -89,22 +89,22 @@
 }
 
 .ag-btn--primary {
-  background: #e91e8c;
+  background: #4A8FE7;
   color: #fff;
 }
 
 .ag-btn--primary:hover {
-  background: #c91677;
+  background: #3A7FD7;
 }
 
 .ag-btn--secondary {
   background: #fff;
-  color: #e91e8c;
-  border: 1.5px solid #e91e8c;
+  color: #4A8FE7;
+  border: 1.5px solid #4A8FE7;
 }
 
 .ag-btn--secondary:hover {
-  background: #fff0f7;
+  background: #f0f6ff;
 }
 
 @media (max-width: 480px) {

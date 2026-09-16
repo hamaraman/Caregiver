@@ -27,15 +27,56 @@ class MainActivity : AppCompatActivity() {
         webSettings.useWideViewPort = true
         webSettings.loadWithOverviewMode = true
         
-        // 간편로그인(OAuth) 시 구글/카카오 등이 웹뷰를 차단하는 것을 방지하기 위해 User-Agent 변경
-        webSettings.userAgentString = "Mozilla/5.0 (Linux; Android 13; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36"
+        // 간편로그인(OAuth) 시 구글/카카오 등이 웹뷰를 차단하는 것을 방지하기 위해 User-Agent에서 'wv' 제거
+        webSettings.userAgentString = webSettings.userAgentString.replace("; wv", "")
         
-        webView.webViewClient = WebViewClient()
+        // 화면 배율 자동 조정 (반응형 웹 지원)
+        webSettings.setSupportZoom(true)
+        webSettings.builtInZoomControls = true
+        webSettings.displayZoomControls = false
+        
+        // 쿠키 허용 (소셜 로그인 등에서 필요)
+        val cookieManager = android.webkit.CookieManager.getInstance()
+        cookieManager.setAcceptCookie(true)
+        cookieManager.setAcceptThirdPartyCookies(webView, true)
+        
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: android.webkit.WebResourceRequest?
+            ): Boolean {
+                val url = request?.url.toString()
+                if (url.startsWith("intent:")) {
+                    try {
+                        val intent = android.content.Intent.parseUri(url, android.content.Intent.URI_INTENT_SCHEME)
+                        val packageManager = view?.context?.packageManager
+                        if (packageManager != null) {
+                            val resolveInfo = packageManager.resolveActivity(intent, 0)
+                            if (resolveInfo != null) {
+                                view.context.startActivity(intent)
+                            } else {
+                                val fallbackUrl = intent.getStringExtra("browser_fallback_url")
+                                if (fallbackUrl != null) {
+                                    view.loadUrl(fallbackUrl)
+                                    return true
+                                }
+                                val marketIntent = android.content.Intent(android.content.Intent.ACTION_VIEW)
+                                marketIntent.data = android.net.Uri.parse("market://details?id=${intent.getPackage()}")
+                                view.context.startActivity(marketIntent)
+                            }
+                            return true
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                return super.shouldOverrideUrlLoading(view, request)
+            }
+        }
         webView.webChromeClient = WebChromeClient()
 
-        // PC의 웹 서버 IP를 입력하세요 (예: http://10.78.101.220:3000)
-        // 안드로이드 에뮬레이터인 경우 http://10.0.2.2:3000
-        webView.loadUrl("http://10.78.101.220:3000")
+        // 오라클 클라우드 (Nginx + SSL 적용된 주소)
+        webView.loadUrl("https://161.33.154.237.nip.io")
     }
 
     override fun onBackPressed() {

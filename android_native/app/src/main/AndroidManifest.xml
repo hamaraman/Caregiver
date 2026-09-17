@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeScreenActivity" android:exported="false" />
+        <activity android:name=".DetailScreenActivity" android:exported="false" />
+        <activity android:name=".FavoritesScreenActivity" android:exported="false" />
+        <activity android:name=".MyPageScreenActivity" android:exported="false" />
     </application>
 
 </manifest>

@@ -112,6 +112,9 @@ npm run dev
 
 ## 작업 로그
 
+### 2026-09-17
+- `android_native/app`에 홈/상세/찜/마이페이지 화면 추가 (`HomeScreenActivity`, `DetailScreenActivity`, `FavoritesScreenActivity`, `MyPageScreenActivity` + 레이아웃·아이콘 리소스), `AndroidManifest.xml`에 등록. 서버에서 git 관리 없이 별도로 작업 중이던 안드로이드 앱 소스를 이 브랜치로 통합해 백업
+
 ### 2026-09-10
 - 원격 브랜치 전체 통합: WCH(백엔드 API) → backend-db-auth(OAuth2) → frontend-ui-inhwa(인재정보·구인관리) 순차 머지
 - AuthProvider, ScrollToTop, AuthGuard, TalentListPage, TalentDetailPage, ApplicantsPage, RecruitManagePage 등 inhwa 작업 통합

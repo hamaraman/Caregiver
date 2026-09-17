@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">요양이지</string>
+
+    <string name="title_home">홈</string>
+    <string name="title_detail">공고 상세</string>
+    <string name="title_favorites">찜한 공고</string>
+    <string name="title_my_page">마이페이지</string>
+
+    <string name="placeholder_home">홈 화면 (mobile/screens/HomeScreen.js 포팅 예정)</string>
+    <string name="placeholder_detail">공고 상세 화면 (mobile/screens/DetailScreen.js 포팅 예정)</string>
+    <string name="placeholder_favorites">찜한 공고 화면 (mobile/screens/FavoritesScreen.js 포팅 예정)</string>
+    <string name="placeholder_my_page">마이페이지 화면 (mobile/screens/MyPageScreen.js 포팅 예정)</string>
 </resources>

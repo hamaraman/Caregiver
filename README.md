@@ -112,6 +112,11 @@ npm run dev
 
 ## 작업 로그
 
+### 2026-09-17 (2)
+- 안드로이드 4개 화면(홈/상세/찜/마이페이지) 공통 디자인 기반 작업: `colors.xml`/`dimens.xml` 신규 추가, `themes.xml`을 Theme.MaterialComponents로 전환해 공통 색상 참조, 공통 `MaterialToolbar`(`toolbar_common.xml`) + `BaseScreenActivity`(제목·뒤로가기 공통 처리)로 4개 화면 툴바 통일. 실제 콘텐츠는 아직 자리표시자 상태(다음 단계에서 데이터 연동 예정)
+- 안드로이드 리소스 파일명 오류 수정: `android-icon-*.png`, `splash-icon.png`에 하이픈이 들어가 있어 `mergeDebugResources`가 실패하던 문제 → `android_icon_*.png`, `splash_icon.png`로 변경 (Android 리소스 파일명은 소문자/숫자/언더스코어만 허용)
+- `assembleDebug` 빌드 성공 확인
+
 ### 2026-09-17
 - `android_native/app`에 홈/상세/찜/마이페이지 화면 추가 (`HomeScreenActivity`, `DetailScreenActivity`, `FavoritesScreenActivity`, `MyPageScreenActivity` + 레이아웃·아이콘 리소스), `AndroidManifest.xml`에 등록. 서버에서 git 관리 없이 별도로 작업 중이던 안드로이드 앱 소스를 이 브랜치로 통합해 백업
 

@@ -371,11 +371,11 @@
 }
 
 .hp-chip {
-  padding: 5px 12px;
+  padding: 6px 16px;
   border: 1.5px solid rgba(255,255,255,0.7);
   border-radius: 20px;
   background: rgba(255,255,255,0.55);
-  font-size: 12px;
+  font-size: 13px;
   color: #4a6a8a;
   font-weight: 500;
   cursor: pointer;

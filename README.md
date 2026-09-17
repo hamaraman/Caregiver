@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (18)
+- 홈 히어로 지역 칩 크기를 구직/구인 페이지 칩과 통일: font-size 12→13px, padding 5px 12px→6px 16px
+
 ### 2026-09-17 (17)
 - 구직 등록 페이지(`/job-register`) 모바일 레이아웃 개선: 카드 좌우 여백 제거, 섹션 카드 border-radius·box-shadow 제거 후 구분선으로 대체, 전체 너비 사용
 

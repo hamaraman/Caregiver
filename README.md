@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (3)
+- 공고 목록 야간 배지 색상 변경: 어두운 네이비 → 연보라/진보라(#f3eeff / #7c3aed)
+
 ### 2026-09-17 (2)
 - 지원자확인·채용관리 페이지에 `AuthGuard(require="business")` 복원 — 디버깅 목적으로 임시 제거했던 것을 원래대로 되돌림
 - 구인홈 "내 공고 관리 더보기" 링크를 `/listings` → `/manage`(채용관리 페이지)로 수정

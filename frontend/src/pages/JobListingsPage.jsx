@@ -113,7 +113,7 @@ export default function JobListingsPage() {
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
 
-  const SHIFT_COLOR = { '주간': { bg: '#e8f4ff', color: '#4A8FE7' }, '야간': { bg: '#1a2640', color: '#a0c0f0' }, '단기': { bg: '#e8fff0', color: '#2a9a5a' } }
+  const SHIFT_COLOR = { '주간': { bg: '#e8f4ff', color: '#4A8FE7' }, '야간': { bg: '#f3eeff', color: '#7c3aed' }, '단기': { bg: '#e8fff0', color: '#2a9a5a' } }
 
   const activeFilterCount = selectedRegions.length + (selectedJobType !== '전체' ? 1 : 0) + (selectedShift !== '전체' ? 1 : 0)
 

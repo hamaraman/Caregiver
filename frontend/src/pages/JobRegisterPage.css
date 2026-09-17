@@ -753,17 +753,19 @@
 }
 
 @media (max-width: 768px) {
-  .jr-body-inner { flex-direction: column; padding: 0 16px; }
-  .jr-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; }
+  .jr-body { padding: 0 0 60px; }
+  .jr-body-inner { flex-direction: column; padding: 0; gap: 0; min-width: 0; }
+  .jr-form-wrap { gap: 0; }
+  .jr-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; padding: 0 16px; }
   .jr-sidebar-card { flex: 1; min-width: 260px; }
   .jr-sidebar-banner { flex: 1; min-width: 260px; }
-  .jr-hero-inner { flex-direction: column; align-items: flex-start; }
+  .jr-hero-inner { flex-direction: column; align-items: flex-start; padding: 0 16px; min-width: 0; }
   .jr-hero-char { display: none; }
   .jr-hero-photo { display: none; }
   .jr-hero-title { font-size: 32px; }
-  .jr-steps { padding: 14px 16px; overflow-x: auto; }
+  .jr-steps { padding: 14px 16px; overflow-x: auto; border-radius: 0; box-shadow: none; border-bottom: 1px solid #f0f4fb; }
   .jr-step-label { display: none; }
   .jr-row-3 { grid-template-columns: 1fr; }
-  .jr-body-inner { padding: 0 16px; min-width: 0; }
-  .jr-hero-inner { padding: 0 16px; min-width: 0; flex-direction: column; align-items: flex-start; }
+  .jr-section { border-radius: 0; box-shadow: none; border-bottom: 1px solid #f0f4fb; padding: 24px 16px; }
+  .jr-section:last-child { border-bottom: none; }
 }

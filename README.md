@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (15)
+- 구직 등록 페이지(`/job-register`) 모바일 레이아웃 개선: 카드 좌우 여백 제거, 섹션 카드 border-radius·box-shadow 제거 후 구분선으로 대체, 전체 너비 사용
+
 ### 2026-09-17 (14)
 - LoginPage 아이디 찾기/비밀번호 찾기 링크 수정: `/support` → `/find-id`, `/find-password` (merge 시 충돌 해결 과정에서 덮어씌워진 것 복원)
 

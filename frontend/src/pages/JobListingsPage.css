@@ -706,5 +706,32 @@
   .jl2-filter--open .jl2-filter-body { display: block; margin-top: 14px; }
 
   .jl2-region-panel { width: calc(100vw - 40px); max-width: 360px; }
+
+  /* 모바일 카드: 세로 배치 */
+  .jl2-job-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 16px;
+    gap: 0;
+  }
+  .jl2-job-row-facility { display: none; }
+  .jl2-job-row-meta {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
   .jl2-job-row-tags { display: none; }
+  .jl2-job-row-right {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+    padding-top: 8px;
+    border-top: 1px solid #f0f4fb;
+  }
+  .jl2-job-row-pay { font-size: 14px; }
+  .jl2-job-row-footer { gap: 6px; }
 }

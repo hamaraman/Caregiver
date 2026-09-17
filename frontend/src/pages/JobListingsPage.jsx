@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import { fetchJobs } from '../api'
 import { useAuth } from '../hooks/useAuth'
+import { SHIFT_STYLE } from '../data/shiftStyles'
 import './JobListingsPage.css'
 
 const regionTree = {
@@ -112,8 +113,6 @@ export default function JobListingsPage() {
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
-
-  const SHIFT_COLOR = { '주간': { bg: '#e8f4ff', color: '#4A8FE7' }, '야간': { bg: '#f3eeff', color: '#7c3aed' }, '단기': { bg: '#e8fff0', color: '#2a9a5a' } }
 
   const activeFilterCount = selectedRegions.length + (selectedJobType !== '전체' ? 1 : 0) + (selectedShift !== '전체' ? 1 : 0)
 
@@ -327,7 +326,7 @@ export default function JobListingsPage() {
                   : paginated.length === 0
                   ? <div className="jl2-empty">조건에 맞는 공고가 없습니다.</div>
                   : paginated.map(job => {
-                    const shiftStyle = SHIFT_COLOR[job.shift] || { bg: '#f0f4fa', color: '#6b7a99' }
+                    const shiftStyle = SHIFT_STYLE[job.shift] || { bg: '#f0f4fa', color: '#6b7a99' }
                     return (
                       <Link to={`/job/${job.id}`} className={`jl2-job-row${job.closed ? ' jl2-job-row--closed' : ''}`} key={job.id}>
                         <div className="jl2-job-row-main">

@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (5)
+- 야간 배지 색상 변경이 일부 페이지에 미반영되던 문제 수정: 각 페이지마다 색상을 따로 정의하던 것을 `data/shiftStyles.js` 하나로 통일, 야간 색상 `#7c3aed`(진보라)로 적용
+
 ### 2026-09-17 (4)
 - JobRegisterPage·JobPostPage에서 HomeNav를 AuthGuard 바깥으로 이동 — 로그인 guard 화면에서도 헤더가 항상 표시되도록 통일
 

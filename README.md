@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (15)
+- 카카오맵이 안 보이던 문제 수정: `frontend/index.html`에 하드코딩된 카카오 앱키(`ed28b894...`)가 지도 제품이 비활성화된 다른 카카오 앱 키였음. 실제로 지도 제품이 활성화된 앱의 키(`ea8448ff...`)로 교체
+
 ### 2026-09-17 (14)
 - 지원자확인·채용관리 AuthGuard 복원
 - LoginPage 아이디 찾기/비밀번호 찾기 링크 수정: `/support` → `/find-id`, `/find-password`

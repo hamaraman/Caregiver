@@ -1,20 +1,16 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
+import { MOCK_JOBS as BASE_JOBS, MOCK_APPLICANTS as BASE_APPLICANTS } from '../data/mockManage'
 import './RecruitManagePage.css'
 
-const MOCK_JOBS = [
-  { id: 1, type: '요양보호사 (주간)', location: '서울 강남구', facility: '강남재가복지센터', pay: '시급 14,000원', time: '09:00~18:00', workType: '주 5일', date: '2026-09-01', closed: false },
-  { id: 2, type: '요양보호사 (주간)', location: '부산 해운대구', facility: '해운대복지관', pay: '시급 13,000원', time: '09:00~18:00', workType: '주 5일', date: '2026-09-03', closed: false },
-  { id: 3, type: '요양보호사 (야간)', location: '대전 서구', facility: '대전요양원', pay: '시급 15,000원', time: '18:00~09:00', workType: '주 3일', date: '2026-08-20', closed: true },
-  { id: 4, type: '요양보호사 (주간)', location: '서울 서초구', facility: '서초복지센터', pay: '시급 13,500원', time: '08:00~17:00', workType: '주 5일', date: '2026-09-10', closed: false },
-]
-
-const MOCK_APPLICANTS = { 1: 4, 2: 3, 3: 2, 4: 0 }
+const MOCK_APPLICANT_COUNT = Object.fromEntries(
+  Object.entries(BASE_APPLICANTS).map(([k, v]) => [k, v.length])
+)
 
 export default function RecruitManagePage() {
   const navigate = useNavigate()
-  const [myJobs, setMyJobs] = useState(MOCK_JOBS)
+  const [myJobs, setMyJobs] = useState(BASE_JOBS)
   const [confirmJobId, setConfirmJobId] = useState(null)
   const [filter, setFilter] = useState('all')
 
@@ -29,7 +25,7 @@ export default function RecruitManagePage() {
     setMyJobs(prev => prev.map(j => j.id === id ? { ...j, closed: false } : j))
   }
 
-  const countApplicants = (jobId) => MOCK_APPLICANTS[jobId] ?? 0
+  const countApplicants = (jobId) => MOCK_APPLICANT_COUNT[jobId] ?? 0
 
   const filteredJobs = myJobs.filter((job) => {
     if (filter === 'active') return !isClosed(job.id)
@@ -39,7 +35,7 @@ export default function RecruitManagePage() {
 
   const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
   const closedCount = myJobs.filter((j) => isClosed(j.id)).length
-  const totalApplicants = Object.values(MOCK_APPLICANTS).reduce((a, b) => a + b, 0)
+  const totalApplicants = Object.values(MOCK_APPLICANT_COUNT).reduce((a, b) => a + b, 0)
 
   const filterCards = [
     { key: 'all',    label: '전체',   val: myJobs.length, unit: '개', mod: '',          valMod: '' },

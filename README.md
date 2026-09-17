@@ -166,3 +166,6 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 두 페이지에 mock 데이터 주입: 공고 4개(서울·부산·대전), 지원자 9명(이력서 포함) — 로그인 없이 UI 확인 가능
 - 지원자확인 탭 클릭 시 `/manage/:id`(공고요약 페이지)로 이동하도록 변경
 - 지원자 카드/이력서 버튼 클릭 시 `ApplicantModal`로 이력서 모달 표시 (인라인 펼치기 제거)
+- 지원자확인 탭 클릭 → `/applicants/:id` (전체 지원자), 채용관리 카드 클릭 → `/manage/:id` (합격 인원)으로 각각 분리
+- 두 상세 페이지(`ApplicantDetailPage`, `RecruitDetailPage`) mock 데이터로 교체, `Header` → `HomeNav`로 통일
+- 공유 mock 데이터 파일(`src/data/mockManage.js`) 추가

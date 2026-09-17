@@ -1,62 +1,33 @@
-﻿import { useParams, Link, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import Header from '../components/Header'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import HomeNav from './home/HomeNav'
 import ApplicantModal, { StatusDropdown } from '../components/ApplicantModal'
-import { fetchJobRaw, fetchApplicantsForJob, fetchApplicantResume, updateApplicationStatus } from '../api'
+import { updateApplicationStatus } from '../api'
+import { MOCK_JOBS, MOCK_APPLICANTS, MOCK_RESUMES } from '../data/mockManage'
 import './RecruitDetailPage.css'
 
 export default function ApplicantDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [job, setJob] = useState(undefined)
-  const [applications, setApplications] = useState([])
-  const [resumesByApplicant, setResumesByApplicant] = useState({})
+  const jobId = Number(id)
+
+  const job = MOCK_JOBS.find(j => j.id === jobId) ?? null
+  const [applications, setApplications] = useState(
+    (MOCK_APPLICANTS[jobId] || []).map(a => ({ ...a, talent: MOCK_RESUMES[a.applicantId] ?? {} }))
+  )
   const [selectedAppId, setSelectedAppId] = useState(null)
 
-  useEffect(() => {
-    fetchJobRaw(Number(id)).then(setJob).catch(() => setJob(null))
-    fetchApplicantsForJob(Number(id)).then(setApplications).catch(() => setApplications([]))
-  }, [id])
-
-  useEffect(() => {
-    applications.forEach(a => {
-      if (resumesByApplicant[a.applicantId] !== undefined) return
-      fetchApplicantResume(a.applicantId).then(resume =>
-        setResumesByApplicant(prev => ({ ...prev, [a.applicantId]: resume }))
-      )
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applications])
-
-  const jobApplicants = applications
-    .map(a => ({ ...a, talent: resumesByApplicant[a.applicantId] }))
-    .filter(a => a.talent)
-
   const updateStatus = (appId, newStatus) => {
-    updateApplicationStatus(appId, newStatus)
-      .then(() => setApplications(prev => prev.map(a => a.id === appId ? { ...a, status: newStatus } : a)))
-      .catch(() => {})
+    setApplications(prev => prev.map(a => a.id === appId ? { ...a, status: newStatus } : a))
+    updateApplicationStatus(appId, newStatus).catch(() => {})
   }
 
-  const selectedApp = jobApplicants.find(a => a.id === selectedAppId) ?? null
-
-  if (job === undefined) {
-    return (
-      <>
-        <Header />
-        <div className="rd-page">
-          <div className="container">
-            <p className="rd-not-found">불러오는 중입니다...</p>
-          </div>
-        </div>
-      </>
-    )
-  }
+  const selectedApp = applications.find(a => a.id === selectedAppId) ?? null
 
   if (!job) {
     return (
       <>
-        <Header />
+        <HomeNav />
         <div className="rd-page">
           <div className="container">
             <p className="rd-not-found">공고를 찾을 수 없습니다.</p>
@@ -68,10 +39,10 @@ export default function ApplicantDetailPage() {
 
   return (
     <>
-      <Header />
+      <HomeNav />
       <div className="rd-page">
         <div className="container">
-          <button className="rd-back" onClick={() => navigate(-1)}>
+          <button className="rd-back" onClick={() => navigate('/applicants')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -84,11 +55,10 @@ export default function ApplicantDetailPage() {
             <div className="rd-job-card">
               <div className="rd-job-header">
                 <div className="rd-job-title-row">
-                  <span className={`rd-status-badge ${job.closed ? 'rd-status-badge--closed' : 'rd-status-badge--active'}`}>{job.closed ? '마감' : '진행중'}</span>
-                  <span className="rd-job-title">{job.postTitle || job.title}</span>
-                  {job.badge && (
-                    <span className={`rd-badge rd-badge--${job.badgeColor ?? 'red'}`}>{job.badge}</span>
-                  )}
+                  <span className={`rd-status-badge ${job.closed ? 'rd-status-badge--closed' : 'rd-status-badge--active'}`}>
+                    {job.closed ? '마감' : '진행중'}
+                  </span>
+                  <span className="rd-job-title">{job.postTitle}</span>
                 </div>
                 <Link to={`/job/${job.id}`} className="rd-view-btn">공고 보기</Link>
               </div>
@@ -149,10 +119,10 @@ export default function ApplicantDetailPage() {
           <section className="rd-section">
             <h2 className="rd-section-title">
               전체 지원자
-              <span className="rd-applicant-count">{jobApplicants.length}명</span>
+              <span className="rd-applicant-count">{applications.length}명</span>
             </h2>
 
-            {jobApplicants.length === 0 ? (
+            {applications.length === 0 ? (
               <div className="rd-empty">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ddd" strokeWidth="1.5">
                   <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" strokeLinecap="round"/>
@@ -161,7 +131,7 @@ export default function ApplicantDetailPage() {
               </div>
             ) : (
               <div className="rd-applicant-grid">
-                {jobApplicants.map(a => {
+                {applications.map(a => {
                   const t = a.talent
                   return (
                     <div

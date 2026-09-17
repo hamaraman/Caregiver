@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import ApplicantModal from '../components/ApplicantModal'
 import { updateApplicationStatus } from '../api'
+import { MOCK_JOBS, MOCK_APPLICANTS, MOCK_RESUMES } from '../data/mockManage'
 import './ApplicantsPage.css'
 
 const STATUS_STYLE = {
@@ -20,44 +21,6 @@ function deriveAge(birth) {
   const m = /^(\d{4})/.exec(birth || '')
   if (!m) return null
   return new Date().getFullYear() - Number(m[1]) + 1
-}
-
-const MOCK_JOBS = [
-  { id: 1, type: '요양보호사 (주간)', location: '서울 강남구', facility: '강남재가복지센터', title: '강남구 요양보호사 급구 (주간)', pay: '시급 14,000원' },
-  { id: 2, type: '요양보호사 (주간)', location: '부산 해운대구', facility: '해운대복지관', title: '해운대구 요양보호사 모집', pay: '시급 13,000원' },
-  { id: 3, type: '요양보호사 (야간)', location: '대전 서구', facility: '대전요양원', title: '대전 서구 요양보호사 채용', pay: '시급 15,000원' },
-  { id: 4, type: '요양보호사 (주간)', location: '서울 서초구', facility: '서초복지센터', title: '서초구 요양보호사 (주간)', pay: '시급 13,500원' },
-]
-
-const MOCK_APPLICANTS = {
-  1: [
-    { id: 1, applicantId: 101, applicantName: '김미영', status: '검토중', appliedAt: '09.06', jobId: 1 },
-    { id: 2, applicantId: 102, applicantName: '최순자', status: '검토중', appliedAt: '09.06', jobId: 1 },
-    { id: 3, applicantId: 103, applicantName: '장명희', status: '합격',   appliedAt: '09.05', jobId: 1 },
-    { id: 4, applicantId: 104, applicantName: '이경숙', status: '불합격', appliedAt: '09.04', jobId: 1 },
-  ],
-  2: [
-    { id: 5, applicantId: 105, applicantName: '박영희', status: '검토중', appliedAt: '09.07', jobId: 2 },
-    { id: 6, applicantId: 106, applicantName: '정순영', status: '검토중', appliedAt: '09.08', jobId: 2 },
-    { id: 7, applicantId: 107, applicantName: '강미숙', status: '검토중', appliedAt: '09.07', jobId: 2 },
-  ],
-  3: [
-    { id: 8, applicantId: 108, applicantName: '윤선미', status: '검토중', appliedAt: '09.09', jobId: 3 },
-    { id: 9, applicantId: 109, applicantName: '임정숙', status: '합격',   appliedAt: '09.08', jobId: 3 },
-  ],
-  4: [],
-}
-
-const MOCK_RESUMES = {
-  101: { id: 101, gender: '여', birth: '1976-03-12', phone: '010-1234-5678', region: '경기 성남시', workRegion: '서울 강남·서초', workTypes: ['출·퇴근형'], salary: '시급 13,500원', cert: '요양보호사 1급', isNew: false, expPeriod: '3년 이상', intro: '성실하고 책임감 있는 요양보호사입니다.' },
-  102: { id: 102, gender: '여', birth: '1964-07-22', phone: '010-2345-6789', region: '서울 송파구', workRegion: '서울 강남·서초·송파', workTypes: ['출·퇴근형', '입주형'], salary: '시급 15,000원', cert: '요양보호사 1급', isNew: false, expPeriod: '10년 이상', intro: '오랜 경력을 바탕으로 어르신을 정성껏 돌봅니다.' },
-  103: { id: 103, gender: '여', birth: '1974-11-05', phone: '010-3456-7890', region: '서울 마포구', workRegion: '서울 전체', workTypes: ['출·퇴근형'], salary: '시급 13,500원', cert: '요양보호사 1급', isNew: false, expPeriod: '4년 이상', intro: '' },
-  104: { id: 104, gender: '여', birth: '1969-01-30', phone: '010-4567-8901', region: '서울 강동구', workRegion: '서울 동부', workTypes: ['출·퇴근형'], salary: '시급 12,000원', cert: '요양보호사 1급', isNew: true, expPeriod: null, intro: '' },
-  105: { id: 105, gender: '여', birth: '1972-09-15', phone: '010-5678-9012', region: '부산 해운대구', workRegion: '부산 전체', workTypes: ['출·퇴근형'], salary: '시급 13,000원', cert: '요양보호사 1급', isNew: false, expPeriod: '5년 이상', intro: '' },
-  106: { id: 106, gender: '여', birth: '1979-04-20', phone: '010-6789-0123', region: '부산 수영구', workRegion: '부산 동부', workTypes: ['출·퇴근형'], salary: '시급 12,500원', cert: '요양보호사 2급', isNew: false, expPeriod: '2년', intro: '' },
-  107: { id: 107, gender: '여', birth: '1966-12-01', phone: '010-7890-1234', region: '부산 동래구', workRegion: '부산 전체', workTypes: ['출·퇴근형', '입주형'], salary: '시급 14,000원', cert: '요양보호사 1급', isNew: false, expPeriod: '8년 이상', intro: '요양병원 근무 경험이 있습니다.' },
-  108: { id: 108, gender: '여', birth: '1981-06-10', phone: '010-8901-2345', region: '대전 서구', workRegion: '대전 전체', workTypes: ['출·퇴근형'], salary: '시급 12,000원', cert: '요양보호사 1급', isNew: false, expPeriod: '1년', intro: '' },
-  109: { id: 109, gender: '여', birth: '1962-02-28', phone: '010-9012-3456', region: '대전 유성구', workRegion: '대전·세종', workTypes: ['출·퇴근형', '입주형'], salary: '시급 13,000원', cert: '요양보호사 1급', isNew: false, expPeriod: '15년 이상', intro: '20년 가까운 경력의 베테랑입니다.' },
 }
 
 export default function ApplicantsPage() {
@@ -114,7 +77,7 @@ export default function ApplicantsPage() {
                   className={`ap-job-tab${job.id === selectedJobId ? ' ap-job-tab--active' : ''}`}
                   onClick={() => {
                     setSelectedJobId(job.id)
-                    navigate(`/manage/${job.id}`)
+                    navigate(`/applicants/${job.id}`)
                   }}
                 >
                   <span className="ap-tab-title">{job.type}</span>

@@ -47,7 +47,6 @@ export default function RecruitManagePage() {
   return (
     <>
       <HomeNav />
-      <AuthGuard require="business">
       <div className="rm-page">
         <div className="container">
           <div className="rm-top">
@@ -157,7 +156,6 @@ export default function RecruitManagePage() {
           </div>
         </div>
       </div>
-      </AuthGuard>
     </>
   )
 }

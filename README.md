@@ -70,6 +70,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (9)
+- 채용관리 CSS 480px 브레이크포인트 추가 (요약 카드 2×2 그리드, 버튼 크기 축소)
+- 반응형 확인을 위해 지원자확인·채용관리 AuthGuard 임시 제거 (확인 후 복원 예정)
+
 ### 2026-09-17 (8)
 - 푸터 고객센터 링크를 `/support?tab=contact`(1:1 문의 탭)으로 수정
 

@@ -403,3 +403,37 @@
     padding: 10px 16px 12px;
   }
 }
+
+@media (max-width: 480px) {
+  .rm-summary-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rm-card-title-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .rm-card-title {
+    font-size: 14px;
+  }
+
+  .rm-card-meta {
+    font-size: 12px;
+  }
+
+  .rm-applicant-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .rm-btn {
+    font-size: 12px;
+    padding: 7px 14px;
+  }
+
+  .rm-confirm-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}

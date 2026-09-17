@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { fetchJobSeeker } from '../api'
 import HomeNav from './home/HomeNav'
@@ -175,6 +175,18 @@ export default function TalentDetailPage() {
                 }
               </div>
 
+              <Link to={`/talents?q=${encodeURIComponent(talent.jobType)}`} className="td-similar-card">
+                <div className="td-similar-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </div>
+                <div className="td-similar-text">비슷한 인재 보기</div>
+                <div className="td-similar-sub">{talent.jobType} · {talent.experience}</div>
+                <svg className="td-similar-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </Link>
+
               <div className="td-summary-card">
                 <div className="td-summary-title">인재 요약</div>
                 <div className="td-summary-row">
@@ -194,6 +206,7 @@ export default function TalentDetailPage() {
                   <span className="td-summary-value">{talent.workType}</span>
                 </div>
               </div>
+
             </aside>
           </div>
 

@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (32)
+- 브라우저 탭 제목을 기본값 "frontend"에서 "요양이지"로 수정 (`index.html` `<title>`)
+
 ### 2026-09-17 (31)
 - 헤더·로그인 화면에 남아있던 "YE" 텍스트 placeholder 로고를 새 로고 이미지(`/favicon.png`)로 교체: `HomeNav`(데스크탑·모바일), `JspHeader`, `AuthLeftPanel`
 

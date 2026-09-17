@@ -2,6 +2,10 @@ package com.caregiver.app
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import android.webkit.ConsoleMessage
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import org.json.JSONObject
 
@@ -25,6 +29,15 @@ class DetailScreenActivity : BaseScreenActivity() {
 
         val mapWebView = findViewById<WebView>(R.id.mapWebView)
         mapWebView.settings.javaScriptEnabled = true
+        mapWebView.settings.domStorageEnabled = true
+        mapWebView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        // 지도 SDK가 조용히 실패할 때 원인을 adb logcat -s KakaoMapWebView 로 바로 볼 수 있도록.
+        mapWebView.webChromeClient = object : WebChromeClient() {
+            override fun onConsoleMessage(message: ConsoleMessage): Boolean {
+                Log.d("KakaoMapWebView", "${message.message()} (${message.sourceId()}:${message.lineNumber()})")
+                return true
+            }
+        }
         mapWebView.loadDataWithBaseURL(
             KAKAO_ALLOWED_ORIGIN,
             buildMapHtml(address),

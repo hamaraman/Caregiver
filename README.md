@@ -112,6 +112,9 @@ npm run dev
 
 ## 작업 로그
 
+### 2026-09-17 (4)
+- 안드로이드 `DetailScreenActivity` 지도 WebView 설정 보강: `domStorageEnabled`, `mixedContentMode` 누락되어 있던 것 추가 (`MainActivity`의 WebView 설정과 통일), `WebChromeClient.onConsoleMessage`로 지도 SDK JS 콘솔 에러를 `adb logcat -s KakaoMapWebView`로 바로 확인 가능하도록 추가
+
 ### 2026-09-17 (3)
 - 안드로이드 `DetailScreenActivity`에 카카오맵 추가: `WebView`에 카카오맵 JS SDK를 담은 HTML을 `loadDataWithBaseURL`로 로드, 주소를 지오코딩해 마커 표시. 웹(`frontend`)에서 쓰던 것과 같은 앱키 사용. baseUrl은 그 키에 플랫폼 도메인으로 등록된 실제 배포 주소(`https://161.33.154.237.nip.io`)로 지정해야 SDK 도메인 검사를 통과함. 화면에 넘어오는 실제 주소 연동은 다음 단계(현재는 기본값 주소로 동작 확인)
 

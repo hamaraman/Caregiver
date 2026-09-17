@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
 
+# Serialize deploys: overlapping pushes to main previously triggered concurrent
+# SSH deploy sessions on the same server, racing to kill/rebuild/restart the
+# backend at the same time and leaving duplicate processes fighting over port 8081.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

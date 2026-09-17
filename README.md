@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17
+- `deploy.yml`에 `concurrency` 그룹 추가: main에 짧은 간격으로 여러 커밋이 push되면 배포 워크플로우가 겹쳐 실행되어(레이스 컨디션) 서버에서 백엔드 프로세스가 중복 기동되고 `/api`가 502를 반환하는 문제를 실제로 확인, 겹치는 배포가 순차 큐잉되도록 수정
+
 ### 2026-09-16
 - 지원자확인 페이지(`/applicants`) 카드 클릭 시 상세 페이지(`/applicants/:id`)로 이동하도록 연결 (이전엔 아무 곳에서도 안 걸려있던 고아 라우트였음). 이름/상태 변경/이력서 토글 버튼은 `stopPropagation`으로 카드 클릭과 분리
 - 지원자확인 페이지(`/applicants`)를 임시로 넣어뒀던 mock 데이터(`MOCK_JOBS`/`MOCK_APPLICANTS`/`MOCK_RESUMES`)에서 실제 API(`fetchMyJobs`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 다시 되돌림, `AuthGuard`(사업자 전용)도 복원. 카드에 표시하던 나이/직종 등 mock 전용 필드는 실제 이력서 스키마(성별/생년월일/근무형태/경력/희망급여)로 대체

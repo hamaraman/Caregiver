@@ -314,6 +314,38 @@
 }
 
 
+/* 요약 카드 */
+.td-summary-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.td-summary-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+}
+
+.td-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f2f4f8;
+  gap: 8px;
+}
+.td-summary-row:last-child { border-bottom: none; }
+
+.td-summary-label { font-size: 13px; color: #aaa; flex-shrink: 0; }
+.td-summary-value { font-size: 13px; font-weight: 600; color: #333; text-align: right; }
+.td-summary-value--point { color: #4A8FE7; }
+.td-summary-value--wage { color: #4A8FE7; font-weight: 700; }
+
 /* ── 모바일 반응형 ── */
 
 @media (max-width: 768px) {
@@ -334,6 +366,8 @@
   .td-layout {
     grid-template-columns: 1fr;
   }
+
+  .td-summary-card { display: none; }
 
   .td-sidebar {
     display: grid;

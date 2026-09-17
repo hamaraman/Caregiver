@@ -1,42 +1,53 @@
-﻿.td-page {
-  padding: 32px 0 80px;
-  min-height: calc(100vh - 64px);
-  background: #f5f7fc;
+.td-page {
+  background: #f4f6fb;
+  min-height: 100vh;
+  padding: 0 0 80px;
 }
 
-.td-not-found { text-align: center; padding: 80px; color: #aaa; }
-
-/* 히어로 */
-.td-hero {
-  background: #fff;
-  border-radius: 18px;
-  border: 1.5px solid #9dbef4;
-  padding: 28px 32px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 12px rgba(74,143,231,0.13);
+.td-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 20px 0;
 }
 
-.td-hero-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.td-placeholder {
+  text-align: center;
+  padding: 80px;
+  color: #aaa;
 }
 
+/* 뒤로가기 */
 .td-back {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
   background: none;
   border: none;
-  color: #aaa;
+  color: #4A8FE7;
   font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
   padding: 0;
+  margin-bottom: 16px;
   transition: color 0.15s;
 }
+.td-back:hover { color: #2a6fcc; }
 
-.td-back:hover { color: #4A8FE7; }
+/* 프로필 헤더 카드 */
+.td-header-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.td-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
 
 .td-status-badge {
   font-size: 12px;
@@ -48,34 +59,40 @@
   border: 1px solid #b8e8b8;
 }
 
+.td-registered {
+  font-size: 12px;
+  color: #ccc;
+}
+
 .td-profile {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
 }
 
 .td-avatar {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: #f0f6ff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 2px solid #9dbef4;
 }
+.td-avatar--f { background: #eef4ff; }
+.td-avatar--m { background: #eff4ff; }
 
-.td-profile-info { flex: 1; }
+.td-profile-main { flex: 1; min-width: 0; }
 
 .td-name-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
 }
 
-.td-name { font-size: 22px; font-weight: 800; color: #222; }
+.td-name { font-size: 22px; font-weight: 800; color: #1a2d4d; margin: 0; }
 
 .td-gender-badge {
   font-size: 12px;
@@ -83,15 +100,21 @@
   padding: 3px 9px;
   border-radius: 12px;
 }
-
 .td-gender-badge--f { background: #f0f6ff; color: #4A8FE7; }
 .td-gender-badge--m { background: #eff4ff; color: #5b8def; }
 
 .td-age { font-size: 14px; color: #999; }
 
-.td-location { font-size: 13px; color: #aaa; margin-bottom: 8px; }
+.td-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 8px;
+}
 
-.td-certs { display: flex; flex-wrap: wrap; gap: 6px; }
+.td-cert-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
 .td-cert-tag {
   font-size: 12px;
@@ -99,42 +122,43 @@
   border-radius: 12px;
   background: #f5f0ff;
   color: #7b4fcf;
-  border: 1px solid #d8c8f0;
+  border: 1px solid #ddd8f5;
   font-weight: 500;
 }
 
-.td-hero-right {
-  text-align: right;
+.td-wage-block {
   flex-shrink: 0;
+  text-align: right;
+}
+.td-wage-label { font-size: 12px; color: #aaa; margin-bottom: 3px; }
+.td-wage-value { font-size: 18px; font-weight: 800; color: #4A8FE7; margin-bottom: 4px; }
+.td-worktype { font-size: 12px; color: #bbb; }
+
+/* 2-컬럼 레이아웃 */
+.td-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 16px;
+  align-items: start;
 }
 
-.td-wish-wage {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 4px;
-}
+.td-main { display: flex; flex-direction: column; gap: 16px; }
 
-.td-wish-wage strong { color: #4A8FE7; font-size: 17px; }
-.td-registered { font-size: 12px; color: #ccc; }
-
-/* 본문 */
-.td-body { display: flex; flex-direction: column; gap: 16px; }
-
-.td-section {
+/* 섹션 카드 */
+.td-card {
   background: #fff;
   border-radius: 16px;
-  border: 1.5px solid #9dbef4;
-  padding: 24px 32px;
-  box-shadow: 0 2px 10px rgba(74,143,231,0.18);
+  padding: 24px 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
 }
 
 .td-section-title {
   font-size: 15px;
   font-weight: 700;
-  color: #222;
-  margin-bottom: 18px;
+  color: #1a2d4d;
+  margin: 0 0 18px;
   padding-bottom: 12px;
-  border-bottom: 1.5px solid #aacaf5;
+  border-bottom: 1.5px solid #eef1f8;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -149,26 +173,27 @@
   border-radius: 2px;
 }
 
+/* 정보 그리드 */
 .td-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 24px;
+  gap: 10px 20px;
 }
 
 .td-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 30px;
+  gap: 10px;
+  min-height: 28px;
 }
 
 .td-item--full { grid-column: 1 / -1; }
 
 .td-label {
-  width: 72px;
+  width: 68px;
   flex-shrink: 0;
   font-size: 13px;
-  color: #999;
+  color: #aaa;
   font-weight: 500;
 }
 
@@ -177,7 +202,12 @@
 .td-value--wage { color: #4A8FE7; font-weight: 700; font-size: 15px; }
 
 /* 자격증 */
-.td-certs-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.td-cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
 
 .td-cert-item {
   display: flex;
@@ -188,9 +218,16 @@
   font-weight: 500;
 }
 
-/* 근무 이력 */
-.td-sub-title { font-size: 13px; font-weight: 700; color: #888; margin-bottom: 12px; }
+.td-sub-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 12px;
+}
 
+/* 근무 이력 */
 .td-history { display: flex; flex-direction: column; gap: 12px; }
 
 .td-history-item {
@@ -205,7 +242,7 @@
   border-radius: 50%;
   background: #4A8FE7;
   flex-shrink: 0;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 .td-history-place { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 2px; }
@@ -216,35 +253,142 @@
   font-size: 14px;
   color: #444;
   line-height: 1.8;
-  padding: 16px 18px;
-  background: #f5f8ff;
+  padding: 14px 16px;
+  background: #f7f9ff;
   border-radius: 10px;
-  border: 1px solid #aacaf5;
+  margin: 0;
 }
 
-/* 연락처 */
+/* 사이드바 */
+.td-sidebar { display: flex; flex-direction: column; gap: 14px; }
+
+.td-contact-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.td-contact-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2d4d;
+  margin-bottom: 12px;
+}
+
+.td-contact-desc {
+  font-size: 13px;
+  color: #aaa;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
 .td-contact-btn {
-  padding: 10px 24px;
+  width: 100%;
+  padding: 10px;
   background: #4A8FE7;
   color: #fff;
   border: none;
-  border-radius: 24px;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  font-family: inherit;
   transition: background 0.15s;
 }
+.td-contact-btn:hover { background: #2e72cc; }
 
-.td-contact-btn:hover { background: #4A8FE7; }
-
-.td-contact-info {
+.td-contact-revealed {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: #666;
-  padding: 12px 16px;
-  background: #f5f8ff;
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  background: #f7f9ff;
+  padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid #aacaf5;
+}
+
+.td-summary-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.td-summary-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+}
+
+.td-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f2f4f8;
+  gap: 8px;
+}
+.td-summary-row:last-child { border-bottom: none; }
+
+.td-summary-label { font-size: 13px; color: #aaa; flex-shrink: 0; }
+.td-summary-value { font-size: 13px; font-weight: 600; color: #333; text-align: right; }
+.td-summary-value--point { color: #4A8FE7; }
+.td-summary-value--wage { color: #4A8FE7; font-weight: 700; }
+
+/* ── 모바일 반응형 ── */
+
+@media (max-width: 768px) {
+  .td-inner { padding: 12px 16px 0; }
+
+  .td-header-card { padding: 18px 18px; }
+
+  .td-profile { gap: 14px; }
+
+  .td-avatar { width: 56px; height: 56px; }
+  .td-avatar svg { width: 34px !important; height: 34px !important; }
+
+  .td-name { font-size: 18px; }
+  .td-age { font-size: 13px; }
+
+  .td-wage-block { display: none; }
+
+  .td-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .td-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .td-card { padding: 18px 18px; }
+}
+
+@media (max-width: 480px) {
+  .td-inner { padding: 10px 12px 0; }
+
+  .td-header-card { padding: 16px; }
+
+  .td-profile { flex-wrap: wrap; }
+
+  .td-avatar { width: 48px; height: 48px; }
+
+  .td-name { font-size: 17px; }
+
+  .td-grid { grid-template-columns: 1fr; }
+  .td-item--full { grid-column: 1; }
+
+  .td-sidebar { grid-template-columns: 1fr; }
+
+  .td-card { padding: 16px; }
 }

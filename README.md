@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (23)
+- 인재 상세 페이지(`/talents/:id`) 디자인을 다른 페이지와 통일: Header → HomeNav 교체, 카드 스타일(파란 테두리 제거·중립 그림자), 사이드바 레이아웃 추가, 모바일 반응형(768px·480px) 추가
+
 ### 2026-09-17 (22)
 - 상단 네비 고객센터 드롭다운 항목(공지사항·FAQ·1:1 문의)을 각 탭 URL로 연결: `/support?tab=notice`, `/support?tab=faq`, `/support?tab=contact`
 

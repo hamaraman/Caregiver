@@ -107,9 +107,9 @@
   flex-shrink: 0;
   padding: 8px 18px;
   border-radius: 10px;
-  border: 1.5px solid #aacaf5;
-  background: #fff;
-  color: #777;
+  border: 1.5px solid #4A8FE7;
+  background: #4A8FE7;
+  color: #fff;
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
@@ -117,7 +117,7 @@
   white-space: nowrap;
 }
 
-.rd-view-btn:hover { border-color: #4A8FE7; color: #4A8FE7; background: #f0f6ff; }
+.rd-view-btn:hover { border-color: #2e72cc; background: #2e72cc; color: #fff; }
 
 /* 메타 */
 .rd-job-meta {

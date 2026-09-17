@@ -4,7 +4,8 @@ import './HiredWorkerModal.css'
 export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose }) {
   const t = app.talent
 
-  const [fields, setFields] = useState({
+  const [isEditing, setIsEditing] = useState(false)
+  const [saved, setSaved] = useState({
     startDate: '협의 예정',
     days: job.days || '',
     hours: job.hours || '',
@@ -12,8 +13,13 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
     wage: job.wage || '',
     employForm: job.employForm || '',
   })
+  const [draft, setDraft] = useState(saved)
 
-  const set = (key) => (e) => setFields(prev => ({ ...prev, [key]: e.target.value }))
+  const set = (key) => (e) => setDraft(prev => ({ ...prev, [key]: e.target.value }))
+
+  const startEdit = () => { setDraft(saved); setIsEditing(true) }
+  const save = () => { setSaved(draft); setIsEditing(false) }
+  const cancel = () => setIsEditing(false)
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -63,19 +69,27 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
             <div className="hwm-grid">
               <div className="hwm-item">
                 <span className="hwm-label">근무 시작일</span>
-                <input className="hwm-input" value={fields.startDate} onChange={set('startDate')} placeholder="예: 2026-10-01" />
+                {isEditing
+                  ? <input className="hwm-input" value={draft.startDate} onChange={set('startDate')} placeholder="예: 2026-10-01" />
+                  : <span className="hwm-value">{saved.startDate}</span>}
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">근무 일정</span>
-                <input className="hwm-input" value={fields.days} onChange={set('days')} placeholder="예: 주 5일" />
+                {isEditing
+                  ? <input className="hwm-input" value={draft.days} onChange={set('days')} placeholder="예: 주 5일" />
+                  : <span className="hwm-value">{saved.days}</span>}
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">근무 시간</span>
-                <input className="hwm-input" value={fields.hours} onChange={set('hours')} placeholder="예: 09:00~18:00" />
+                {isEditing
+                  ? <input className="hwm-input" value={draft.hours} onChange={set('hours')} placeholder="예: 09:00~18:00" />
+                  : <span className="hwm-value">{saved.hours}</span>}
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">근무 형태</span>
-                <input className="hwm-input" value={fields.workType} onChange={set('workType')} placeholder="예: 출·퇴근형" />
+                {isEditing
+                  ? <input className="hwm-input" value={draft.workType} onChange={set('workType')} placeholder="예: 출·퇴근형" />
+                  : <span className="hwm-value">{saved.workType}</span>}
               </div>
             </div>
           </section>
@@ -101,11 +115,15 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
             <div className="hwm-grid">
               <div className="hwm-item">
                 <span className="hwm-label">확정 임금</span>
-                <input className="hwm-input hwm-input--wage" value={fields.wage} onChange={set('wage')} placeholder="예: 시급 14,000원" />
+                {isEditing
+                  ? <input className="hwm-input hwm-input--wage" value={draft.wage} onChange={set('wage')} placeholder="예: 시급 14,000원" />
+                  : <span className="hwm-value hwm-wage">{saved.wage}</span>}
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">고용 형태</span>
-                <input className="hwm-input" value={fields.employForm} onChange={set('employForm')} placeholder="예: 정규직" />
+                {isEditing
+                  ? <input className="hwm-input" value={draft.employForm} onChange={set('employForm')} placeholder="예: 정규직" />
+                  : <span className="hwm-value">{saved.employForm}</span>}
               </div>
               <div className="hwm-item">
                 <span className="hwm-label">지원일</span>
@@ -134,7 +152,17 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
 
         {/* 푸터 */}
         <div className="hwm-footer">
-          <button className="hwm-footer-close" onClick={onClose}>닫기</button>
+          {isEditing ? (
+            <>
+              <button className="hwm-footer-cancel" onClick={cancel}>취소</button>
+              <button className="hwm-footer-save" onClick={save}>저장</button>
+            </>
+          ) : (
+            <>
+              <button className="hwm-footer-close" onClick={onClose}>닫기</button>
+              <button className="hwm-footer-edit" onClick={startEdit}>수정</button>
+            </>
+          )}
         </div>
 
       </div>

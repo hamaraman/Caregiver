@@ -374,3 +374,23 @@
   cursor: pointer;
   text-decoration-color: #ccc;
 }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .lp-root { flex-direction: column; }
+  .lp-right {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    background: #fff;
+    align-items: stretch;
+    min-height: 100vh;
+  }
+  .lp-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 40px 24px 32px;
+  }
+}

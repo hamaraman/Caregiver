@@ -672,7 +672,15 @@
 @media (max-width: 768px) {
   .js-hero-inner { padding: 0 16px; }
   .js-hero-title { font-size: 24px; word-break: keep-all; }
-  .js-region-row { flex-wrap: wrap; }
+  .js-region-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -16px;
+    padding: 4px 16px;
+  }
+  .js-region-row::-webkit-scrollbar { display: none; }
   .js-body-inner { grid-template-columns: 1fr; padding: 0 16px; min-width: 0; }
   .js-filter { position: static; }
 }

@@ -11,6 +11,8 @@ import RecruitManagePage from './pages/RecruitManagePage'
 import RecruitDetailPage from './pages/RecruitDetailPage'
 import ApplicantDetailPage from './pages/ApplicantDetailPage'
 import LoginPage from './pages/LoginPage'
+import FindIdPage from './pages/FindIdPage'
+import FindPasswordPage from './pages/FindPasswordPage'
 import SignupPage from './pages/SignupPage'
 import JobSeekerPage from './pages/JobSeekerPage'
 import JobRegisterPage from './pages/JobRegisterPage'
@@ -41,6 +43,8 @@ function App() {
         <Route path="/manage" element={<RecruitManagePage />} />
         <Route path="/manage/:id" element={<RecruitDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/find-id" element={<FindIdPage />} />
+        <Route path="/find-password" element={<FindPasswordPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/jobseeker" element={<JobSeekerPage />} />
         <Route path="/job-register" element={<JobRegisterPage />} />

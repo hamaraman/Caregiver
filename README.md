@@ -89,6 +89,15 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - `/listings` 공고 링크 경로 오류 수정 (`/jobs/:id` → `/job/:id`)
 - 구인공고 등록 페이지(`/jobs/post`) 히어로 배너 추가, 레이아웃 개선
 
+### 2026-09-17
+- 아이디 찾기(`/find-id`) 페이지 추가: 이름+전화번호로 가입 이메일 조회 (마스킹 표시)
+- 비밀번호 찾기(`/find-password`) 페이지 추가: 이메일+이름 본인 확인 후 새 비밀번호 설정 (2단계)
+- 백엔드 API 추가: `POST /api/auth/find-id`, `POST /api/auth/reset-password`
+- 로그인 페이지 하단 링크를 `/support` → 실제 경로(`/find-id`, `/find-password`)로 수정
+- AuthLeftPanel 로고 클릭 시 홈(`/`)으로 이동하도록 Link 처리
+- 모바일 로그인 페이지 레이아웃 개선: 카드 전체 너비, 회색 프레임 제거
+- 모바일 지역 칩 overflow 수정 (일자리 찾기·구인·맞춤인재 페이지): `overflow-x: auto` + 터치 슬라이드 적용
+
 ### 2026-09-16
 - 채용관리 상세 페이지(/manage/:id) 추가: 공고 요약 + 합격자 카드 목록 + HiredWorkerModal
 - 지원자확인 상세 페이지(/applicants/:id) 추가: 공고 요약 + 전체 지원자 카드 + 상태 변경

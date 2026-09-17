@@ -2,6 +2,7 @@ package org.example.caregiver.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -50,6 +51,18 @@ public class AuthController {
         if (session != null) {
             session.invalidate();
         }
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/find-id")
+    public ResponseEntity<Map<String, String>> findId(@RequestBody FindIdRequest request) {
+        String maskedEmail = authService.findId(request);
+        return ResponseEntity.ok(Map.of("maskedEmail", maskedEmail));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request);
         return ResponseEntity.noContent().build();
     }
 

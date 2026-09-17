@@ -69,6 +69,12 @@
   margin-bottom: 16px;
   font-size: 14px;
   color: #444;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.ap-job-summary:hover {
+  border-color: #4A8FE7;
+  background: #f5f9ff;
+  box-shadow: 0 2px 8px rgba(74, 143, 231, 0.12);
 }
 
 .ap-summary-name { font-weight: 700; color: #222; }

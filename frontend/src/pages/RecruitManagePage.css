@@ -57,7 +57,7 @@
 }
 
 .rm-summary-card--active {
-  background: linear-gradient(135deg, #e8f0fd 0%, #f0f5ff 100%);
+  background: #eef4fd;
   border: 1.5px solid #b8d0f5;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .rm-summary-card--people {
-  background: linear-gradient(135deg, #e8f0ff 0%, #f0f5ff 100%);
+  background: #eef4fd;
   border: 1.5px solid #c0d4f8;
 }
 

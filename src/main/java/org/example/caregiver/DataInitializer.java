@@ -3,13 +3,14 @@ package org.example.caregiver;
 import org.example.caregiver.auth.User;
 import org.example.caregiver.auth.UserRepository;
 import org.example.caregiver.job.Job;
+import org.example.caregiver.job.JobApplication;
+import org.example.caregiver.job.JobApplicationRepository;
 import org.example.caregiver.job.JobRepository;
 import java.util.List;
-import org.example.caregiver.model.Caregiver;
-import org.example.caregiver.model.CaregiverWorkHistory;
 import org.example.caregiver.model.Region;
-import org.example.caregiver.repository.CaregiverRepository;
 import org.example.caregiver.repository.RegionRepository;
+import org.example.caregiver.resume.JobSeekerProfile;
+import org.example.caregiver.resume.JobSeekerProfileRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,16 +20,19 @@ public class DataInitializer implements CommandLineRunner {
 
     private final RegionRepository regionRepository;
     private final UserRepository userRepository;
-    private final CaregiverRepository caregiverRepository;
     private final JobRepository jobRepository;
+    private final JobApplicationRepository jobApplicationRepository;
+    private final JobSeekerProfileRepository jobSeekerProfileRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public DataInitializer(RegionRepository regionRepository, UserRepository userRepository,
-                            CaregiverRepository caregiverRepository, JobRepository jobRepository) {
+                            JobRepository jobRepository, JobApplicationRepository jobApplicationRepository,
+                            JobSeekerProfileRepository jobSeekerProfileRepository) {
         this.regionRepository = regionRepository;
         this.userRepository = userRepository;
-        this.caregiverRepository = caregiverRepository;
         this.jobRepository = jobRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
+        this.jobSeekerProfileRepository = jobSeekerProfileRepository;
     }
 
     @Override
@@ -40,62 +44,6 @@ public class DataInitializer implements CommandLineRunner {
         User owner1 = getOrCreateBusinessUser("hong@example.com", "김보호");
         User owner2 = getOrCreateBusinessUser("lee@example.com", "이요양");
 
-        if (caregiverRepository.count() == 0) {
-            Caregiver younghee = new Caregiver("김영희", "치매 전문", 5, 4.8, "010-1111-2222", owner1, seoul);
-            younghee.setGender("여");
-            younghee.setAge(52);
-            younghee.setJobType("요양보호사");
-            younghee.setEducation("고졸");
-            younghee.setWorkType("출·퇴근형");
-            younghee.setWageType("시급");
-            younghee.setWageAmount(14000L);
-            younghee.setWishRegion("서울 강남구, 서초구");
-            younghee.setWishHours("09:00~15:00");
-            younghee.setIntro("5년간 재가요양 경험이 있으며 치매 어르신 돌봄에 익숙합니다. 성실하고 꼼꼼하게 업무를 수행하겠습니다.");
-            younghee.setStatus("구직중");
-            younghee.setDate("09.06");
-            younghee.setCerts(List.of("요양보호사 1급"));
-            younghee.setWishDays(List.of("월", "화", "수", "목", "금"));
-            younghee.setWorkHistory(List.of(new CaregiverWorkHistory("강남재가복지센터", "2019.03 ~ 2024.02", "방문요양보호사")));
-            caregiverRepository.save(younghee);
-
-            Caregiver chulsoo = new Caregiver("이철수", "거동 불편 보조", 3, 4.5, "010-2222-3333", owner2, gyeonggi);
-            chulsoo.setGender("남");
-            chulsoo.setAge(41);
-            chulsoo.setJobType("간병인");
-            chulsoo.setEducation("고졸");
-            chulsoo.setWorkType("입주형");
-            chulsoo.setWageType("월급");
-            chulsoo.setWageAmount(4500000L);
-            chulsoo.setWishRegion("경기 성남시, 용인시");
-            chulsoo.setWishHours("협의 가능");
-            chulsoo.setIntro("거동이 불편하신 어르신 이동 보조와 일상 지원 경험이 풍부합니다. 입주 근무 가능합니다.");
-            chulsoo.setStatus("구직중");
-            chulsoo.setDate("09.05");
-            chulsoo.setCerts(List.of("요양보호사 1급"));
-            chulsoo.setWishDays(List.of("월", "화", "수", "목", "금", "토", "일"));
-            chulsoo.setWorkHistory(List.of(new CaregiverWorkHistory("분당복지재단", "2021.06 ~ 2024.05", "재가요양보호사")));
-            caregiverRepository.save(chulsoo);
-
-            Caregiver jimin = new Caregiver("박지민", "일상 생활 지원", 7, 4.9, "010-3333-4444", owner1, incheon);
-            jimin.setGender("여");
-            jimin.setAge(48);
-            jimin.setJobType("요양보호사");
-            jimin.setEducation("대졸");
-            jimin.setWorkType("출·퇴근형");
-            jimin.setWageType("시급");
-            jimin.setWageAmount(13500L);
-            jimin.setWishRegion("인천 남동구, 연수구");
-            jimin.setWishHours("09:00~17:00");
-            jimin.setIntro("사회복지사 자격도 보유하고 있으며 다양한 케어 경험을 쌓았습니다. 어르신들과 친밀하게 소통하는 것을 즐깁니다.");
-            jimin.setStatus("구직중");
-            jimin.setDate("09.05");
-            jimin.setCerts(List.of("요양보호사 1급", "사회복지사 2급"));
-            jimin.setWishDays(List.of("월", "화", "수", "목", "금"));
-            jimin.setWorkHistory(List.of(new CaregiverWorkHistory("인천성모병원", "2017.01 ~ 2022.12", "병원 간병인")));
-            caregiverRepository.save(jimin);
-        }
-
         if (jobRepository.count() == 0) {
             jobRepository.save(new Job(null, "요양보호사 (주간)", "급구", "red", "서울 강남구",
                     "시급 14,000원", "09:00~15:00", "주 5일", "09.06",
@@ -106,6 +54,33 @@ public class DataInitializer implements CommandLineRunner {
             jobRepository.save(new Job(null, "요양보호사 (오후)", null, null, "인천 남동구",
                     "시급 13,000원", "13:00~18:00", "주 5일", "09.05",
                     owner1, "강남재가복지센터", "인천 남동구 요양보호사 모집 (오후)", incheon));
+        }
+
+        if (jobApplicationRepository.count() == 0) {
+            List<Job> ownerJobs = jobRepository.findByOwnerIdOrderByIdDesc(owner1.getId());
+            if (!ownerJobs.isEmpty()) {
+                User seeker1 = getOrCreatePersonalUser("miyoung@example.com", "김미영");
+                User seeker2 = getOrCreatePersonalUser("soonja@example.com", "최순자");
+                User seeker3 = getOrCreatePersonalUser("myunghee@example.com", "장명희");
+                User seeker4 = getOrCreatePersonalUser("kyungsook@example.com", "이경숙");
+
+                getOrCreateResume(seeker1, "여", "1976-03-12", "경기 성남시", "서울 강남·서초",
+                        List.of("출·퇴근형"), "시급 13,500원", "요양보호사 1급", false, "3년 이상",
+                        "성실하고 책임감 있는 요양보호사입니다.");
+                getOrCreateResume(seeker2, "여", "1964-07-22", "서울 송파구", "서울 강남·서초·송파",
+                        List.of("출·퇴근형", "입주형"), "시급 15,000원", "요양보호사 1급", false, "10년 이상",
+                        "오랜 경력을 바탕으로 어르신을 정성껏 돌봅니다.");
+                getOrCreateResume(seeker3, "여", "1974-11-05", "서울 마포구", "서울 전체",
+                        List.of("출·퇴근형"), "시급 13,500원", "요양보호사 1급", false, "4년 이상", "");
+                getOrCreateResume(seeker4, "여", "1969-01-30", "서울 강동구", "서울 동부",
+                        List.of("출·퇴근형"), "시급 12,000원", "요양보호사 1급", true, null, "");
+
+                Job job = ownerJobs.get(ownerJobs.size() - 1);
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker1.getId(), "검토중", "09.06"));
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker2.getId(), "검토중", "09.06"));
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker3.getId(), "합격", "09.05"));
+                jobApplicationRepository.save(new JobApplication(job.getId(), seeker4.getId(), "불합격", "09.04"));
+            }
         }
 
         if (jobRepository.count() > 0 && jobRepository.count() < 10) {
@@ -214,5 +189,22 @@ public class DataInitializer implements CommandLineRunner {
     private User getOrCreateBusinessUser(String email, String name) {
         return userRepository.findByEmail(email).orElseGet(() ->
                 userRepository.save(new User(null, email, passwordEncoder.encode("password123"), name, "business")));
+    }
+
+    private User getOrCreatePersonalUser(String email, String name) {
+        return userRepository.findByEmail(email).orElseGet(() ->
+                userRepository.save(new User(null, email, passwordEncoder.encode("password123"), name, "personal")));
+    }
+
+    private void getOrCreateResume(User user, String gender, String birth, String region, String workRegion,
+                                    List<String> workTypes, String salary, String cert, boolean isNew,
+                                    String expPeriod, String intro) {
+        if (jobSeekerProfileRepository.findByUserId(user.getId()).isPresent()) {
+            return;
+        }
+        JobSeekerProfile profile = new JobSeekerProfile(user.getId(), user.getName(), null, birth, region,
+                workRegion, workTypes, salary, cert, isNew, expPeriod, intro);
+        profile.setGender(gender);
+        jobSeekerProfileRepository.save(profile);
     }
 }

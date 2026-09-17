@@ -178,6 +178,24 @@
   color: #2563eb;
 }
 
+/* 편집 가능 input */
+.hwm-input {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-family: inherit;
+  border: 1.5px solid #e4eaf4;
+  border-radius: 8px;
+  padding: 5px 9px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  background: #f8faff;
+  transition: border-color 0.15s, background 0.15s;
+}
+.hwm-input:focus { border-color: #4A8FE7; background: #fff; }
+.hwm-input--wage { color: #4A8FE7; font-weight: 800; }
+
 /* 메모 textarea */
 .hwm-memo {
   width: 100%;
@@ -203,10 +221,12 @@
   border-top: 1px solid #f0f0f0;
   display: flex;
   justify-content: flex-end;
+  gap: 8px;
 }
 
-.hwm-footer-close {
-  padding: 9px 24px;
+.hwm-footer-close,
+.hwm-footer-cancel {
+  padding: 9px 20px;
   border-radius: 10px;
   background: #f5f5f5;
   border: 1.5px solid #e0e0e0;
@@ -218,10 +238,46 @@
   transition: all 0.15s;
 }
 
-.hwm-footer-close:hover {
-  border-color: #4A8FE7;
-  color: #4A8FE7;
+.hwm-footer-close:hover,
+.hwm-footer-cancel:hover {
+  border-color: #aaa;
+  color: #444;
+}
+
+.hwm-footer-edit {
+  padding: 9px 20px;
+  border-radius: 10px;
   background: #f0f6ff;
+  border: 1.5px solid #b8d0f5;
+  color: #4A8FE7;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.hwm-footer-edit:hover {
+  background: #dbeafe;
+  border-color: #4A8FE7;
+}
+
+.hwm-footer-save {
+  padding: 9px 20px;
+  border-radius: 10px;
+  background: #4A8FE7;
+  border: 1.5px solid #4A8FE7;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.hwm-footer-save:hover {
+  background: #2e72cc;
+  border-color: #2e72cc;
 }
 
 @media (max-width: 520px) {

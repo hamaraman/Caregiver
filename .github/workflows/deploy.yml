@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
 
+# Serialize deploys: overlapping pushes to main previously triggered concurrent
+# SSH deploy sessions on the same server, racing to kill/rebuild/restart the
+# backend at the same time and leaving duplicate processes fighting over port 8081.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -64,18 +71,12 @@ jobs:
             # Stop Gradle daemon (ignore exit code)
             ./gradlew --stop > /dev/null 2>&1; true
 
-            # Restart Spring Boot. Kill by port, not by pidfile: the pidfile can drift
-            # from the actual running process (e.g. a manual restart outside this
-            # workflow), and killing the wrong PID leaves the old process holding 8081
-            # forever while every new deploy's process crashes with
-            # "Port 8081 was already in use" and silently piles up as a zombie.
-            sudo fuser -k 8081/tcp 2>/dev/null; true
-            sleep 2
-            nohup java -jar build/libs/Caregiver-0.0.1-SNAPSHOT.jar \
-              --spring.config.additional-location=file:./application-secret.properties \
-              > backend.log 2>&1 &
-            echo $! > /tmp/caregiver.pid
-            disown
+            # Restart Spring Boot via systemd (caregiver.service), which also
+            # auto-restarts the backend on crash and on server reboot. Do not
+            # go back to a bare `nohup java -jar ...`: that leaves the process
+            # unmanaged, so a crash or reboot silently takes the API down with
+            # no recovery until someone manually SSHes in.
+            sudo systemctl restart caregiver
 
             # Fail the deploy loudly if the new process didn't actually come up,
             # instead of reporting success while an old/dead build keeps serving.
@@ -89,5 +90,5 @@ jobs:
               sleep 3
             done
             echo "ERROR: backend failed to bind port 8081 after restart" >&2
-            tail -n 50 backend.log
+            sudo journalctl -u caregiver -n 50 --no-pager
             exit 1

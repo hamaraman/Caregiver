@@ -1,48 +1,11 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import { fetchApplicantResume, updateApplicationStatus } from '../api'
+import AuthGuard from '../components/AuthGuard'
+import ApplicantModal from '../components/ApplicantModal'
+import { updateApplicationStatus } from '../api'
+import { MOCK_JOBS, MOCK_APPLICANTS, MOCK_RESUMES } from '../data/mockManage'
 import './ApplicantsPage.css'
-
-const STATUS_LIST = ['검토중', '합격', '불합격']
-
-const MOCK_JOBS = [
-  { id: 1, type: '요양보호사 (주간)', location: '서울 강남구', facility: '강남재가복지센터', title: '강남구 요양보호사 급구 (주간)', pay: '시급 14,000원' },
-  { id: 2, type: '요양보호사 (주간)', location: '부산 해운대구', facility: '해운대복지관', title: '해운대구 요양보호사 모집', pay: '시급 13,000원' },
-  { id: 3, type: '요양보호사 (주간)', location: '대전 서구', facility: '대전요양원', title: '대전 서구 요양보호사 채용', pay: '시급 12,500원' },
-  { id: 4, type: '요양보호사 (주간)', location: '서울 서초구', facility: '서초복지센터', title: '서초구 요양보호사 (주간)', pay: '시급 13,500원' },
-]
-
-const MOCK_APPLICANTS = {
-  1: [
-    { id: 1, applicantId: 101, applicantName: '김미영', gender: '여', age: 48, region: '경기 성남시', certs: ['요양보호사 1급', '사회복지사 2급'], jobType: '요양보호사', salary: '시급 13,500원', expPeriod: '3년 이상', appliedAt: '09.06', status: '검토중' },
-    { id: 2, applicantId: 102, applicantName: '최순자', gender: '여', age: 60, region: '서울 송파구', certs: ['요양보호사 1급', '치매전문교육 수료'], jobType: '요양보호사', salary: '시급 15,000원', expPeriod: '10년 이상', appliedAt: '09.06', status: '검토중' },
-    { id: 3, applicantId: 103, applicantName: '장명희', gender: '여', age: 50, region: '서울 마포구', certs: ['요양보호사 1급'], jobType: '요양보호사', salary: '시급 13,500원', expPeriod: '4년 이상', appliedAt: '09.05', status: '합격' },
-    { id: 4, applicantId: 104, applicantName: '이경숙', gender: '여', age: 55, region: '서울 강동구', certs: ['요양보호사 1급'], jobType: '요양보호사', salary: '시급 12,000원', expPeriod: '신입', appliedAt: '09.04', status: '불합격' },
-  ],
-  2: [
-    { id: 5, applicantId: 105, applicantName: '박영희', gender: '여', age: 52, region: '부산 해운대구', certs: ['요양보호사 1급'], jobType: '요양보호사', salary: '시급 13,000원', expPeriod: '5년 이상', appliedAt: '09.07', status: '검토중' },
-    { id: 6, applicantId: 106, applicantName: '정순영', gender: '여', age: 45, region: '부산 수영구', certs: ['요양보호사 2급'], jobType: '요양보호사', salary: '시급 12,500원', expPeriod: '2년', appliedAt: '09.08', status: '검토중' },
-    { id: 7, applicantId: 107, applicantName: '강미숙', gender: '여', age: 58, region: '부산 동래구', certs: ['요양보호사 1급', '치매전문교육 수료'], jobType: '요양보호사', salary: '시급 14,000원', expPeriod: '8년 이상', appliedAt: '09.07', status: '검토중' },
-  ],
-  3: [
-    { id: 8, applicantId: 108, applicantName: '윤선미', gender: '여', age: 43, region: '대전 서구', certs: ['요양보호사 1급'], jobType: '요양보호사', salary: '시급 12,000원', expPeriod: '1년', appliedAt: '09.09', status: '검토중' },
-    { id: 9, applicantId: 109, applicantName: '임정숙', gender: '여', age: 62, region: '대전 유성구', certs: ['요양보호사 1급'], jobType: '요양보호사', salary: '시급 13,000원', expPeriod: '15년 이상', appliedAt: '09.08', status: '합격' },
-  ],
-  4: [],
-}
-
-const MOCK_RESUMES = {
-  101: { phone: '010-1234-5678', birth: '1976-03-12', region: '경기 성남시', workRegion: '서울 강남·서초', workTypes: ['출·퇴근형'], salary: '시급 13,500원', cert: '요양보호사 1급', expPeriod: '3년 이상', intro: '성실하고 책임감 있는 요양보호사입니다.' },
-  102: { phone: '010-2345-6789', birth: '1964-07-22', region: '서울 송파구', workRegion: '서울 강남·서초·송파', workTypes: ['출·퇴근형', '입주형'], salary: '시급 15,000원', cert: '요양보호사 1급', expPeriod: '10년 이상', intro: '오랜 경력을 바탕으로 어르신을 정성껏 돌봅니다.' },
-  103: { phone: '010-3456-7890', birth: '1974-11-05', region: '서울 마포구', workRegion: '서울 전체', workTypes: ['출·퇴근형'], salary: '시급 13,500원', cert: '요양보호사 1급', expPeriod: '4년 이상', intro: '' },
-  104: { phone: '010-4567-8901', birth: '1969-01-30', region: '서울 강동구', workRegion: '서울 동부', workTypes: ['출·퇴근형'], salary: '시급 12,000원', cert: '요양보호사 1급', expPeriod: '신입', intro: '' },
-  105: { phone: '010-5678-9012', birth: '1972-09-15', region: '부산 해운대구', workRegion: '부산 전체', workTypes: ['출·퇴근형'], salary: '시급 13,000원', cert: '요양보호사 1급', expPeriod: '5년 이상', intro: '' },
-  106: { phone: '010-6789-0123', birth: '1979-04-20', region: '부산 수영구', workRegion: '부산 동부', workTypes: ['출·퇴근형'], salary: '시급 12,500원', cert: '요양보호사 2급', expPeriod: '2년', intro: '' },
-  107: { phone: '010-7890-1234', birth: '1966-12-01', region: '부산 동래구', workRegion: '부산 전체', workTypes: ['출·퇴근형', '입주형'], salary: '시급 14,000원', cert: '요양보호사 1급', expPeriod: '8년 이상', intro: '요양병원 근무 경험이 있습니다.' },
-  108: { phone: '010-8901-2345', birth: '1981-06-10', region: '대전 서구', workRegion: '대전 전체', workTypes: ['출·퇴근형'], salary: '시급 12,000원', cert: '요양보호사 1급', expPeriod: '1년', intro: '' },
-  109: { phone: '010-9012-3456', birth: '1962-02-28', region: '대전 유성구', workRegion: '대전·세종', workTypes: ['출·퇴근형', '입주형'], salary: '시급 13,000원', cert: '요양보호사 1급', expPeriod: '15년 이상', intro: '20년 가까운 경력의 베테랑입니다.' },
-}
 
 const STATUS_STYLE = {
   '검토중': { bg: '#f0f4ff', color: '#5b8def', border: '#c2d4f8' },
@@ -55,37 +18,18 @@ const maskName = (name) => {
   return name[0] + '**'
 }
 
-function ResumePanel({ applicantId, mockResume }) {
-  const [resume, setResume] = useState(mockResume !== undefined ? mockResume : undefined)
-
-  useEffect(() => {
-    if (mockResume !== undefined) return
-    fetchApplicantResume(applicantId).then(setResume)
-  }, [applicantId, mockResume])
-
-  if (resume === undefined) return <div className="ap-resume-panel">이력서를 불러오는 중입니다...</div>
-  if (!resume) return <div className="ap-resume-panel">등록된 이력서가 없습니다.</div>
-
-  return (
-    <div className="ap-resume-panel">
-      <div className="ap-resume-grid">
-        <span className="ap-card-label">연락처</span><span>{resume.phone || '-'}</span>
-        <span className="ap-card-label">생년월일</span><span>{resume.birth || '-'}</span>
-        <span className="ap-card-label">거주지역</span><span>{resume.region || '-'}</span>
-        <span className="ap-card-label">희망근무지</span><span>{resume.workRegion || '-'}</span>
-        <span className="ap-card-label">근무형태</span><span>{(resume.workTypes || []).join(', ') || '-'}</span>
-        <span className="ap-card-label">희망급여</span><span className="ap-wage">{resume.salary || '-'}</span>
-      </div>
-      {resume.intro && <p className="ap-card-intro">{resume.intro}</p>}
-    </div>
-  )
+function deriveAge(birth) {
+  const m = /^(\d{4})/.exec(birth || '')
+  if (!m) return null
+  return new Date().getFullYear() - Number(m[1]) + 1
 }
 
 export default function ApplicantsPage() {
   const [myJobs] = useState(MOCK_JOBS)
   const [applicantsByJob, setApplicantsByJob] = useState(MOCK_APPLICANTS)
   const [selectedJobId, setSelectedJobId] = useState(MOCK_JOBS[0].id)
-  const [expandedAppId, setExpandedAppId] = useState(null)
+  const [modalApp, setModalApp] = useState(null)
+  const navigate = useNavigate()
 
   const currentApplicants = applicantsByJob[selectedJobId] || []
   const selectedJob = myJobs.find((j) => j.id === selectedJobId)
@@ -95,7 +39,21 @@ export default function ApplicantsPage() {
       ...prev,
       [selectedJobId]: (prev[selectedJobId] || []).map(a => a.id === appId ? { ...a, status } : a),
     }))
+    if (modalApp?.id === appId) {
+      setModalApp(prev => ({ ...prev, status }))
+    }
     updateApplicationStatus(appId, status).catch(() => {})
+  }
+
+  const openModal = (app) => {
+    const resume = MOCK_RESUMES[app.applicantId]
+    setModalApp({
+      id: app.id,
+      applicantName: app.applicantName,
+      appliedAt: app.appliedAt,
+      status: app.status,
+      talent: resume ?? {},
+    })
   }
 
   const countByJob = (jobId) => (applicantsByJob[jobId] || []).length
@@ -103,6 +61,7 @@ export default function ApplicantsPage() {
   return (
     <>
       <HomeNav />
+      <AuthGuard require="business">
       <div className="ap-page">
         <div className="container">
           <div className="ap-top">
@@ -110,7 +69,7 @@ export default function ApplicantsPage() {
             <p className="ap-subtitle">내 공고에 지원한 인재의 이력서를 확인하세요</p>
           </div>
 
-          {/* 공고 탭 */}
+          {/* 공고 탭 — 클릭 시 공고요약 페이지로 이동 */}
           <div className="ap-job-tabs">
             {myJobs.map((job) => {
               const cnt = countByJob(job.id)
@@ -118,7 +77,7 @@ export default function ApplicantsPage() {
                 <button
                   key={job.id}
                   className={`ap-job-tab${job.id === selectedJobId ? ' ap-job-tab--active' : ''}`}
-                  onClick={() => { setSelectedJobId(job.id); setExpandedAppId(null) }}
+                  onClick={() => setSelectedJobId(job.id)}
                 >
                   <span className="ap-tab-title">{job.type}</span>
                   <span className="ap-tab-loc">{job.location}</span>
@@ -130,15 +89,23 @@ export default function ApplicantsPage() {
             })}
           </div>
 
-          {/* 공고 요약 바 */}
+          {/* 공고 요약 바 — 클릭 시 상세 페이지 이동 */}
           {selectedJob && (
-            <div className="ap-job-summary">
+            <div
+              className="ap-job-summary"
+              onClick={() => navigate(`/applicants/${selectedJob.id}`)}
+              style={{ cursor: 'pointer' }}
+            >
               <span className="ap-summary-name">{selectedJob.facility}</span>
               <span className="ap-summary-dot">·</span>
-              <span className="ap-summary-title">{selectedJob.title}</span>
+              <span className="ap-summary-title">{selectedJob.title || selectedJob.type}</span>
               <span className="ap-summary-dot">·</span>
               <span className="ap-summary-wage">{selectedJob.pay}</span>
-              <Link to={`/job/${selectedJob.id}`} className="ap-summary-link">공고 보기</Link>
+              <Link
+                to={`/job/${selectedJob.id}`}
+                className="ap-summary-link"
+                onClick={e => e.stopPropagation()}
+              >공고 보기</Link>
             </div>
           )}
 
@@ -147,7 +114,7 @@ export default function ApplicantsPage() {
             <span className="ap-result-count">
               총 <strong>{currentApplicants.length}</strong>명 지원
             </span>
-            <span className="ap-result-tip">* 이름을 클릭하면 상세 이력서를 확인할 수 있어요</span>
+            <span className="ap-result-tip">* 이름 또는 이력서 버튼을 클릭하면 이력서를 확인할 수 있어요</span>
           </div>
 
           {currentApplicants.length === 0 ? (
@@ -155,14 +122,19 @@ export default function ApplicantsPage() {
           ) : (
             <div className="ap-list">
               {currentApplicants.map((app) => {
+                const resume = MOCK_RESUMES[app.applicantId]
                 const stStyle = STATUS_STYLE[app.status] || {}
-                const expanded = expandedAppId === app.id
                 return (
-                  <div key={app.id} className="ap-card">
+                  <div
+                    key={app.id}
+                    className="ap-card"
+                    onClick={() => openModal(app)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="ap-card-top-row">
 
                       {/* 아바타 */}
-                      <div className={`ap-avatar ap-avatar--${app.gender === '여' ? 'f' : 'm'}`}>
+                      <div className={`ap-avatar ap-avatar--${resume?.gender === '여' ? 'f' : 'm'}`}>
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                           <circle cx="12" cy="8" r="4" stroke="#5b8def" strokeWidth="1.8"/>
                           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#5b8def" strokeWidth="1.8" strokeLinecap="round"/>
@@ -172,25 +144,32 @@ export default function ApplicantsPage() {
                       {/* 프로필 */}
                       <div className="ap-card-profile">
                         <div className="ap-card-name-row">
-                          <button className="ap-card-name" onClick={() => setExpandedAppId(expanded ? null : app.id)}>
+                          <button
+                            className="ap-card-name"
+                            onClick={(e) => { e.stopPropagation(); openModal(app) }}
+                          >
                             {maskName(app.applicantName)}
                           </button>
-                          <span className={`ap-gender-badge ap-gender-badge--${app.gender === '여' ? 'f' : 'm'}`}>{app.gender}</span>
+                          {resume?.gender && (
+                            <span className={`ap-gender-badge ap-gender-badge--${resume.gender === '여' ? 'f' : 'm'}`}>{resume.gender}</span>
+                          )}
                         </div>
-                        <p className="ap-card-age">{app.age}세 · {app.region}</p>
+                        <p className="ap-card-age">
+                          {resume ? `${deriveAge(resume.birth) ?? '-'}세 · ${resume.region || '-'}` : ' '}
+                        </p>
                         <div className="ap-card-certs">
-                          {(app.certs || []).map(c => <span key={c} className="ap-cert-tag">{c}</span>)}
+                          {resume?.cert && <span className="ap-cert-tag">{resume.cert}</span>}
                         </div>
                       </div>
 
                       {/* 지원 정보 그리드 */}
                       <div className="ap-card-mid">
-                        <span className="ap-card-label">직종</span>
-                        <span>{app.jobType || '-'}</span>
+                        <span className="ap-card-label">근무형태</span>
+                        <span>{resume ? ((resume.workTypes || []).join(', ') || '-') : '-'}</span>
                         <span className="ap-card-label">경력</span>
-                        <span>{app.expPeriod || '-'}</span>
+                        <span>{resume ? (resume.isNew ? '신입' : (resume.expPeriod || '-')) : '-'}</span>
                         <span className="ap-card-label">희망급여</span>
-                        <span className="ap-wage">{app.salary || '-'}</span>
+                        <span className="ap-wage">{resume?.salary || '-'}</span>
                         <span className="ap-card-label">지원일</span>
                         <span>{app.appliedAt}</span>
                       </div>
@@ -203,20 +182,14 @@ export default function ApplicantsPage() {
                         >
                           {app.status}
                         </div>
-                        <div className="ap-status-btns">
-                          {STATUS_LIST.filter((s) => s !== app.status).map((s) => (
-                            <button key={s} className="ap-status-change-btn" onClick={() => changeStatus(app.id, s)}>
-                              {s}
-                            </button>
-                          ))}
-                        </div>
-                        <button className="ap-resume-btn" onClick={() => setExpandedAppId(expanded ? null : app.id)}>
-                          {expanded ? '이력서 닫기' : '이력서 보기'}
+                        <button
+                          className="ap-resume-btn"
+                          onClick={(e) => { e.stopPropagation(); openModal(app) }}
+                        >
+                          이력서 보기
                         </button>
                       </div>
                     </div>
-
-                    {expanded && <ResumePanel applicantId={app.applicantId} mockResume={MOCK_RESUMES[app.applicantId]} />}
                   </div>
                 )
               })}
@@ -224,6 +197,17 @@ export default function ApplicantsPage() {
           )}
         </div>
       </div>
+      </AuthGuard>
+
+      {/* 이력서 모달 */}
+      {modalApp && (
+        <ApplicantModal
+          app={modalApp}
+          status={modalApp.status}
+          onStatusChange={(status) => changeStatus(modalApp.id, status)}
+          onClose={() => setModalApp(null)}
+        />
+      )}
     </>
   )
 }

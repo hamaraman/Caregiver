@@ -58,7 +58,7 @@ export default function EhpMainContent() {
                     </svg>
                     <h2 className="jsp-section-title">내 공고 관리</h2>
                   </div>
-                  <Link to="/listings" className="jsp-more-btn">더보기 ›</Link>
+                  <Link to="/manage" className="jsp-more-btn">더보기 ›</Link>
                 </div>
 
                 <table className="jsp-table">

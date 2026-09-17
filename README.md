@@ -70,7 +70,26 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (5)
+- 야간 배지 색상 변경이 일부 페이지에 미반영되던 문제 수정: 각 페이지마다 색상을 따로 정의하던 것을 `data/shiftStyles.js` 하나로 통일, 야간 색상 `#7c3aed`(진보라)로 적용
+
+### 2026-09-17 (4)
+- JobRegisterPage·JobPostPage에서 HomeNav를 AuthGuard 바깥으로 이동 — 로그인 guard 화면에서도 헤더가 항상 표시되도록 통일
+
+### 2026-09-17 (3)
+- 공고 목록 야간 배지 색상 변경: 어두운 네이비 → 연보라/진보라(#f3eeff / #7c3aed)
+
+### 2026-09-17 (2)
+- 지원자확인·채용관리 페이지에 `AuthGuard(require="business")` 복원 — 디버깅 목적으로 임시 제거했던 것을 원래대로 되돌림
+- 구인홈 "내 공고 관리 더보기" 링크를 `/listings` → `/manage`(채용관리 페이지)로 수정
+
+### 2026-09-17
+- `deploy.yml`에 `concurrency` 그룹 추가: main에 짧은 간격으로 여러 커밋이 push되면 배포 워크플로우가 겹쳐 실행되어(레이스 컨디션) 서버에서 백엔드 프로세스가 중복 기동되고 `/api`가 502를 반환하는 문제를 실제로 확인, 겹치는 배포가 순차 큐잉되도록 수정
+
 ### 2026-09-16
+- 지원자확인 페이지(`/applicants`) 카드 클릭 시 상세 페이지(`/applicants/:id`)로 이동하도록 연결 (이전엔 아무 곳에서도 안 걸려있던 고아 라우트였음). 이름/상태 변경/이력서 토글 버튼은 `stopPropagation`으로 카드 클릭과 분리
+- 지원자확인 페이지(`/applicants`)를 임시로 넣어뒀던 mock 데이터(`MOCK_JOBS`/`MOCK_APPLICANTS`/`MOCK_RESUMES`)에서 실제 API(`fetchMyJobs`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 다시 되돌림, `AuthGuard`(사업자 전용)도 복원. 카드에 표시하던 나이/직종 등 mock 전용 필드는 실제 이력서 스키마(성별/생년월일/근무형태/경력/희망급여)로 대체
+- `DataInitializer`에 샘플 지원자 4명(이력서 포함) + 지원 내역 시드 추가 — `job_applications` 테이블이 비어있을 때만 실행되어, 실제 API로 되돌린 지원자확인 페이지에서 바로 확인할 수 있는 예시 데이터 제공
 - 채용관리 상세(`/manage/:id`), 지원자확인 상세(`/applicants/:id`) 페이지가 mock 데이터(`data/jobs.js`/`data/applicants.js`/`data/talents.js`)를 쓰던 것을 실제 API(`fetchJobRaw`, `fetchApplicantsForJob`, `fetchApplicantResume`, `updateApplicationStatus`)로 교체. 실제 DB ID와 mock ID가 달라 상세 페이지 진입 시 거의 항상 "공고를 찾을 수 없습니다"가 뜨던 문제, 지원 상태 변경이 저장 안 되던 문제 수정. `HiredWorkerModal`/`ApplicantModal`의 mock 연락처·시작일도 실제 이력서 스키마 필드로 정리. 공고 상세 링크 오탈자(`/jobs/:id` → `/job/:id`)도 같이 수정
 - 배포 서버 백엔드가 포트 충돌(구 프로세스가 8081을 계속 점유)로 재시작 실패하던 문제 수정: 구 프로세스 강제 종료, `jobs` 테이블에 `closed` 컬럼이 없어서(기존 30개 행 때문에 NOT NULL 컬럼 추가가 매번 실패) Hibernate 스키마 갱신이 실패하던 문제도 `DEFAULT false`로 컬럼 직접 추가해 해결
 - `.github/workflows/deploy.yml` 재시작 로직을 pidfile 기준 kill → 포트(8081) 기준 kill로 변경. pidfile이 실제 프로세스와 어긋나면(수동 재시작 등으로) 옛 프로세스가 안 죽고 새 프로세스가 포트 충돌로 계속 실패하던 근본 원인 수정. 재시작 후 실제로 포트가 열렸는지 확인해서, 백엔드가 못 뜨면 배포 자체를 실패 처리하도록 헬스체크도 추가 (전엔 백엔드가 죽어도 워크플로우는 항상 "성공"으로 찍혔음)
@@ -157,3 +176,14 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 회원가입 시 사업자 계정은 업체명/사업자등록번호를 입력받아 검증까지 하는데, 실제 제출할 때는 이 값들을 전혀 안 보내고 있었음(`User` 엔티티에 저장할 필드 자체가 없었음). `User`에 `phone`/`companyName`/`businessNumber` 필드 추가하고 회원가입 시 실제로 저장·조회되도록 연결
 - **공고 마감의 파급 효과 수정**: 마감된 공고는 공개 목록(`GET /api/jobs`)에서 빠지도록 만들었는데, `WishlistPage`/`JspJobTable`의 찜 목록·`HomeTodayStats`의 찜 카운트·`RecentJobsPage`의 최근 본 목록이 전부 이 공개 목록을 데이터 소스로 쓰고 있어서 — 찜해두거나 최근에 본 공고가 마감되면 별다른 안내 없이 목록에서 조용히 사라지는 문제가 있었음. 마감 여부와 무관하게 내가 찜한 공고를 전부 반환하는 `GET /api/jobs/liked`를 신설하고, 찜 목록/최근 본 목록 모두 이제 마감된 공고도 "마감" 배지와 함께 계속 보여주도록 수정
 - `JobPostPage`에 "연락처 공개"(로그인 후 확인/바로 확인) 설정이 있는데 `JobDetailPage`가 이 값을 아예 안 읽어서, 사업자가 "로그인 후 확인"을 선택해도 비로그인 방문자에게 연락처가 그냥 다 보이던 것을 수정. `normalizeJob`에 `phonePublic` 노출, 비로그인 상태에서 "로그인 후 확인"으로 설정된 공고는 연락처 대신 로그인 유도 문구를 보여주도록 연결
+
+### 2026-09-17
+- `/applicants`(지원자 확인), `/manage`(채용 관리) 페이지에서 `AuthGuard`를 임시 제거 — 구조 확인 및 디버깅 목적
+- 두 페이지에 mock 데이터 주입: 공고 4개(서울·부산·대전), 지원자 9명(이력서 포함) — 로그인 없이 UI 확인 가능
+- 지원자확인 탭 클릭 시 `/manage/:id`(공고요약 페이지)로 이동하도록 변경
+- 지원자 카드/이력서 버튼 클릭 시 `ApplicantModal`로 이력서 모달 표시 (인라인 펼치기 제거)
+- 지원자확인 탭 클릭 → `/applicants/:id` (전체 지원자), 채용관리 카드 클릭 → `/manage/:id` (합격 인원)으로 각각 분리
+- 두 상세 페이지(`ApplicantDetailPage`, `RecruitDetailPage`) mock 데이터로 교체, `Header` → `HomeNav`로 통일
+- 공유 mock 데이터 파일(`src/data/mockManage.js`) 추가
+- 오라클 서버 백엔드가 `nohup`으로만 떠 있어 재부팅·크래시 시 자동 복구가 안 되는 문제 발견 → `caregiver.service` systemd 유닛 등록(부팅 시 자동 시작, 크래시 시 자동 재시작)
+- `deploy.yml`의 배포 스크립트가 `sudo fuser -k`+`nohup`으로 재시작하던 것을 `sudo systemctl restart caregiver`로 변경 — 이전 방식은 배포할 때마다 systemd 관리 밖의 프로세스를 새로 띄워서 방금 등록한 자동 복구 효과를 무력화시켰음

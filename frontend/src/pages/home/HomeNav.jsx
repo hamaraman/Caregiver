@@ -63,10 +63,7 @@ export default function HomeNav() {
     <nav className="hp-nav">
       <div className="hp-nav-inner">
         <Link to="/" className="hp-logo" style={{ textDecoration: 'none' }}>
-          <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-            <rect width="38" height="38" rx="10" fill="#4A8FE7"/>
-            <text x="19" y="25" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" fontFamily="sans-serif">YE</text>
-          </svg>
+          <img src="/favicon.png" width="38" height="38" alt="요양이지" />
           <div className="hp-logo-text">
             <span className="hp-logo-tagline">전국 요양·돌봄 일자리 플랫폼</span>
             <span className="hp-logo-name">요양이지</span>
@@ -129,7 +126,7 @@ export default function HomeNav() {
           <div className="hp-mobile-menu" onClick={e => e.stopPropagation()}>
             <div className="hp-mobile-menu-header">
               <Link to="/" className="hp-logo" style={{ textDecoration: 'none' }} onClick={() => setMenuOpen(false)}>
-                <svg width="28" height="28" viewBox="0 0 38 38" fill="none"><rect width="38" height="38" rx="10" fill="#4A8FE7"/><text x="19" y="25" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" fontFamily="sans-serif">YE</text></svg>
+                <img src="/favicon.png" width="28" height="28" alt="요양이지" />
                 <span className="hp-logo-name" style={{ fontSize: '15px' }}>요양이지</span>
               </Link>
               <button className="hp-mobile-close" onClick={() => setMenuOpen(false)} aria-label="메뉴 닫기">

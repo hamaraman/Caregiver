@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (31)
+- 헤더·로그인 화면에 남아있던 "YE" 텍스트 placeholder 로고를 새 로고 이미지(`/favicon.png`)로 교체: `HomeNav`(데스크탑·모바일), `JspHeader`, `AuthLeftPanel`
+
 ### 2026-09-17 (30)
 - 일자리 목록 모바일 카드 레이아웃 개선: 카드 세로 배치, 시설명 숨김, 메타 한 줄 처리, 급여·날짜 하단 행으로 분리
 

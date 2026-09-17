@@ -17,7 +17,7 @@ export default function AuthLeftPanel({ title, desc }) {
     <div className="alp-left">
       <div className="alp-inner">
         <Link to="/" className="alp-logo" style={{ textDecoration: 'none' }}>
-          <span className="alp-logo-badge">YE</span>
+          <img className="alp-logo-badge" src="/favicon.png" alt="요양이지" />
           <div className="alp-logo-text">
             <span className="alp-logo-sub">전국 요양·돌봄 일자리 플랫폼</span>
             <span className="alp-logo-name">요양이지</span>

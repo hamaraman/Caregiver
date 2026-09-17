@@ -70,6 +70,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (10)
+- 지원자확인 요약 바 모바일에서 오른쪽 빈 공간 수정: ap-summary-link margin-left: auto 복원
+- 채용관리 480px에서 요약 카드 4열 한 줄 유지, 폰트·패딩 축소
+
 ### 2026-09-17 (9)
 - 채용관리 CSS 480px 브레이크포인트 추가 (요약 카드 2×2 그리드, 버튼 크기 축소)
 - 반응형 확인을 위해 지원자확인·채용관리 AuthGuard 임시 제거 (확인 후 복원 예정)

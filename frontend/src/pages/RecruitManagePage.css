@@ -406,7 +406,26 @@
 
 @media (max-width: 480px) {
   .rm-summary-row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .rm-summary-card {
+    padding: 8px 6px;
+    gap: 2px;
+    border-radius: 10px;
+  }
+
+  .rm-summary-label {
+    font-size: 9px;
+  }
+
+  .rm-summary-val {
+    font-size: 16px;
+  }
+
+  .rm-summary-unit {
+    font-size: 10px;
   }
 
   .rm-card-title-row {

@@ -169,3 +169,5 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 지원자확인 탭 클릭 → `/applicants/:id` (전체 지원자), 채용관리 카드 클릭 → `/manage/:id` (합격 인원)으로 각각 분리
 - 두 상세 페이지(`ApplicantDetailPage`, `RecruitDetailPage`) mock 데이터로 교체, `Header` → `HomeNav`로 통일
 - 공유 mock 데이터 파일(`src/data/mockManage.js`) 추가
+- 오라클 서버 백엔드가 `nohup`으로만 떠 있어 재부팅·크래시 시 자동 복구가 안 되는 문제 발견 → `caregiver.service` systemd 유닛 등록(부팅 시 자동 시작, 크래시 시 자동 재시작)
+- `deploy.yml`의 배포 스크립트가 `sudo fuser -k`+`nohup`으로 재시작하던 것을 `sudo systemctl restart caregiver`로 변경 — 이전 방식은 배포할 때마다 systemd 관리 밖의 프로세스를 새로 띄워서 방금 등록한 자동 복구 효과를 무력화시켰음

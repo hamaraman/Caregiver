@@ -71,7 +71,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-17 (14)
-- LoginPage 아이디 찾기/비밀번호 찾기 링크 수정: `/support` → `/find-id`, `/find-password` (merge 시 충돌 해결 과정에서 덮어씌워진 것 복원)
+- 지원자확인·채용관리 AuthGuard 복원
+- LoginPage 아이디 찾기/비밀번호 찾기 링크 수정: `/support` → `/find-id`, `/find-password`
 
 ### 2026-09-17 (13)
 - 지원자확인 공고 탭 카드 크기 축소: 패딩 14→10px, min-width 160→120px, 폰트 1px 감소

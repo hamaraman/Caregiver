@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (20)
+- 맞춤인재 카드 모바일(680px 이하) overflow 수정: 성별 뱃지·나이 숨김, meta 텍스트 말줄임, 우측 급여 영역 축소
+
 ### 2026-09-17 (19)
 - 홈 히어로 지역 칩 크기를 구직/구인 페이지 칩과 통일: font-size 12→13px, padding 5px 12px→6px 16px
 

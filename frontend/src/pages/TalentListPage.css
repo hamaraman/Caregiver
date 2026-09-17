@@ -673,5 +673,17 @@
     width: calc(100vw - 40px);
     max-width: 360px;
   }
+  .tl-talent-row { padding: 14px 16px; gap: 10px; }
   .tl-talent-row-tags { display: none; }
+  .tl-gender-badge { display: none; }
+  .tl-age { display: none; }
+  .tl-talent-row-meta {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+  .tl-talent-row-right { min-width: 90px; }
+  .tl-talent-wage { font-size: 13px; }
+  .tl-talent-worktype { font-size: 11px; }
 }

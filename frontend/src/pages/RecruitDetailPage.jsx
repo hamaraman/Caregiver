@@ -113,10 +113,10 @@ export default function RecruitDetailPage() {
             </div>
           </section>
 
-          {/* 합격 인원 */}
+          {/* 채용 인원 */}
           <section className="rd-section">
             <h2 className="rd-section-title">
-              합격 인원
+              채용 인원
               <span className="rd-applicant-count">{hiredApplicants.length}명</span>
             </h2>
 

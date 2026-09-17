@@ -2,6 +2,20 @@
 
 요양이지 - 요양보호사 관련 사이트
 
+## 기술 스택
+
+### Frontend
+- React 19 + Vite
+- React Router DOM v7
+- CSS (페이지별 개별 스타일시트)
+- 카카오맵 API(지도), 카카오 우편번호 API(주소 검색)
+
+### Backend
+- Java 21 + Spring Boot 4.1
+- Spring Web MVC, Spring Data JPA, Spring Security, OAuth2 Client
+- PostgreSQL
+- Gradle
+
 ## API
 
 ### 인증 (`/api/auth`)
@@ -69,6 +83,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 과거 커밋 히스토리에 DB 비밀번호와 카카오/네이버 client-secret이 평문으로 남아있습니다. 지금부터는 `application-secret.properties`로 관리되지만, 해당 자격증명은 회전(rotate)을 권장합니다.
 
 ## 작업 로그
+
+### 2026-09-17 (27)
+- README에 기술 스택(Frontend/Backend) 섹션 추가
+- 파비콘을 새 로고 이미지로 교체: `frontend/public/favicon.svg` → `favicon.png` (기존 svg는 삭제)
 
 ### 2026-09-17 (26)
 - `ApplicantsPage.jsx`의 지원 상태 변경(`changeStatus`)이 실패해도 화면만 바뀌고 조용히 무시되던 것 수정: 실패 시 이전 상태로 롤백 + 알림 표시 (`ApplicantDetailPage.jsx`와 동일한 처리로 통일)

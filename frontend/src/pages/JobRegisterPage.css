@@ -752,7 +752,7 @@
   .jr-banner-btn { align-self: center; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .jr-body { padding: 0 0 60px; }
   .jr-body-inner { flex-direction: column; padding: 0; gap: 0; min-width: 0; }
   .jr-form-wrap { gap: 0; }

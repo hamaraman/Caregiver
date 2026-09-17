@@ -24,9 +24,9 @@ class MainActivity : AppCompatActivity() {
         webSettings.javaScriptEnabled = true
         webSettings.domStorageEnabled = true
         webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-        // 모바일 전용: 기기 실제 너비를 viewport로 사용 (CSS @media 모바일 쿼리 활성화)
-        webSettings.useWideViewPort = false
-        webSettings.loadWithOverviewMode = false
+        // viewport meta 태그 존중 (width=device-width → CSS @media 모바일 쿼리 정상 작동)
+        webSettings.useWideViewPort = true
+        webSettings.loadWithOverviewMode = true
         
         // 간편로그인(OAuth) 시 구글/카카오 등이 웹뷰를 차단하는 것을 방지하기 위해 User-Agent에서 'wv' 제거
         webSettings.userAgentString = webSettings.userAgentString.replace("; wv", "")

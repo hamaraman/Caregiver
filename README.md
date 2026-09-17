@@ -70,6 +70,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (22)
+- MainActivity.kt: useWideViewPort false→true, loadWithOverviewMode false→true — viewport meta 태그를 무시하던 문제 수정 (CSS @media 모바일 쿼리가 물리픽셀 기준으로 판단되어 모바일 스타일이 아예 안 적용되던 근본 원인)
+- 구직 등록 페이지 모바일 미디어쿼리 브레이크포인트 768→1024px로 확장 (안전망)
+
 ### 2026-09-17 (21)
 - 맞춤인재 카드 모바일(680px 이하) overflow 수정: 성별 뱃지·나이 숨김, meta 텍스트 말줄임, 우측 급여 영역 축소
 

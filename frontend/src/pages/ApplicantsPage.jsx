@@ -75,13 +75,7 @@ export default function ApplicantsPage() {
                 <button
                   key={job.id}
                   className={`ap-job-tab${job.id === selectedJobId ? ' ap-job-tab--active' : ''}`}
-                  onClick={() => {
-                    if (job.id === selectedJobId) {
-                      navigate(`/applicants/${job.id}`)
-                    } else {
-                      setSelectedJobId(job.id)
-                    }
-                  }}
+                  onClick={() => setSelectedJobId(job.id)}
                 >
                   <span className="ap-tab-title">{job.type}</span>
                   <span className="ap-tab-loc">{job.location}</span>
@@ -93,15 +87,23 @@ export default function ApplicantsPage() {
             })}
           </div>
 
-          {/* 공고 요약 바 */}
+          {/* 공고 요약 바 — 클릭 시 상세 페이지 이동 */}
           {selectedJob && (
-            <div className="ap-job-summary">
+            <div
+              className="ap-job-summary"
+              onClick={() => navigate(`/applicants/${selectedJob.id}`)}
+              style={{ cursor: 'pointer' }}
+            >
               <span className="ap-summary-name">{selectedJob.facility}</span>
               <span className="ap-summary-dot">·</span>
               <span className="ap-summary-title">{selectedJob.title || selectedJob.type}</span>
               <span className="ap-summary-dot">·</span>
               <span className="ap-summary-wage">{selectedJob.pay}</span>
-              <Link to={`/job/${selectedJob.id}`} className="ap-summary-link">공고 보기</Link>
+              <Link
+                to={`/job/${selectedJob.id}`}
+                className="ap-summary-link"
+                onClick={e => e.stopPropagation()}
+              >공고 보기</Link>
             </div>
           )}
 

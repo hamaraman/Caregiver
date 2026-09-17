@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (25)
+- 구직 등록 페이지 레이아웃 전략 변경: max-width 미디어쿼리 → 기본값 모바일, min-width 1200px에서만 데스크탑 복원. 사이드바 기본 숨김, 섹션 카드 border-radius/box-shadow 기본 제거. 뷰포트 물리픽셀 이슈에 무관하게 모바일 레이아웃 보장
+
 ### 2026-09-17 (24)
 - MainActivity.kt: useWideViewPort false→true, loadWithOverviewMode false→true — viewport meta 태그를 무시하던 문제 수정 (CSS @media 모바일 쿼리가 물리픽셀 기준으로 판단되어 모바일 스타일이 아예 안 적용되던 근본 원인)
 - 구직 등록 페이지 모바일 미디어쿼리 브레이크포인트 768→1024px로 확장 (안전망)

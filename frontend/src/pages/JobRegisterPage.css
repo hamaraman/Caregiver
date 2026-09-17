@@ -33,11 +33,11 @@
 .jr-hero-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 16px;
   display: flex;
   align-items: flex-end;
   gap: 32px;
-  min-height: 200px;
+  min-height: 160px;
 }
 
 .jr-hero-text {
@@ -124,15 +124,16 @@
    BODY
 ════════════════════════════════ */
 .jr-body {
-  padding: 32px 0 60px;
+  padding: 0 0 60px;
 }
 
 .jr-body-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0;
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: 0;
   align-items: flex-start;
 }
 
@@ -142,19 +143,22 @@
 .jr-form-wrap {
   flex: 1;
   min-width: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0;
 }
 
 /* 단계 표시 */
 .jr-steps {
   background: #fff;
-  border-radius: 14px;
-  padding: 20px 28px;
+  border-radius: 0;
+  padding: 14px 16px;
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: none;
+  border-bottom: 1px solid #f0f4fb;
+  overflow-x: auto;
 }
 
 .jr-step {
@@ -218,13 +222,15 @@
 /* 섹션 */
 .jr-section {
   background: #fff;
-  border-radius: 14px;
-  padding: 24px 28px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border-radius: 0;
+  padding: 24px 16px;
+  box-shadow: none;
+  border-bottom: 1px solid #f0f4fb;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
+.jr-section:last-child { border-bottom: none; }
 
 .jr-section-title {
   display: flex;
@@ -604,13 +610,7 @@
    SIDEBAR
 ════════════════════════════════ */
 .jr-sidebar {
-  width: 300px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  position: sticky;
-  top: 80px;
+  display: none;
 }
 
 .jr-sidebar-card {
@@ -746,26 +746,25 @@
 /* ════════════════════════════════
    RESPONSIVE
 ════════════════════════════════ */
-@media (max-width: 1024px) {
-  .jr-sidebar { width: 220px; }
-  .jr-row-3 { grid-template-columns: 1fr 1fr; }
-  .jr-banner-btn { align-self: center; }
-}
-
-@media (max-width: 1024px) {
-  .jr-body { padding: 0 0 60px; }
-  .jr-body-inner { flex-direction: column; padding: 0; gap: 0; min-width: 0; }
-  .jr-form-wrap { gap: 0; }
-  .jr-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; padding: 0 16px; }
-  .jr-sidebar-card { flex: 1; min-width: 260px; }
-  .jr-sidebar-banner { flex: 1; min-width: 260px; }
-  .jr-hero-inner { flex-direction: column; align-items: flex-start; padding: 0 16px; min-width: 0; }
-  .jr-hero-char { display: none; }
-  .jr-hero-photo { display: none; }
-  .jr-hero-title { font-size: 32px; }
-  .jr-steps { padding: 14px 16px; overflow-x: auto; border-radius: 0; box-shadow: none; border-bottom: 1px solid #f0f4fb; }
-  .jr-step-label { display: none; }
-  .jr-row-3 { grid-template-columns: 1fr; }
-  .jr-section { border-radius: 0; box-shadow: none; border-bottom: 1px solid #f0f4fb; padding: 24px 16px; }
+/* 데스크탑에서만 사이드바 + 가로 레이아웃 복원 */
+@media (min-width: 1200px) {
+  .jr-body { padding: 32px 0 60px; }
+  .jr-body-inner { flex-direction: row; padding: 0 32px; gap: 24px; }
+  .jr-form-wrap { gap: 16px; }
+  .jr-sidebar {
+    display: flex;
+    width: 300px;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 80px;
+  }
+  .jr-hero-inner { padding: 0 32px; }
+  .jr-hero-photo { display: block; }
+  .jr-steps { border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-bottom: none; padding: 20px 28px; }
+  .jr-section { border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-bottom: 1px solid #f5f5f5; padding: 24px 28px; }
   .jr-section:last-child { border-bottom: none; }
+  .jr-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .jr-step-label { display: block; }
 }

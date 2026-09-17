@@ -314,6 +314,51 @@
 }
 
 
+/* 비슷한 인재 보기 카드 (태블릿 전용, PC에서는 숨김) */
+.td-similar-card {
+  display: none;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  text-decoration: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  position: relative;
+  transition: box-shadow 0.15s;
+}
+.td-similar-card:hover { box-shadow: 0 4px 18px rgba(74, 143, 231, 0.18); }
+
+.td-similar-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eef4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.td-similar-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2d4d;
+}
+
+.td-similar-sub {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.td-similar-arrow {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
 /* 요약 카드 */
 .td-summary-card {
   background: #fff;
@@ -368,6 +413,7 @@
   }
 
   .td-summary-card { display: none; }
+  .td-similar-card { display: flex; }
 
   .td-sidebar {
     display: grid;

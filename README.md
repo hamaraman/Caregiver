@@ -70,6 +70,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (26)
+- `ApplicantsPage.jsx`의 지원 상태 변경(`changeStatus`)이 실패해도 화면만 바뀌고 조용히 무시되던 것 수정: 실패 시 이전 상태로 롤백 + 알림 표시 (`ApplicantDetailPage.jsx`와 동일한 처리로 통일)
+- 더 이상 어디서도 참조하지 않는 `frontend/src/data/mockManage.js` 삭제
+
 ### 2026-09-17 (25)
 - 구직 등록 페이지 레이아웃 전략 변경: max-width 미디어쿼리 → 기본값 모바일, min-width 1200px에서만 데스크탑 복원. 사이드바 기본 숨김, 섹션 카드 border-radius/box-shadow 기본 제거. 뷰포트 물리픽셀 이슈에 무관하게 모바일 레이아웃 보장
 

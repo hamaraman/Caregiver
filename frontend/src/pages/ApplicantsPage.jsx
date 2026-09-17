@@ -60,6 +60,7 @@ export default function ApplicantsPage() {
   }, [currentApplicants])
 
   const changeStatus = (appId, status) => {
+    const prevStatus = currentApplicants.find(a => a.id === appId)?.status
     setApplicantsByJob(prev => ({
       ...prev,
       [selectedJobId]: (prev[selectedJobId] || []).map(a => a.id === appId ? { ...a, status } : a),
@@ -67,7 +68,16 @@ export default function ApplicantsPage() {
     if (modalApp?.id === appId) {
       setModalApp(prev => ({ ...prev, status }))
     }
-    updateApplicationStatus(appId, status).catch(() => {})
+    updateApplicationStatus(appId, status).catch(() => {
+      alert('상태 변경에 실패했습니다.')
+      setApplicantsByJob(prev => ({
+        ...prev,
+        [selectedJobId]: (prev[selectedJobId] || []).map(a => a.id === appId ? { ...a, status: prevStatus } : a),
+      }))
+      if (modalApp?.id === appId) {
+        setModalApp(prev => ({ ...prev, status: prevStatus }))
+      }
+    })
   }
 
   const openModal = (app) => {

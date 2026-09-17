@@ -76,8 +76,11 @@ export default function ApplicantsPage() {
                   key={job.id}
                   className={`ap-job-tab${job.id === selectedJobId ? ' ap-job-tab--active' : ''}`}
                   onClick={() => {
-                    setSelectedJobId(job.id)
-                    navigate(`/applicants/${job.id}`)
+                    if (job.id === selectedJobId) {
+                      navigate(`/applicants/${job.id}`)
+                    } else {
+                      setSelectedJobId(job.id)
+                    }
                   }}
                 >
                   <span className="ap-tab-title">{job.type}</span>

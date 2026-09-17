@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
+import AuthGuard from '../components/AuthGuard'
 import ApplicantModal from '../components/ApplicantModal'
 import { updateApplicationStatus } from '../api'
 import { MOCK_JOBS, MOCK_APPLICANTS, MOCK_RESUMES } from '../data/mockManage'
@@ -60,6 +61,7 @@ export default function ApplicantsPage() {
   return (
     <>
       <HomeNav />
+      <AuthGuard require="business">
       <div className="ap-page">
         <div className="container">
           <div className="ap-top">
@@ -195,6 +197,7 @@ export default function ApplicantsPage() {
           )}
         </div>
       </div>
+      </AuthGuard>
 
       {/* 이력서 모달 */}
       {modalApp && (

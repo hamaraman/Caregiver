@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
+import AuthGuard from '../components/AuthGuard'
 import { MOCK_JOBS as BASE_JOBS, MOCK_APPLICANTS as BASE_APPLICANTS } from '../data/mockManage'
 import './RecruitManagePage.css'
 
@@ -46,6 +47,7 @@ export default function RecruitManagePage() {
   return (
     <>
       <HomeNav />
+      <AuthGuard require="business">
       <div className="rm-page">
         <div className="container">
           <div className="rm-top">
@@ -155,6 +157,7 @@ export default function RecruitManagePage() {
           </div>
         </div>
       </div>
+      </AuthGuard>
     </>
   )
 }

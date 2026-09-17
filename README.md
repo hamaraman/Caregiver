@@ -70,6 +70,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (2)
+- 지원자확인·채용관리 페이지에 `AuthGuard(require="business")` 복원 — 디버깅 목적으로 임시 제거했던 것을 원래대로 되돌림
+- 구인홈 "내 공고 관리 더보기" 링크를 `/listings` → `/manage`(채용관리 페이지)로 수정
+
 ### 2026-09-17
 - `deploy.yml`에 `concurrency` 그룹 추가: main에 짧은 간격으로 여러 커밋이 push되면 배포 워크플로우가 겹쳐 실행되어(레이스 컨디션) 서버에서 백엔드 프로세스가 중복 기동되고 `/api`가 502를 반환하는 문제를 실제로 확인, 겹치는 배포가 순차 큐잉되도록 수정
 

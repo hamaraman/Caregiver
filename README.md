@@ -70,6 +70,11 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (16)
+- Job.java 컬렉션 필드(weekdays/careCondition/careWork/applyMethod)에 `@Fetch(FetchMode.SUBSELECT)` 추가: 공고 목록 조회 시 건당 반복되던 N+1 쿼리를 컬렉션당 1회로 축소
+- `JobApplication`에 근무 시작일/일정/시간/근무형태/임금/고용형태(hired*) 컬럼 추가, `PATCH /api/applications/{id}/hired-terms` 신설 — `HiredWorkerModal`의 "저장"이 컴포넌트 state에만 남고 실제로는 DB에 저장되지 않던 문제 해결
+- `RecruitManagePage`/`RecruitDetailPage`/`ApplicantsPage`/`ApplicantDetailPage`가 `mockManage.js` 가짜 데이터로 되돌아가 있던 것을 실제 API로 재전환. mock ID로 실제 백엔드를 호출하던 `updateApplicationStatus`가 거의 항상 실패하면서도 에러를 삼켜(`.catch(() => {})`) 화면만 바뀌고 저장 안 되던 문제도 함께 해결(실패 시 롤백 + 안내)
+
 ### 2026-09-17 (15)
 - 카카오맵이 안 보이던 문제 수정: `frontend/index.html`에 하드코딩된 카카오 앱키(`ed28b894...`)가 지도 제품이 비활성화된 다른 카카오 앱 키였음. 실제로 지도 제품이 활성화된 앱의 키(`ea8448ff...`)로 교체
 

@@ -175,25 +175,6 @@ export default function TalentDetailPage() {
                 }
               </div>
 
-              <div className="td-summary-card">
-                <div className="td-summary-title">인재 요약</div>
-                <div className="td-summary-row">
-                  <span className="td-summary-label">직종</span>
-                  <span className="td-summary-value">{talent.jobType}</span>
-                </div>
-                <div className="td-summary-row">
-                  <span className="td-summary-label">경력</span>
-                  <span className="td-summary-value td-summary-value--point">{talent.experience}</span>
-                </div>
-                <div className="td-summary-row">
-                  <span className="td-summary-label">희망급여</span>
-                  <span className="td-summary-value td-summary-value--wage">{talent.wageLabel}</span>
-                </div>
-                <div className="td-summary-row">
-                  <span className="td-summary-label">근무형태</span>
-                  <span className="td-summary-value">{talent.workType}</span>
-                </div>
-              </div>
             </aside>
           </div>
 

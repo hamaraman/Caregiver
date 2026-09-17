@@ -21,13 +21,13 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
-  padding: 14px 18px;
+  padding: 10px 14px;
   border: 1.5px solid #d8e0f0;
-  border-radius: 14px;
+  border-radius: 12px;
   background: #fff;
   cursor: pointer;
   transition: all 0.15s;
-  min-width: 160px;
+  min-width: 120px;
 }
 
 .ap-job-tab:hover { border-color: #4A8FE7; }
@@ -38,18 +38,18 @@
 }
 
 .ap-tab-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: #222;
 }
 
 .ap-tab-loc {
-  font-size: 12px;
+  font-size: 11px;
   color: #aaa;
 }
 
 .ap-tab-cnt {
-  font-size: 12px;
+  font-size: 11px;
   color: #bbb;
   font-weight: 600;
   margin-top: 2px;
@@ -330,7 +330,7 @@
   }
 
   .ap-job-tab {
-    min-width: 140px;
+    min-width: 110px;
     flex-shrink: 0;
   }
 

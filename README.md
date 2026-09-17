@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (4)
+- JobRegisterPage·JobPostPage에서 HomeNav를 AuthGuard 바깥으로 이동 — 로그인 guard 화면에서도 헤더가 항상 표시되도록 통일
+
 ### 2026-09-17 (3)
 - 공고 목록 야간 배지 색상 변경: 어두운 네이비 → 연보라/진보라(#f3eeff / #7c3aed)
 

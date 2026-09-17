@@ -178,6 +178,24 @@
   color: #2563eb;
 }
 
+/* 편집 가능 input */
+.hwm-input {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-family: inherit;
+  border: 1.5px solid #e4eaf4;
+  border-radius: 8px;
+  padding: 5px 9px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  background: #f8faff;
+  transition: border-color 0.15s, background 0.15s;
+}
+.hwm-input:focus { border-color: #4A8FE7; background: #fff; }
+.hwm-input--wage { color: #4A8FE7; font-weight: 800; }
+
 /* 메모 textarea */
 .hwm-memo {
   width: 100%;

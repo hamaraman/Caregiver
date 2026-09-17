@@ -1,8 +1,8 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import HomeNav from './home/HomeNav'
 import HiredWorkerModal from '../components/HiredWorkerModal'
-import { MOCK_JOBS, MOCK_APPLICANTS, MOCK_RESUMES } from '../data/mockManage'
+import { fetchJobRaw, fetchApplicantsForJob, fetchApplicantResume } from '../api'
 import './RecruitDetailPage.css'
 
 export default function RecruitDetailPage() {
@@ -10,17 +10,51 @@ export default function RecruitDetailPage() {
   const navigate = useNavigate()
   const jobId = Number(id)
 
-  const job = MOCK_JOBS.find(j => j.id === jobId) ?? null
-  const allApplicants = (MOCK_APPLICANTS[jobId] || []).map(a => ({
-    ...a,
-    talent: MOCK_RESUMES[a.applicantId] ?? {},
-  }))
-  const hiredApplicants = allApplicants.filter(a => a.status === '합격')
-
+  const [job, setJob] = useState(undefined)
+  const [applications, setApplications] = useState([])
+  const [resumesByApplicant, setResumesByApplicant] = useState({})
   const [selectedAppId, setSelectedAppId] = useState(null)
   const [memos, setMemos] = useState({})
 
+  useEffect(() => {
+    fetchJobRaw(jobId).then(setJob).catch(() => setJob(null))
+    fetchApplicantsForJob(jobId).then(setApplications).catch(() => setApplications([]))
+  }, [jobId])
+
+  const hiredApplications = applications.filter(a => a.status === '합격')
+
+  useEffect(() => {
+    hiredApplications.forEach(a => {
+      if (resumesByApplicant[a.applicantId] !== undefined) return
+      fetchApplicantResume(a.applicantId).then(resume =>
+        setResumesByApplicant(prev => ({ ...prev, [a.applicantId]: resume }))
+      )
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [applications])
+
+  const hiredApplicants = hiredApplications
+    .map(a => ({ ...a, talent: resumesByApplicant[a.applicantId] }))
+    .filter(a => a.talent)
+
   const selectedApp = hiredApplicants.find(a => a.id === selectedAppId) ?? null
+
+  const handleTermsSaved = (updatedApplication) => {
+    setApplications(prev => prev.map(a => (a.id === updatedApplication.id ? { ...a, ...updatedApplication } : a)))
+  }
+
+  if (job === undefined) {
+    return (
+      <>
+        <HomeNav />
+        <div className="rd-page">
+          <div className="container">
+            <p className="rd-not-found">불러오는 중입니다...</p>
+          </div>
+        </div>
+      </>
+    )
+  }
 
   if (!job) {
     return (
@@ -189,6 +223,7 @@ export default function RecruitDetailPage() {
           memo={memos[selectedApp.id] ?? ''}
           onMemoChange={val => setMemos(prev => ({ ...prev, [selectedApp.id]: val }))}
           onClose={() => setSelectedAppId(null)}
+          onTermsSaved={handleTermsSaved}
         />
       )}
     </>

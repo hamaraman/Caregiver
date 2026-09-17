@@ -87,6 +87,22 @@ public class JobApplicationService {
         return toResponse(application);
     }
 
+    public JobApplicationResponse updateHiredTerms(Long applicationId, Long requesterId, HiredTermsUpdateRequest request) {
+        JobApplication application = jobApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new JobApplicationException("존재하지 않는 지원 내역입니다."));
+        Job job = jobRepository.findById(application.getJobId())
+                .orElseThrow(() -> new JobApplicationException("존재하지 않는 공고입니다."));
+        requireOwner(job, requesterId);
+        application.setHiredStartDate(request.getStartDate());
+        application.setHiredDays(request.getDays());
+        application.setHiredHours(request.getHours());
+        application.setHiredWorkType(request.getWorkType());
+        application.setHiredWage(request.getWage());
+        application.setHiredEmployForm(request.getEmployForm());
+        jobApplicationRepository.save(application);
+        return toResponse(application);
+    }
+
     private void requireOwner(Job job, Long requesterId) {
         if (job.getOwner() == null || !job.getOwner().getId().equals(requesterId)) {
             throw new JobApplicationException("본인이 등록한 공고만 조회/수정할 수 있습니다.");

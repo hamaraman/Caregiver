@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
 import ApplicantModal from '../components/ApplicantModal'
-import { updateApplicationStatus } from '../api'
-import { MOCK_JOBS, MOCK_APPLICANTS, MOCK_RESUMES } from '../data/mockManage'
+import { fetchMyJobs, fetchApplicantsForJob, fetchApplicantResume, updateApplicationStatus } from '../api'
 import './ApplicantsPage.css'
 
 const STATUS_STYLE = {
@@ -25,14 +24,40 @@ function deriveAge(birth) {
 }
 
 export default function ApplicantsPage() {
-  const [myJobs] = useState(MOCK_JOBS)
-  const [applicantsByJob, setApplicantsByJob] = useState(MOCK_APPLICANTS)
-  const [selectedJobId, setSelectedJobId] = useState(MOCK_JOBS[0].id)
+  const [myJobs, setMyJobs] = useState([])
+  const [applicantsByJob, setApplicantsByJob] = useState({})
+  const [resumesByApplicant, setResumesByApplicant] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [selectedJobId, setSelectedJobId] = useState(null)
   const [modalApp, setModalApp] = useState(null)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    fetchMyJobs()
+      .then(async jobs => {
+        setMyJobs(jobs)
+        setSelectedJobId(jobs[0]?.id ?? null)
+        const entries = await Promise.all(
+          jobs.map(job => fetchApplicantsForJob(job.id).then(list => [job.id, list]).catch(() => [job.id, []]))
+        )
+        setApplicantsByJob(Object.fromEntries(entries))
+      })
+      .catch(() => setMyJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
+
   const currentApplicants = applicantsByJob[selectedJobId] || []
   const selectedJob = myJobs.find((j) => j.id === selectedJobId)
+
+  useEffect(() => {
+    currentApplicants.forEach(a => {
+      if (resumesByApplicant[a.applicantId] !== undefined) return
+      fetchApplicantResume(a.applicantId).then(resume =>
+        setResumesByApplicant(prev => ({ ...prev, [a.applicantId]: resume }))
+      )
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentApplicants])
 
   const changeStatus = (appId, status) => {
     setApplicantsByJob(prev => ({
@@ -46,7 +71,7 @@ export default function ApplicantsPage() {
   }
 
   const openModal = (app) => {
-    const resume = MOCK_RESUMES[app.applicantId]
+    const resume = resumesByApplicant[app.applicantId]
     setModalApp({
       id: app.id,
       applicantName: app.applicantName,
@@ -68,6 +93,9 @@ export default function ApplicantsPage() {
             <h2 className="ap-title">지원자 확인</h2>
             <p className="ap-subtitle">내 공고에 지원한 인재의 이력서를 확인하세요</p>
           </div>
+
+          {loading && <div className="ap-empty">불러오는 중입니다...</div>}
+          {!loading && myJobs.length === 0 && <div className="ap-empty">등록한 공고가 없습니다.</div>}
 
           {/* 공고 탭 — 클릭 시 공고요약 페이지로 이동 */}
           <div className="ap-job-tabs">
@@ -122,7 +150,7 @@ export default function ApplicantsPage() {
           ) : (
             <div className="ap-list">
               {currentApplicants.map((app) => {
-                const resume = MOCK_RESUMES[app.applicantId]
+                const resume = resumesByApplicant[app.applicantId]
                 const stStyle = STATUS_STYLE[app.status] || {}
                 return (
                   <div

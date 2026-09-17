@@ -54,6 +54,13 @@ public class JobApplicationController {
         return jobApplicationService.updateStatus(id, user.getId(), request.getStatus());
     }
 
+    @PatchMapping("/applications/{id}/hired-terms")
+    public JobApplicationResponse updateHiredTerms(@PathVariable Long id, @RequestBody HiredTermsUpdateRequest request,
+                                                    HttpServletRequest httpRequest) {
+        User user = requireLoggedInUser(httpRequest);
+        return jobApplicationService.updateHiredTerms(id, user.getId(), request);
+    }
+
     @ExceptionHandler(JobApplicationException.class)
     public ResponseEntity<String> handleJobApplicationException(JobApplicationException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());

@@ -1,32 +1,54 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import AuthGuard from '../components/AuthGuard'
-import { MOCK_JOBS as BASE_JOBS, MOCK_APPLICANTS as BASE_APPLICANTS } from '../data/mockManage'
+import { fetchMyJobs, fetchApplicantsForJob, closeJob as closeJobApi, reopenJob as reopenJobApi } from '../api'
 import './RecruitManagePage.css'
-
-const MOCK_APPLICANT_COUNT = Object.fromEntries(
-  Object.entries(BASE_APPLICANTS).map(([k, v]) => [k, v.length])
-)
 
 export default function RecruitManagePage() {
   const navigate = useNavigate()
-  const [myJobs, setMyJobs] = useState(BASE_JOBS)
+  const [myJobs, setMyJobs] = useState([])
+  const [applicantsByJob, setApplicantsByJob] = useState({})
+  const [loading, setLoading] = useState(true)
   const [confirmJobId, setConfirmJobId] = useState(null)
   const [filter, setFilter] = useState('all')
 
+  useEffect(() => {
+    fetchMyJobs()
+      .then(async jobs => {
+        setMyJobs(jobs)
+        const entries = await Promise.all(
+          jobs.map(job => fetchApplicantsForJob(job.id).then(list => [job.id, list]).catch(() => [job.id, []]))
+        )
+        setApplicantsByJob(Object.fromEntries(entries))
+      })
+      .catch(() => setMyJobs([]))
+      .finally(() => setLoading(false))
+  }, [])
+
   const isClosed = (id) => myJobs.find(j => j.id === id)?.closed ?? false
 
-  const closeJob = (id) => {
-    setMyJobs(prev => prev.map(j => j.id === id ? { ...j, closed: true } : j))
-    setConfirmJobId(null)
+  const closeJob = async (id) => {
+    try {
+      const updated = await closeJobApi(id)
+      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
+    } catch (err) {
+      alert(err.message || '마감 처리에 실패했습니다.')
+    } finally {
+      setConfirmJobId(null)
+    }
   }
 
-  const reopenJob = (id) => {
-    setMyJobs(prev => prev.map(j => j.id === id ? { ...j, closed: false } : j))
+  const reopenJob = async (id) => {
+    try {
+      const updated = await reopenJobApi(id)
+      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
+    } catch (err) {
+      alert(err.message || '재개 처리에 실패했습니다.')
+    }
   }
 
-  const countApplicants = (jobId) => MOCK_APPLICANT_COUNT[jobId] ?? 0
+  const countApplicants = (jobId) => (applicantsByJob[jobId] || []).length
 
   const filteredJobs = myJobs.filter((job) => {
     if (filter === 'active') return !isClosed(job.id)
@@ -36,7 +58,7 @@ export default function RecruitManagePage() {
 
   const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
   const closedCount = myJobs.filter((j) => isClosed(j.id)).length
-  const totalApplicants = Object.values(MOCK_APPLICANT_COUNT).reduce((a, b) => a + b, 0)
+  const totalApplicants = Object.values(applicantsByJob).flat().length
 
   const filterCards = [
     { key: 'all',    label: '전체',   val: myJobs.length, unit: '개', mod: '',          valMod: '' },
@@ -88,7 +110,8 @@ export default function RecruitManagePage() {
 
           {/* 공고 목록 */}
           <div className="rm-list">
-            {filteredJobs.length === 0 && (
+            {loading && <div className="rm-empty">불러오는 중입니다...</div>}
+            {!loading && filteredJobs.length === 0 && (
               <div className="rm-empty">
                 {filter === 'closed' ? '마감된 공고가 없습니다.' : '공고가 없습니다.'}
               </div>

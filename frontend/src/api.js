@@ -192,6 +192,13 @@ export function updateApplicationStatus(applicationId, status) {
   })
 }
 
+export function updateHiredTerms(applicationId, { startDate, days, hours, workType, wage, employForm }) {
+  return request(`/api/applications/${applicationId}/hired-terms`, {
+    method: 'PATCH',
+    body: JSON.stringify({ startDate, days, hours, workType, wage, employForm }),
+  })
+}
+
 export async function fetchMyApplications() {
   const applications = await request('/api/applications/mine')
   return (applications || []).map(a => ({

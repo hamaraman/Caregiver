@@ -316,7 +316,7 @@
 
 /* 비슷한 인재 보기 카드 (태블릿 전용, PC에서는 숨김) */
 .td-similar-card {
-  display: none;
+  display: flex;
   background: #fff;
   border-radius: 16px;
   padding: 20px;
@@ -413,7 +413,6 @@
   }
 
   .td-summary-card { display: none; }
-  .td-similar-card { display: flex; }
 
   .td-sidebar {
     display: grid;

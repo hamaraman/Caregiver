@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (22)
+- 상단 네비 고객센터 드롭다운 항목(공지사항·FAQ·1:1 문의)을 각 탭 URL로 연결: `/support?tab=notice`, `/support?tab=faq`, `/support?tab=contact`
+
 ### 2026-09-17 (21)
 - 맞춤인재 카드 모바일(680px 이하) overflow 수정: 성별 뱃지·나이 숨김, meta 텍스트 말줄임, 우측 급여 영역 축소
 

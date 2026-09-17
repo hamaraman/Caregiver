@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (11)
+- 채용인원 모달 모바일에서 그리드 1열 → 2열 유지: 우측 빈 공간 제거
+
 ### 2026-09-17 (10)
 - 지원자확인 요약 바 모바일에서 오른쪽 빈 공간 수정: ap-summary-link margin-left: auto 복원
 - 채용관리 480px에서 요약 카드 4열 한 줄 유지, 폰트·패딩 축소

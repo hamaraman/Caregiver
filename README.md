@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (12)
+- 채용관리 상세 공고 요약 카드 "공고 보기" 버튼을 모바일에서도 우측 고정되도록 수정 (flex-direction: column 제거, 제목 행 flex: 1)
+
 ### 2026-09-17 (11)
 - 채용인원 모달 모바일에서 그리드 1열 → 2열 유지: 우측 빈 공간 제거
 

@@ -2,20 +2,6 @@
 
 요양이지 - 요양보호사 관련 사이트
 
-## 기술 스택
-
-### Frontend
-- React 19 + Vite
-- React Router DOM v7
-- CSS (페이지별 개별 스타일시트)
-- 카카오맵 API(지도), 카카오 우편번호 API(주소 검색)
-
-### Backend
-- Java 21 + Spring Boot 4.1
-- Spring Web MVC, Spring Data JPA, Spring Security, OAuth2 Client
-- PostgreSQL
-- Gradle
-
 ## API
 
 ### 인증 (`/api/auth`)
@@ -84,13 +70,20 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
-### 2026-09-17 (27)
+### 2026-09-17 (29)
+- 구직 등록 페이지 전면 재설계: 4단계 스텝 폼 → 구인공고 양식처럼 한 페이지 스크롤 폼으로 변경
+- JobPostPage.css의 jp-* 클래스를 재사용해 섹션 헤더·행 레이아웃 통일, 모바일에서 라벨+입력값 상하 배치
+
+### 2026-09-17 (28)
 - README에 기술 스택(Frontend/Backend) 섹션 추가
-- 파비콘을 새 로고 이미지로 교체: `frontend/public/favicon.svg` → `favicon.png` (기존 svg는 삭제)
+- 파비콘을 새 로고 이미지로 교체: `frontend/public/favicon.svg` → `favicon.png` (기존 svg 삭제)
+
+### 2026-09-17 (27)
+- `ApplicantsPage.jsx` 지원 상태 변경(`changeStatus`) 실패 시 이전 상태로 롤백 + 알림 표시 추가
+- 더 이상 참조하지 않는 `frontend/src/data/mockManage.js` 삭제
 
 ### 2026-09-17 (26)
-- `ApplicantsPage.jsx`의 지원 상태 변경(`changeStatus`)이 실패해도 화면만 바뀌고 조용히 무시되던 것 수정: 실패 시 이전 상태로 롤백 + 알림 표시 (`ApplicantDetailPage.jsx`와 동일한 처리로 통일)
-- 더 이상 어디서도 참조하지 않는 `frontend/src/data/mockManage.js` 삭제
+- 구직 등록 jr-row-3 기본값 3열→1열로 변경, 스텝 라벨 기본 숨김(모바일 공간 확보)
 
 ### 2026-09-17 (25)
 - 구직 등록 페이지 레이아웃 전략 변경: max-width 미디어쿼리 → 기본값 모바일, min-width 1200px에서만 데스크탑 복원. 사이드바 기본 숨김, 섹션 카드 border-radius/box-shadow 기본 제거. 뷰포트 물리픽셀 이슈에 무관하게 모바일 레이아웃 보장

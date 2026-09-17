@@ -130,7 +130,7 @@
 .jr-body-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 12px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -146,7 +146,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 16px;
 }
 
 /* 단계 표시 */
@@ -204,6 +204,7 @@
 }
 
 .jr-step-label {
+  display: none;
   font-size: 13px;
   font-weight: 600;
   color: #bbb;
@@ -251,7 +252,7 @@
 /* 그리드 */
 .jr-row-3 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 

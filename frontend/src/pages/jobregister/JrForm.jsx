@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { fetchMyResume, upsertMyResume } from '../../api'
 
-const STEPS = ['기본정보', '경력/자격정보', '근무 희망조건', '자기소개']
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '세종', '제주']
 const WORK_TYPES = ['전체', '주간', '야간', '교대', '파트타임']
 const CERTS = ['요양보호사', '간호조무사', '사회복지사', '물리치료사', '작업치료사', '기타']
 const SALARIES = ['협의', '최저시급', '시급 11,000원~', '시급 12,000원~', '시급 13,000원~', '월급 협의']
 
 export default function JrForm() {
-  const navigate = useNavigate()
-  const [activeStep, setActiveStep] = useState(0)
   const [form, setForm] = useState({
     name: '', phone: '', birth: '', gender: '여', region: '',
     workRegions: [], workTypes: [], salary: '',
@@ -22,6 +19,12 @@ export default function JrForm() {
   const [submitError, setSubmitError] = useState('')
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [toast, setToast] = useState('')
+
+  const showToast = (msg) => {
+    setToast(msg)
+    setTimeout(() => setToast(''), 3000)
+  }
 
   useEffect(() => {
     fetchMyResume().then(resume => {
@@ -37,7 +40,7 @@ export default function JrForm() {
         workTypes: resume.workTypes || [],
         salary: resume.salary || '',
         cert: resume.cert || '',
-        isNew: resume.isNew,
+        isNew: resume.isNew ?? true,
         expPeriod: resume.expPeriod || '',
         intro: resume.intro || '',
       }))
@@ -51,36 +54,29 @@ export default function JrForm() {
     setForm(f => ({ ...f, workRegions: [...f.workRegions, r] }))
   }
 
-  const removeWorkRegion = (r) => {
+  const removeWorkRegion = (r) =>
     setForm(f => ({ ...f, workRegions: f.workRegions.filter(x => x !== r) }))
-  }
 
-  const toggleWorkType = (t) => {
+  const toggleWorkType = (t) =>
     setForm(f => ({
       ...f,
       workTypes: f.workTypes.includes(t)
         ? f.workTypes.filter(x => x !== t)
         : [...f.workTypes, t],
     }))
-  }
 
-  function validateStep() {
-    const e = {}
-    if (activeStep === 0) {
-      if (!form.name.trim()) e.name = '이름을 입력해주세요.'
-      if (!form.phone.trim()) e.phone = '연락처를 입력해주세요.'
-      if (!form.birth.trim()) e.birth = '생년월일을 입력해주세요.'
-      if (!form.region) e.region = '거주지를 선택해주세요.'
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const errs = {}
+    if (!form.name.trim()) errs.name = '이름을 입력해주세요.'
+    if (!form.phone.trim()) errs.phone = '연락처를 입력해주세요.'
+    if (!form.birth.trim()) errs.birth = '생년월일을 입력해주세요.'
+    if (!form.region) errs.region = '거주지를 선택해주세요.'
+    if (Object.keys(errs).length) {
+      setErrors(errs)
+      showToast('필수 항목을 입력해주세요.')
+      return
     }
-    setErrors(e)
-    return Object.keys(e).length === 0
-  }
-
-  const next = () => { if (validateStep()) setActiveStep(s => s + 1) }
-  const prev = () => { setErrors({}); setActiveStep(s => s - 1) }
-
-  const handleSubmit = async () => {
-    if (!validateStep()) return
     setSubmitError('')
     setSubmitting(true)
     try {
@@ -125,150 +121,156 @@ export default function JrForm() {
   }
 
   return (
-    <div className="jr-form-wrap">
-      {/* 단계 표시 */}
-      <div className="jr-steps">
-        {STEPS.map((s, i) => (
-          <div key={s} className={`jr-step ${i === activeStep ? 'active' : i < activeStep ? 'done' : ''}`}>
-            <div className="jr-step-item">
-              <span className="jr-step-num">{i + 1}</span>
-              <span className="jr-step-label">{s}</span>
+    <form className="jr-form-wrap" onSubmit={handleSubmit} noValidate>
+      {toast && (
+        <div className="jp-toast">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          {toast}
+        </div>
+      )}
+
+      {/* ① 기본 인적사항 */}
+      <div className="jp-section">
+        <div className="jp-section-header">
+          <span className="jp-section-num">1</span>
+          <h3 className="jp-section-title">기본 인적사항</h3>
+        </div>
+        <div className="jp-section-body">
+
+          <div className="jp-row jp-row--top">
+            <label className="jp-label jp-label--required">이름</label>
+            <div className="jp-field-group--col">
+              <input
+                className={`jp-input jp-input--md${errors.name ? ' jp-input--error' : ''}`}
+                placeholder="이름을 입력해주세요"
+                value={form.name}
+                onChange={e => { update('name', e.target.value); setErrors(p => ({ ...p, name: '' })) }}
+              />
+              {errors.name && <p className="jp-error-msg">{errors.name}</p>}
             </div>
-            {i < STEPS.length - 1 && <div className="jr-step-line" />}
           </div>
-        ))}
+
+          <div className="jp-row jp-row--top">
+            <label className="jp-label jp-label--required">연락처</label>
+            <div className="jp-field-group--col">
+              <input
+                className={`jp-input jp-input--md${errors.phone ? ' jp-input--error' : ''}`}
+                placeholder="휴대폰 번호를 입력해주세요"
+                value={form.phone}
+                onChange={e => { update('phone', e.target.value); setErrors(p => ({ ...p, phone: '' })) }}
+              />
+              {errors.phone && <p className="jp-error-msg">{errors.phone}</p>}
+            </div>
+          </div>
+
+          <div className="jp-row jp-row--top">
+            <label className="jp-label jp-label--required">생년월일</label>
+            <div className="jp-field-group--col">
+              <input
+                className={`jp-input jp-input--md${errors.birth ? ' jp-input--error' : ''}`}
+                placeholder="YYYY.MM.DD"
+                value={form.birth}
+                onChange={e => { update('birth', e.target.value); setErrors(p => ({ ...p, birth: '' })) }}
+              />
+              {errors.birth && <p className="jp-error-msg">{errors.birth}</p>}
+            </div>
+          </div>
+
+          <div className="jp-row jp-row--top">
+            <label className="jp-label jp-label--required">거주지</label>
+            <div className="jp-field-group--col">
+              <select
+                className={`jp-select jp-select--md${errors.region ? ' jp-input--error' : ''}`}
+                value={form.region}
+                onChange={e => { update('region', e.target.value); setErrors(p => ({ ...p, region: '' })) }}
+              >
+                <option value="">거주지를 선택해주세요</option>
+                {REGIONS.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+              {errors.region && <p className="jp-error-msg">{errors.region}</p>}
+            </div>
+          </div>
+
+          <div className="jp-row">
+            <label className="jp-label jp-label--required">성별</label>
+            <div className="jp-radio-group">
+              {['여', '남'].map(g => (
+                <label key={g} className="jp-radio">
+                  <input type="radio" name="gender" checked={form.gender === g} onChange={() => update('gender', g)} />
+                  {g === '여' ? '여성' : '남성'}
+                </label>
+              ))}
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      {/* Step 0: 기본 인적사항 */}
-      {activeStep === 0 && (
-        <div className="jr-section">
-          <h3 className="jr-section-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            기본 인적사항
-          </h3>
-          <div className="jr-row-3">
-            <div className="jr-field">
-              <label className="jr-label">이름 <span className="jr-req">*</span></label>
-              <div className="jr-input-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <input className={`jr-input ${errors.name ? 'error' : ''}`} placeholder="이름을 입력해주세요" value={form.name}
-                  onChange={e => { update('name', e.target.value); setErrors(p => ({ ...p, name: '' })) }} />
-              </div>
-              {errors.name && <span className="jr-error-msg">{errors.name}</span>}
-            </div>
-            <div className="jr-field">
-              <label className="jr-label">연락처 <span className="jr-req">*</span></label>
-              <div className="jr-input-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.5a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                <input className={`jr-input ${errors.phone ? 'error' : ''}`} placeholder="휴대폰 번호를 입력해주세요" value={form.phone}
-                  onChange={e => { update('phone', e.target.value); setErrors(p => ({ ...p, phone: '' })) }} />
-              </div>
-              {errors.phone && <span className="jr-error-msg">{errors.phone}</span>}
-            </div>
-            <div className="jr-field">
-              <label className="jr-label">생년월일 <span className="jr-req">*</span></label>
-              <div className="jr-input-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <input className={`jr-input ${errors.birth ? 'error' : ''}`} placeholder="YYYY.MM.DD" value={form.birth}
-                  onChange={e => { update('birth', e.target.value); setErrors(p => ({ ...p, birth: '' })) }} />
-              </div>
-              {errors.birth && <span className="jr-error-msg">{errors.birth}</span>}
-            </div>
-          </div>
-          <div className="jr-row-1">
-            <div className="jr-field">
-              <label className="jr-label">거주지 <span className="jr-req">*</span></label>
-              <div className="jr-select-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <select className={`jr-select ${errors.region ? 'error' : ''}`} value={form.region}
-                  onChange={e => { update('region', e.target.value); setErrors(p => ({ ...p, region: '' })) }}>
-                  <option value="">거주지를 선택해주세요</option>
-                  {REGIONS.map(r => <option key={r} value={r}>{r}</option>)}
-                </select>
-              </div>
-              {errors.region && <span className="jr-error-msg">{errors.region}</span>}
-            </div>
-          </div>
-          <div className="jr-row-1">
-            <div className="jr-field">
-              <label className="jr-label">성별 <span className="jr-req">*</span></label>
-              <div className="jr-radio-group">
-                <label className={`jr-radio ${form.gender === '여' ? 'active' : ''}`}>
-                  <input type="radio" name="gender" checked={form.gender === '여'} onChange={() => update('gender', '여')} />
-                  <span>여성</span>
-                </label>
-                <label className={`jr-radio ${form.gender === '남' ? 'active' : ''}`}>
-                  <input type="radio" name="gender" checked={form.gender === '남'} onChange={() => update('gender', '남')} />
-                  <span>남성</span>
-                </label>
-              </div>
-            </div>
-          </div>
+      {/* ② 자격 및 경력 */}
+      <div className="jp-section">
+        <div className="jp-section-header">
+          <span className="jp-section-num">2</span>
+          <h3 className="jp-section-title">자격 및 경력</h3>
         </div>
-      )}
+        <div className="jp-section-body">
 
-      {/* Step 1: 자격 및 경력 */}
-      {activeStep === 1 && (
-        <div className="jr-section">
-          <h3 className="jr-section-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-            자격 및 경력
-          </h3>
-          <div className="jr-row-3">
-            <div className="jr-field">
-              <label className="jr-label">보유 자격증</label>
-              <div className="jr-select-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                <select className="jr-select" value={form.cert} onChange={e => update('cert', e.target.value)}>
-                  <option value="">보유 자격증을 선택해주세요</option>
-                  {CERTS.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-              </div>
-            </div>
-            <div className="jr-field">
-              <label className="jr-label">경력 여부</label>
-              <div className="jr-radio-group">
-                <label className={`jr-radio ${form.isNew ? 'active' : ''}`}>
-                  <input type="radio" name="exp" checked={form.isNew} onChange={() => update('isNew', true)} />
-                  <span>신입</span>
-                </label>
-                <label className={`jr-radio ${!form.isNew ? 'active' : ''}`}>
-                  <input type="radio" name="exp" checked={!form.isNew} onChange={() => update('isNew', false)} />
-                  <span>경력</span>
-                </label>
-              </div>
-            </div>
-            <div className="jr-field">
-              <label className="jr-label">경력 기간</label>
-              <div className="jr-input-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <input className="jr-input" placeholder="예) 3년 6개월" value={form.expPeriod}
-                  onChange={e => update('expPeriod', e.target.value)} disabled={form.isNew} />
-              </div>
+          <div className="jp-row">
+            <label className="jp-label">보유 자격증</label>
+            <select className="jp-select jp-select--md" value={form.cert} onChange={e => update('cert', e.target.value)}>
+              <option value="">자격증을 선택해주세요</option>
+              {CERTS.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+
+          <div className="jp-row">
+            <label className="jp-label">경력 여부</label>
+            <div className="jp-radio-group">
+              <label className="jp-radio">
+                <input type="radio" name="exp" checked={form.isNew} onChange={() => update('isNew', true)} />
+                신입
+              </label>
+              <label className="jp-radio">
+                <input type="radio" name="exp" checked={!form.isNew} onChange={() => update('isNew', false)} />
+                경력
+              </label>
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Step 2: 구직 희망 정보 */}
-      {activeStep === 2 && (
-        <div className="jr-section">
-          <h3 className="jr-section-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            구직 희망 정보
-          </h3>
-          <div className="jr-row-3">
-            <div className="jr-field">
-              <label className="jr-label">희망 근무 지역</label>
-              <div className="jr-select-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <select className="jr-select" value="" onChange={e => addWorkRegion(e.target.value)}>
-                  <option value="">근무 희망 지역을 선택해주세요</option>
-                  {REGIONS.filter(r => !form.workRegions.includes(r)).map(r => (
-                    <option key={r} value={r}>{r}</option>
-                  ))}
-                </select>
-              </div>
+          <div className="jp-row">
+            <label className="jp-label">경력 기간</label>
+            <input
+              className="jp-input jp-input--md"
+              placeholder="예) 3년 6개월"
+              value={form.expPeriod}
+              onChange={e => update('expPeriod', e.target.value)}
+              disabled={form.isNew}
+            />
+          </div>
+
+        </div>
+      </div>
+
+      {/* ③ 구직 희망 정보 */}
+      <div className="jp-section">
+        <div className="jp-section-header">
+          <span className="jp-section-num">3</span>
+          <h3 className="jp-section-title">구직 희망 정보</h3>
+        </div>
+        <div className="jp-section-body">
+
+          <div className="jp-row jp-row--top">
+            <label className="jp-label">희망 근무 지역</label>
+            <div className="jp-field-group--col">
+              <select className="jp-select jp-select--md" value="" onChange={e => addWorkRegion(e.target.value)}>
+                <option value="">지역 선택 (복수 가능)</option>
+                {REGIONS.filter(r => !form.workRegions.includes(r)).map(r => (
+                  <option key={r} value={r}>{r}</option>
+                ))}
+              </select>
               {form.workRegions.length > 0 && (
                 <div className="jr-region-tags">
                   {form.workRegions.map(r => (
@@ -280,84 +282,90 @@ export default function JrForm() {
                 </div>
               )}
             </div>
-            <div className="jr-field">
-              <label className="jr-label">희망 근무 형태</label>
-              <div className="jr-type-btns">
-                {WORK_TYPES.map(t => (
-                  <button key={t} type="button"
-                    className={`jr-type-btn ${form.workTypes.includes(t) ? 'active' : ''}`}
-                    onClick={() => toggleWorkType(t)}
-                  >{t}</button>
-                ))}
-              </div>
-            </div>
-            <div className="jr-field">
-              <label className="jr-label">희망 급여</label>
-              <div className="jr-select-wrap">
-                <svg className="jr-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                <select className="jr-select" value={form.salary} onChange={e => update('salary', e.target.value)}>
-                  <option value="">선택해주세요</option>
-                  {SALARIES.map(s => <option key={s} value={s}>{s}</option>)}
-                </select>
-              </div>
+          </div>
+
+          <div className="jp-row jp-row--top">
+            <label className="jp-label">희망 근무 형태</label>
+            <div className="jp-check-group jp-check-group--wrap">
+              {WORK_TYPES.map(t => (
+                <label key={t} className="jp-check">
+                  <input type="checkbox" checked={form.workTypes.includes(t)} onChange={() => toggleWorkType(t)} />
+                  {t}
+                </label>
+              ))}
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Step 3: 자기소개 + 첨부 서류 */}
-      {activeStep === 3 && (
-        <>
-          <div className="jr-section">
-            <h3 className="jr-section-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              자기소개
-            </h3>
-            <div className="jr-field">
-              <textarea className="jr-textarea" placeholder="자신을 간단히 소개해주세요. (경력, 장점, 희망 사항 등)"
-                value={form.intro} onChange={e => update('intro', e.target.value)} maxLength={500} />
+          <div className="jp-row">
+            <label className="jp-label">희망 급여</label>
+            <select className="jp-select jp-select--md" value={form.salary} onChange={e => update('salary', e.target.value)}>
+              <option value="">선택해주세요</option>
+              {SALARIES.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ④ 자기소개 */}
+      <div className="jp-section">
+        <div className="jp-section-header">
+          <span className="jp-section-num">4</span>
+          <h3 className="jp-section-title">자기소개 <span className="jp-optional">선택</span></h3>
+        </div>
+        <div className="jp-section-body">
+
+          <div className="jp-row jp-row--top">
+            <label className="jp-label">자기소개</label>
+            <div style={{ flex: 1, width: '100%' }}>
+              <textarea
+                className="jp-textarea"
+                style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
+                placeholder="자신을 간단히 소개해주세요. (경력, 장점, 희망 사항 등)"
+                value={form.intro}
+                onChange={e => update('intro', e.target.value)}
+                maxLength={500}
+                rows={5}
+              />
               <div className="jr-char-count">{form.intro.length} / 500</div>
             </div>
           </div>
-          <div className="jr-section">
-            <h3 className="jr-section-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-              첨부 서류 <span className="jr-opt">(선택)</span>
-            </h3>
-            <div className="jr-upload-area">
-              <div className="jr-upload-content">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/>
-                  <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
-                </svg>
-                <p className="jr-upload-text">이력서, 자격증 등 서류를 첨부해주세요.</p>
-                <p className="jr-upload-sub">(PDF, JPG, PNG, 최대 10MB)</p>
-              </div>
-              <label className="jr-upload-btn">
-                파일 선택
-                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style={{ display: 'none' }}
-                  onChange={e => setFileName(e.target.files[0]?.name || '')} />
-              </label>
-            </div>
-            {fileName && <p className="jr-file-name">선택된 파일: {fileName}</p>}
-          </div>
-        </>
-      )}
 
-      {/* 네비게이션 */}
-      {submitError && <p className="jr-submit-error" style={{ color: '#e74c3c', textAlign: 'right' }}>{submitError}</p>}
-      <div className="jr-submit-row">
-        {activeStep > 0 && (
-          <button type="button" className="jr-prev-btn" onClick={prev}>← 이전</button>
-        )}
-        {activeStep < STEPS.length - 1 ? (
-          <button type="button" className="jr-next-btn" onClick={next}>다음 단계 →</button>
-        ) : (
-          <button type="button" className="jr-submit-btn" onClick={handleSubmit} disabled={submitting}>
-            {submitting ? '등록 중...' : '구직 등록 완료'}
-          </button>
-        )}
+          <div className="jp-row jp-row--top">
+            <label className="jp-label">첨부 서류</label>
+            <div style={{ flex: 1, width: '100%' }}>
+              <div className="jr-upload-area">
+                <div className="jr-upload-content">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A8FE7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/>
+                    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+                  </svg>
+                  <div>
+                    <p className="jr-upload-text">이력서, 자격증 등 서류를 첨부해주세요.</p>
+                    <p className="jr-upload-sub">(PDF, JPG, PNG, 최대 10MB)</p>
+                  </div>
+                </div>
+                <label className="jr-upload-btn">
+                  파일 선택
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" style={{ display: 'none' }}
+                    onChange={e => setFileName(e.target.files[0]?.name || '')} />
+                </label>
+              </div>
+              {fileName && <p className="jr-file-name">선택된 파일: {fileName}</p>}
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
+
+      {submitError && <p style={{ color: '#e74c3c', textAlign: 'right', marginTop: 8 }}>{submitError}</p>}
+
+      <div className="jp-actions">
+        <Link to="/jobs" className="jp-btn jp-btn--cancel">취소</Link>
+        <button type="submit" className="jp-btn jp-btn--submit" disabled={submitting}>
+          {submitting ? '등록 중...' : '구직 등록하기'}
+        </button>
+      </div>
+    </form>
   )
 }

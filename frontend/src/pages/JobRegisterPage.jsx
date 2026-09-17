@@ -1,3 +1,4 @@
+import './JobPostPage.css'
 import './JobRegisterPage.css'
 import HomeNav from './home/HomeNav'
 import JrHero from './jobregister/JrHero'

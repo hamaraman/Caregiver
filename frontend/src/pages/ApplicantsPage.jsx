@@ -61,7 +61,6 @@ export default function ApplicantsPage() {
   return (
     <>
       <HomeNav />
-      <AuthGuard require="business">
       <div className="ap-page">
         <div className="container">
           <div className="ap-top">
@@ -197,7 +196,6 @@ export default function ApplicantsPage() {
           )}
         </div>
       </div>
-      </AuthGuard>
 
       {/* 이력서 모달 */}
       {modalApp && (

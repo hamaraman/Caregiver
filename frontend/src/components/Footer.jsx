@@ -13,7 +13,7 @@ export default function Footer() {
         <span>·</span>
         <Link to="/support?tab=faq">FAQ</Link>
         <span>·</span>
-        <Link to="/support">고객센터</Link>
+        <Link to="/support?tab=contact">고객센터</Link>
       </div>
       <p className="footer-copy">© 2026 요양이지. All rights reserved.</p>
     </footer>

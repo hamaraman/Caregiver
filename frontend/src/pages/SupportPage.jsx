@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import { NOTICES } from '../data/notices'
@@ -37,6 +37,11 @@ export default function SupportPage() {
   const [searchParams] = useSearchParams()
   const initialTab = searchParams.get('tab')
   const [tab, setTab] = useState(VALID_TABS.includes(initialTab) ? initialTab : 'notice')
+  useEffect(() => {
+    const t = searchParams.get('tab')
+    if (VALID_TABS.includes(t)) setTab(t)
+  }, [searchParams])
+
   const [openFaq, setOpenFaq] = useState(null)
   const [form, setForm] = useState({ name: '', email: '', category: '', message: '' })
   const [submitted, setSubmitted] = useState(false)

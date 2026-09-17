@@ -112,6 +112,9 @@ npm run dev
 
 ## 작업 로그
 
+### 2026-09-17 (5)
+- 새 로고 이미지로 안드로이드 앱 아이콘 교체: mipmap-mdpi~xxxhdpi에 `ic_launcher`/`ic_launcher_round` 추가, `AndroidManifest.xml`의 `android:icon`/`android:roundIcon`을 기존 시스템 기본 아이콘(`@android:drawable/sym_def_app_icon`)에서 교체
+
 ### 2026-09-17 (4)
 - 안드로이드 `DetailScreenActivity` 지도 WebView 설정 보강: `domStorageEnabled`, `mixedContentMode` 누락되어 있던 것 추가 (`MainActivity`의 WebView 설정과 통일), `WebChromeClient.onConsoleMessage`로 지도 SDK JS 콘솔 에러를 `adb logcat -s KakaoMapWebView`로 바로 확인 가능하도록 추가
 

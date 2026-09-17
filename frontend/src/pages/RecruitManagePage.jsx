@@ -1,53 +1,35 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import { fetchMyJobs, fetchApplicantsForJob, closeJob as closeJobApi, reopenJob as reopenJobApi } from '../api'
 import './RecruitManagePage.css'
+
+const MOCK_JOBS = [
+  { id: 1, type: '요양보호사 (주간)', location: '서울 강남구', facility: '강남재가복지센터', pay: '시급 14,000원', time: '09:00~18:00', workType: '주 5일', date: '2026-09-01', closed: false },
+  { id: 2, type: '요양보호사 (주간)', location: '부산 해운대구', facility: '해운대복지관', pay: '시급 13,000원', time: '09:00~18:00', workType: '주 5일', date: '2026-09-03', closed: false },
+  { id: 3, type: '요양보호사 (야간)', location: '대전 서구', facility: '대전요양원', pay: '시급 15,000원', time: '18:00~09:00', workType: '주 3일', date: '2026-08-20', closed: true },
+  { id: 4, type: '요양보호사 (주간)', location: '서울 서초구', facility: '서초복지센터', pay: '시급 13,500원', time: '08:00~17:00', workType: '주 5일', date: '2026-09-10', closed: false },
+]
+
+const MOCK_APPLICANTS = { 1: 4, 2: 3, 3: 2, 4: 0 }
 
 export default function RecruitManagePage() {
   const navigate = useNavigate()
-  const [myJobs, setMyJobs] = useState([])
-  const [applicantsByJob, setApplicantsByJob] = useState({})
-  const [loading, setLoading] = useState(true)
+  const [myJobs, setMyJobs] = useState(MOCK_JOBS)
   const [confirmJobId, setConfirmJobId] = useState(null)
   const [filter, setFilter] = useState('all')
 
-  useEffect(() => {
-    fetchMyJobs()
-      .then(async jobs => {
-        setMyJobs(jobs)
-        const entries = await Promise.all(
-          jobs.map(job => fetchApplicantsForJob(job.id).then(list => [job.id, list]).catch(() => [job.id, []]))
-        )
-        setApplicantsByJob(Object.fromEntries(entries))
-      })
-      .catch(() => setMyJobs([]))
-      .finally(() => setLoading(false))
-  }, [])
-
   const isClosed = (id) => myJobs.find(j => j.id === id)?.closed ?? false
 
-  const closeJob = async (id) => {
-    try {
-      const updated = await closeJobApi(id)
-      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
-    } catch (err) {
-      alert(err.message || '마감 처리에 실패했습니다.')
-    } finally {
-      setConfirmJobId(null)
-    }
+  const closeJob = (id) => {
+    setMyJobs(prev => prev.map(j => j.id === id ? { ...j, closed: true } : j))
+    setConfirmJobId(null)
   }
 
-  const reopenJob = async (id) => {
-    try {
-      const updated = await reopenJobApi(id)
-      setMyJobs(prev => prev.map(j => j.id === id ? updated : j))
-    } catch (err) {
-      alert(err.message || '재개 처리에 실패했습니다.')
-    }
+  const reopenJob = (id) => {
+    setMyJobs(prev => prev.map(j => j.id === id ? { ...j, closed: false } : j))
   }
 
-  const countApplicants = (jobId) => (applicantsByJob[jobId] || []).length
+  const countApplicants = (jobId) => MOCK_APPLICANTS[jobId] ?? 0
 
   const filteredJobs = myJobs.filter((job) => {
     if (filter === 'active') return !isClosed(job.id)
@@ -57,12 +39,12 @@ export default function RecruitManagePage() {
 
   const activeCount = myJobs.filter((j) => !isClosed(j.id)).length
   const closedCount = myJobs.filter((j) => isClosed(j.id)).length
-  const totalApplicants = Object.values(applicantsByJob).flat().length
+  const totalApplicants = Object.values(MOCK_APPLICANTS).reduce((a, b) => a + b, 0)
 
   const filterCards = [
-    { key: 'all',    label: '전체',   val: myJobs.length,     unit: '개', mod: '',          valMod: '' },
-    { key: 'active', label: '진행중', val: activeCount,       unit: '개', mod: '--active',   valMod: '--active' },
-    { key: 'closed', label: '마감',   val: closedCount,       unit: '개', mod: '--closed',   valMod: '' },
+    { key: 'all',    label: '전체',   val: myJobs.length, unit: '개', mod: '',          valMod: '' },
+    { key: 'active', label: '진행중', val: activeCount,   unit: '개', mod: '--active',   valMod: '--active' },
+    { key: 'closed', label: '마감',   val: closedCount,   unit: '개', mod: '--closed',   valMod: '' },
   ]
 
   return (
@@ -108,8 +90,7 @@ export default function RecruitManagePage() {
 
           {/* 공고 목록 */}
           <div className="rm-list">
-            {loading && <div className="rm-empty">불러오는 중입니다...</div>}
-            {!loading && filteredJobs.length === 0 && (
+            {filteredJobs.length === 0 && (
               <div className="rm-empty">
                 {filter === 'closed' ? '마감된 공고가 없습니다.' : '공고가 없습니다.'}
               </div>
@@ -140,7 +121,7 @@ export default function RecruitManagePage() {
                     </div>
 
                     <div className="rm-card-right">
-                      <Link to={`/applicants`} className="rm-applicant-btn">
+                      <Link to={`/applicants`} className="rm-applicant-btn" onClick={e => e.stopPropagation()}>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                           <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/>
                           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>

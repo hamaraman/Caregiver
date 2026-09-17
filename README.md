@@ -163,3 +163,4 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ### 2026-09-17
 - `/applicants`(지원자 확인), `/manage`(채용 관리) 페이지에서 `AuthGuard`를 임시 제거 — 구조 확인 및 디버깅 목적
+- 두 페이지에 mock 데이터 주입: 공고 4개(서울·부산·대전), 지원자 9명(이력서 포함) — 로그인 없이 UI 확인 가능

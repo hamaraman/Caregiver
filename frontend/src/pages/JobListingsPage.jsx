@@ -54,6 +54,7 @@ export default function JobListingsPage() {
   const [panelDo, setPanelDo] = useState('')
   const [selectedJobType, setSelectedJobType] = useState('전체')
   const [selectedShift, setSelectedShift] = useState('전체')
+  const [onlyMine, setOnlyMine] = useState(false)
   const [keyword, setKeyword] = useState('')
   const [sort, setSort] = useState('최신순')
   const [page, setPage] = useState(1)
@@ -88,7 +89,7 @@ export default function JobListingsPage() {
   }
 
   const removeRegion = (key) => setSelectedRegions(prev => prev.filter(r => r !== key))
-  const clearAll = () => { setSelectedRegions([]); setPanelDo(''); setSelectedJobType('전체'); setSelectedShift('전체'); setKeyword('') }
+  const clearAll = () => { setSelectedRegions([]); setPanelDo(''); setSelectedJobType('전체'); setSelectedShift('전체'); setKeyword(''); setOnlyMine(false) }
 
   const siList = panelDo ? regionTree[panelDo] || [] : []
 
@@ -104,17 +105,18 @@ export default function JobListingsPage() {
     .filter(j => selectedJobType === '전체' || j.type.includes(selectedJobType))
     .filter(j => selectedShift === '전체' || j.shift === selectedShift)
     .filter(j => !keyword || j.type.includes(keyword) || j.location.includes(keyword) || j.facility.includes(keyword))
+    .filter(j => !onlyMine || (user && j.ownerId === user.id))
     .sort((a, b) => sort === '임금높은순'
       ? parseInt(b.pay.replace(/[^0-9]/g, '')) - parseInt(a.pay.replace(/[^0-9]/g, ''))
       : a.id - b.id
     )
 
-  useEffect(() => { setPage(1) }, [selectedRegions, selectedJobType, selectedShift, keyword, sort])
+  useEffect(() => { setPage(1) }, [selectedRegions, selectedJobType, selectedShift, keyword, sort, onlyMine])
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
 
-  const activeFilterCount = selectedRegions.length + (selectedJobType !== '전체' ? 1 : 0) + (selectedShift !== '전체' ? 1 : 0)
+  const activeFilterCount = selectedRegions.length + (selectedJobType !== '전체' ? 1 : 0) + (selectedShift !== '전체' ? 1 : 0) + (onlyMine ? 1 : 0)
 
   return (
     <>
@@ -297,6 +299,23 @@ export default function JobListingsPage() {
                   ))}
                 </div>
               </div>
+
+              {/* 내 공고만 보기 */}
+              {user?.userType === 'BUSINESS' && (
+                <div className="jl2-filter-section">
+                  <label className="jl2-mine-toggle">
+                    <span className="jl2-filter-sec-title" style={{ margin: 0 }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                      </svg>
+                      내 공고만 보기
+                    </span>
+                    <div className={`jl2-toggle-switch${onlyMine ? ' on' : ''}`} onClick={() => setOnlyMine(v => !v)}>
+                      <div className="jl2-toggle-knob" />
+                    </div>
+                  </label>
+                </div>
+              )}
 
               <button className="jl2-filter-search-btn" onClick={() => { setPage(1); setFilterOpen(false) }}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

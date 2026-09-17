@@ -215,6 +215,14 @@
 .hwm-memo:focus { border-color: #4A8FE7; }
 .hwm-memo::placeholder { color: #ccc; }
 
+.hwm-error {
+  margin: 0;
+  padding: 8px 22px 0;
+  color: #e64545;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 /* 푸터 */
 .hwm-footer {
   padding: 14px 22px;
@@ -222,6 +230,12 @@
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.hwm-footer-save:disabled,
+.hwm-footer-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .hwm-footer-close,

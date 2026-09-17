@@ -1,9 +1,8 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import HomeNav from './home/HomeNav'
 import ApplicantModal, { StatusDropdown } from '../components/ApplicantModal'
-import { updateApplicationStatus } from '../api'
-import { MOCK_JOBS, MOCK_APPLICANTS, MOCK_RESUMES } from '../data/mockManage'
+import { fetchJobRaw, fetchApplicantsForJob, fetchApplicantResume, updateApplicationStatus } from '../api'
 import './RecruitDetailPage.css'
 
 export default function ApplicantDetailPage() {
@@ -11,18 +10,51 @@ export default function ApplicantDetailPage() {
   const navigate = useNavigate()
   const jobId = Number(id)
 
-  const job = MOCK_JOBS.find(j => j.id === jobId) ?? null
-  const [applications, setApplications] = useState(
-    (MOCK_APPLICANTS[jobId] || []).map(a => ({ ...a, talent: MOCK_RESUMES[a.applicantId] ?? {} }))
-  )
+  const [job, setJob] = useState(undefined)
+  const [applications, setApplications] = useState([])
+  const [resumesByApplicant, setResumesByApplicant] = useState({})
   const [selectedAppId, setSelectedAppId] = useState(null)
 
+  useEffect(() => {
+    fetchJobRaw(jobId).then(setJob).catch(() => setJob(null))
+    fetchApplicantsForJob(jobId).then(setApplications).catch(() => setApplications([]))
+  }, [jobId])
+
+  useEffect(() => {
+    applications.forEach(a => {
+      if (resumesByApplicant[a.applicantId] !== undefined) return
+      fetchApplicantResume(a.applicantId).then(resume =>
+        setResumesByApplicant(prev => ({ ...prev, [a.applicantId]: resume }))
+      )
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [applications])
+
+  const applicantsWithTalent = applications.map(a => ({ ...a, talent: resumesByApplicant[a.applicantId] ?? {} }))
+
   const updateStatus = (appId, newStatus) => {
+    const prevApplications = applications
     setApplications(prev => prev.map(a => a.id === appId ? { ...a, status: newStatus } : a))
-    updateApplicationStatus(appId, newStatus).catch(() => {})
+    updateApplicationStatus(appId, newStatus).catch(() => {
+      alert('상태 변경에 실패했습니다.')
+      setApplications(prevApplications)
+    })
   }
 
-  const selectedApp = applications.find(a => a.id === selectedAppId) ?? null
+  const selectedApp = applicantsWithTalent.find(a => a.id === selectedAppId) ?? null
+
+  if (job === undefined) {
+    return (
+      <>
+        <HomeNav />
+        <div className="rd-page">
+          <div className="container">
+            <p className="rd-not-found">불러오는 중입니다...</p>
+          </div>
+        </div>
+      </>
+    )
+  }
 
   if (!job) {
     return (
@@ -119,10 +151,10 @@ export default function ApplicantDetailPage() {
           <section className="rd-section">
             <h2 className="rd-section-title">
               전체 지원자
-              <span className="rd-applicant-count">{applications.length}명</span>
+              <span className="rd-applicant-count">{applicantsWithTalent.length}명</span>
             </h2>
 
-            {applications.length === 0 ? (
+            {applicantsWithTalent.length === 0 ? (
               <div className="rd-empty">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ddd" strokeWidth="1.5">
                   <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" strokeLinecap="round"/>
@@ -131,7 +163,7 @@ export default function ApplicantDetailPage() {
               </div>
             ) : (
               <div className="rd-applicant-grid">
-                {applications.map(a => {
+                {applicantsWithTalent.map(a => {
                   const t = a.talent
                   return (
                     <div

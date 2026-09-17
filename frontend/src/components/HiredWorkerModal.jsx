@@ -1,25 +1,45 @@
 import { useState, useEffect } from 'react'
+import { updateHiredTerms } from '../api'
 import './HiredWorkerModal.css'
 
-export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose }) {
+function initialTerms(app, job, t) {
+  return {
+    startDate: app.hiredStartDate || '협의 예정',
+    days: app.hiredDays || job.days || '',
+    hours: app.hiredHours || job.hours || '',
+    workType: app.hiredWorkType || (t.workTypes || []).join(', ') || '',
+    wage: app.hiredWage || job.wage || '',
+    employForm: app.hiredEmployForm || job.employForm || '',
+  }
+}
+
+export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose, onTermsSaved }) {
   const t = app.talent
 
   const [isEditing, setIsEditing] = useState(false)
-  const [saved, setSaved] = useState({
-    startDate: '협의 예정',
-    days: job.days || '',
-    hours: job.hours || '',
-    workType: (t.workTypes || []).join(', ') || '',
-    wage: job.wage || '',
-    employForm: job.employForm || '',
-  })
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState(null)
+  const [saved, setSaved] = useState(() => initialTerms(app, job, t))
   const [draft, setDraft] = useState(saved)
 
   const set = (key) => (e) => setDraft(prev => ({ ...prev, [key]: e.target.value }))
 
-  const startEdit = () => { setDraft(saved); setIsEditing(true) }
-  const save = () => { setSaved(draft); setIsEditing(false) }
-  const cancel = () => setIsEditing(false)
+  const startEdit = () => { setDraft(saved); setError(null); setIsEditing(true) }
+  const save = async () => {
+    setSaving(true)
+    setError(null)
+    try {
+      const updated = await updateHiredTerms(app.id, draft)
+      setSaved(draft)
+      setIsEditing(false)
+      onTermsSaved?.(updated)
+    } catch (e) {
+      setError(e.message || '저장에 실패했습니다.')
+    } finally {
+      setSaving(false)
+    }
+  }
+  const cancel = () => { setIsEditing(false); setError(null) }
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -151,11 +171,12 @@ export default function HiredWorkerModal({ app, job, memo, onMemoChange, onClose
         </div>
 
         {/* 푸터 */}
+        {error && <p className="hwm-error">{error}</p>}
         <div className="hwm-footer">
           {isEditing ? (
             <>
-              <button className="hwm-footer-cancel" onClick={cancel}>취소</button>
-              <button className="hwm-footer-save" onClick={save}>저장</button>
+              <button className="hwm-footer-cancel" onClick={cancel} disabled={saving}>취소</button>
+              <button className="hwm-footer-save" onClick={save} disabled={saving}>{saving ? '저장 중...' : '저장'}</button>
             </>
           ) : (
             <>

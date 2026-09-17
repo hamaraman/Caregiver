@@ -11,6 +11,12 @@ public class JobApplicationResponse {
     private final String applicantEmail;
     private final String status;
     private final String appliedAt;
+    private final String hiredStartDate;
+    private final String hiredDays;
+    private final String hiredHours;
+    private final String hiredWorkType;
+    private final String hiredWage;
+    private final String hiredEmployForm;
 
     public JobApplicationResponse(JobApplication application, User applicant) {
         this.id = application.getId();
@@ -20,6 +26,12 @@ public class JobApplicationResponse {
         this.applicantEmail = applicant != null ? applicant.getEmail() : null;
         this.status = application.getStatus();
         this.appliedAt = application.getAppliedAt();
+        this.hiredStartDate = application.getHiredStartDate();
+        this.hiredDays = application.getHiredDays();
+        this.hiredHours = application.getHiredHours();
+        this.hiredWorkType = application.getHiredWorkType();
+        this.hiredWage = application.getHiredWage();
+        this.hiredEmployForm = application.getHiredEmployForm();
     }
 
     public Long getId() {
@@ -48,5 +60,29 @@ public class JobApplicationResponse {
 
     public String getAppliedAt() {
         return appliedAt;
+    }
+
+    public String getHiredStartDate() {
+        return hiredStartDate;
+    }
+
+    public String getHiredDays() {
+        return hiredDays;
+    }
+
+    public String getHiredHours() {
+        return hiredHours;
+    }
+
+    public String getHiredWorkType() {
+        return hiredWorkType;
+    }
+
+    public String getHiredWage() {
+        return hiredWage;
+    }
+
+    public String getHiredEmployForm() {
+        return hiredEmployForm;
     }
 }

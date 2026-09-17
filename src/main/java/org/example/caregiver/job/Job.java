@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.example.caregiver.auth.User;
 import org.example.caregiver.model.Region;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "jobs")
@@ -37,6 +39,7 @@ public class Job {
     private Boolean daysNegotiable;
 
     @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @CollectionTable(name = "job_weekdays", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "weekday")
     private List<String> weekdays = new ArrayList<>();
@@ -47,11 +50,13 @@ public class Job {
     private String careGrade;
 
     @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @CollectionTable(name = "job_care_conditions", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "care_condition_item")
     private List<String> careCondition = new ArrayList<>();
 
     @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @CollectionTable(name = "job_care_works", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "care_work_item")
     private List<String> careWork = new ArrayList<>();
@@ -61,6 +66,7 @@ public class Job {
     private String postDetail;
 
     @ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @CollectionTable(name = "job_apply_methods", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "apply_method_item")
     private List<String> applyMethod = new ArrayList<>();

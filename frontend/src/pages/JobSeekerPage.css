@@ -976,8 +976,17 @@
 
 @media (max-width: 768px) {
   .jsp-hero-photo { display: none; }
+  .jsp-hero { padding: 36px 0 0; }
   .jsp-hero-inner { padding: 0 16px; }
   .jsp-hero-text { min-width: 0; padding-bottom: 24px; }
+  .jsp-hero-title { font-size: 26px; letter-spacing: -0.5px; margin-bottom: 12px; }
+  .jsp-hero-eyebrow { font-size: 12px; margin-bottom: 8px; }
+  .jsp-hero-desc { font-size: 13px; margin-bottom: 20px; }
+
+  .jsp-cta-inner { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+  .jsp-cta-title { font-size: 17px; }
+  .jsp-cta-eyebrow { font-size: 12px; }
+  .jsp-cta-btn { margin-left: 0; width: 100%; justify-content: center; }
   .jsp-region-chips { margin: 12px -16px 0; padding: 0 16px 2px; width: auto; }
   .jsp-chip { white-space: nowrap; flex-shrink: 0; }
   .jsp-table thead { display: none; }

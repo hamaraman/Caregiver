@@ -161,9 +161,9 @@ export default function LoginPage() {
           </form>
 
           <div className="lp-links">
-            <Link to="/support" className="lp-link-btn">아이디 찾기</Link>
+            <Link to="/find-id" className="lp-link-btn">아이디 찾기</Link>
             <span className="lp-link-divider">|</span>
-            <Link to="/support" className="lp-link-btn">비밀번호 찾기</Link>
+            <Link to="/find-password" className="lp-link-btn">비밀번호 찾기</Link>
           </div>
 
           <div className="lp-signup">

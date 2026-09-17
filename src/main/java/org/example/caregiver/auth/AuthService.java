@@ -59,6 +59,45 @@ public class AuthService {
         return user;
     }
 
+    public String findId(FindIdRequest req) {
+        String name = req.getName() == null ? null : req.getName().trim();
+        String phone = req.getPhone() == null ? null : req.getPhone().trim();
+        if (name == null || name.isEmpty() || phone == null || phone.isEmpty()) {
+            throw new AuthException("이름과 휴대폰 번호를 입력해주세요.");
+        }
+        User user = userRepository.findByNameAndPhone(name, phone)
+                .orElseThrow(() -> new AuthException("일치하는 회원 정보를 찾을 수 없습니다."));
+        return maskEmail(user.getEmail());
+    }
+
+    public void resetPassword(ResetPasswordRequest req) {
+        String email = req.getEmail() == null ? null : req.getEmail().trim().toLowerCase();
+        String name = req.getName() == null ? null : req.getName().trim();
+        String newPw = req.getNewPassword();
+        if (email == null || email.isEmpty() || name == null || name.isEmpty()
+                || newPw == null || newPw.isEmpty()) {
+            throw new AuthException("모든 항목을 입력해주세요.");
+        }
+        if (newPw.length() < 8) {
+            throw new AuthException("비밀번호는 8자 이상이어야 합니다.");
+        }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new AuthException("일치하는 회원 정보를 찾을 수 없습니다."));
+        if (!name.equals(user.getName())) {
+            throw new AuthException("일치하는 회원 정보를 찾을 수 없습니다.");
+        }
+        user.setPasswordHash(passwordEncoder.encode(newPw));
+        userRepository.save(user);
+    }
+
+    private String maskEmail(String email) {
+        int at = email.indexOf('@');
+        if (at <= 0) return email;
+        String local = email.substring(0, at);
+        int visibleLen = Math.min(2, local.length());
+        return local.substring(0, visibleLen) + "***" + email.substring(at);
+    }
+
     public Optional<User> currentUser(HttpServletRequest httpRequest) {
         HttpSession session = httpRequest.getSession(false);
         Long userId = session == null ? null : (Long) session.getAttribute(SESSION_USER_ID);

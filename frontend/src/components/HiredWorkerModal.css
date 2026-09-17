@@ -297,5 +297,5 @@
 @media (max-width: 520px) {
   .hwm-modal { border-radius: 16px 16px 0 0; align-self: flex-end; max-height: 92vh; }
   .hwm-overlay { align-items: flex-end; padding: 0; }
-  .hwm-grid { grid-template-columns: 1fr; }
+  .hwm-grid { grid-template-columns: 1fr 1fr; }
 }

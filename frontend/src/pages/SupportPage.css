@@ -91,6 +91,7 @@
 .sp-notice-row {
   border-bottom: 1px solid #f0f2f7;
   transition: background 0.1s;
+  cursor: pointer;
 }
 .sp-notice-row:last-child { border-bottom: none; }
 .sp-notice-row:hover { background: #f8fbff; }

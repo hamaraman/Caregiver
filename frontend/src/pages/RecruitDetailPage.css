@@ -618,5 +618,5 @@
 @media (max-width: 600px) {
   .rd-applicant-grid { grid-template-columns: 1fr; }
   .rd-care-row { flex-direction: column; gap: 16px; }
-  .rd-job-header { flex-direction: column; }
+  .rd-job-title-row { flex: 1; }
 }

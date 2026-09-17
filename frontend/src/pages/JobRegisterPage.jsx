@@ -7,9 +7,10 @@ import AuthGuard from '../components/AuthGuard'
 
 export default function JobRegisterPage() {
   return (
-    <AuthGuard>
+    <>
+      <HomeNav />
+      <AuthGuard>
       <div className="jr-root">
-        <HomeNav />
         <JrHero />
         <div className="jr-body">
           <div className="jr-body-inner">
@@ -18,6 +19,7 @@ export default function JobRegisterPage() {
           </div>
         </div>
       </div>
-    </AuthGuard>
+      </AuthGuard>
+    </>
   )
 }

@@ -28,6 +28,20 @@ function tryParseJson(text) {
   }
 }
 
+export function findId({ name, phone }) {
+  return request('/api/auth/find-id', {
+    method: 'POST',
+    body: JSON.stringify({ name, phone }),
+  })
+}
+
+export function resetPassword({ email, name, newPassword }) {
+  return request('/api/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ email, name, newPassword }),
+  })
+}
+
 export function register({ email, password, name, userType, phone, companyName, businessNumber }) {
   return request('/api/auth/register', {
     method: 'POST',

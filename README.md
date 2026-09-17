@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-17 (8)
+- 푸터 고객센터 링크를 `/support?tab=contact`(1:1 문의 탭)으로 수정
+
 ### 2026-09-17 (7)
 - 푸터 FAQ 클릭 시 고객센터 FAQ 탭으로 이동: SupportPage가 searchParams 변화를 감지하지 못하던 문제를 useEffect로 수정
 

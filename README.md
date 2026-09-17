@@ -112,6 +112,9 @@ npm run dev
 
 ## 작업 로그
 
+### 2026-09-17 (3)
+- 안드로이드 `DetailScreenActivity`에 카카오맵 추가: `WebView`에 카카오맵 JS SDK를 담은 HTML을 `loadDataWithBaseURL`로 로드, 주소를 지오코딩해 마커 표시. 웹(`frontend`)에서 쓰던 것과 같은 앱키 사용. baseUrl은 그 키에 플랫폼 도메인으로 등록된 실제 배포 주소(`https://161.33.154.237.nip.io`)로 지정해야 SDK 도메인 검사를 통과함. 화면에 넘어오는 실제 주소 연동은 다음 단계(현재는 기본값 주소로 동작 확인)
+
 ### 2026-09-17 (2)
 - 안드로이드 4개 화면(홈/상세/찜/마이페이지) 공통 디자인 기반 작업: `colors.xml`/`dimens.xml` 신규 추가, `themes.xml`을 Theme.MaterialComponents로 전환해 공통 색상 참조, 공통 `MaterialToolbar`(`toolbar_common.xml`) + `BaseScreenActivity`(제목·뒤로가기 공통 처리)로 4개 화면 툴바 통일. 실제 콘텐츠는 아직 자리표시자 상태(다음 단계에서 데이터 연동 예정)
 - 안드로이드 리소스 파일명 오류 수정: `android-icon-*.png`, `splash-icon.png`에 하이픈이 들어가 있어 `mergeDebugResources`가 실패하던 문제 → `android_icon_*.png`, `splash_icon.png`로 변경 (Android 리소스 파일명은 소문자/숫자/언더스코어만 허용)

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import AuthGuard from '../components/AuthGuard'
 import { fetchMyJobs, fetchApplicantsForJob, closeJob as closeJobApi, reopenJob as reopenJobApi } from '../api'
 import './RecruitManagePage.css'
 
@@ -69,7 +68,6 @@ export default function RecruitManagePage() {
   return (
     <>
       <HomeNav />
-      <AuthGuard require="business">
       <div className="rm-page">
         <div className="container">
           <div className="rm-top">
@@ -180,7 +178,6 @@ export default function RecruitManagePage() {
           </div>
         </div>
       </div>
-      </AuthGuard>
     </>
   )
 }

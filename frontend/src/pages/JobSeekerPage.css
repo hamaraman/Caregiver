@@ -1018,5 +1018,6 @@
   }
   .jsp-table td:last-child { justify-content: flex-end; }
   .jsp-table td:last-child::before { display: none; }
+  .jsp-table tbody tr:only-child td[colspan] { justify-content: center; }
   .jsp-pay { color: #4A8FE7 !important; font-weight: 700; }
 }

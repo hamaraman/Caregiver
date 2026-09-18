@@ -50,7 +50,13 @@ export default function AuthGuard({ require: requiredType, children }) {
     )
   }
 
-  if (requiredType === 'business' && user.userType !== 'business') {
+  const deniedLabels = {
+    business: { title: '사업자 계정이 필요합니다', desc: '이 페이지는 구인자(사업주) 계정만 이용할 수 있습니다.' },
+    admin: { title: '관리자 계정이 필요합니다', desc: '이 페이지는 관리자 계정만 이용할 수 있습니다.' },
+  }
+
+  if (requiredType && user.userType !== requiredType) {
+    const label = deniedLabels[requiredType] || deniedLabels.business
     return (
       <div className="ag-block">
         <div className="ag-card">
@@ -62,10 +68,10 @@ export default function AuthGuard({ require: requiredType, children }) {
               <line x1="22" y1="11" x2="16" y2="11" stroke="#f97316" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
-          <h2 className="ag-title">사업자 계정이 필요합니다</h2>
+          <h2 className="ag-title">{label.title}</h2>
           <p className="ag-desc">
-            이 페이지는 구인자(사업주) 계정만 이용할 수 있습니다.<br />
-            사업자 계정으로 다시 로그인해주세요.
+            {label.desc}<br />
+            다른 계정으로 다시 로그인해주세요.
           </p>
           <div className="ag-actions">
             <button

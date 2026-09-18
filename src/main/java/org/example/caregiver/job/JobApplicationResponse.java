@@ -9,6 +9,7 @@ public class JobApplicationResponse {
     private final Long applicantId;
     private final String applicantName;
     private final String applicantEmail;
+    private final String jobTitle;
     private final String status;
     private final String appliedAt;
     private final String hiredStartDate;
@@ -19,11 +20,16 @@ public class JobApplicationResponse {
     private final String hiredEmployForm;
 
     public JobApplicationResponse(JobApplication application, User applicant) {
+        this(application, applicant, null);
+    }
+
+    public JobApplicationResponse(JobApplication application, User applicant, Job job) {
         this.id = application.getId();
         this.jobId = application.getJobId();
         this.applicantId = application.getApplicantId();
         this.applicantName = applicant != null ? applicant.getName() : null;
         this.applicantEmail = applicant != null ? applicant.getEmail() : null;
+        this.jobTitle = job != null ? job.getPostTitle() : null;
         this.status = application.getStatus();
         this.appliedAt = application.getAppliedAt();
         this.hiredStartDate = application.getHiredStartDate();
@@ -52,6 +58,10 @@ public class JobApplicationResponse {
 
     public String getApplicantEmail() {
         return applicantEmail;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
     }
 
     public String getStatus() {

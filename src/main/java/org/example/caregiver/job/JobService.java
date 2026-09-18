@@ -87,6 +87,18 @@ public class JobService {
         return toResponses(jobRepository.findByOwnerIdOrderByIdDesc(ownerId), ownerId);
     }
 
+    /** 관리자 화면용 - 마감 여부와 무관하게 전체 공고를 반환한다. */
+    public List<JobResponse> getAllJobsForAdmin() {
+        return toResponses(jobRepository.findAllByOrderByIdDesc(), null);
+    }
+
+    public void deleteJob(Long jobId) {
+        if (!jobRepository.existsById(jobId)) {
+            throw new JobException("존재하지 않는 공고입니다.");
+        }
+        jobRepository.deleteById(jobId);
+    }
+
     /** 마감 여부와 무관하게 내가 찜한 공고를 전부 반환한다 (찜 목록은 검색 결과가 아니라 저장 목록이므로). */
     public List<JobResponse> getLikedJobs(Long userId) {
         List<Long> likedJobIds = jobLikeRepository.likedJobIdsForUser(userId);

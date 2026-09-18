@@ -22,6 +22,7 @@ import MyApplicationsPage from './pages/MyApplicationsPage'
 import RecentJobsPage from './pages/RecentJobsPage'
 import WishlistPage from './pages/WishlistPage'
 import SupportPage from './pages/SupportPage'
+import AdminPage from './pages/AdminPage'
 import ScrollToTop from './components/ScrollToTop'
 import Footer from './components/Footer'
 import './App.css'
@@ -53,6 +54,7 @@ function App() {
         <Route path="/recent-jobs" element={<RecentJobsPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/support" element={<SupportPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />

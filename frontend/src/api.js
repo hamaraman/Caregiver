@@ -282,3 +282,27 @@ export async function fetchJobSeeker(id) {
   const profile = await request(`/api/resumes/public/${id}`).catch(() => null)
   return profile ? normalizeJobSeeker(profile) : null
 }
+
+export function fetchAdminStats() {
+  return request('/api/admin/stats')
+}
+
+export function fetchAdminUsers() {
+  return request('/api/admin/users')
+}
+
+export function deleteAdminUser(id) {
+  return request(`/api/admin/users/${id}`, { method: 'DELETE' })
+}
+
+export function fetchAdminJobs() {
+  return request('/api/admin/jobs')
+}
+
+export function deleteAdminJob(id) {
+  return request(`/api/admin/jobs/${id}`, { method: 'DELETE' })
+}
+
+export function fetchAdminApplications() {
+  return request('/api/admin/applications')
+}

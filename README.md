@@ -278,3 +278,10 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 공유 mock 데이터 파일(`src/data/mockManage.js`) 추가
 - 오라클 서버 백엔드가 `nohup`으로만 떠 있어 재부팅·크래시 시 자동 복구가 안 되는 문제 발견 → `caregiver.service` systemd 유닛 등록(부팅 시 자동 시작, 크래시 시 자동 재시작)
 - `deploy.yml`의 배포 스크립트가 `sudo fuser -k`+`nohup`으로 재시작하던 것을 `sudo systemctl restart caregiver`로 변경 — 이전 방식은 배포할 때마다 systemd 관리 밖의 프로세스를 새로 띄워서 방금 등록한 자동 복구 효과를 무력화시켰음
+
+### 2026-09-18
+- **관리자 페이지 신설**: 배포된 사이트에 관리자 기능이 아예 없어서 새로 추가. `User.userType`에 `admin`을 새 값으로 추가(스키마 변경 없이 기존 문자열 필드 재사용, 계정은 DB에서 수동 지정), `/api/admin/**`(통계·회원 목록/삭제·공고 목록/삭제·지원 내역 조회)을 담당하는 `AdminController` 신설
+- 회원 삭제 시 해당 회원이 등록한 공고가 있으면 FK 제약으로 실패하는데, 이를 500 에러 대신 "공고를 먼저 삭제해주세요" 409 응답으로 처리
+- `JobService`에 관리자용 전체 공고 조회(`getAllJobsForAdmin`)·삭제(`deleteJob`) 추가, `JobApplicationResponse`에 공고 제목(`jobTitle`) 필드 추가(관리자 화면에서 지원 내역에 공고명을 보여주기 위함)
+- 프론트에 `/admin` 라우트(`AdminPage`) 추가 — 통계 카드 + 회원/공고/지원내역 탭 테이블. 일반 사용자에게 노출되지 않도록 내비게이션에는 링크를 걸지 않고 URL 직접 접근만 허용
+- `AuthGuard`가 `business` 계정 타입만 처리하던 것을 임의의 `userType`(이번엔 `admin`)을 받도록 일반화

@@ -463,6 +463,19 @@
   white-space: nowrap;
 }
 
+.tl-like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.tl-like-btn:hover { opacity: 1; transform: scale(1.15); }
+.tl-like-btn--active { opacity: 1; }
+
 /* 공통 배지 */
 .tl-gender-badge {
   font-size: 11px;

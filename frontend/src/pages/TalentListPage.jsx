@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import { fetchJobSeekers, fetchMyJobs } from '../api'
 import { useAuth } from '../hooks/useAuth'
+import { getLikedTalents, toggleLikedTalent } from '../hooks/useJobStorage'
 import './TalentListPage.css'
 
 const expOrder = { '신입':0,'1년 이상':1,'2년 이상':2,'3년 이상':3,'4년 이상':4,'5년 이상':5,'7년 이상':7,'8년 이상':8,'10년 이상':10,'12년 이상':12 }
@@ -61,7 +62,15 @@ export default function TalentListPage() {
   const [keyword, setKeyword] = useState(() => searchParams.get('q') || '')
   const [sort, setSort] = useState('최신순')
   const [page, setPage] = useState(1)
+  const [likedTalents, setLikedTalents] = useState(() => getLikedTalents())
   const panelRef = useRef(null)
+
+  const handleLike = (e, id) => {
+    e.preventDefault()
+    e.stopPropagation()
+    toggleLikedTalent(id)
+    setLikedTalents(getLikedTalents())
+  }
 
   useEffect(() => {
     fetchJobSeekers()
@@ -367,6 +376,15 @@ export default function TalentListPage() {
                       <div className="tl-talent-row-right">
                         <span className="tl-talent-wage">{t.wageLabel}</span>
                         <span className="tl-talent-worktype">{t.workType}</span>
+                        <button
+                          className={`tl-like-btn${likedTalents.includes(t.id) ? ' tl-like-btn--active' : ''}`}
+                          onClick={(e) => handleLike(e, t.id)}
+                          aria-label={likedTalents.includes(t.id) ? '관심 인재 해제' : '관심 인재 등록'}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill={likedTalents.includes(t.id) ? '#e04444' : 'none'} stroke={likedTalents.includes(t.id) ? '#e04444' : '#ccc'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                          </svg>
+                        </button>
                       </div>
                     </Link>
                   ))

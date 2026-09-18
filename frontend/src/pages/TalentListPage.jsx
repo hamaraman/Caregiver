@@ -1,7 +1,7 @@
 ﻿import { useState, useRef, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import { fetchJobSeekers, fetchMyJobs } from '../api'
+import { fetchJobSeekers, fetchMyJobs, fetchLikedResumes, likeResume, unlikeResume } from '../api'
 import { useAuth } from '../hooks/useAuth'
 import './TalentListPage.css'
 
@@ -50,6 +50,7 @@ export default function TalentListPage() {
   const [talentList, setTalentList] = useState([])
   const [loading, setLoading] = useState(true)
   const [myJobs, setMyJobs] = useState([])
+  const [likedSet, setLikedSet] = useState(new Set())
   const [selectedRegions, setSelectedRegions] = useState(() => {
     const region = searchParams.get('region')
     return region ? [region] : []
@@ -74,6 +75,24 @@ export default function TalentListPage() {
     if (user?.userType !== 'business') { setMyJobs([]); return }
     fetchMyJobs().then(setMyJobs).catch(() => setMyJobs([]))
   }, [user])
+
+  useEffect(() => {
+    if (user?.userType !== 'business') return
+    fetchLikedResumes().then(liked => setLikedSet(new Set(liked.map(t => t.id)))).catch(() => {})
+  }, [user])
+
+  const handleLike = async (e, resumeId) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (user?.userType !== 'business') return
+    const isLiked = likedSet.has(resumeId)
+    setLikedSet(prev => { const n = new Set(prev); isLiked ? n.delete(resumeId) : n.add(resumeId); return n })
+    try {
+      isLiked ? await unlikeResume(resumeId) : await likeResume(resumeId)
+    } catch {
+      setLikedSet(prev => { const n = new Set(prev); isLiked ? n.add(resumeId) : n.delete(resumeId); return n })
+    }
+  }
 
   const myRegions = useMemo(
     () => [...new Set(myJobs.map(j => j.location ? j.location.split(' ')[0] : '').filter(Boolean))],
@@ -367,6 +386,17 @@ export default function TalentListPage() {
                       <div className="tl-talent-row-right">
                         <span className="tl-talent-wage">{t.wageLabel}</span>
                         <span className="tl-talent-worktype">{t.workType}</span>
+                        {user?.userType === 'business' && (
+                          <button
+                            className={`tl-like-btn${likedSet.has(t.id) ? ' active' : ''}`}
+                            onClick={e => handleLike(e, t.id)}
+                            aria-label={likedSet.has(t.id) ? '찜 해제' : '찜하기'}
+                          >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill={likedSet.has(t.id) ? '#e04444' : 'none'} stroke={likedSet.has(t.id) ? '#e04444' : '#ccc'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                          </button>
+                        )}
                       </div>
                     </Link>
                   ))

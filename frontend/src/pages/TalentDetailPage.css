@@ -49,6 +49,15 @@
   margin-bottom: 18px;
 }
 
+.td-like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
 .td-status-badge {
   font-size: 12px;
   font-weight: 700;

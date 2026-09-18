@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,26 @@ public class JobSeekerProfileController {
         return jobSeekerProfileService.getMine(userId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/liked")
+    public List<JobSeekerProfileResponse> getLiked(HttpServletRequest httpRequest) {
+        User user = requireLoggedInUser(httpRequest);
+        return jobSeekerProfileService.getLiked(user.getId());
+    }
+
+    @PostMapping("/{id}/like")
+    public ResponseEntity<Void> like(@PathVariable Long id, HttpServletRequest httpRequest) {
+        User user = requireLoggedInUser(httpRequest);
+        jobSeekerProfileService.like(user.getId(), id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}/like")
+    public ResponseEntity<Void> unlike(@PathVariable Long id, HttpServletRequest httpRequest) {
+        User user = requireLoggedInUser(httpRequest);
+        jobSeekerProfileService.unlike(user.getId(), id);
+        return ResponseEntity.noContent().build();
     }
 
     @ExceptionHandler(ResumeException.class)

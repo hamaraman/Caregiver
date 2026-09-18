@@ -1,0 +1,229 @@
+@import './JobPostPage.css';
+
+.mp-page {
+  background: #f4f6fb;
+  min-height: 100vh;
+  padding: 24px 0 60px;
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+}
+
+.mp-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── 헤더 ── */
+.mp-header {
+  background: linear-gradient(135deg, #4A8FE7 0%, #3A7FD7 100%);
+  border-radius: 16px;
+  padding: 24px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+}
+
+.mp-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.mp-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mp-header-name {
+  font-size: 17px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mp-badge {
+  display: inline-block;
+  margin-top: 4px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.mp-logout-btn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.mp-logout-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* ── 섹션 ── */
+.mp-section {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.mp-section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.mp-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a2d4d;
+  margin-bottom: 16px;
+}
+
+.mp-section-header-row .mp-section-title {
+  margin-bottom: 0;
+}
+
+.mp-edit-btn {
+  background: none;
+  border: 1.5px solid #4A8FE7;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4A8FE7;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mp-edit-btn:hover {
+  background: #4A8FE7;
+  color: #fff;
+}
+
+/* ── 빠른 메뉴 카드 ── */
+.mp-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mp-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1.5px solid #e8edf5;
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-decoration: none;
+  background: #fafbff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.mp-link-card:hover {
+  border-color: #4A8FE7;
+  box-shadow: 0 2px 8px rgba(74,143,231,0.12);
+}
+
+.mp-link-text { flex: 1; min-width: 0; }
+
+.mp-link-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a2d4d;
+}
+
+.mp-link-sub {
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── 계정 정보 표시 ── */
+.mp-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mp-info-row {
+  display: flex;
+  align-items: center;
+  padding: 11px 0;
+  border-bottom: 1px solid #f0f4fb;
+  gap: 12px;
+}
+
+.mp-info-row:last-child { border-bottom: none; }
+
+.mp-info-label {
+  width: 72px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+}
+
+.mp-info-value {
+  font-size: 13px;
+  color: #1a2d4d;
+  font-weight: 500;
+}
+
+.mp-info-value--muted {
+  color: #aaa;
+}
+
+/* ── 폼 ── */
+.mp-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── 메시지 ── */
+.mp-msg {
+  font-size: 12px;
+  color: #e74c3c;
+  margin-top: 4px;
+}
+
+.mp-msg--ok {
+  color: #27ae60;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 480px) {
+  .mp-links-grid { grid-template-columns: 1fr; }
+  .mp-header { padding: 20px 16px; }
+  .mp-section { padding: 16px; }
+}

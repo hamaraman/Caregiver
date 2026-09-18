@@ -6,6 +6,7 @@ const REGIONS = ['서울', '경기', '인천', '부산', '대구', '대전', '�
 const WORK_TYPES = ['전체', '주간', '야간', '교대', '파트타임']
 const CERTS = ['요양보호사', '간호조무사', '사회복지사', '물리치료사', '작업치료사', '기타']
 const SALARIES = ['협의', '최저시급', '시급 11,000원~', '시급 12,000원~', '시급 13,000원~', '월급 협의']
+const SECTIONS = ['기본 인적사항', '자격 및 경력', '구직 희망 정보', '자기소개']
 
 export default function JrForm() {
   const [form, setForm] = useState({
@@ -20,11 +21,29 @@ export default function JrForm() {
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const [toast, setToast] = useState('')
+  const [currentStep, setCurrentStep] = useState(0)
 
   const showToast = (msg) => {
     setToast(msg)
     setTimeout(() => setToast(''), 3000)
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const navH = 80
+      let best = 0
+      SECTIONS.forEach((_, i) => {
+        const el = document.getElementById(`jp-section-${i}`)
+        if (!el) return
+        if (el.getBoundingClientRect().top <= navH + 20) best = i
+      })
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60)
+        best = SECTIONS.length - 1
+      setCurrentStep(best)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     fetchMyResume().then(resume => {
@@ -133,8 +152,32 @@ export default function JrForm() {
         </div>
       )}
 
+      {/* 진행 단계 */}
+      <div className="jp-steps">
+        {SECTIONS.map((s, i) => (
+          <div key={s} className="jp-step-item">
+            <button
+              type="button"
+              className={`jp-step-circle${i < currentStep ? ' jp-step-circle--done' : i === currentStep ? ' jp-step-circle--active' : ''}`}
+              onClick={() => document.getElementById(`jp-section-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              <span className="jp-step-n">
+                {i < currentStep
+                  ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  : i + 1
+                }
+              </span>
+              <span className="jp-step-label">{s}</span>
+            </button>
+            {i < SECTIONS.length - 1 && (
+              <div className={`jp-step-line${i < currentStep ? ' jp-step-line--done' : ''}`} />
+            )}
+          </div>
+        ))}
+      </div>
+
       {/* ① 기본 인적사항 */}
-      <div className="jp-section">
+      <div id="jp-section-0" className="jp-section">
         <div className="jp-section-header">
           <span className="jp-section-num">1</span>
           <h3 className="jp-section-title">기본 인적사항</h3>
@@ -211,7 +254,7 @@ export default function JrForm() {
       </div>
 
       {/* ② 자격 및 경력 */}
-      <div className="jp-section">
+      <div id="jp-section-1" className="jp-section">
         <div className="jp-section-header">
           <span className="jp-section-num">2</span>
           <h3 className="jp-section-title">자격 및 경력</h3>
@@ -255,7 +298,7 @@ export default function JrForm() {
       </div>
 
       {/* ③ 구직 희망 정보 */}
-      <div className="jp-section">
+      <div id="jp-section-2" className="jp-section">
         <div className="jp-section-header">
           <span className="jp-section-num">3</span>
           <h3 className="jp-section-title">구직 희망 정보</h3>
@@ -308,7 +351,7 @@ export default function JrForm() {
       </div>
 
       {/* ④ 자기소개 */}
-      <div className="jp-section">
+      <div id="jp-section-3" className="jp-section">
         <div className="jp-section-header">
           <span className="jp-section-num">4</span>
           <h3 className="jp-section-title">자기소개 <span className="jp-optional">선택</span></h3>

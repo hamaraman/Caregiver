@@ -64,6 +64,20 @@ export function fetchCurrentUser() {
   return request('/api/auth/me')
 }
 
+export function updateMyProfile({ name, phone, companyName }) {
+  return request('/api/auth/me', {
+    method: 'PATCH',
+    body: JSON.stringify({ name, phone, companyName }),
+  })
+}
+
+export function changePassword({ currentPassword, newPassword }) {
+  return request('/api/auth/me/password', {
+    method: 'PATCH',
+    body: JSON.stringify({ currentPassword, newPassword }),
+  })
+}
+
 function deriveShift(hours) {
   const m = /^(\d{1,2}):/.exec(hours || '')
   if (!m) return '주간'
@@ -305,4 +319,17 @@ export function deleteAdminJob(id) {
 
 export function fetchAdminApplications() {
   return request('/api/admin/applications')
+}
+
+export async function fetchLikedResumes() {
+  const profiles = await request('/api/resumes/liked')
+  return (profiles || []).map(normalizeJobSeeker)
+}
+
+export function likeResume(id) {
+  return request(`/api/resumes/${id}/like`, { method: 'POST' })
+}
+
+export function unlikeResume(id) {
+  return request(`/api/resumes/${id}/like`, { method: 'DELETE' })
 }

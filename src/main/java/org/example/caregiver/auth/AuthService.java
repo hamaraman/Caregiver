@@ -98,6 +98,34 @@ public class AuthService {
         return local.substring(0, visibleLen) + "***" + email.substring(at);
     }
 
+    public User updateProfile(HttpServletRequest httpRequest, UpdateProfileRequest req) {
+        User user = currentUser(httpRequest)
+                .orElseThrow(() -> new AuthException("로그인이 필요합니다."));
+        if (req.getName() != null && !req.getName().trim().isEmpty()) {
+            user.setName(req.getName().trim());
+        }
+        if (req.getPhone() != null) {
+            user.setPhone(req.getPhone().trim());
+        }
+        if ("business".equals(user.getUserType()) && req.getCompanyName() != null) {
+            user.setCompanyName(req.getCompanyName().trim());
+        }
+        return userRepository.save(user);
+    }
+
+    public void changePassword(HttpServletRequest httpRequest, ChangePasswordRequest req) {
+        User user = currentUser(httpRequest)
+                .orElseThrow(() -> new AuthException("로그인이 필요합니다."));
+        if (req.getCurrentPassword() == null || !passwordEncoder.matches(req.getCurrentPassword(), user.getPasswordHash())) {
+            throw new AuthException("현재 비밀번호가 올바르지 않습니다.");
+        }
+        if (req.getNewPassword() == null || req.getNewPassword().length() < 8) {
+            throw new AuthException("새 비밀번호는 8자 이상이어야 합니다.");
+        }
+        user.setPasswordHash(passwordEncoder.encode(req.getNewPassword()));
+        userRepository.save(user);
+    }
+
     public Optional<User> currentUser(HttpServletRequest httpRequest) {
         HttpSession session = httpRequest.getSession(false);
         Long userId = session == null ? null : (Long) session.getAttribute(SESSION_USER_ID);

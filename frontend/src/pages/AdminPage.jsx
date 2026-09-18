@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-import HomeNav from './home/HomeNav'
+import { Link, useNavigate } from 'react-router-dom'
 import AuthGuard from '../components/AuthGuard'
+import { useAuth } from '../hooks/useAuth'
 import {
   fetchAdminStats, fetchAdminUsers, deleteAdminUser,
   fetchAdminJobs, deleteAdminJob, fetchAdminApplications,
+  logout,
 } from '../api'
 import './AdminPage.css'
 
@@ -12,6 +14,31 @@ const TABS = [
   { key: 'jobs', label: '공고' },
   { key: 'applications', label: '지원 내역' },
 ]
+
+// 소비자용 HomeNav(구직/구인 메뉴 등)를 그대로 쓰면 관리자 페이지가 일반 사이트의 일부처럼 보여서,
+// 관리자 도구임이 분명하도록 별도의 최소 상단바를 둔다.
+function AdminBar() {
+  const { user } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    await logout().catch(() => {})
+    navigate('/')
+  }
+
+  return (
+    <header className="ap-bar">
+      <div className="ap-bar-inner">
+        <span className="ap-bar-title">요양이지 관리자</span>
+        <div className="ap-bar-actions">
+          {user && <span className="ap-bar-user">{user.name || user.email}</span>}
+          <Link to="/" className="ap-bar-link">사이트로 이동</Link>
+          <button className="ap-bar-logout" onClick={handleLogout}>로그아웃</button>
+        </div>
+      </div>
+    </header>
+  )
+}
 
 export default function AdminPage() {
   const [tab, setTab] = useState('users')
@@ -57,7 +84,7 @@ export default function AdminPage() {
 
   return (
     <>
-      <HomeNav />
+      <AdminBar />
       <AuthGuard require="admin">
         <div className="ap-page">
           <div className="container">

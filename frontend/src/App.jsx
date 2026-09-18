@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import HomePage from './pages/HomePage'
 import JobListingsPage from './pages/JobListingsPage'
@@ -29,6 +29,9 @@ import Footer from './components/Footer'
 import './App.css'
 
 function App() {
+  const location = useLocation()
+  const isAdminRoute = location.pathname.startsWith('/admin')
+
   return (
     <AuthProvider>
       <ScrollToTop />
@@ -59,7 +62,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </AuthProvider>
   )
 }

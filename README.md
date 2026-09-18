@@ -481,3 +481,5 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 프론트에 `/admin` 라우트(`AdminPage`) 추가 — 통계 카드 + 회원/공고/지원내역 탭 테이블. 일반 사용자에게 노출되지 않도록 내비게이션에는 링크를 걸지 않고 URL 직접 접근만 허용
 - `AuthGuard`가 `business` 계정 타입만 처리하던 것을 임의의 `userType`(이번엔 `admin`)을 받도록 일반화
 - 관리자 계정(`admin@caregiver.local`) 생성 후 로그인 시도 중 버그 발견: `AuthService.login()`이 로그인 탭에서 고른 유형(`personal`/`business`)과 DB의 `userType`이 정확히 일치해야만 통과시키는데, 로그인 화면에 `admin` 탭 자체가 없어서 admin 계정은 이 검증 로직 때문에 영원히 로그인할 수 없었음. `admin` 계정은 탭 선택과 무관하게 이메일·비밀번호만 맞으면 통과하도록 수정
+- **관리자 페이지를 일반 사이트에서 시각적으로 분리**: `AdminPage`가 소비자용 `HomeNav`(구직/구인 메뉴 등)를 그대로 쓰고 있어서 관리자 화면이 일반 사이트의 하위 페이지처럼 보이던 것을, 관리자 전용 최소 상단바(`AdminBar` — 사이트로 이동/로그아웃만 제공)로 교체. 전역 `Footer`도 `/admin` 경로에서는 숨김
+- `HomeNav`에 `userType`이 `admin`인 계정으로 로그인했을 때만 보이는 "관리자 페이지" 바로가기 링크 추가(데스크톱·모바일 메뉴 모두) — URL을 몰라도 로그인만 하면 관리자 페이지로 들어갈 수 있도록 함

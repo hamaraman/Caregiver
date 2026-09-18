@@ -102,6 +102,9 @@ export default function HomeNav() {
           <span className="hp-nav-desktop-only">
             {user ? (
               <>
+                {user.userType === 'admin' && (
+                  <Link to="/admin" className="hp-btn-login">관리자 페이지</Link>
+                )}
                 <Link to="/mypage" className="hp-user-greeting">{user.name || user.email}님</Link>
                 <button className="hp-btn-login" onClick={handleLogout}>로그아웃</button>
               </>
@@ -154,6 +157,9 @@ export default function HomeNav() {
             <div className="hp-mobile-menu-footer">
               {user ? (
                 <>
+                  {user.userType === 'admin' && (
+                    <Link to="/admin" className="hp-mobile-login-btn" onClick={() => setMenuOpen(false)}>관리자 페이지</Link>
+                  )}
                   <Link to="/mypage" className="hp-mobile-user" onClick={() => setMenuOpen(false)}>{user.name || user.email}님</Link>
                   <button className="hp-mobile-logout" onClick={() => { handleLogout(); setMenuOpen(false) }}>로그아웃</button>
                 </>

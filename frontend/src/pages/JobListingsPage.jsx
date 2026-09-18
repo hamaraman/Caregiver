@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
-import { fetchJobs } from '../api'
+import { fetchJobs, fetchLikedJobs, likeJob, unlikeJob } from '../api'
 import { useAuth } from '../hooks/useAuth'
 import { SHIFT_STYLE } from '../data/shiftStyles'
 import './JobListingsPage.css'
@@ -40,6 +40,7 @@ export default function JobListingsPage() {
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
+  const [likedSet, setLikedSet] = useState(new Set())
   const myJobs = jobs.filter(j => user && j.ownerId === user.id)
 
   useEffect(() => {
@@ -48,6 +49,24 @@ export default function JobListingsPage() {
       .catch(() => setLoadError(true))
       .finally(() => setLoading(false))
   }, [])
+
+  useEffect(() => {
+    if (!user || user.userType === 'business') return
+    fetchLikedJobs().then(liked => setLikedSet(new Set(liked.map(j => j.id)))).catch(() => {})
+  }, [user])
+
+  const handleLike = async (e, jobId) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!user || user.userType === 'business') return
+    const isLiked = likedSet.has(jobId)
+    setLikedSet(prev => { const n = new Set(prev); isLiked ? n.delete(jobId) : n.add(jobId); return n })
+    try {
+      isLiked ? await unlikeJob(jobId) : await likeJob(jobId)
+    } catch {
+      setLikedSet(prev => { const n = new Set(prev); isLiked ? n.add(jobId) : n.delete(jobId); return n })
+    }
+  }
 
   const [selectedRegions, setSelectedRegions] = useState([])
   const [panelOpen, setPanelOpen] = useState(false)
@@ -385,6 +404,17 @@ export default function JobListingsPage() {
                             )}
                             <span className="jl2-job-date">{job.date}</span>
                           </div>
+                          {user?.userType !== 'business' && (
+                            <button
+                              className={`jl2-like-btn${likedSet.has(job.id) ? ' active' : ''}`}
+                              onClick={e => handleLike(e, job.id)}
+                              aria-label={likedSet.has(job.id) ? '찜 해제' : '찜하기'}
+                            >
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill={likedSet.has(job.id) ? '#e04444' : 'none'} stroke={likedSet.has(job.id) ? '#e04444' : '#ccc'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                              </svg>
+                            </button>
+                          )}
                         </div>
                       </Link>
                     )

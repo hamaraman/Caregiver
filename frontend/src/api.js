@@ -296,3 +296,16 @@ export async function fetchJobSeeker(id) {
   const profile = await request(`/api/resumes/public/${id}`).catch(() => null)
   return profile ? normalizeJobSeeker(profile) : null
 }
+
+export async function fetchLikedResumes() {
+  const profiles = await request('/api/resumes/liked')
+  return (profiles || []).map(normalizeJobSeeker)
+}
+
+export function likeResume(id) {
+  return request(`/api/resumes/${id}/like`, { method: 'POST' })
+}
+
+export function unlikeResume(id) {
+  return request(`/api/resumes/${id}/like`, { method: 'DELETE' })
+}

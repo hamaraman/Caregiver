@@ -735,3 +735,16 @@
   .jl2-job-row-pay { font-size: 14px; }
   .jl2-job-row-footer { gap: 6px; }
 }
+
+.jl2-like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+.jl2-like-btn:hover { background: #ffeaea; }

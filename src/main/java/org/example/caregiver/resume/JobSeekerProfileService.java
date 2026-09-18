@@ -19,13 +19,16 @@ public class JobSeekerProfileService {
     private final JobSeekerProfileRepository jobSeekerProfileRepository;
     private final JobRepository jobRepository;
     private final JobApplicationRepository jobApplicationRepository;
+    private final ResumeLikeRepository resumeLikeRepository;
 
     public JobSeekerProfileService(JobSeekerProfileRepository jobSeekerProfileRepository,
                                     JobRepository jobRepository,
-                                    JobApplicationRepository jobApplicationRepository) {
+                                    JobApplicationRepository jobApplicationRepository,
+                                    ResumeLikeRepository resumeLikeRepository) {
         this.jobSeekerProfileRepository = jobSeekerProfileRepository;
         this.jobRepository = jobRepository;
         this.jobApplicationRepository = jobApplicationRepository;
+        this.resumeLikeRepository = resumeLikeRepository;
     }
 
     public JobSeekerProfileResponse upsert(Long userId, JobSeekerProfileRequest request) {
@@ -82,6 +85,25 @@ public class JobSeekerProfileService {
         List<Long> jobIds = jobRepository.findByOwnerIdOrderByIdDesc(requester.getId())
                 .stream().map(Job::getId).toList();
         return !jobIds.isEmpty() && jobApplicationRepository.existsByApplicantIdAndJobIdIn(applicantId, jobIds);
+    }
+
+    public void like(Long userId, Long resumeId) {
+        if (jobSeekerProfileRepository.findById(resumeId).isEmpty()) {
+            throw new ResumeException("존재하지 않는 이력서입니다.");
+        }
+        resumeLikeRepository.like(userId, resumeId);
+    }
+
+    public void unlike(Long userId, Long resumeId) {
+        resumeLikeRepository.unlike(userId, resumeId);
+    }
+
+    public List<JobSeekerProfileResponse> getLiked(Long userId) {
+        return resumeLikeRepository.likedResumeIdsForUser(userId).stream()
+                .map(jobSeekerProfileRepository::findById)
+                .filter(java.util.Optional::isPresent)
+                .map(opt -> new JobSeekerProfileResponse(opt.get()))
+                .toList();
     }
 
     private void validate(JobSeekerProfileRequest request) {

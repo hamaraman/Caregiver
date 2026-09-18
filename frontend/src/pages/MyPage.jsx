@@ -18,6 +18,7 @@ const BUSINESS_LINKS = [
   { label: '지원자 확인', sub: '공고별 지원자 목록', path: '/applicants' },
   { label: '공고 등록', sub: '새 구인공고 올리기', path: '/jobs/post' },
   { label: '인재 찾기', sub: '맞춤 인재 추천', path: '/talents' },
+  { label: '찜한 인재', sub: '저장해둔 인재 목록', path: '/wishlist' },
 ]
 
 export default function MyPage() {

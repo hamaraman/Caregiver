@@ -480,3 +480,4 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - `JobService`에 관리자용 전체 공고 조회(`getAllJobsForAdmin`)·삭제(`deleteJob`) 추가, `JobApplicationResponse`에 공고 제목(`jobTitle`) 필드 추가(관리자 화면에서 지원 내역에 공고명을 보여주기 위함)
 - 프론트에 `/admin` 라우트(`AdminPage`) 추가 — 통계 카드 + 회원/공고/지원내역 탭 테이블. 일반 사용자에게 노출되지 않도록 내비게이션에는 링크를 걸지 않고 URL 직접 접근만 허용
 - `AuthGuard`가 `business` 계정 타입만 처리하던 것을 임의의 `userType`(이번엔 `admin`)을 받도록 일반화
+- 관리자 계정(`admin@caregiver.local`) 생성 후 로그인 시도 중 버그 발견: `AuthService.login()`이 로그인 탭에서 고른 유형(`personal`/`business`)과 DB의 `userType`이 정확히 일치해야만 통과시키는데, 로그인 화면에 `admin` 탭 자체가 없어서 admin 계정은 이 검증 로직 때문에 영원히 로그인할 수 없었음. `admin` 계정은 탭 선택과 무관하게 이메일·비밀번호만 맞으면 통과하도록 수정

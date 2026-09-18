@@ -52,9 +52,13 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
             throw new AuthException("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
-        String requestedType = normalizeType(request.getUserType());
-        if (!requestedType.equals(user.getUserType())) {
-            throw new AuthException(typeLabel(user.getUserType()) + " 계정입니다. " + typeLabel(requestedType) + " 탭에서는 로그인할 수 없습니다.");
+        // admin 계정은 로그인 탭(personal/business) 선택과 무관하게 이메일·비밀번호만 맞으면 로그인 허용 -
+        // 로그인 화면에 admin 탭 자체가 없어서 일반 탭 구분 로직을 그대로 적용하면 영원히 로그인할 수 없다.
+        if (!"admin".equals(user.getUserType())) {
+            String requestedType = normalizeType(request.getUserType());
+            if (!requestedType.equals(user.getUserType())) {
+                throw new AuthException(typeLabel(user.getUserType()) + " 계정입니다. " + typeLabel(requestedType) + " 탭에서는 로그인할 수 없습니다.");
+            }
         }
         return user;
     }

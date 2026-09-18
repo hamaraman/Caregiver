@@ -70,6 +70,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 
 ## 작업 로그
 
+### 2026-09-18
+- 구직 등록 페이지에 구인공고 등록과 동일한 스텝퍼 UI 및 스크롤 추적 효과 적용 (JrForm.jsx에 jp-steps 스텝퍼 + 섹션 ID + 스크롤 리스너 추가)
+
 ### 2026-09-17 (32)
 - 브라우저 탭 제목을 기본값 "frontend"에서 "요양이지"로 수정 (`index.html` `<title>`)
 

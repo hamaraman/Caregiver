@@ -73,7 +73,12 @@
   align-items: center;
   gap: 6px;
   flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+.tl-jobtype-row::-webkit-scrollbar { display: none; }
 .tl-jobtype-label {
   display: flex;
   align-items: center;

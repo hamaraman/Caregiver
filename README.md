@@ -75,7 +75,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 백엔드 `PATCH /api/auth/me`, `PATCH /api/auth/me/password` 엔드포인트 추가
 - HomeNav 로그인 상태에서 이름 클릭 시 마이페이지로 이동하도록 변경
 - 구직 등록 페이지에 구인공고 등록과 동일한 스텝퍼 UI 및 스크롤 추적 효과 적용 (JrForm.jsx에 jp-steps 스텝퍼 + 섹션 ID + 스크롤 리스너 추가)
-- 인재 목록·상세 페이지에 관심 인재(하트) 기능 추가 — localStorage 기반으로 백엔드 없이 동작, 목록과 상세 간 상태 공유
+- 인재 목록·상세 페이지에 관심 인재(하트) 기능 추가 — localStorage 기반, 하트 버튼 텍스트 제거·아이콘 전용으로 변경
 
 ### 2026-09-17 (32)
 - 브라우저 탭 제목을 기본값 "frontend"에서 "요양이지"로 수정 (`index.html` `<title>`)
@@ -286,8 +286,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 오라클 서버 백엔드가 `nohup`으로만 떠 있어 재부팅·크래시 시 자동 복구가 안 되는 문제 발견 → `caregiver.service` systemd 유닛 등록(부팅 시 자동 시작, 크래시 시 자동 재시작)
 - `deploy.yml`의 배포 스크립트가 `sudo fuser -k`+`nohup`으로 재시작하던 것을 `sudo systemctl restart caregiver`로 변경 — 이전 방식은 배포할 때마다 systemd 관리 밖의 프로세스를 새로 띄워서 방금 등록한 자동 복구 효과를 무력화시켰음### 2026-09-18
 - 구직 등록 페이지에 구인공고 등록과 동일한 스텝퍼 UI 및 스크롤 추적 효과 적용 (JrForm.jsx에 jp-steps 스텝퍼 + 섹션 ID + 스크롤 리스너 추가)
-- 인재 목록·상세 페이지에 관심 인재(하트) 기능 추가 — localStorage 기반으로 백엔드 없이 동작, 목록과 상세 간 상태 공유
-- 인재 목록·상세 페이지에 관심 인재(하트) 기능 추가 — localStorage 기반으로 백엔드 없이 동작, 목록과 상세 간 상태 공유
+- 인재 목록·상세 페이지에 관심 인재(하트) 기능 추가 — localStorage 기반, 하트 버튼 텍스트 제거·아이콘 전용으로 변경
+- 인재 목록·상세 페이지에 관심 인재(하트) 기능 추가 — localStorage 기반, 하트 버튼 텍스트 제거·아이콘 전용으로 변경
 
 ### 2026-09-17 (24)
 - MainActivity.kt: useWideViewPort false→true, loadWithOverviewMode false→true — viewport meta 태그를 무시하던 문제 수정 (CSS @media 모바일 쿼리가 물리픽셀 기준으로 판단되어 모바일 스타일이 아예 안 적용되던 근본 원인)

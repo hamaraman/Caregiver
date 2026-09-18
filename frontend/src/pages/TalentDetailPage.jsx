@@ -61,12 +61,11 @@ export default function TalentDetailPage() {
             <div className="td-header-top">
               <span className="td-status-badge">구직중</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span className="td-registered">{talent.date} 등록</span>
+                {talent.date && <span className="td-registered">{talent.date} 등록</span>}
                 <button className={`td-like-btn${liked ? ' td-like-btn--active' : ''}`} onClick={handleLike} aria-label={liked ? '관심 인재 해제' : '관심 인재 등록'}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill={liked ? '#e04444' : 'none'} stroke={liked ? '#e04444' : '#bbb'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                   </svg>
-                  {liked ? '관심 인재' : '관심 인재 등록'}
                 </button>
               </div>
             </div>

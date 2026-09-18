@@ -484,3 +484,4 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - **관리자 페이지를 일반 사이트에서 시각적으로 분리**: `AdminPage`가 소비자용 `HomeNav`(구직/구인 메뉴 등)를 그대로 쓰고 있어서 관리자 화면이 일반 사이트의 하위 페이지처럼 보이던 것을, 관리자 전용 최소 상단바(`AdminBar` — 사이트로 이동/로그아웃만 제공)로 교체. 전역 `Footer`도 `/admin` 경로에서는 숨김
 - `HomeNav`에 `userType`이 `admin`인 계정으로 로그인했을 때만 보이는 "관리자 페이지" 바로가기 링크 추가(데스크톱·모바일 메뉴 모두) — URL을 몰라도 로그인만 하면 관리자 페이지로 들어갈 수 있도록 함
 - `mobile/`(Expo/React Native WebView 셸) 제거 — 앞으로 `android_native`(Kotlin 네이티브 WebView 앱) 하나만 쓰기로 함. `localhost:3000`을 하드코딩해서 보던 로컬 개발용 셸이었고, 다른 곳에서 참조하는 곳이 없어 삭제만으로 정리됨
+- `android_native` 앱 아이콘이 기본 안드로이드 아이콘(`@android:drawable/sym_def_app_icon`)으로 남아있던 것을 발견해 웹 파비콘(`frontend/public/favicon.png`)으로 교체. mdpi~xxxhdpi 5개 밀도별 `ic_launcher`/`ic_launcher_round` PNG를 생성하고 `AndroidManifest.xml`의 `android:icon`/`android:roundIcon`을 연결. `./gradlew assembleDebug`로 실제 빌드까지 확인

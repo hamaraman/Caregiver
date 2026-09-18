@@ -661,6 +661,7 @@
 .jsp-table tbody tr:last-child td { border-bottom: none; }
 .jsp-table tbody tr { transition: background 0.12s; }
 .jsp-table tbody tr:hover { background: #f7faff; }
+.jsp-table tbody tr:only-child td[colspan] { text-align: center; color: #aaa; }
 
 .jsp-job-type-cell {
   display: flex;

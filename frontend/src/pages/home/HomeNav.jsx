@@ -103,7 +103,7 @@ export default function HomeNav() {
           <span className="hp-nav-desktop-only">
             {user ? (
               <>
-                <span className="hp-user-greeting">{user.name || user.email}님</span>
+                <Link to="/mypage" className="hp-user-greeting">{user.name || user.email}님</Link>
                 <button className="hp-btn-login" onClick={handleLogout}>로그아웃</button>
               </>
             ) : (
@@ -155,7 +155,7 @@ export default function HomeNav() {
             <div className="hp-mobile-menu-footer">
               {user ? (
                 <>
-                  <span className="hp-mobile-user">{user.name || user.email}님</span>
+                  <Link to="/mypage" className="hp-mobile-user" onClick={() => setMenuOpen(false)}>{user.name || user.email}님</Link>
                   <button className="hp-mobile-logout" onClick={() => { handleLogout(); setMenuOpen(false) }}>로그아웃</button>
                 </>
               ) : (

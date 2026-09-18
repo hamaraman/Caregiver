@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,6 +72,18 @@ public class AuthController {
         return authService.currentUser(httpRequest)
                 .map(user -> ResponseEntity.ok(new UserResponse(user)))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
+    @PatchMapping("/me")
+    public ResponseEntity<UserResponse> updateProfile(@RequestBody UpdateProfileRequest request, HttpServletRequest httpRequest) {
+        User user = authService.updateProfile(httpRequest, request);
+        return ResponseEntity.ok(new UserResponse(user));
+    }
+
+    @PatchMapping("/me/password")
+    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest request, HttpServletRequest httpRequest) {
+        authService.changePassword(httpRequest, request);
+        return ResponseEntity.noContent().build();
     }
 
     @ExceptionHandler(AuthException.class)

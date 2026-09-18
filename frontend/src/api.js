@@ -64,6 +64,20 @@ export function fetchCurrentUser() {
   return request('/api/auth/me')
 }
 
+export function updateMyProfile({ name, phone, companyName }) {
+  return request('/api/auth/me', {
+    method: 'PATCH',
+    body: JSON.stringify({ name, phone, companyName }),
+  })
+}
+
+export function changePassword({ currentPassword, newPassword }) {
+  return request('/api/auth/me/password', {
+    method: 'PATCH',
+    body: JSON.stringify({ currentPassword, newPassword }),
+  })
+}
+
 function deriveShift(hours) {
   const m = /^(\d{1,2}):/.exec(hours || '')
   if (!m) return '주간'

@@ -19,6 +19,7 @@ import JobRegisterPage from './pages/JobRegisterPage'
 import JobSearchPage from './pages/JobSearchPage'
 import EmployerHomePage from './pages/EmployerHomePage'
 import MyApplicationsPage from './pages/MyApplicationsPage'
+import MyPage from './pages/MyPage'
 import RecentJobsPage from './pages/RecentJobsPage'
 import WishlistPage from './pages/WishlistPage'
 import SupportPage from './pages/SupportPage'
@@ -50,6 +51,7 @@ function App() {
         <Route path="/job-register" element={<JobRegisterPage />} />
         <Route path="/employer" element={<EmployerHomePage />} />
         <Route path="/my-applications" element={<MyApplicationsPage />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="/recent-jobs" element={<RecentJobsPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/support" element={<SupportPage />} />

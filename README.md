@@ -71,6 +71,9 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 ## 작업 로그
 
 ### 2026-09-18
+- 마이페이지 기능 추가: 일반회원/사업자 조건 분기, 계정 정보 수정, 비밀번호 변경, 빠른 메뉴 허브 (`/mypage`)
+- 백엔드 `PATCH /api/auth/me`, `PATCH /api/auth/me/password` 엔드포인트 추가
+- HomeNav 로그인 상태에서 이름 클릭 시 마이페이지로 이동하도록 변경
 - 구직 등록 페이지에 구인공고 등록과 동일한 스텝퍼 UI 및 스크롤 추적 효과 적용 (JrForm.jsx에 jp-steps 스텝퍼 + 섹션 ID + 스크롤 리스너 추가)
 
 ### 2026-09-17 (32)

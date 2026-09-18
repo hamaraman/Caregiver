@@ -77,7 +77,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 구직 등록 페이지에 구인공고 등록과 동일한 스텝퍼 UI 및 스크롤 추적 효과 적용 (JrForm.jsx에 jp-steps 스텝퍼 + 섹션 ID + 스크롤 리스너 추가)
 - 찜 기능 확장: 구인공고목록(개인 회원)·인재추천(사업자) 하트 버튼 추가, 백엔드 `resume_likes` 테이블 및 `/api/resumes/{id}/like`, `/api/resumes/liked` 엔드포인트 신규 구현 (localStorage 임시 구현 → 백엔드 API로 교체)
 - WishlistPage 사용자 유형별 분기: 개인 회원은 찜한 일자리, 사업자는 찜한 인재만 표시
-- 사업자 구인 화면(EhpFeatureCards)에서 구인공고목록(공고 현황) 카드 제거
+- 사업자 구인 화면(EhpFeatureCards): 구인공고목록 카드 제거, 찜한 인재 카드 추가
+- 네비게이션 구인 드롭다운에서 구인공고 목록 항목 제거
 
 ### 2026-09-17 (32)
 - 브라우저 탭 제목을 기본값 "frontend"에서 "요양이지"로 수정 (`index.html` `<title>`)

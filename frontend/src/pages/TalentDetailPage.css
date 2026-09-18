@@ -53,17 +53,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f7f9fc;
-  border: 1px solid #e4e8f0;
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
+  background: none;
+  border: none;
+  padding: 4px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: transform 0.1s;
   flex-shrink: 0;
 }
-.td-like-btn:hover { border-color: #e04444; background: #fff0f0; }
-.td-like-btn--active { background: #fff0f0; border-color: #e04444; }
+.td-like-btn:hover { transform: scale(1.2); }
+.td-like-btn--active { }
 
 .td-status-badge {
   font-size: 12px;

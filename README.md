@@ -483,3 +483,4 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 관리자 계정(`admin@caregiver.local`) 생성 후 로그인 시도 중 버그 발견: `AuthService.login()`이 로그인 탭에서 고른 유형(`personal`/`business`)과 DB의 `userType`이 정확히 일치해야만 통과시키는데, 로그인 화면에 `admin` 탭 자체가 없어서 admin 계정은 이 검증 로직 때문에 영원히 로그인할 수 없었음. `admin` 계정은 탭 선택과 무관하게 이메일·비밀번호만 맞으면 통과하도록 수정
 - **관리자 페이지를 일반 사이트에서 시각적으로 분리**: `AdminPage`가 소비자용 `HomeNav`(구직/구인 메뉴 등)를 그대로 쓰고 있어서 관리자 화면이 일반 사이트의 하위 페이지처럼 보이던 것을, 관리자 전용 최소 상단바(`AdminBar` — 사이트로 이동/로그아웃만 제공)로 교체. 전역 `Footer`도 `/admin` 경로에서는 숨김
 - `HomeNav`에 `userType`이 `admin`인 계정으로 로그인했을 때만 보이는 "관리자 페이지" 바로가기 링크 추가(데스크톱·모바일 메뉴 모두) — URL을 몰라도 로그인만 하면 관리자 페이지로 들어갈 수 있도록 함
+- `mobile/`(Expo/React Native WebView 셸) 제거 — 앞으로 `android_native`(Kotlin 네이티브 WebView 앱) 하나만 쓰기로 함. `localhost:3000`을 하드코딩해서 보던 로컬 개발용 셸이었고, 다른 곳에서 참조하는 곳이 없어 삭제만으로 정리됨

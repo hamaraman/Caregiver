@@ -20,8 +20,9 @@ public class Inquiry {
     @Column(nullable = false)
     private String category;
 
-    @Lob
-    @Column(nullable = false)
+    // @Lob을 쓰면 PostgreSQL에서 String이 oid(Large Object)로 매핑되어 본문이 별도 시스템 테이블에 저장되고
+    // 행을 지워도 orphan으로 남는 문제가 있어, 대신 길이 제한 없는 일반 text 컬럼으로 지정한다.
+    @Column(nullable = false, columnDefinition = "text")
     private String message;
 
     // 로그인한 상태에서 문의했다면 참고용으로만 보관 (비로그인 문의는 null)

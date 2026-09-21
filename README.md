@@ -76,6 +76,7 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 관리자 페이지에 "1:1 문의" 탭 추가: `GET /api/admin/inquiries`(목록), `PATCH /api/admin/inquiries/{id}/status`(접수/답변완료 전환), `/api/admin/stats`에 문의 건수 포함
 - 인재 상세 페이지의 찜(관심 인재) 버튼이 로컬스토리지에만 저장되고 서버에 반영되지 않던 문제 수정: 인재 목록과 동일하게 `likeResume`/`unlikeResume` 백엔드 API로 교체, 사업자 계정만 사용 가능하도록 제한
 - 더 이상 쓰이지 않는 `useJobStorage.js`의 로컬스토리지 기반 찜 함수(`getLikedTalents`/`isLikedTalent`/`toggleLikedTalent`) 제거
+- 로컬 DB로 문의 기능을 직접 테스트하다가 발견: `Inquiry.message`에 붙인 `@Lob`이 PostgreSQL에서 String을 oid(Large Object)로 매핑해 본문이 별도 시스템 테이블에 저장되고 행 삭제 시 orphan으로 남는 문제 확인, `@Lob` 제거하고 `columnDefinition = "text"`로 수정
 
 ### 2026-09-18
 - 마이페이지 기능 추가: 일반회원/사업자 조건 분기, 계정 정보 수정, 비밀번호 변경, 빠른 메뉴 허브 (`/mypage`)

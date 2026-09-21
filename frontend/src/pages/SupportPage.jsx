@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import HomeNav from './home/HomeNav'
 import { NOTICES } from '../data/notices'
+import { submitInquiry } from '../api'
 import './SupportPage.css'
 
 const VALID_TABS = ['notice', 'faq', 'contact']
@@ -45,10 +46,21 @@ export default function SupportPage() {
   const [openFaq, setOpenFaq] = useState(null)
   const [form, setForm] = useState({ name: '', email: '', category: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    setSubmitting(true)
+    setError('')
+    try {
+      await submitInquiry(form)
+      setSubmitted(true)
+    } catch (err) {
+      setError(err.message || '문의 접수에 실패했습니다. 잠시 후 다시 시도해주세요.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -168,7 +180,10 @@ export default function SupportPage() {
                     <label className="sp-label">문의 내용 <span className="sp-required">*</span></label>
                     <textarea className="sp-textarea" placeholder="문의 내용을 상세히 입력해주세요." value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} rows={6} required />
                   </div>
-                  <button type="submit" className="sp-submit-btn">문의 접수하기</button>
+                  {error && <p className="sp-form-error">{error}</p>}
+                  <button type="submit" className="sp-submit-btn" disabled={submitting}>
+                    {submitting ? '접수 중...' : '문의 접수하기'}
+                  </button>
                 </form>
               )}
             </div>

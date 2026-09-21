@@ -14,12 +14,18 @@ import org.example.caregiver.job.JobApplicationResponse;
 import org.example.caregiver.job.JobRepository;
 import org.example.caregiver.job.JobResponse;
 import org.example.caregiver.job.JobService;
+import org.example.caregiver.support.InquiryException;
+import org.example.caregiver.support.InquiryResponse;
+import org.example.caregiver.support.InquiryService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -34,14 +40,17 @@ public class AdminController {
     private final JobRepository jobRepository;
     private final JobService jobService;
     private final JobApplicationRepository jobApplicationRepository;
+    private final InquiryService inquiryService;
 
     public AdminController(AuthService authService, UserRepository userRepository, JobRepository jobRepository,
-                            JobService jobService, JobApplicationRepository jobApplicationRepository) {
+                            JobService jobService, JobApplicationRepository jobApplicationRepository,
+                            InquiryService inquiryService) {
         this.authService = authService;
         this.userRepository = userRepository;
         this.jobRepository = jobRepository;
         this.jobService = jobService;
         this.jobApplicationRepository = jobApplicationRepository;
+        this.inquiryService = inquiryService;
     }
 
     @GetMapping("/stats")
@@ -57,7 +66,8 @@ public class AdminController {
                 "totalJobs", jobs.size(),
                 "activeJobs", jobs.size() - closedJobs,
                 "closedJobs", closedJobs,
-                "totalApplications", jobApplicationRepository.count()
+                "totalApplications", jobApplicationRepository.count(),
+                "totalInquiries", inquiryService.getAll().size()
         );
     }
 
@@ -103,11 +113,28 @@ public class AdminController {
                 .toList();
     }
 
+    @GetMapping("/inquiries")
+    public List<InquiryResponse> getInquiries(HttpServletRequest httpRequest) {
+        requireAdmin(httpRequest);
+        return inquiryService.getAll();
+    }
+
+    @PatchMapping("/inquiries/{id}/status")
+    public InquiryResponse updateInquiryStatus(@PathVariable Long id, @RequestBody Map<String, String> body, HttpServletRequest httpRequest) {
+        requireAdmin(httpRequest);
+        return inquiryService.updateStatus(id, body.get("status"));
+    }
+
     private void requireAdmin(HttpServletRequest httpRequest) {
         User user = authService.currentUser(httpRequest)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."));
         if (!"admin".equals(user.getUserType())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "관리자만 접근할 수 있습니다.");
         }
+    }
+
+    @ExceptionHandler(InquiryException.class)
+    public ResponseEntity<String> handleInquiryException(InquiryException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

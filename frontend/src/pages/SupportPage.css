@@ -249,6 +249,11 @@
   transition: border-color 0.15s;
 }
 .sp-textarea:focus { border-color: #4A8FE7; }
+.sp-form-error {
+  align-self: flex-end;
+  color: #e04444;
+  font-size: 13px;
+}
 .sp-submit-btn {
   align-self: flex-end;
   padding: 12px 32px;
@@ -262,6 +267,7 @@
   transition: background 0.15s;
 }
 .sp-submit-btn:hover { background: #3A7FD7; }
+.sp-submit-btn:disabled { background: #a9c6ef; cursor: not-allowed; }
 
 /* ── 접수 완료 ── */
 .sp-submitted {

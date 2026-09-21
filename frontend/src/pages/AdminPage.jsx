@@ -5,6 +5,7 @@ import { useAuth } from '../hooks/useAuth'
 import {
   fetchAdminStats, fetchAdminUsers, deleteAdminUser,
   fetchAdminJobs, deleteAdminJob, fetchAdminApplications,
+  fetchAdminInquiries, updateAdminInquiryStatus,
   logout,
 } from '../api'
 import './AdminPage.css'
@@ -13,6 +14,7 @@ const TABS = [
   { key: 'users', label: '회원' },
   { key: 'jobs', label: '공고' },
   { key: 'applications', label: '지원 내역' },
+  { key: 'inquiries', label: '1:1 문의' },
 ]
 
 // 소비자용 HomeNav(구직/구인 메뉴 등)를 그대로 쓰면 관리자 페이지가 일반 사이트의 일부처럼 보여서,
@@ -46,15 +48,17 @@ export default function AdminPage() {
   const [users, setUsers] = useState([])
   const [jobs, setJobs] = useState([])
   const [applications, setApplications] = useState([])
+  const [inquiries, setInquiries] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([fetchAdminStats(), fetchAdminUsers(), fetchAdminJobs(), fetchAdminApplications()])
-      .then(([s, u, j, a]) => {
+    Promise.all([fetchAdminStats(), fetchAdminUsers(), fetchAdminJobs(), fetchAdminApplications(), fetchAdminInquiries()])
+      .then(([s, u, j, a, q]) => {
         setStats(s)
         setUsers(u)
         setJobs(j)
         setApplications(a)
+        setInquiries(q)
       })
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -80,7 +84,17 @@ export default function AdminPage() {
     }
   }
 
-  const tabCount = { users: users.length, jobs: jobs.length, applications: applications.length }
+  const toggleInquiryStatus = async (inquiry) => {
+    const nextStatus = inquiry.status === '답변완료' ? '접수' : '답변완료'
+    try {
+      const updated = await updateAdminInquiryStatus(inquiry.id, nextStatus)
+      setInquiries(prev => prev.map(i => i.id === inquiry.id ? updated : i))
+    } catch (err) {
+      alert(err.message || '상태 변경에 실패했습니다.')
+    }
+  }
+
+  const tabCount = { users: users.length, jobs: jobs.length, applications: applications.length, inquiries: inquiries.length }
 
   return (
     <>
@@ -110,6 +124,10 @@ export default function AdminPage() {
               <div className="ap-summary-card">
                 <span className="ap-summary-label">전체 지원</span>
                 <span className="ap-summary-val">{stats?.totalApplications ?? '-'}</span>
+              </div>
+              <div className="ap-summary-card">
+                <span className="ap-summary-label">1:1 문의</span>
+                <span className="ap-summary-val">{stats?.totalInquiries ?? '-'}</span>
               </div>
             </div>
 
@@ -199,6 +217,35 @@ export default function AdminPage() {
                       </tr>
                     ))}
                     {applications.length === 0 && <tr><td colSpan={6} className="ap-empty-cell">지원 내역이 없습니다.</td></tr>}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {!loading && tab === 'inquiries' && (
+              <div className="ap-table-wrap">
+                <table className="ap-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th><th>유형</th><th>이름</th><th>이메일</th><th>내용</th><th>접수일</th><th>상태</th><th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {inquiries.map(i => (
+                      <tr key={i.id}>
+                        <td>{i.id}</td>
+                        <td>{i.category}</td>
+                        <td>{i.name}</td>
+                        <td>{i.email}</td>
+                        <td className="ap-td-message">{i.message}</td>
+                        <td>{i.createdAt}</td>
+                        <td>{i.status}</td>
+                        <td><button className="ap-btn" onClick={() => toggleInquiryStatus(i)}>
+                          {i.status === '답변완료' ? '접수로 변경' : '답변완료로 변경'}
+                        </button></td>
+                      </tr>
+                    ))}
+                    {inquiries.length === 0 && <tr><td colSpan={8} className="ap-empty-cell">접수된 문의가 없습니다.</td></tr>}
                   </tbody>
                 </table>
               </div>

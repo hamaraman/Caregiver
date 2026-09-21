@@ -145,3 +145,16 @@
 }
 
 .ap-btn--danger:hover { background: #fbdcda; }
+
+.ap-btn:not(.ap-btn--danger) {
+  background: #eaf2fd;
+  color: #4A8FE7;
+}
+
+.ap-btn:not(.ap-btn--danger):hover { background: #dcebfb; }
+
+.ap-td-message {
+  white-space: normal;
+  max-width: 320px;
+  word-break: break-word;
+}

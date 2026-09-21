@@ -333,3 +333,21 @@ export function likeResume(id) {
 export function unlikeResume(id) {
   return request(`/api/resumes/${id}/like`, { method: 'DELETE' })
 }
+
+export function submitInquiry({ name, email, category, message }) {
+  return request('/api/inquiries', {
+    method: 'POST',
+    body: JSON.stringify({ name, email, category, message }),
+  })
+}
+
+export function fetchAdminInquiries() {
+  return request('/api/admin/inquiries')
+}
+
+export function updateAdminInquiryStatus(id, status) {
+  return request(`/api/admin/inquiries/${id}/status`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status }),
+  })
+}

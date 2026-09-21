@@ -65,7 +65,7 @@ public class JobController {
 
     @PostMapping("/{id}/like")
     public ResponseEntity<JobResponse> like(@PathVariable Long id, HttpServletRequest httpRequest) {
-        User user = requireLoggedInUser(httpRequest);
+        User user = requirePersonalUser(httpRequest);
         return jobService.like(id, user.getId())
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -73,7 +73,7 @@ public class JobController {
 
     @DeleteMapping("/{id}/like")
     public ResponseEntity<JobResponse> unlike(@PathVariable Long id, HttpServletRequest httpRequest) {
-        User user = requireLoggedInUser(httpRequest);
+        User user = requirePersonalUser(httpRequest);
         return jobService.unlike(id, user.getId())
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -109,6 +109,15 @@ public class JobController {
         User user = requireLoggedInUser(httpRequest);
         if (!"business".equals(user.getUserType())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "사업자 계정만 공고를 등록할 수 있습니다.");
+        }
+        return user;
+    }
+
+    // 일자리 찜하기는 구직자(개인 회원) 전용 기능 - 프론트에서 버튼을 숨기는 것만으로는 API 직접 호출을 막을 수 없어 서버에서도 검사한다.
+    private User requirePersonalUser(HttpServletRequest httpRequest) {
+        User user = requireLoggedInUser(httpRequest);
+        if ("business".equals(user.getUserType())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "개인 회원 계정만 일자리를 찜할 수 있습니다.");
         }
         return user;
     }

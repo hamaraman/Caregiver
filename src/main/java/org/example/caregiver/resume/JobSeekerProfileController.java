@@ -72,6 +72,7 @@ public class JobSeekerProfileController {
     @PostMapping("/{id}/like")
     public ResponseEntity<Void> like(@PathVariable Long id, HttpServletRequest httpRequest) {
         User user = requireLoggedInUser(httpRequest);
+        requireBusiness(user);
         jobSeekerProfileService.like(user.getId(), id);
         return ResponseEntity.noContent().build();
     }
@@ -79,6 +80,7 @@ public class JobSeekerProfileController {
     @DeleteMapping("/{id}/like")
     public ResponseEntity<Void> unlike(@PathVariable Long id, HttpServletRequest httpRequest) {
         User user = requireLoggedInUser(httpRequest);
+        requireBusiness(user);
         jobSeekerProfileService.unlike(user.getId(), id);
         return ResponseEntity.noContent().build();
     }
@@ -91,6 +93,13 @@ public class JobSeekerProfileController {
     private User requireLoggedInUser(HttpServletRequest httpRequest) {
         return authService.currentUser(httpRequest)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."));
+    }
+
+    // 인재 찜하기는 사업자 전용 기능 - 프론트에서 버튼을 숨기는 것만으로는 API 직접 호출을 막을 수 없어 서버에서도 검사한다.
+    private void requireBusiness(User user) {
+        if (!"business".equals(user.getUserType())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "사업자 계정만 인재를 찜할 수 있습니다.");
+        }
     }
 
     private void requireCanView(User requester, Long targetUserId) {

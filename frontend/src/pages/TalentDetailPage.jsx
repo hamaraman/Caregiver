@@ -1,17 +1,18 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { fetchJobSeeker } from '../api'
-import { isLikedTalent, toggleLikedTalent } from '../hooks/useJobStorage'
+import { fetchJobSeeker, fetchLikedResumes, likeResume, unlikeResume } from '../api'
+import { useAuth } from '../hooks/useAuth'
 import HomeNav from './home/HomeNav'
 import './TalentDetailPage.css'
 
 export default function TalentDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [talent, setTalent] = useState(null)
   const [loading, setLoading] = useState(true)
   const [contactVisible, setContactVisible] = useState(false)
-  const [liked, setLiked] = useState(() => isLikedTalent(id))
+  const [liked, setLiked] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -19,12 +20,26 @@ export default function TalentDetailPage() {
       .then(setTalent)
       .catch(() => setTalent(null))
       .finally(() => setLoading(false))
-    setLiked(isLikedTalent(id))
   }, [id])
 
-  const handleLike = () => {
-    const next = toggleLikedTalent(id)
+  // 찜 여부는 사업자 전용 기능 - 목록 페이지(TalentListPage)와 동일하게 서버의 찜 목록을 기준으로 판단한다.
+  useEffect(() => {
+    if (user?.userType !== 'business') { setLiked(false); return }
+    fetchLikedResumes()
+      .then(liked => setLiked(liked.some(t => String(t.id) === String(id))))
+      .catch(() => {})
+  }, [id, user])
+
+  const handleLike = async () => {
+    if (user?.userType !== 'business') return
+    const resumeId = Number(id)
+    const next = !liked
     setLiked(next)
+    try {
+      next ? await likeResume(resumeId) : await unlikeResume(resumeId)
+    } catch {
+      setLiked(!next)
+    }
   }
 
   if (loading) {
@@ -62,11 +77,13 @@ export default function TalentDetailPage() {
               <span className="td-status-badge">구직중</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 {talent.date && <span className="td-registered">{talent.date} 등록</span>}
-                <button className={`td-like-btn${liked ? ' td-like-btn--active' : ''}`} onClick={handleLike} aria-label={liked ? '관심 인재 해제' : '관심 인재 등록'}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill={liked ? '#e04444' : 'none'} stroke={liked ? '#e04444' : '#ccc'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                  </svg>
-                </button>
+                {user?.userType === 'business' && (
+                  <button className={`td-like-btn${liked ? ' td-like-btn--active' : ''}`} onClick={handleLike} aria-label={liked ? '관심 인재 해제' : '관심 인재 등록'}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill={liked ? '#e04444' : 'none'} stroke={liked ? '#e04444' : '#ccc'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
 

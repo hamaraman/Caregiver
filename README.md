@@ -74,6 +74,8 @@ Job 엔티티는 기본 정보(title/location/wage/hours/days/date/companyName/p
 - 고객센터 1:1 문의 기능을 실제 동작하도록 구현: 문의 제출이 화면에만 표시되고 서버로 전송되지 않던 문제 수정
 - 백엔드 `support` 패키지 신설: `Inquiry` 엔티티/리포지토리/서비스/컨트롤러, `POST /api/inquiries`(로그인 불필요)
 - 관리자 페이지에 "1:1 문의" 탭 추가: `GET /api/admin/inquiries`(목록), `PATCH /api/admin/inquiries/{id}/status`(접수/답변완료 전환), `/api/admin/stats`에 문의 건수 포함
+- 인재 상세 페이지의 찜(관심 인재) 버튼이 로컬스토리지에만 저장되고 서버에 반영되지 않던 문제 수정: 인재 목록과 동일하게 `likeResume`/`unlikeResume` 백엔드 API로 교체, 사업자 계정만 사용 가능하도록 제한
+- 더 이상 쓰이지 않는 `useJobStorage.js`의 로컬스토리지 기반 찜 함수(`getLikedTalents`/`isLikedTalent`/`toggleLikedTalent`) 제거
 
 ### 2026-09-18
 - 마이페이지 기능 추가: 일반회원/사업자 조건 분기, 계정 정보 수정, 비밀번호 변경, 빠른 메뉴 허브 (`/mypage`)

@@ -6,6 +6,7 @@
 - 보안: 본인 확인 없는 비밀번호 재설정 비활성화, 공개 이력서 API에서 전화번호 제외
 - 시드 데이터(password123 계정)를 prod 프로필에서 끄고, application-prod.properties로 SQL·보안 DEBUG 로그 끔
 - DB: 급여(wage_type/wage_amount)·등록일(posted_on)·지원일(applied_on) 타입 컬럼 추가 및 기존 데이터 백필, 지원 내역을 @ManyToOne으로 바꿔 외래키 적용, 관리자 통계를 count 쿼리로 변경
+- 테스트: 지원(중복·마감·권한·상태값), 로그인/회원가입, 비밀번호 재설정 차단, 연락처 숨김 단위 테스트 추가 (DB 없이 실행)
 
 
 ### 2026-09-18

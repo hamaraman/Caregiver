@@ -2,11 +2,6 @@
 import { useNavigate } from 'react-router-dom'
 import { fetchJobs, fetchJobSeekers, fetchLikedJobs } from '../../api'
 
-function todayMMdd() {
-  const d = new Date()
-  return `${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`
-}
-
 const ICONS = {
   job: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg>,
   talent: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>,
@@ -24,11 +19,11 @@ export default function HomeTodayStats() {
       fetchJobSeekers(),
       fetchLikedJobs().catch(() => []), // 비로그인 상태면 401 - 나머지 통계는 그대로 보여준다
     ]).then(([jobs, caregivers, likedJobs]) => {
-      const today = todayMMdd()
+      // "오늘 등록된 것"만 세면 등록이 없는 날 전부 0으로 보여 전체 규모와 7일 이내 마감으로 바꿨다
       setStats({
-        newJobs: jobs.filter(j => j.date === today).length,
-        newCaregivers: caregivers.filter(c => c.date === today).length,
-        closingToday: jobs.filter(j => j.dday === 0).length,
+        newJobs: jobs.length,
+        newCaregivers: caregivers.length,
+        closingToday: jobs.filter(j => j.dday != null && j.dday >= 0 && j.dday <= 7).length,
         wishCount: likedJobs.length,
       })
     }).catch(() => setStats({ newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: 0 }))
@@ -37,9 +32,9 @@ export default function HomeTodayStats() {
   const s = stats || { newJobs: 0, newCaregivers: 0, closingToday: 0, wishCount: 0 }
 
   const items = [
-    { label: '새로운 구인공고', value: s.newJobs, color: '#4A8FE7', bg: '#eff4ff', icon: ICONS.job, path: '/jobs' },
-    { label: '새로운 인재정보', value: s.newCaregivers, color: '#e91e8c', bg: '#fdeef8', icon: ICONS.talent, path: '/talents' },
-    { label: '오늘 마감되는 공고', value: s.closingToday, color: '#0bc5a8', bg: '#e8faf7', icon: ICONS.deadline, path: '/jobs' },
+    { label: '진행 중인 구인공고', value: s.newJobs, color: '#4A8FE7', bg: '#eff4ff', icon: ICONS.job, path: '/jobs' },
+    { label: '등록된 인재', value: s.newCaregivers, color: '#e91e8c', bg: '#fdeef8', icon: ICONS.talent, path: '/talents' },
+    { label: '7일 이내 마감 공고', value: s.closingToday, color: '#0bc5a8', bg: '#e8faf7', icon: ICONS.deadline, path: '/jobs' },
     { label: '찜한 일자리', value: s.wishCount, color: '#9b59b6', bg: '#f5eeff', icon: ICONS.wish, path: '/wishlist' },
   ]
 

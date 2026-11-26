@@ -10,6 +10,7 @@
 - contextLoads 테스트를 H2 인메모리 DB(test 프로필)로 돌게 변경, `./gradlew test` 전체 통과
 - GitHub Actions 테스트 워크플로(`test.yml`) 추가: PR과 main push마다 백엔드 테스트 실행
 - README 상단에 테스트 CI 배지 추가
+- 홈 통계 카드: "오늘 등록" 기준이라 등록 없는 날 전부 0으로 보여 진행 중 공고·등록 인재 전체 수, 7일 이내 마감으로 변경
 
 
 ### 2026-09-18

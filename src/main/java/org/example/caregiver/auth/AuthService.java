@@ -74,24 +74,10 @@ public class AuthService {
         return maskEmail(user.getEmail());
     }
 
+    // 본인 확인(이메일 인증 등) 없이 이메일+이름만으로 비밀번호를 바꿀 수 있어 계정 탈취가 가능했다.
+    // 이메일 인증 토큰 방식이 생기기 전까지 비활성화한다.
     public void resetPassword(ResetPasswordRequest req) {
-        String email = req.getEmail() == null ? null : req.getEmail().trim().toLowerCase();
-        String name = req.getName() == null ? null : req.getName().trim();
-        String newPw = req.getNewPassword();
-        if (email == null || email.isEmpty() || name == null || name.isEmpty()
-                || newPw == null || newPw.isEmpty()) {
-            throw new AuthException("모든 항목을 입력해주세요.");
-        }
-        if (newPw.length() < 8) {
-            throw new AuthException("비밀번호는 8자 이상이어야 합니다.");
-        }
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AuthException("일치하는 회원 정보를 찾을 수 없습니다."));
-        if (!name.equals(user.getName())) {
-            throw new AuthException("일치하는 회원 정보를 찾을 수 없습니다.");
-        }
-        user.setPasswordHash(passwordEncoder.encode(newPw));
-        userRepository.save(user);
+        throw new AuthException("비밀번호 재설정은 현재 지원하지 않습니다. 관리자에게 문의해주세요.");
     }
 
     private String maskEmail(String email) {

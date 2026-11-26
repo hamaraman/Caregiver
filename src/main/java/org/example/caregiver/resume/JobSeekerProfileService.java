@@ -70,12 +70,12 @@ public class JobSeekerProfileService {
 
     public List<JobSeekerProfileResponse> getAll() {
         return jobSeekerProfileRepository.findAllByOrderByIdDesc().stream()
-                .map(JobSeekerProfileResponse::new)
+                .map(JobSeekerProfileResponse::withoutContact)
                 .toList();
     }
 
     public Optional<JobSeekerProfileResponse> getPublicProfile(Long id) {
-        return jobSeekerProfileRepository.findById(id).map(JobSeekerProfileResponse::new);
+        return jobSeekerProfileRepository.findById(id).map(JobSeekerProfileResponse::withoutContact);
     }
 
     public boolean canViewAsEmployer(Long applicantId, User requester) {
@@ -102,7 +102,7 @@ public class JobSeekerProfileService {
         return resumeLikeRepository.likedResumeIdsForUser(userId).stream()
                 .map(jobSeekerProfileRepository::findById)
                 .filter(java.util.Optional::isPresent)
-                .map(opt -> new JobSeekerProfileResponse(opt.get()))
+                .map(opt -> JobSeekerProfileResponse.withoutContact(opt.get()))
                 .toList();
     }
 

@@ -21,9 +21,18 @@ public class JobSeekerProfileResponse {
     private final String intro;
 
     public JobSeekerProfileResponse(JobSeekerProfile profile) {
+        this(profile, true);
+    }
+
+    // 공개 목록/상세처럼 로그인·권한 확인 없이 내려가는 응답에는 연락처를 넣지 않는다.
+    public static JobSeekerProfileResponse withoutContact(JobSeekerProfile profile) {
+        return new JobSeekerProfileResponse(profile, false);
+    }
+
+    private JobSeekerProfileResponse(JobSeekerProfile profile, boolean includeContact) {
         this.id = profile.getId();
         this.name = profile.getName();
-        this.phone = profile.getPhone();
+        this.phone = includeContact ? profile.getPhone() : null;
         this.birth = profile.getBirth();
         this.gender = profile.getGender();
         this.region = profile.getRegion();

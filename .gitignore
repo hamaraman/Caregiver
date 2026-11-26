@@ -37,3 +37,6 @@ out/
 .vscode/
 application-secret.properties
 local.properties
+
+### Logs / scratch ###
+*.log

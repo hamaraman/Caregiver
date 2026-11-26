@@ -1,5 +1,9 @@
 package org.example.caregiver.job;
 
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,18 @@ public class Job {
     private String hours;
     private String days;
     private String date;
+
+    // wage/date는 화면 표시용 문자열("시급 14,000원", "09.06")이라 정렬·범위 검색이 안 돼서 타입 있는 컬럼을 같이 둔다.
+    // ponytail: 표시용 문자열 컬럼과 이중 저장 중. 프론트가 아래 값으로 직접 포맷하게 되면 문자열 컬럼 제거
+    @Column(name = "wage_type")
+    private String wageType;
+
+    @Column(name = "wage_amount")
+    private Integer wageAmount;
+
+    @Column(name = "posted_on")
+    private LocalDate postedOn;
+
     private String companyName;
     private String postTitle;
     private boolean closed;
@@ -109,10 +125,11 @@ public class Job {
         this.badge = badge;
         this.badgeColor = badgeColor;
         this.location = location;
-        this.wage = wage;
+        setWage(wage);
         this.hours = hours;
         this.days = days;
         this.date = date;
+        this.postedOn = fromMonthDay(date, LocalDate.now());
         this.owner = owner;
         this.companyName = companyName;
         this.postTitle = postTitle;
@@ -165,7 +182,51 @@ public class Job {
 
     public void setWage(String wage) {
         this.wage = wage;
+        Matcher m = wage == null ? null : WAGE_PATTERN.matcher(wage.trim());
+        if (m != null && m.matches()) {
+            this.wageType = m.group(1);
+            this.wageAmount = Integer.parseInt(m.group(2).replace(",", ""));
+        } else {
+            this.wageType = null;
+            this.wageAmount = null;
+        }
     }
+
+    public String getWageType() {
+        return wageType;
+    }
+
+    public Integer getWageAmount() {
+        return wageAmount;
+    }
+
+    public LocalDate getPostedOn() {
+        return postedOn;
+    }
+
+    public void setPostedOn(LocalDate postedOn) {
+        this.postedOn = postedOn;
+    }
+
+    private static final Pattern WAGE_PATTERN = Pattern.compile("([^ ]+) +([0-9,]+)원");
+
+    /**
+     * 연도 없이 저장된 "MM.dd"를 LocalDate로 바꾼다. today 기준 올해로 보고, 미래 날짜가 되면 작년으로 본다.
+     * ponytail: 1년 넘게 지난 데이터는 연도를 알 수 없어 1년 이내로 가정
+     */
+    static LocalDate fromMonthDay(String monthDay, LocalDate today) {
+        if (monthDay == null) return null;
+        Matcher m = MONTH_DAY.matcher(monthDay.trim());
+        if (!m.matches()) return null;
+        try {
+            LocalDate d = LocalDate.of(today.getYear(), Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)));
+            return d.isAfter(today) ? d.minusYears(1) : d;
+        } catch (java.time.DateTimeException e) {
+            return null;
+        }
+    }
+
+    private static final Pattern MONTH_DAY = Pattern.compile("([0-9]{1,2})[.]([0-9]{1,2})");
 
     public String getHours() {
         return hours;

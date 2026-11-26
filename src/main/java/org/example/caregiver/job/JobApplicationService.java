@@ -40,7 +40,7 @@ public class JobApplicationService {
         JobApplication application;
         try {
             application = jobApplicationRepository.save(
-                    new JobApplication(job.getId(), applicantId, "검토중", LocalDate.now().format(APPLIED_AT_FORMAT)));
+                    new JobApplication(job, userRepository.getReferenceById(applicantId), "검토중", LocalDate.now().format(APPLIED_AT_FORMAT)));
         } catch (DataIntegrityViolationException e) {
             // exists 체크와 save 사이의 경쟁 상태(동시 지원 요청)로 unique 제약이 걸린 경우
             throw new JobApplicationException("이미 지원한 공고입니다.");

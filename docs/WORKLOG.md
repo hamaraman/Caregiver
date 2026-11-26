@@ -5,6 +5,7 @@
 - README를 프로젝트 소개 중심으로 재작성, API 문서와 작업 로그를 docs/로 분리
 - 보안: 본인 확인 없는 비밀번호 재설정 비활성화, 공개 이력서 API에서 전화번호 제외
 - 시드 데이터(password123 계정)를 prod 프로필에서 끄고, application-prod.properties로 SQL·보안 DEBUG 로그 끔
+- DB: 급여(wage_type/wage_amount)·등록일(posted_on)·지원일(applied_on) 타입 컬럼 추가 및 기존 데이터 백필, 지원 내역을 @ManyToOne으로 바꿔 외래키 적용, 관리자 통계를 count 쿼리로 변경
 
 
 ### 2026-09-18

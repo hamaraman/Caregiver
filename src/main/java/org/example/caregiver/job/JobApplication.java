@@ -1,5 +1,11 @@
 package org.example.caregiver.job;
 
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import java.time.LocalDate;
+import org.example.caregiver.auth.User;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,17 +16,23 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "job_id", nullable = false)
-    private Long jobId;
+    // 컬럼은 그대로(job_id, applicant_id) 두고 연관관계로 바꿔 외래키를 건다. 공고·회원이 지워져도 지원 내역이 고아로 남지 않게.
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "job_id", nullable = false)
+    private Job job;
 
-    @Column(name = "applicant_id", nullable = false)
-    private Long applicantId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "applicant_id", nullable = false)
+    private User applicant;
 
     @Column(nullable = false)
     private String status;
 
     @Column(name = "applied_at", nullable = false)
     private String appliedAt;
+
+    @Column(name = "applied_on")
+    private LocalDate appliedOn;
 
     // 채용 확정 후 사업자가 직접 조정하는 근무 조건. 원 공고(Job)의 값과 달라질 수 있어 지원 건마다 별도 보관.
     @Column(name = "hired_start_date")
@@ -44,23 +56,41 @@ public class JobApplication {
     public JobApplication() {
     }
 
-    public JobApplication(Long jobId, Long applicantId, String status, String appliedAt) {
-        this.jobId = jobId;
-        this.applicantId = applicantId;
+    public JobApplication(Job job, User applicant, String status, String appliedAt) {
+        this.job = job;
+        this.applicant = applicant;
         this.status = status;
         this.appliedAt = appliedAt;
+        this.appliedOn = Job.fromMonthDay(appliedAt, LocalDate.now());
     }
 
     public Long getId() {
         return id;
     }
 
+    public Job getJob() {
+        return job;
+    }
+
+    public User getApplicant() {
+        return applicant;
+    }
+
+    // LAZY 프록시에서 getId()는 DB 조회 없이 FK 값만 돌려준다.
     public Long getJobId() {
-        return jobId;
+        return job.getId();
     }
 
     public Long getApplicantId() {
-        return applicantId;
+        return applicant.getId();
+    }
+
+    public LocalDate getAppliedOn() {
+        return appliedOn;
+    }
+
+    public void setAppliedOn(LocalDate appliedOn) {
+        this.appliedOn = appliedOn;
     }
 
     public String getStatus() {

@@ -9,6 +9,8 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     List<Job> findAllByOrderByIdDesc();
 
+    long countByClosedTrue();
+
     List<Job> findByClosedFalseOrderByIdDesc();
 
     List<Job> findByOwnerIdOrderByIdDesc(Long ownerId);

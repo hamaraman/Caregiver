@@ -1,5 +1,7 @@
 package org.example.caregiver.job;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -20,7 +22,11 @@ public class JobService {
     private final JobLikeRepository jobLikeRepository;
     private final RegionRepository regionRepository;
 
-    public JobService(JobRepository jobRepository, JobLikeRepository jobLikeRepository, RegionRepository regionRepository) {
+    private final JobApplicationRepository jobApplicationRepository;
+
+    public JobService(JobRepository jobRepository, JobLikeRepository jobLikeRepository, RegionRepository regionRepository,
+                      JobApplicationRepository jobApplicationRepository) {
+        this.jobApplicationRepository = jobApplicationRepository;
         this.jobRepository = jobRepository;
         this.jobLikeRepository = jobLikeRepository;
         this.regionRepository = regionRepository;
@@ -92,10 +98,12 @@ public class JobService {
         return toResponses(jobRepository.findAllByOrderByIdDesc(), null);
     }
 
+    @Transactional
     public void deleteJob(Long jobId) {
         if (!jobRepository.existsById(jobId)) {
             throw new JobException("존재하지 않는 공고입니다.");
         }
+        jobApplicationRepository.deleteByJobId(jobId);
         jobRepository.deleteById(jobId);
     }
 

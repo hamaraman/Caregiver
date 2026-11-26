@@ -13,9 +13,12 @@ import org.example.caregiver.resume.JobSeekerProfile;
 import org.example.caregiver.resume.JobSeekerProfileRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+// 고정 비밀번호(password123) 계정을 만드는 데모용 시드라 운영(prod) 프로필에서는 실행하지 않는다.
 @Component
+@Profile("!prod")
 public class DataInitializer implements CommandLineRunner {
 
     private final RegionRepository regionRepository;
@@ -76,10 +79,10 @@ public class DataInitializer implements CommandLineRunner {
                         List.of("출·퇴근형"), "시급 12,000원", "요양보호사 1급", true, null, "");
 
                 Job job = ownerJobs.get(ownerJobs.size() - 1);
-                jobApplicationRepository.save(new JobApplication(job.getId(), seeker1.getId(), "검토중", "09.06"));
-                jobApplicationRepository.save(new JobApplication(job.getId(), seeker2.getId(), "검토중", "09.06"));
-                jobApplicationRepository.save(new JobApplication(job.getId(), seeker3.getId(), "합격", "09.05"));
-                jobApplicationRepository.save(new JobApplication(job.getId(), seeker4.getId(), "불합격", "09.04"));
+                jobApplicationRepository.save(new JobApplication(job, seeker1, "검토중", "09.06"));
+                jobApplicationRepository.save(new JobApplication(job, seeker2, "검토중", "09.06"));
+                jobApplicationRepository.save(new JobApplication(job, seeker3, "합격", "09.05"));
+                jobApplicationRepository.save(new JobApplication(job, seeker4, "불합격", "09.04"));
             }
         }
 

@@ -3,7 +3,6 @@ package org.example.caregiver.admin;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.example.caregiver.auth.AuthService;
 import org.example.caregiver.auth.User;
 import org.example.caregiver.auth.UserRepository;
@@ -47,15 +46,14 @@ public class AdminController {
     @GetMapping("/stats")
     public Map<String, Object> stats(HttpServletRequest httpRequest) {
         requireAdmin(httpRequest);
-        List<User> users = userRepository.findAll();
-        List<Job> jobs = jobRepository.findAllByOrderByIdDesc();
-        long closedJobs = jobs.stream().filter(Job::isClosed).count();
+        long totalJobs = jobRepository.count();
+        long closedJobs = jobRepository.countByClosedTrue();
         return Map.of(
-                "totalUsers", users.size(),
-                "personalUsers", users.stream().filter(u -> "personal".equals(u.getUserType())).count(),
-                "businessUsers", users.stream().filter(u -> "business".equals(u.getUserType())).count(),
-                "totalJobs", jobs.size(),
-                "activeJobs", jobs.size() - closedJobs,
+                "totalUsers", userRepository.count(),
+                "personalUsers", userRepository.countByUserType("personal"),
+                "businessUsers", userRepository.countByUserType("business"),
+                "totalJobs", totalJobs,
+                "activeJobs", totalJobs - closedJobs,
                 "closedJobs", closedJobs,
                 "totalApplications", jobApplicationRepository.count()
         );
@@ -73,7 +71,7 @@ public class AdminController {
         try {
             userRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "이 회원이 등록한 공고가 있어 삭제할 수 없습니다. 공고를 먼저 삭제해주세요.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "이 회원이 등록한 공고나 지원 내역이 있어 삭제할 수 없습니다. 먼저 삭제해주세요.");
         }
         return ResponseEntity.noContent().build();
     }
@@ -94,12 +92,8 @@ public class AdminController {
     @GetMapping("/applications")
     public List<JobApplicationResponse> getApplications(HttpServletRequest httpRequest) {
         requireAdmin(httpRequest);
-        Map<Long, User> usersById = userRepository.findAll().stream()
-                .collect(Collectors.toMap(User::getId, u -> u));
-        Map<Long, Job> jobsById = jobRepository.findAll().stream()
-                .collect(Collectors.toMap(Job::getId, j -> j));
-        return jobApplicationRepository.findAll().stream()
-                .map(app -> new JobApplicationResponse(app, usersById.get(app.getApplicantId()), jobsById.get(app.getJobId())))
+        return jobApplicationRepository.findAllByOrderByIdDesc().stream()
+                .map(app -> new JobApplicationResponse(app, app.getApplicant(), app.getJob()))
                 .toList();
     }
 

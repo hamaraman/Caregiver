@@ -40,9 +40,12 @@ React (Vite) ──REST──▶ Spring Boot ──JPA──▶ PostgreSQL
 
 ## 내가 맡은 부분
 
-<!-- TODO: 본인이 담당한 기능/기여를 구체적으로 적어주세요 -->
-- 
-- 
+**백엔드 · 데이터베이스 설계 담당**
+
+- PostgreSQL 스키마 설계와 JPA 엔티티 모델링: 회원(`User`), 구인공고(`Job`), 지원(`JobApplication`), 이력서(`JobSeekerProfile`), 찜(`JobLike`, `ResumeLike`), 지역(`Region`)
+- 회원·공고·지원 간 연관관계 설계, 중복 지원을 막는 제약 조건
+- 지역 접두어 필터 조회, 찜 개수 집계 같은 Repository 쿼리 구현
+- 브랜치마다 따로 있던 회원 엔티티(`Member`)를 `User` 하나로 합쳐, 이메일 로그인과 소셜 로그인이 같은 계정을 쓰도록 통합
 
 ## 팀
 

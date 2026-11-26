@@ -1,5 +1,7 @@
 ﻿# 요양이지 (Caregiver)
 
+[![Test](https://github.com/hamaraman/Caregiver/actions/workflows/test.yml/badge.svg)](https://github.com/hamaraman/Caregiver/actions/workflows/test.yml)
+
 > 요양보호사 구인·구직 매칭 플랫폼 — 기관은 공고를 올리고 지원자를 관리하고, 요양보호사는 지역별 공고를 찾아 지원합니다.
 
 ![홈](docs/screenshots/home.png)
